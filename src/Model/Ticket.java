@@ -9,6 +9,7 @@ package Model;
 
 public class Ticket 
 {
-    
+    private int transactionID; 
+    private float price;
     
 }
