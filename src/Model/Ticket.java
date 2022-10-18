@@ -11,5 +11,13 @@ public class Ticket
 {
     private int transactionID; 
     private float price;
+    private ageGroup_Enum ageGroup; 
+    private MovieSession bookingSession;
+    private Cinema bookingCinema;
+    private Cineplex bookingCineplex; 
+    private Movie bookingMovie;
+    private Seat bookingSeat;
+
+    public Ticket(int transactionID, float price, ageGroup_Enum ageGroup, MovieSession bookingSession, Cinema bookingCinema, Cineplex bookingCineplex, Movie bookingMovie, Seat bookingSeat);
     
 }
