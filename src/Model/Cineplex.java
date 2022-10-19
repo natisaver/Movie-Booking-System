@@ -1,3 +1,7 @@
+package Model;
+
+import Model.Cinema;
+
 public class Cineplex {
 
     /**
