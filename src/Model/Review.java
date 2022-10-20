@@ -1,6 +1,6 @@
 package Model;
 
-
+import java.util.Date;
 /**
  * Review class contains information of one customer's review
  * including the movie details, review content, rating, review date and reviewer's name 
@@ -12,6 +12,20 @@ public class Review {
     private int rating;
     private Date date;
     private String name;
+
+    /**
+     * This is the constructor that initialises the Movie reviewed, review content,
+     * rating, time and date of review and name of reviewer
+     * @param movie is the reviewed Movie details
+     * @param review is the content of the review
+     * @param rating is the movie rating out of 5
+     * @param date is the time and date the review was made
+     * @param name is the name of reviewer
+     */
+    public Review(Movie movie, String review, int rating, Date date, String name) {
+        // TODO - implement Review.Review
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * This method to to get details of Movie reviewed
@@ -67,20 +81,6 @@ public class Review {
      */
     public String getName() {
         return this.name;
-    }
-
-    /**
-     * This is the constructor that initialises the Movie reviewed, review content,
-     * rating, time and date of review and name of reviewer
-     * @param movie is the reviewed Movie details
-     * @param review is the content of the review
-     * @param rating is the movie rating out of 5
-     * @param date is the time and date the review was made
-     * @param name is the name of reviewer
-     */
-    public Review(Movie movie, String review, int rating, Date date, String name) {
-        // TODO - implement Review.Review
-        throw new UnsupportedOperationException();
     }
 
 }
