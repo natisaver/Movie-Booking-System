@@ -1,4 +1,6 @@
 package Model;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Represents a movie in the MOBLIMA Cinema Application
@@ -215,7 +217,12 @@ public class Movie {
         this.movieRating = movieRating;
     }
 
-    
+    /**
+     * Get a list of past review history of the movie.
+     * Each review is binded to a MovieGoer object.
+     * @return a Enum data type that contains the movie rating of Movie object.
+     * Possible movie rating: (PG, PG13, NC16, M18, R21)
+     */ 
     public HashMap<MovieGoer, Review> getReviewList() {
         return this.reviewList;
     }
