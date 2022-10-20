@@ -38,7 +38,7 @@ public class Review {
     }
 
     /**
-     * This methos is for reviewer to set the movie rating
+     * This method is for reviewer to set the movie rating
      * @param rating is the movie rating out of 5
      */
     public void setRating(int rating) {
@@ -54,7 +54,7 @@ public class Review {
     }
 
     /**
-     * This methos is to get the time and date when review is made
+     * This method is to get the time and date when review is made
      * @return time when review is made
      */
     public Date getDate() {
@@ -62,7 +62,7 @@ public class Review {
     }
 
     /**
-     * This methos is to get the name of the reviewer
+     * This method is to get the name of the reviewer
      * @return reviewer's name
      */
     public String getName() {
@@ -70,8 +70,9 @@ public class Review {
     }
 
     /**
-     * 
-     * @param movie is the reviewed movie details
+     * This is the constructor that initialises the Movie reviewed, review content,
+     * rating, time and date of review and name of reviewer
+     * @param movie is the reviewed Movie details
      * @param review is the content of the review
      * @param rating is the movie rating out of 5
      * @param date is the time and date the review was made
