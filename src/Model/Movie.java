@@ -220,8 +220,7 @@ public class Movie {
     /**
      * Get a list of past review history of the movie.
      * Each review is binded to a MovieGoer object.
-     * @return a Enum data type that contains the movie rating of Movie object.
-     * Possible movie rating: (PG, PG13, NC16, M18, R21)
+     * @return a HashMap data type that contains the Review of Movie object and the MovieGoer object who left the Review.
      */ 
     public HashMap<MovieGoer, Review> getReviewList() {
         return this.reviewList;
@@ -229,25 +228,35 @@ public class Movie {
 
     /**
      * 
-     * @param movieGoer
-     * @param review
+     * @param movieGoer Specify MovieGoer object who left the Review.
+     * @param review Specify Review object left by the MovieGoer.
+     * MovieGoer and Review are added as a pair of keys and values into reviewList Hashmap using put() function.
      */
-    public void addReview(String movieGoer, String review) {
-        // TODO - implement Movie.addReview
-        throw new UnsupportedOperationException();
+    public void addReview(MovieGoer movieGoer, Review review) {
+        this.reviewList.put(movieGoer, review);
     }
 
-    public float getOverallRating() {
-        // TODO - implement Movie.getOverallRating
-        throw new UnsupportedOperationException();
-    }
+    /**
+     * Discuss how to add rating + review + moviegoer together.
+     */
+    /*public float getOverallRating() {
 
+    } */  
+
+    /**
+     * 
+     * @return Number of tickets sold. 
+     */
     public int getTicketSales() {
         return this.ticketSales;
     }
 
-    public void addTicketSales() {
-        // TODO - implement Movie.addTicketSales
-        throw new UnsupportedOperationException();
+    /**
+     * Increment ticket sales. 
+     * Called when customer purchase tickets.
+     * @param noOfTicket Specify number of ticket customer bought in the transaction.
+     */
+    public void addTicketSales(int noOfTicket) {
+        ticketSales += noOfTicket;
     }
 }
