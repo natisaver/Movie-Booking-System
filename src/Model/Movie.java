@@ -21,7 +21,7 @@ public class Movie {
     private movieType_Enum movieType;
     private movieRating_Enum movieRating;
     private HashMap<MovieGoer, Review> reviewList;
-    private float reviewerRating;
+    // private float reviewerRating;
     private int ticketSales;
 
     /**
