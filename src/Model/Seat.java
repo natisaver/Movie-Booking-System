@@ -1,37 +1,52 @@
 package Model;
 
-public class Seat {
+/**
+ Represents a single seat within a cinema's movie session in the MOBLIMA Cinema Application
+ @author Sally Carrera
+ @version 1.0
+ @since 21-10-2022
+ */
 
+public class Seat {
+    /**
+     * Seat's ID
+     */
     private String seatID;
-    private int seatRow;
-    private int seatCol;
+
+    /**
+     * Boolean value to check if seat is occupied
+     */
     private boolean isOccupied;
 
+    /**
+     * Constructor
+     * @param id        The seat's ID
+     */
     public Seat(String id) {
         this.seatID = id;
-        char row = id.charAt(0);
-        this.seatRow = ((int)row - 65);
-        char col = id.charAt(1);
-        this.seatCol = ((int)col - 49);
         isOccupied = false;
     }
-
+    
+    /**
+     * Get the seat's ID
+     * @return this seat's ID
+     */
     public String getSeatID() {
         return this.seatID;
     }
-
-    public int getSeatRow() {
-        return this.seatRow;
-    }
-
-    public int getSeatCol() {
-        return this.seatCol;
-    }
-
+    
+    /**
+     * Check if the seat is occupied
+     * @return <code>true</code> if the seat is occupied
+     */
     public boolean getIsOccupied() {
         return this.isOccupied;
     }
 
+    /**
+     * Changes the value of the seat's isOccupied attribute to <code>true</code> if the seat is unoccupied,
+     * otherwise sets it to <code>false</code>
+     */
     public void setIsOccupied() {
         this.isOccupied = !this.isOccupied;
     }
