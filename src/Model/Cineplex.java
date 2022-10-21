@@ -30,9 +30,9 @@ public class Cineplex {
     /**
      * Constructor
      * 
-     * @param cinemas  This is the list of Cinema's under a particular Cineplex
-     * @param name     This is the Cinema's name
-     * @param location This is the Cinema's location
+     * @param cinemas  list of Cinema's under a particular Cineplex
+     * @param name     Cinema's name
+     * @param location Cinema's location
      */
     public Cineplex(Cinema[] cinemas, String name, String location) {
         this.cinemas = cinemas;
