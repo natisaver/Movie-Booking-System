@@ -19,7 +19,7 @@ public class Movie {
     private String synopsis;
     private int duration;
     private showingStatus_Enum showingStatus;
-    private movieType_Enum movieType;
+    private movieType_Enum[] movieType;
     private movieRating_Enum movieRating;
     private HashMap<MovieGoer, Review> reviewList;
     private float reviewerRating;
@@ -55,6 +55,7 @@ public class Movie {
         this.showingStatus = showingStatus;
         this.movieType = movieType;
         this.movieRating = movieRating;
+        this.reviewList = new HashMap<>();
     }
 
     /**

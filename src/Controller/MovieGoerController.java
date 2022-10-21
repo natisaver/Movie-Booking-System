@@ -81,7 +81,7 @@ public class MovieGoerController {
     /**
      *CREATE MovieGoer in the database
      * @param user      User object to be added
-     * @return          True if User was created, False if User already exists, email is a unique identifier
+     * @return          <code>true</code> if User was created, <code>false</code> if User already exists, email is a unique identifier
      */
     public static Boolean create(MovieGoer user) {
         File inputFile = new File(DataController.getPath("MovieGoer"));
@@ -172,7 +172,7 @@ public class MovieGoerController {
     /**
      *UPDATE MovieGoer in the database
      * @param user      User object to be added
-     * @return          True if User was updated, False if User doesnt exist or database is nonexistent
+     * @return          <code>true</code> if User was updated, <code>false</code> if User doesnt exist or database is nonexistent
      */
     public static Boolean update(MovieGoer user) {
 
@@ -267,7 +267,7 @@ public class MovieGoerController {
     /**
      *DELETE MovieGoer in the database
      * @param user      User object to be added
-     * @return          True if User was updated, False if User doesnt exist or database is nonexistent
+     * @return          <code>true</code> if User was updated, <code>false</code> if User doesnt exist or database is nonexistent
      */
     public static Boolean delete(MovieGoer user) {
 
