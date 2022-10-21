@@ -165,8 +165,8 @@ public class Movie {
 
     /**
      * Get the showing status of the movie
-     * @return an Enum data type that contains the showing status of Movie object.
-     * Possible showing status: (COMING_SOON, NOW_SHOWING, PREVIEW, END_OF_SHOWING)
+     * @return showingStatus_Enum   data type that contains the showing status of Movie object.
+     * Possible values: (COMING_SOON, NOW_SHOWING, PREVIEW, END_OF_SHOWING)
      */
     public showingStatus_Enum getShowingStatus() {
         return this.showingStatus;
@@ -174,8 +174,8 @@ public class Movie {
 
     /**
      * 
-     * @param showingStatus Specify showing status of Movie object. 
-     * Possible showing status: (COMING_SOON, NOW_SHOWING, PREVIEW, END_OF_SHOWING)
+     * @param showingStatus_Enum    Specify showing status of Movie object. 
+     * Possible values: (COMING_SOON, NOW_SHOWING, PREVIEW, END_OF_SHOWING)
      */
     public void setShowingStatus(showingStatus_Enum showingStatus) {
         this.showingStatus = showingStatus;
