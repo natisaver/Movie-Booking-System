@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
  /**
  * Represents date and price of tickets on public holidays in the MOBLIMA Cinema Application
- * @author CS2002 Group 
+ * @author Sally Carrera
  * @version 1.0
  * @since 21-10-2022
  */

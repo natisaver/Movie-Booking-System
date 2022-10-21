@@ -5,7 +5,7 @@ import Model.Cinema;
 /**
  * Represents a ticket in the MOBLIMA Cinema Application
  * 
- * @author CS2002 Group
+ * @author Sally Carrera
  * @version 1.0
  * @since 18-10-2022
  */

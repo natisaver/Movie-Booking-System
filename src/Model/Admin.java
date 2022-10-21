@@ -2,7 +2,7 @@ package Model;
 
 /**
  Represents an admin in the MOBLIMA Cinema Application
- @author CS2002 Group 
+ @author Sally Carrera 
  @version 1.0
  @since 17-10-2022
  */
