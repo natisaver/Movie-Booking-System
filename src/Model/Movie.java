@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 /**
  * Represents a movie in the MOBLIMA Cinema Application
- * @author CS2002 Group 
+ * @author Sally Carrera
  * @version 1.0
  * @since 21-10-2022
  */

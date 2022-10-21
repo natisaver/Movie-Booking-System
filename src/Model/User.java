@@ -1,7 +1,7 @@
 package Model;
 /**
  Represents a user in the MOBLIMA Cinema Application
- @author CS2002 Group 
+ @author Sally Carrera 
  @version 1.0
  @since 17-10-2022
  */
@@ -35,10 +35,10 @@ public class User {
     
 	/** 
 	 * Constructor
-     * @param name		    The User's name 
-	 * @param email			The User's email/username
-	 * @param role			The User's role 
-     * @param password
+     * @param name          The User's name 
+	 * @param email         The User's email/username
+	 * @param role          The User's role
+     * @param password      The User's password
      * 
 	 */
 	public User (String name, String email, int role, String password) {

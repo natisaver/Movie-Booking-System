@@ -3,7 +3,7 @@ package Model;
 import java.time.LocalDateTime;
 /**
  * Represents one user's review in the MOBLIMA Cinema Application
- * @author CS2002 Group 
+ * @author Sally Carrera 
  * @version 1.0
  * @since 21-10-2022
  */

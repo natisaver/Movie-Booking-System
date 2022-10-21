@@ -2,7 +2,7 @@ package Controller;
 
 /**
  * Represents the main controller for accessing data in MOBLIMA Cinema Application
- * @author CS2002 Group 
+ * @author Sally Carrera
  * @version 1.0
  * @since 21-10-2022
  */
