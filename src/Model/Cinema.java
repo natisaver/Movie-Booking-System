@@ -1,29 +1,38 @@
 package Model;
 
+/**
+ * Represents a ticket in the MOBLIMA Cinema Application
+ * 
+ * @author CS2002 Group
+ * @version 1.0
+ * @since 18-10-2022
+ */
+
 public class Cinema {
 
     /**
-     * This is the Cinema's code which is a 3 letters String (eg. XXX)
-     * This Cinema's code will be used in the TransactionID)
+     * Cinema's code which is a 3 letters String (eg. XXX)
+     * Cinema's code will be used in the TransactionID
      */
     private String cinemaCode;
 
     /**
-     * This is the Cinema's class type (eg. Standard, Platinum Movie Suites)
+     * Cinema's class type
+     * Possible Cinema's class type: (Standard, Platinum Movie Suites)
      */
     private cinemaClass_Enum cinemaClass;
 
     /**
-     * This is the list of movie sessions available
+     * Cinema's list of movie sessions available
      */
     private MovieSession[] showings;
 
     /**
-     * This creates a Cinema
+     * Constructor
      * 
-     * @param cinemaCode  This is the Cinema's code
-     * @param cinemaClass This is the Cinema's class type
-     * @param showings    This is the Cinema's list of movies sessions available
+     * @param cinemaCode  Cinema's code
+     * @param cinemaClass Cinema's class type
+     * @param showings    Cinema's list of movies sessions available
      */
     public Cinema(String cinemaCode, cinemaClass_Enum cinemaClass, MovieSession[] showings) {
         this.cinemaCode = cinemaCode;
@@ -34,7 +43,7 @@ public class Cinema {
     /**
      * Get the Cinema's code
      * 
-     * @return String
+     * @return String Cinemas's code
      */
     public String getCinemaCode() {
         return cinemaCode;
@@ -43,7 +52,7 @@ public class Cinema {
     /**
      * Set the Cinema's code
      * 
-     * @param cinemaCode This is the Cinema's code
+     * @param cinemaCode Cinema's code
      */
     public void setCinemaCode(String cinemaCode) {
         this.cinemaCode = cinemaCode;
@@ -52,7 +61,8 @@ public class Cinema {
     /**
      * Get the Cinema's class type
      * 
-     * @return cinemaClass_Enum
+     * @return cinemaClass_Enum Cinema's class type
+     *         Possible Cinema's class type: (Standard, Platinum Movie Suites)
      */
     public cinemaClass_Enum getCinemaClass() {
         return cinemaClass;
@@ -61,7 +71,7 @@ public class Cinema {
     /**
      * Set the Cinema's class type
      * 
-     * @param cinemaClass This is the Cinema's class type
+     * @param cinemaClass Cinema's class type
      */
     public void setCinemaClass(cinemaClass_Enum cinemaClass) {
         this.cinemaClass = cinemaClass;
@@ -70,7 +80,7 @@ public class Cinema {
     /**
      * Get the list of movies sessions available
      * 
-     * @return MovieSession[] This is the Cinema's list of movies sessions available
+     * @return MovieSession[] Cinema's list of movies sessions available
      */
     public MovieSession[] getShowings() {
         return showings;
