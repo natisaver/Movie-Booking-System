@@ -106,7 +106,7 @@ public class User {
 
     /**
      * Set user's password
-     * @param password   user's password
+     * @param password   user's password to set
      */
     public void setPassword(String password) {
         this.password = password;
