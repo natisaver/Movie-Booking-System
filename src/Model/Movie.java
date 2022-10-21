@@ -1,5 +1,6 @@
 package Model;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 /**
@@ -13,38 +14,42 @@ public class Movie {
     private String title;
     private String director;
     private String[] cast;
-    private Date releaseDate;
-    private Date endDate;
+    private LocalDateTime releaseDate;
+    private LocalDateTime endDate;
     private String synopsis;
     private int duration;
     private showingStatus_Enum showingStatus;
     private movieType_Enum movieType;
     private movieRating_Enum movieRating;
     private HashMap<MovieGoer, Review> reviewList;
-    // private float reviewerRating;
+    private float reviewerRating;
     private int ticketSales;
 
     /**
-     * This is the constructor of a Movie object. 
+     * Constructor 
      * 
-     * @param title Movie title
-     * @param director Movie director
-     * @param cast Movie cast (at least 2)
-     * @param releaseDate Movie release date
-     * @param endDate Movie ending date
-     * @param synopsis Movie synopsis
-     * @param duration Movie runtime
-     * @param showingStatus Movie showing status (Now showing, Coming soon or Preview)
-     * @param movieType Movie type (2D, 3D or Blockbuster)
-     * @param movieRating Movie rating (PG, PG13, NC16, M18 or R21)
+     * @param title             Movie title
+     * @param director          Movie director
+     * @param cast              Movie cast (at least 2)
+     * @param releaseDate       Movie release date
+     * @param endDate           Movie ending date
+     * @param synopsis          Movie synopsis
+     * @param duration          Movie runtime
+     * @param showingStatus     Movie showing status (Now showing, Coming soon or Preview)
+     * @param movieType         Movie type (2D, 3D or Blockbuster)
+     * @param movieRating       Movie rating (PG, PG13, NC16, M18 or R21)
      */
-    public Movie(String title, String director, String[] cast, Date releaseDate, Date endDate, String synopsis,
+    public Movie(String title, String director, String[] cast, String releaseDate, String endDate, String synopsis,
             int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating) {
+        
+        // Format the date using dd-MM-yyyy
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
         this.title = title;
         this.director = director;
         this.cast = cast;
-        this.releaseDate = releaseDate;
-        this.endDate = endDate;
+        this.releaseDate = LocalDateTime.parse(releaseDate, formatter);
+        this.endDate = LocalDateTime.parse(endDate, formatter);
         this.synopsis = synopsis;
         this.duration = duration;
         this.showingStatus = showingStatus;
@@ -53,165 +58,167 @@ public class Movie {
     }
 
     /**
-     * Get the title of the movie
-     * @return a String data type that contains the title of Movie object.
+     * Get title of the movie
+     * @return title of Movie object.
      */
     public String getTitle() {
         return this.title;
     }
 
     /**
-     * 
-     * @param title Specify the title of the Movie object.
+     * Set title of the movie
+     * @param title     title of Movie object.
      */
     public void setTitle(String title) {
         this.title = title;
     }
 
     /**
-     * Get the director of the movie
-     * @return a String data type that contains the director of Movie object.
+     * Get director of the movie
+     * @return director of Movie object.
      */
     public String getDirector() {
         return this.director;
     }
 
     /**
-     * 
-     * @param director Specify the director's name of the Movie object.
+     * Set director of the movie
+     * @param director  director of Movie object.
      */
     public void setDirector(String director) {
         this.director = director;
     }
     /**
-     * Get an array of the casts of the movie
-     * @return a String array data type that contains the casts of Movie object.
+     * Get casts of the movie
+     * @return casts of Movie object.
      */
     public String[] getCast() {
         return this.cast;
     }
 
     /**
-     * 
-     * @param cast Specify an array of Movie object's cast.
+     * Set casts of the movie
+     * @param cast  casts of Movie object.
      */
     public void setCast(String[] cast) {
         this.cast = cast;
     }
 
     /**
-     * Get the release date of the movie
-     * @return a Date data type that contains the release date of Movie object.
+     * Get release date of movie
+     * @return release date of Movie object.
      */
-    public Date getReleaseDate() {
+    public LocalDateTime getReleaseDate() {
         return this.releaseDate;
     }
 
     /**
-     * 
-     * @param date Specify the release date of the Movie object.
+     * Set release date of movie
+     * @param date     release date of Movie object.
      */
-    public void setReleaseDate(Date date) {
-        this.releaseDate = date;
+    public void setReleaseDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        this.releaseDate = LocalDateTime.parse(date, formatter);
     }
 
     /**
-     * Get the ending date of the movie
-     * @return a Date data type that contains the ending date of Movie object.
+     * Get ending date of movie
+     * @return ending date of Movie object.
      */
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return this.endDate;
     }
 
     /**
-     * 
-     * @param date Specify the ending date of the Movie object.
+     * Set ending date of movie
+     * @param date     ending date of Movie object.
      */
-    public void setEndDate(Date date) {
-        this.endDate = date;
+    public void setEndDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        this.endDate = LocalDateTime.parse(date, formatter);
     }
 
     /**
-     * Get the synopsis of the movie
-     * @return a String data type that contains the synopsis of Movie object.
+     * Get synopsis of movie
+     * @return synopsis of Movie object.
      */
     public String getSynopsis() {
         return this.synopsis;
     }
 
     /**
-     * 
-     * @param synopsis Specify the synopsis of the Movie object. 
+     * Set synopsis of movie
+     * @param synopsis          synopsis of the Movie object. 
      */
     public void setSynopsis(String synopsis) {
         this.synopsis = synopsis;
     }
 
     /**
-     * Get the runtime of the movie
-     * @return a int data type that contains the runtime of Movie object.
+     * Get runtime of movie
+     * @return runtime of Movie object.
      */
     public int getDuration() {
         return this.duration;
     }
 
     /**
-     * 
-     * @param duration Specify the runtime of the Movie object.
+     * Set runtime of movie
+     * @param duration      runtime of Movie object.
      */
     public void setDuration(int duration) {
         this.duration = duration;
     }
 
     /**
-     * Get the showing status of the movie
-     * @return showingStatus_Enum   data type that contains the showing status of Movie object.
-     * Possible values: (COMING_SOON, NOW_SHOWING, PREVIEW, END_OF_SHOWING)
+     * Get showing status of movie
+     * @return showing status of Movie object.
+     * showingStatus_Enum: COMING_SOON, NOW_SHOWING, PREVIEW, END_OF_SHOWING
      */
     public showingStatus_Enum getShowingStatus() {
         return this.showingStatus;
     }
 
     /**
-     * 
-     * @param showingStatus_Enum    Specify showing status of Movie object. 
-     * Possible values: (COMING_SOON, NOW_SHOWING, PREVIEW, END_OF_SHOWING)
+     * Set showing status of movie
+     * @param showingStatus             showing status of Movie object. 
+     * showingStatus_Enum: COMING_SOON, NOW_SHOWING, PREVIEW, END_OF_SHOWING
      */
     public void setShowingStatus(showingStatus_Enum showingStatus) {
         this.showingStatus = showingStatus;
     }
 
     /**
-     * Get the movie type of the movie
-     * @return a Enum data type that contains the movie type of Movie object.
-     * Possible movie type: (TWOD, THREED, BLOCKBUSTER)
+     * Get movie type of movie
+     * @return movie type of Movie object.
+     * movieType_Enum: TWOD, THREED, BLOCKBUSTER
      */    
     public movieType_Enum getMovieType() {
         return this.movieType;
     }
 
     /**
-     * 
-     * @param movieType Specify movie type of Movie object.
-     * Possible movie type: (TWOD, THREED, BLOCKBUSTER)
+     * Set movie type of movie
+     * @param movieType             movie type of Movie object.
+     * movieType_Enum: TWOD, THREED, BLOCKBUSTER
      */
     public void setMovieType(movieType_Enum movieType) {
         this.movieType = movieType;
     }
 
     /**
-     * Get the movie rating of the movie
-     * @return a Enum data type that contains the movie rating of Movie object.
-     * Possible movie rating: (PG, PG13, NC16, M18, R21)
+     * Get movie rating of movie
+     * @return movie rating of Movie object.
+     * movieRating_Enum: PG, PG13, NC16, M18, R21
      */    
     public movieRating_Enum getMovieRating() {
         return this.movieRating;
     }
 
     /**
-     * 
-     * @param movieRating Specify movie rating of Movie object
-     * Possible movie rating: (PG, PG13, NC16, M18, R21)
+     * Set movie rating of movie
+     * @param movieRating           movie rating of Movie object
+     * movieRating_Enum: PG, PG13, NC16, M18, R21
      */
     public void setMovieRating(movieRating_Enum movieRating) {
         this.movieRating = movieRating;
@@ -219,17 +226,17 @@ public class Movie {
 
     /**
      * Get a list of past review history of the movie.
+     * @return Review of Movie object and the MovieGoer object who left the Review.
      * Each review is binded to a MovieGoer object.
-     * @return a HashMap data type that contains the Review of Movie object and the MovieGoer object who left the Review.
      */ 
     public HashMap<MovieGoer, Review> getReviewList() {
         return this.reviewList;
     }
 
     /**
-     * 
-     * @param movieGoer Specify MovieGoer object who left the Review.
-     * @param review Specify Review object left by the MovieGoer.
+     * Add review to existing review list.
+     * @param movieGoer     MovieGoer object who left the Review.
+     * @param review        Review object left by the MovieGoer.
      * MovieGoer and Review are added as a pair of keys and values into reviewList Hashmap using put() function.
      */
     public void addReview(MovieGoer movieGoer, Review review) {
@@ -237,14 +244,20 @@ public class Movie {
     }
 
     /**
-     * Discuss how to add rating + review + moviegoer together.
+     * Get overall rating of movie
+     * @return Overall rating of movie
      */
-    /*public float getOverallRating() {
-
-    } */  
+    public float getOverallRating() {
+        this.reviewerRating = 0;
+        for(Review value: reviewList.values())
+        {
+            this.reviewerRating += value.getRating();
+        }
+        return reviewerRating;
+    }   
 
     /**
-     * 
+     * Get number of tickets sold.
      * @return Number of tickets sold. 
      */
     public int getTicketSales() {
@@ -253,8 +266,8 @@ public class Movie {
 
     /**
      * Increment ticket sales. 
+     * @param noOfTicket        number of ticket customer bought in single transaction.
      * Called when customer purchase tickets.
-     * @param noOfTicket Specify number of ticket customer bought in the transaction.
      */
     public void addTicketSales(int noOfTicket) {
         ticketSales += noOfTicket;
