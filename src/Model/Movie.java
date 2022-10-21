@@ -59,7 +59,7 @@ public class Movie {
 
     /**
      * Get title of the movie
-     * @return String   title of Movie object.
+     * @return title of Movie object.
      */
     public String getTitle() {
         return this.title;
@@ -75,7 +75,7 @@ public class Movie {
 
     /**
      * Get director of the movie
-     * @return String   director of Movie object.
+     * @return director of Movie object.
      */
     public String getDirector() {
         return this.director;
@@ -90,7 +90,7 @@ public class Movie {
     }
     /**
      * Get casts of the movie
-     * @return String array     casts of Movie object.
+     * @return casts of Movie object.
      */
     public String[] getCast() {
         return this.cast;
@@ -106,7 +106,7 @@ public class Movie {
 
     /**
      * Get release date of movie
-     * @return LocalDateTime    release date of Movie object.
+     * @return release date of Movie object.
      */
     public LocalDateTime getReleaseDate() {
         return this.releaseDate;
@@ -123,7 +123,7 @@ public class Movie {
 
     /**
      * Get ending date of movie
-     * @return LocalDateTime    ending date of Movie object.
+     * @return ending date of Movie object.
      */
     public LocalDateTime getEndDate() {
         return this.endDate;
@@ -140,7 +140,7 @@ public class Movie {
 
     /**
      * Get synopsis of movie
-     * @return String           synopsis of Movie object.
+     * @return synopsis of Movie object.
      */
     public String getSynopsis() {
         return this.synopsis;
@@ -156,7 +156,7 @@ public class Movie {
 
     /**
      * Get runtime of movie
-     * @return int  runtime of Movie object.
+     * @return runtime of Movie object.
      */
     public int getDuration() {
         return this.duration;
@@ -172,7 +172,7 @@ public class Movie {
 
     /**
      * Get showing status of movie
-     * @return showingStatus_Enum       showing status of Movie object.
+     * @return showing status of Movie object.
      * showingStatus_Enum: COMING_SOON, NOW_SHOWING, PREVIEW, END_OF_SHOWING
      */
     public showingStatus_Enum getShowingStatus() {
@@ -190,7 +190,7 @@ public class Movie {
 
     /**
      * Get movie type of movie
-     * @return movieType_Enum       movie type of Movie object.
+     * @return movie type of Movie object.
      * movieType_Enum: TWOD, THREED, BLOCKBUSTER
      */    
     public movieType_Enum getMovieType() {
@@ -208,7 +208,7 @@ public class Movie {
 
     /**
      * Get movie rating of movie
-     * @return movieRating_Enum     movie rating of Movie object.
+     * @return movie rating of Movie object.
      * movieRating_Enum: PG, PG13, NC16, M18, R21
      */    
     public movieRating_Enum getMovieRating() {
@@ -226,7 +226,7 @@ public class Movie {
 
     /**
      * Get a list of past review history of the movie.
-     * @return HashMap      Review of Movie object and the MovieGoer object who left the Review.
+     * @return Review of Movie object and the MovieGoer object who left the Review.
      * Each review is binded to a MovieGoer object.
      */ 
     public HashMap<MovieGoer, Review> getReviewList() {
@@ -245,7 +245,7 @@ public class Movie {
 
     /**
      * Get overall rating of movie
-     * @return float        Overall rating of movie
+     * @return Overall rating of movie
      */
     public float getOverallRating() {
         this.reviewerRating = 0;
@@ -258,7 +258,7 @@ public class Movie {
 
     /**
      * Get number of tickets sold.
-     * @return int      Number of tickets sold. 
+     * @return Number of tickets sold. 
      */
     public int getTicketSales() {
         return this.ticketSales;
