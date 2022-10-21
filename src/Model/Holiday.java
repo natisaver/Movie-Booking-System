@@ -20,20 +20,13 @@ public class Holiday {
     private LocalDateTime date;
 
     /**
-	 * Public holiday ticket price rate
-	 */
-    private float price;
-
-    /**
      * Constructor
      * @param name          The name of the public holiday
      * @param date          The date of the holiday
-     * @param price         The price of tickets on the holiday
      */
-    public Holiday(String name, LocalDateTime date, float price) {
+    public Holiday(String name, LocalDateTime date) {
         this.name = name;
         this.date = date;
-        this.price = price;
     }
 
     /**
@@ -42,30 +35,6 @@ public class Holiday {
      */
     public String getName() {
         return this.name;
-    }
-
-    /**
-     * Get date of holiday
-     * @return      The date of holiday
-     */
-    public LocalDateTime getDate() {
-        return this.date;
-    }
-
-    /**
-     * Set the price of the tickets on that holiday
-     * @param price     The ticket price on the holiday
-     */
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    /**
-     * Get the price of the ticket on the holiday
-     * @return      The price of the ticket on the holiday
-     */
-    public float getPrice() {
-        return this.price;
     }
 
 }
