@@ -43,13 +43,13 @@ public class Movie {
             int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating) {
         
         // Format the date using dd-MM-yyyy
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         this.title = title;
         this.director = director;
         this.cast = cast;
-        this.releaseDate = LocalDateTime.parse(releaseDate, formatter);
-        this.endDate = LocalDateTime.parse(endDate, formatter);
+        this.releaseDate = LocalDateTime.parse(releaseDate + "00:00", formatter);
+        this.endDate = LocalDateTime.parse(endDate + "00:00", formatter);
         this.synopsis = synopsis;
         this.duration = duration;
         this.showingStatus = showingStatus;
@@ -117,8 +117,8 @@ public class Movie {
      * @param date     release date of Movie object.
      */
     public void setReleaseDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        this.releaseDate = LocalDateTime.parse(date, formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        this.releaseDate = LocalDateTime.parse(date + "00:00", formatter);
     }
 
     /**
@@ -134,8 +134,8 @@ public class Movie {
      * @param date     ending date of Movie object.
      */
     public void setEndDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        this.endDate = LocalDateTime.parse(date, formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        this.endDate = LocalDateTime.parse(date + "00:00", formatter);
     }
 
     /**
