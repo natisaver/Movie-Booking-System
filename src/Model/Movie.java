@@ -21,7 +21,7 @@ public class Movie {
     private movieType_Enum movieType;
     private movieRating_Enum movieRating;
     private HashMap<MovieGoer, Review> reviewList;
-    // private float reviewerRating;
+    private float reviewerRating;
     private int ticketSales;
 
     /**
@@ -234,14 +234,15 @@ public class Movie {
      */
     public void addReview(MovieGoer movieGoer, Review review) {
         this.reviewList.put(movieGoer, review);
+        this.reviewerRating += review.getRating();
     }
 
     /**
      * Discuss how to add rating + review + moviegoer together.
      */
-    /*public float getOverallRating() {
-
-    } */  
+    public float getOverallRating() {
+        return this.reviewerRating;
+    }   
 
     /**
      * 
