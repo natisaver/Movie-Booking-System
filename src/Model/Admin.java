@@ -13,11 +13,6 @@ public class Admin extends User{
      */
     public static final int MOVIE_GOER = 0, ADMIN = 1;
 
-    /**
-	 * MovieGoer's phone number
-	 */
-	private String password;
-
 	/** 
 	 * Constructor
      * @param name		    The User's name 
@@ -25,22 +20,7 @@ public class Admin extends User{
 	 * @param password		The User's age 
 	 */
 	public Admin (String name, String email, String password) {
-        super(name, email, 1);
-        this.password = password;
+        super(name, email, 1, password);
     }
 
-	/** Get the password of this User
-	 * @return password   this User's password
-	 */
-	public String getPassword() {
-    	return this.password;
-	}
-
-    /**
-     * Set user's password
-     * @param password   user's password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

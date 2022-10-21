@@ -37,8 +37,8 @@ public class MovieGoer extends User{
      * @param phoneNumber	The User's phone number
 	 * @param age			The User's age 
 	 */
-	public MovieGoer (String name, String email, String phoneNumber, int age) {
-        super(name, email, 0);
+	public MovieGoer (String name, String email, String phoneNumber, int age, String password) {
+        super(name, email, 0, password);
         this.phoneNum = phoneNumber;
         this.age = age;
     }
@@ -47,7 +47,7 @@ public class MovieGoer extends User{
 	 * Get the phone number of this User
 	 * @return String   this user's phone number
 	 */
-	public String getName() {
+	public String getPhoneNum() {
 		return this.phoneNum;
 	}
 
