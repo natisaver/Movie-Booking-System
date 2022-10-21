@@ -3,7 +3,7 @@ package Model;
 import java.time.LocalDateTime;
 
  /**
- * Represents date and price of tickets on public holidays in the MOBLIMA Cinema Application
+ * Represents name and date of public holidays in the MOBLIMA Cinema Application
  * @author Sally Carrera
  * @version 1.0
  * @since 21-10-2022
@@ -35,6 +35,14 @@ public class Holiday {
      */
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * Get the price of the ticket on the holiday
+     * @return      The name of the public holiday
+     */
+    public LocalDateTime getDate() {
+        return this.date;
     }
 
 }
