@@ -30,7 +30,7 @@ public class Cineplex {
     /**
      * Constructor
      * 
-     * @param cinemas  list of Cinema's under a particular Cineplex
+     * @param cinemas  List of Cinema's under a particular Cineplex
      * @param name     Cinema's name
      * @param location Cinema's location
      */
