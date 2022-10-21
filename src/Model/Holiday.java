@@ -30,7 +30,7 @@ public class Holiday {
     }
 
     /**
-     * Get the price of the ticket on the holiday
+     * Get the Name of the Holiday
      * @return      The name of the public holiday
      */
     public String getName() {
@@ -38,7 +38,7 @@ public class Holiday {
     }
 
     /**
-     * Get the price of the ticket on the holiday
+     * Get the data of the Holiday
      * @return      The name of the public holiday
      */
     public LocalDateTime getDate() {
