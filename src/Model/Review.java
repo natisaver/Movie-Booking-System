@@ -1,34 +1,61 @@
 package Model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 /**
- * Review class contains information of one customer's review
- * including the movie details, review content, rating, review date and reviewer's name 
+ * Represents one user's review in the MOBLIMA Cinema Application
+ * @author CS2002 Group 
+ * @version 1.0
+ * @since 21-10-2022
  */
 public class Review {
 
+    /**
+	 * MovieGoer's reviewed movie details
+	 */
     private Movie movie;
+
+    /**
+	 * MovieGoer's review content
+	 */
     private String review;
+
+    /**
+	 * MovieGoer's rating
+	 */
     private int rating;
-    private Date date;
+
+    /**
+	 * MovieGoer's date of review
+	 */
+    private LocalDateTime date;
+
+    /**
+	 * MovieGoer's name
+	 */
     private String name;
 
+    /**
+	 * Min rating possible
+	 */
     private static final int minRating = 1;
+
+    /**
+	 * Max rating possible
+	 */
     private static final int maxRating = 5;
 
     /**
-     * This is the constructor that initialises the Movie reviewed, review content,
-     * rating, time and date of review and name of reviewer
-     * @param movie is the reviewed Movie details
-     * @param review is the content of the review
-     * @param rating is the movie rating out of 5
-     * @param date is the time and date the review was made
-     * @param name is the name of reviewer
+     * Constructor
+     * @param movie         The reviewed Movie details
+     * @param review        The content of the review
+     * @param rating        The movie rating out of 5
+     * @param date          The time and date review was made
+     * @param name          The Reviewer's name
      */
-    public Review(Movie movie, String review, int rating, Date date, String name) {
+    public Review(Movie movie, String review, int rating, LocalDateTime date, String name) {
         this.movie = movie;
         this.review = review;
-        this.date = new Date();
+        this.date = date;
         this.name = name;
 
         //when rating given > 5 or < 1, adjust to maxRating(5) and minRating(1) respectively
@@ -41,56 +68,56 @@ public class Review {
     }
 
     /**
-     * This method to to get details of Movie reviewed
-     * @return the movie reviewed
+     * Get details of Movie reviewed
+     * @return      The movie reviewed
      */
     public Movie getMovie() {
         return this.movie;
     }
 
     /**
-     * This method is to set the review content
-     * @param review is the content of the review
+     * Set the review content
+     * @param review    The content of the review
      */
     public void setReview(String review) {
         this.review = review;
     }
 
     /**
-     * This method is to get the content of the review
-     * @return the content of the review
+     * Get the content of the review
+     * @return      The content of the review
      */
     public String getReview() {
         return this.review;
     }
 
     /**
-     * This method is for reviewer to set the movie rating
-     * @param rating is the movie rating out of 5
+     * Set the movie rating
+     * @param rating    The movie rating out of 5
      */
     public void setRating(int rating) {
         this.rating = rating;
     }
 
     /**
-     * This method is to get reviewer's rating
-     * @return rating of movie
+     * Get reviewer's rating
+     * @return      The rating of movie
      */
     public int getRating() {
         return this.rating;
     }
 
     /**
-     * This method is to get the time and date when review is made
-     * @return time when review is made
+     * Get the time and date when review is made
+     * @return      The time when review is made
      */
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return this.date;
     }
 
     /**
-     * This method is to get the name of the reviewer
-     * @return reviewer's name
+     * Get the name of the reviewer
+     * @return      The reviewer's name
      */
     public String getName() {
         return this.name;
