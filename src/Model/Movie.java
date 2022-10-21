@@ -1,5 +1,6 @@
 package Model;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 /**
@@ -13,8 +14,8 @@ public class Movie {
     private String title;
     private String director;
     private String[] cast;
-    private Date releaseDate;
-    private Date endDate;
+    private LocalDateTime releaseDate;
+    private LocalDateTime endDate;
     private String synopsis;
     private int duration;
     private showingStatus_Enum showingStatus;
@@ -25,20 +26,20 @@ public class Movie {
     private int ticketSales;
 
     /**
-     * This is the constructor of a Movie object. 
+     * Constructor 
      * 
-     * @param title Movie title
-     * @param director Movie director
-     * @param cast Movie cast (at least 2)
-     * @param releaseDate Movie release date
-     * @param endDate Movie ending date
-     * @param synopsis Movie synopsis
-     * @param duration Movie runtime
-     * @param showingStatus Movie showing status (Now showing, Coming soon or Preview)
-     * @param movieType Movie type (2D, 3D or Blockbuster)
-     * @param movieRating Movie rating (PG, PG13, NC16, M18 or R21)
+     * @param title             Movie title
+     * @param director          Movie director
+     * @param cast              Movie cast (at least 2)
+     * @param releaseDate       Movie release date
+     * @param endDate           Movie ending date
+     * @param synopsis          Movie synopsis
+     * @param duration          Movie runtime
+     * @param showingStatus     Movie showing status (Now showing, Coming soon or Preview)
+     * @param movieType         Movie type (2D, 3D or Blockbuster)
+     * @param movieRating       Movie rating (PG, PG13, NC16, M18 or R21)
      */
-    public Movie(String title, String director, String[] cast, Date releaseDate, Date endDate, String synopsis,
+    public Movie(String title, String director, String[] cast, LocalDateTime releaseDate, LocalDateTime endDate, String synopsis,
             int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating) {
         this.title = title;
         this.director = director;
@@ -53,57 +54,57 @@ public class Movie {
     }
 
     /**
-     * Get the title of the movie
-     * @return a String data type that contains the title of Movie object.
+     * Get title of the movie
+     * @return String   title of Movie object.
      */
     public String getTitle() {
         return this.title;
     }
 
     /**
-     * 
-     * @param title Specify the title of the Movie object.
+     * Set title of the movie
+     * @param title     title of Movie object.
      */
     public void setTitle(String title) {
         this.title = title;
     }
 
     /**
-     * Get the director of the movie
-     * @return a String data type that contains the director of Movie object.
+     * Get director of the movie
+     * @return String   director of Movie object.
      */
     public String getDirector() {
         return this.director;
     }
 
     /**
-     * 
-     * @param director Specify the director's name of the Movie object.
+     * Set director of the movie
+     * @param director  director of Movie object.
      */
     public void setDirector(String director) {
         this.director = director;
     }
     /**
-     * Get an array of the casts of the movie
-     * @return a String array data type that contains the casts of Movie object.
+     * Get casts of the movie
+     * @return String array     casts of Movie object.
      */
     public String[] getCast() {
         return this.cast;
     }
 
     /**
-     * 
-     * @param cast Specify an array of Movie object's cast.
+     * Set casts of the movie
+     * @param cast  casts of Movie object.
      */
     public void setCast(String[] cast) {
         this.cast = cast;
     }
 
     /**
-     * Get the release date of the movie
+     * Get release date of movie
      * @return a Date data type that contains the release date of Movie object.
      */
-    public Date getReleaseDate() {
+    public LocalDateTime getReleaseDate() {
         return this.releaseDate;
     }
 
@@ -111,7 +112,8 @@ public class Movie {
      * 
      * @param date Specify the release date of the Movie object.
      */
-    public void setReleaseDate(Date date) {
+    public void setReleaseDate(int day, int month, int year) {
+        LocalDateTime date = LocalDateTime.of(year, month, date, 00, 00);
         this.releaseDate = date;
     }
 
@@ -119,7 +121,7 @@ public class Movie {
      * Get the ending date of the movie
      * @return a Date data type that contains the ending date of Movie object.
      */
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return this.endDate;
     }
 
@@ -127,7 +129,7 @@ public class Movie {
      * 
      * @param date Specify the ending date of the Movie object.
      */
-    public void setEndDate(Date date) {
+    public void setEndDate(LocalDateTime date) {
         this.endDate = date;
     }
 
