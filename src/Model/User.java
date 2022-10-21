@@ -22,6 +22,11 @@ public class User {
 	 * User's Role (Admin, MovieGoer etc.)
 	 */
 	private int role; 
+
+    /**
+	 * User's Password
+     */
+	private String password; 
 	
 	/**
      * Current Available Roles
@@ -33,11 +38,14 @@ public class User {
      * @param name		    The User's name 
 	 * @param email			The User's email/username
 	 * @param role			The User's role 
+     * @param password
+     * 
 	 */
-	public User (String name, String email, int role) {
+	public User (String name, String email, int role, String password) {
         this.name = name;
         this.email = email;
         this.role = role;
+        this.password = password;
     }
 
     /** 
@@ -87,6 +95,21 @@ public class User {
      */
     public void setRole(int role) {
         this.role = role;
+    }
+
+    /** Get the password of this User
+	 * @return password   this User's password
+	 */
+	public String getPassword() {
+    	return this.password;
+	}
+
+    /**
+     * Set user's password
+     * @param password   user's password
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

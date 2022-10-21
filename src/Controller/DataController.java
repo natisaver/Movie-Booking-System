@@ -1,6 +1,4 @@
-package src.Controller;
-
-import java.io.*;
+package Controller;
 
 /**
  * Represents the main controller for accessing data in MOBLIMA Cinema Application
