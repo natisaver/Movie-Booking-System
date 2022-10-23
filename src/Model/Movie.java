@@ -40,7 +40,7 @@ public class Movie {
      * @param movieRating       Movie rating (PG, PG13, NC16, M18 or R21)
      */
     public Movie(String title, String director, String[] cast, String releaseDate, String endDate, String synopsis,
-            int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating) {
+            int duration, showingStatus_Enum showingStatus, movieType_Enum[] movieType, movieRating_Enum movieRating) {
         
         // Format the date using dd-MM-yyyy
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
