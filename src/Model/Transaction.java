@@ -39,6 +39,19 @@ public class Transaction {
      */
     private MovieGoer movieGoer;
 
+    /**
+     * Constructor
+     * 
+     * @param cinemaCode  Cinema's code
+     * @param tickets     List of tickets a MovieGoer purchased under a particular
+     *                    TransactionID (TID)
+     * @param noOfTickets Number of tickets a MovieGoer purchased under a particular
+     *                    TransactionID
+     * @param totalPrice  Total price paid by a MovieGoer under a particular
+     *                    TransactionID (TID)
+     * @param movieGoer   MovieGoer who made a purchase under a particular
+     *                    TransactionID (TID)
+     */
     public Transaction(String cinemaCode, Ticket[] tickets, int noOfTickets, float totalPrice, MovieGoer movieGoer) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -49,31 +62,56 @@ public class Transaction {
         this.movieGoer = movieGoer;
     }
 
+    /**
+     * Get transactionID
+     * 
+     * @return getTID
+     */
     public String getTID() {
         return TID;
     }
 
+    /**
+     * Get list of tickets
+     * 
+     * @return tickets
+     */
     public Ticket[] getTickets() {
         return tickets;
     }
 
+    /**
+     * Get number of tickets
+     * 
+     * @return noOfTickets
+     */
     public int getNoOfTickets() {
         return noOfTickets;
     }
 
+    /**
+     * Get total Price
+     * 
+     * @return totalPrice
+     */
     public float getTotalPrice() {
         return totalPrice;
     }
 
+    /**
+     * Get MovieGoer who made the purchase of ticket(s)
+     * 
+     * @return movieGoer
+     */
     public MovieGoer getMovieGoer() {
         return movieGoer;
     }
 
-    public String printTransaction() {
-        String toReturn = "";
-        toReturn = "TID" + TID + "no. of tickets" + noOfTickets;
-        System.out.println(toReturn);
-        return toReturn;
-    }
+    // public String printTransaction() {
+    // String toReturn = "";
+    // toReturn = "TID" + TID + "no. of tickets" + noOfTickets;
+    // System.out.println(toReturn);
+    // return toReturn;
+    // }
 
 }

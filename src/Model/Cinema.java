@@ -1,7 +1,7 @@
 package Model;
 
 /**
- * Represents a ticket in the MOBLIMA Cinema Application
+ * Represents a cinema in the MOBLIMA Cinema Application
  * 
  * @author Sally Carrera
  * @version 1.0
