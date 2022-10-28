@@ -26,12 +26,18 @@ public class MovieSession {
     private String movieTitle;
 
     /**
+     * Type of movie in the MovieSession (2D, 3D or Blockbuster)
+     */
+    private movieType_Enum movieType;
+
+    /**
      * Constructor
      * @param showtime      The MovieSession's showtime
      * @param cinemaClass   The MovieSession's cinemaClass
      * @param movie         The MovieSession's movie title
+     * @param movieType     The MovieSession's movie type (2D, 3D or Blockbuster)
      */
-    public MovieSession(LocalDateTime showtime, cinemaClass_Enum cinemaClass, String title) {
+    public MovieSession(LocalDateTime showtime, cinemaClass_Enum cinemaClass, String title, String movieType) {
         this.showtime = showtime;
         int maxRow = 0;
         int maxCol = 0;
@@ -60,6 +66,7 @@ public class MovieSession {
             }
         }
         this.movieTitle = title;
+        this.movieType = movieType_Enum.valueOf(movieType);
     }
 
     /**
@@ -86,4 +93,11 @@ public class MovieSession {
         return this.movieTitle;
     }
 
+    /**
+     * Get the MovieSession's movie type
+     * @return MovieSession's movie type
+     */
+    public movieType_Enum getMovieType() {
+        return this.movieType;
+    }
 }

@@ -19,7 +19,7 @@ public class HolidayController {
     public final static String PATH = DataController.getPath("Holiday");
 
     /** 
-     * READ and list of holidays from Database
+     * READ a list of holidays from Database
      * @return ArrayList    Return array of Holiday if database exists, else null object
      */
     public static ArrayList<Holiday> read() {
