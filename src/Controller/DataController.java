@@ -8,7 +8,6 @@ package Controller;
  */
 
 public class DataController {
-    public DataController(){};
     /**
      * Get path of csv file in database
      * @param str       input String of csv file name
