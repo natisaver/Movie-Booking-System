@@ -7,7 +7,7 @@ package Model;
  * @since 18-10-2022
  */
 
- public class Ticket {
+public class Ticket {
 
 	private String transactionID;
 	private float price;
@@ -33,40 +33,40 @@ package Model;
 
 
 	public Ticket(String transactionID, float price, ageGroup_Enum ageGroup, MovieSession bookingSession, Cinema bookingCinema, Cineplex bookingCineplex, Movie bookingMovie, Seat bookingSeat) {
-        this.transactionID = transactionID;
-        this.price = price;
-        this.ageGroup = ageGroup;
-        this.bookingSession = bookingSession;
-        this.bookingCinema = bookingCinema;
-        this.bookingCineplex = bookingCineplex;
-        this.bookingMovie = bookingMovie;
-        this.bookingSeat = bookingSeat;
-	}
-    /**
-     * Get transactionID of ticket 
-     * @return transactionID of Ticket object.
-     */
-    public String getTransactionID()
-    {
-        return this.transactionID;
-    }
+				this.transactionID = transactionID;
+				this.price = price;
+				this.ageGroup = ageGroup;
+				this.bookingSession = bookingSession;
+				this.bookingCinema = bookingCinema;
+				this.bookingCineplex = bookingCineplex;
+				this.bookingMovie = bookingMovie;
+				this.bookingSeat = bookingSeat;
+		}
+		/**
+		 * Get transactionID of ticket 
+		 * @return transactionID of Ticket object.
+		 */
+		public String getTransactionID()
+		{
+				return this.transactionID;
+		}
 
-    /**
-     * Set transactionID of ticket
-     * @param transactionID 		transactionID of the Ticket object in XXXYYYYMMDDhhmm. 
-     */
-    public void setTransactionID(String transactionID)
-    {
-        this.transactionID = transactionID;
-    }
+		/**
+		 * Set transactionID of ticket
+		 * @param transactionID 		transactionID of the Ticket object in XXXYYYYMMDDhhmm. 
+		 */
+		public void setTransactionID(String transactionID)
+		{
+				this.transactionID = transactionID;
+		}
 
-    /**
-     * Get price of Ticket 
-     * @return price of Ticket object.
-     */
-	public float getPrice() {
-		return this.price;
-	}
+		/**
+		 * Get price of Ticket 
+		 * @return price of Ticket object.
+		 */
+		public float getPrice() {
+			return this.price;
+		}
 
 	/**
 	 * Set price of Ticket
@@ -76,11 +76,11 @@ package Model;
 		this.price = price;
 	}
 
-    /**
-     * Get age group of Ticket 
-     * @return age group of Ticket object.
+		/**
+		 * Get age group of Ticket 
+		 * @return age group of Ticket object.
 	 * ageGroup_Enum: CHILD, ADULT, SENIOR, M18
-     */
+		 */
 	public ageGroup_Enum getAgeGroup() {
 		return this.ageGroup;
 	}
@@ -93,12 +93,12 @@ package Model;
 		this.ageGroup = ageGroup;
 	}
 
-    /**
-     * Get session of Ticket 
-     * @return session of Ticket object.
-     */
+		/**
+		 * Get session of Ticket 
+		 * @return session of Ticket object.
+		 */
 	public MovieSession getSession() {
-        return this.bookingSession;
+				return this.bookingSession;
 	}
 
 	/**
@@ -106,15 +106,15 @@ package Model;
 	 * @param session 		session the Ticket object is for.
 	 */
 	public void setSession(MovieSession session) {
-        this.bookingSession = session;
+				this.bookingSession = session;
 	}
 
-    /**
-     * Get cinema of Ticket 
-     * @return Cinema of Ticket object.
-     */
+		/**
+		 * Get cinema of Ticket 
+		 * @return Cinema of Ticket object.
+		 */
 	public Cinema getCinema() {
-        return this.bookingCinema;
+				return this.bookingCinema;
 	}
 
 	/**
@@ -122,15 +122,15 @@ package Model;
 	 * @param cinema 		Cinema of Ticket object.
 	 */
 	public void setCinema(Cinema cinema) {
-        this.bookingCinema = cinema;
+				this.bookingCinema = cinema;
 	}
-    
-    /**
-     * Get cineplex of Ticket 
-     * @return Cineplex of Ticket object.
-     */
+		
+		/**
+		 * Get cineplex of Ticket 
+		 * @return Cineplex of Ticket object.
+		 */
 	public Cineplex getCineplex() {
-        return this.bookingCineplex;
+				return this.bookingCineplex;
 	}
 
 	/**
@@ -138,15 +138,15 @@ package Model;
 	 * @param cineplex 		Cineplex of the Ticket object.
 	 */
 	public void setCineplex(Cineplex cineplex) {
-        this.bookingCineplex = cineplex;
+				this.bookingCineplex = cineplex;
 	}
 
-    /**
-     * Get movie of Ticket 
-     * @return Movie of Ticket object.
-     */
+		/**
+		 * Get movie of Ticket 
+		 * @return Movie of Ticket object.
+		 */
 	public Movie getMovie() {
-        return this.bookingMovie;
+				return this.bookingMovie;
 	}
 
 	/**
@@ -154,15 +154,15 @@ package Model;
 	 * @param movie			Movie of Ticket object.
 	 */
 	public void setMovie(Movie movie) {
-        this.bookingMovie = movie;
+				this.bookingMovie = movie;
 	}
-    
-    /**
-     * Get seat of Ticket 
-     * @return Seat of Ticket object.
-     */
+		
+		/**
+		 * Get seat of Ticket 
+		 * @return Seat of Ticket object.
+		 */
 	public Seat getSeat() {
-        return this.bookingSeat;
+				return this.bookingSeat;
 	}
 
 	/**
@@ -170,7 +170,7 @@ package Model;
 	 * @param seat			Seat that this Ticket object is for.
 	 */
 	public void setSeat(Seat seat) {
-        this.bookingSeat = seat;
+				this.bookingSeat = seat;
 	}
 
 }

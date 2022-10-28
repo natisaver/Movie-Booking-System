@@ -190,11 +190,11 @@ public class Movie {
     }
 
     /**
-     * Get movie type of movie
-     * @return movie type of Movie object.
+     * Get movie type(s) of movie
+     * @return array of movie types of Movie object.
      * movieType_Enum: TWOD, THREED, BLOCKBUSTER
      */    
-    public movieType_Enum getMovieType() {
+    public movieType_Enum[] getMovieType() {
         return this.movieType;
     }
 
@@ -203,7 +203,7 @@ public class Movie {
      * @param movieType             movie type of Movie object.
      * movieType_Enum: TWOD, THREED, BLOCKBUSTER
      */
-    public void setMovieType(movieType_Enum movieType) {
+    public void setMovieType(movieType_Enum[] movieType) {
         this.movieType = movieType;
     }
 

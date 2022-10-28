@@ -8,7 +8,7 @@ import Model.Holiday;
 
  /**
  * Reads name and date of public holidays from csv file in the MOBLIMA Cinema Application
- * @author CS2002 Group 
+ * @author Sally Carrera 
  * @version 1.0
  * @since 21-10-2022
  */
