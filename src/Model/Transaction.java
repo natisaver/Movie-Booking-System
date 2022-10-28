@@ -39,6 +39,8 @@ public class Transaction {
      */
     private MovieGoer movieGoer;
 
+    private String name = movieGoer.getName();
+
     /**
      * Constructor
      * 
@@ -52,7 +54,8 @@ public class Transaction {
      * @param movieGoer   MovieGoer who made a purchase under a particular
      *                    TransactionID (TID)
      */
-    public Transaction(String cinemaCode, Ticket[] tickets, int noOfTickets, float totalPrice, MovieGoer movieGoer) {
+    public Transaction(String cinemaCode, Ticket[] tickets, int noOfTickets, float totalPrice, MovieGoer movieGoer,
+            String name) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         this.TID = cinemaCode.concat(formatter.toString());
@@ -60,6 +63,7 @@ public class Transaction {
         this.noOfTickets = tickets.length;
         this.totalPrice = totalPrice;
         this.movieGoer = movieGoer;
+        this.name = name;
     }
 
     /**
@@ -95,6 +99,10 @@ public class Transaction {
      * @return totalPrice
      */
     public float getTotalPrice() {
+        int i;
+        for (i = 0; i < tickets.length; i++) {
+            totalPrice += tickets[i].getPrice();
+        }
         return totalPrice;
     }
 
