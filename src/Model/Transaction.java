@@ -1,5 +1,6 @@
 package Model;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -42,7 +43,11 @@ public class Transaction {
     /**
      * Name of MovieGoer who made a purchase under a particular TransactionID (TID)
      */
-    private String name = movieGoer.getName();
+    private String name;
+
+    private String movieTitle;
+
+    private LocalDateTime showtime;
 
     /**
      * Constructor
@@ -59,16 +64,16 @@ public class Transaction {
      * @param name        Name of MovieGoer who made a purchase under a particular
      *                    TransactionID (TID)
      */
-    public Transaction(String cinemaCode, Ticket[] tickets, int noOfTickets, float totalPrice, MovieGoer movieGoer,
-            String name) {
+    public Transaction(String cinemaCode, String name, int noOfTickets, String movieTitle, LocalDateTime showtime,
+            float totalPrice) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         this.TID = cinemaCode.concat(formatter.toString());
-        this.tickets = tickets;
+        this.name = movieGoer.getName();
         this.noOfTickets = tickets.length;
+        this.movieTitle = tickets[0].getMovie().getTitle();
+        this.showtime = tickets[0].getSession().getShowtime();
         this.totalPrice = totalPrice;
-        this.movieGoer = movieGoer;
-        this.name = name;
     }
 
     /**
@@ -95,6 +100,7 @@ public class Transaction {
      * @return noOfTickets
      */
     public int getNoOfTickets() {
+        noOfTickets = tickets.length;
         return noOfTickets;
     }
 
