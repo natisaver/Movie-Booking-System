@@ -39,6 +39,9 @@ public class Transaction {
      */
     private MovieGoer movieGoer;
 
+    /**
+     * Name of MovieGoer who made a purchase under a particular TransactionID (TID)
+     */
     private String name = movieGoer.getName();
 
     /**
@@ -52,6 +55,8 @@ public class Transaction {
      * @param totalPrice  Total price paid by a MovieGoer under a particular
      *                    TransactionID (TID)
      * @param movieGoer   MovieGoer who made a purchase under a particular
+     *                    TransactionID (TID)
+     * @param name        Name of MovieGoer who made a purchase under a particular
      *                    TransactionID (TID)
      */
     public Transaction(String cinemaCode, Ticket[] tickets, int noOfTickets, float totalPrice, MovieGoer movieGoer,
