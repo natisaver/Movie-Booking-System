@@ -9,7 +9,8 @@ import Model.Cineplex;
 import Model.Holiday;
 
 /**
- * Reads name and date of public holidays from csv file in the MOBLIMA Cinema
+ * Reads location, cinema code and cinema type of Cineplexes from csv file in
+ * the MOBLIMA Cinema
  * Application
  * 
  * @author Sally Carrera
@@ -23,9 +24,9 @@ public class CineplexController {
     public final static String PATH = DataController.getPath("Cineplex");
 
     /**
-     * READ and list of holidays from Database
+     * READ and list of Cineplexes from Database
      * 
-     * @return ArrayList Return array of Holiday if database exists, else null
+     * @return ArrayList Return array of Cineplex if database exists, else null
      *         object
      */
     public static ArrayList<Cineplex> readByLocation(String location) {
