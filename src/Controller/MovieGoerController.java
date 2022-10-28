@@ -137,6 +137,11 @@ public class MovieGoerController {
 
                 if (tokens[1].equals(user.getEmail())) {
                     Found = true;
+                    writer.close();
+                    reader.close();
+                    //delete old file
+                    Files.delete(Paths.get(DataController.getPath("Temp")));
+                    return false;
                 }
                 writer.append(tokens[0]);
                 writer.append(",");
