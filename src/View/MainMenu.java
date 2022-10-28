@@ -4,13 +4,11 @@ import java.util.Scanner;
 import Model.User;
 
 public class MainMenu extends BaseMenu{
-    private final User user;
 
     Scanner sc = new Scanner(System.in);
 
-    public MainMenu(BaseMenu previousMenu, User user) {
+    public MainMenu(BaseMenu previousMenu) {
         super(previousMenu);
-        this.user = user;
     }
 
     @Override
