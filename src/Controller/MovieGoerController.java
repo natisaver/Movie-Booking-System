@@ -86,7 +86,7 @@ public class MovieGoerController {
     }
 
     /**
-     *CREATE MovieGoer in the database
+     * CREATE MovieGoer in the database
      * @param user      User object to be added
      * @return          <code>true</code> if User was created, <code>false</code> if User already exists, email is a unique identifier
      */
@@ -137,6 +137,11 @@ public class MovieGoerController {
 
                 if (tokens[1].equals(user.getEmail())) {
                     Found = true;
+                    writer.close();
+                    reader.close();
+                    //delete old file
+                    Files.delete(Paths.get(DataController.getPath("Temp")));
+                    return false;
                 }
                 writer.append(tokens[0]);
                 writer.append(",");
@@ -272,9 +277,9 @@ public class MovieGoerController {
     }
 
     /**
-     *DELETE MovieGoer in the database
-     * @param user      User object to be added
-     * @return          <code>true</code> if User was updated, <code>false</code> if User doesnt exist or database is nonexistent
+     * DELETE MovieGoer in the database
+     * @param user      User object to be deleted
+     * @return          <code>true</code> if User was deleted, <code>false</code> if User doesnt exist or database is nonexistent
      */
     public static Boolean delete(MovieGoer user) {
 
