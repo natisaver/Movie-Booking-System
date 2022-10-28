@@ -29,7 +29,7 @@ public class MovieSession {
      * Constructor
      * @param showtime      The MovieSession's showtime
      * @param cinemaClass   The MovieSession's cinemaClass
-     * @param title         The MovieSession's movie title
+     * @param movie         The MovieSession's movie title
      */
     public MovieSession(LocalDateTime showtime, cinemaClass_Enum cinemaClass, String title) {
         this.showtime = showtime;

@@ -19,7 +19,7 @@ public class Movie {
     private String synopsis;
     private int duration;
     private showingStatus_Enum showingStatus;
-    private movieType_Enum movieType;
+    private movieType_Enum[] movieType;
     private movieRating_Enum movieRating;
     private HashMap<MovieGoer, Review> reviewList;
     private float reviewerRating;
@@ -40,7 +40,7 @@ public class Movie {
      * @param movieRating       Movie rating (PG, PG13, NC16, M18 or R21)
      */
     public Movie(String title, String director, String[] cast, String releaseDate, String endDate, String synopsis,
-            int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating) {
+            int duration, showingStatus_Enum showingStatus, movieType_Enum[] movieType, movieRating_Enum movieRating) {
         
         // Format the date using dd-MM-yyyy
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -55,6 +55,7 @@ public class Movie {
         this.showingStatus = showingStatus;
         this.movieType = movieType;
         this.movieRating = movieRating;
+        this.reviewList = new HashMap<>();
     }
 
     /**
@@ -189,11 +190,11 @@ public class Movie {
     }
 
     /**
-     * Get movie type of movie
-     * @return movie type of Movie object.
+     * Get movie type(s) of movie
+     * @return array of movie types of Movie object.
      * movieType_Enum: TWOD, THREED, BLOCKBUSTER
      */    
-    public movieType_Enum getMovieType() {
+    public movieType_Enum[] getMovieType() {
         return this.movieType;
     }
 
@@ -202,7 +203,7 @@ public class Movie {
      * @param movieType             movie type of Movie object.
      * movieType_Enum: TWOD, THREED, BLOCKBUSTER
      */
-    public void setMovieType(movieType_Enum movieType) {
+    public void setMovieType(movieType_Enum[] movieType) {
         this.movieType = movieType;
     }
 

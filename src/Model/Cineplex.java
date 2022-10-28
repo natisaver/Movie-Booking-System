@@ -3,7 +3,7 @@ package Model;
 import Model.Cinema;
 
 /**
- * Represents a ticket in the MOBLIMA Cinema Application
+ * Represents a cineplex in the MOBLIMA Cinema Application
  * 
  * @author Sally Carrera
  * @version 1.0
@@ -13,7 +13,7 @@ import Model.Cinema;
 public class Cineplex {
 
     /**
-     * List of Cinema's under a particular Cineplex
+     * List of Cinemas under a particular Cineplex
      */
     private Cinema[] cinemas;
 

@@ -33,7 +33,7 @@ public class AdminController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 Admin user = new Admin(tokens[0], tokens[1], tokens[4]);
                 userArrayList.add(user);
             }
@@ -64,7 +64,7 @@ public class AdminController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[1].equals(email)){
                     return new Admin(tokens[0], tokens[1], tokens[4]);
                 }
@@ -125,7 +125,7 @@ public class AdminController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
                 if (tokens[1].equals(user.getEmail())) {
                     Found = true;
@@ -217,7 +217,7 @@ public class AdminController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
                 if (tokens[1].equals(user.getEmail())) {
                     Found = true;
@@ -312,7 +312,7 @@ public class AdminController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
                 if (tokens[1].equals(user.getEmail())) {
                     //do nothing
@@ -397,7 +397,7 @@ public class AdminController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
                 if (tokens[1].equals(email)) {
                     //do nothing
