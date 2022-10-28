@@ -86,7 +86,7 @@ public class MovieGoerController {
     }
 
     /**
-     *CREATE MovieGoer in the database
+     * CREATE MovieGoer in the database
      * @param user      User object to be added
      * @return          <code>true</code> if User was created, <code>false</code> if User already exists, email is a unique identifier
      */
