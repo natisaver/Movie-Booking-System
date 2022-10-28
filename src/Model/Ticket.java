@@ -18,16 +18,26 @@ public class Ticket {
 	private Movie bookingMovie;
 	private Seat bookingSeat;
 
+	// Within each ticket, we need:
+	// cineplex x
+	// cinema x 
+	// MovieSession.showtime x
+	// Movie.movieTitle x
+	// Movie.movieType x
+	// Movie.movieRating x
+	// seatID
+	// ageGroup
+
 	/**
 	 * Constructor
 	 * 
-	 * @param transactionID 		Ticket Transaction ID
-	 * @param price 				Ticket Price
-	 * @param ageGroup 				Ticket Age Group (CHILD, ADULT, SENIOR, M18)
-	 * @param bookingSession 		Ticket for which Session
-	 * @param bookingCinema 		Ticket for which Cinema 
 	 * @param bookingCineplex 		Ticket for which Cineplex
+	 * @param bookingCinema 		Ticket for which Cinema 
+	 * @param bookingSession 		Ticket for which Session
 	 * @param bookingMovie 			Ticket for which Movie
+	 * @param movieType 			Ticket for which Movie type
+	 * @param movieRating			Rating of movie that you booked
+	 * @param ageGroup 				Ticket Age Group (CHILD, ADULT, SENIOR, M18)
 	 * @param bookingSeat 			Ticket for which Seat
 	 */
 

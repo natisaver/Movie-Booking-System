@@ -1,5 +1,6 @@
 package Model;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -13,14 +14,24 @@ import java.time.format.DateTimeFormatter;
 public class Transaction {
 
     /**
+     * List of tickets a MovieGoer purchased under a particular TransactionID (TID)
+     */
+    private Ticket[] tickets;
+
+    /**
+     * MovieGoer who made a purchase under a particular TransactionID (TID)
+     */
+    private MovieGoer movieGoer;
+
+    /**
      * TransactionID displayed in the format of XXXYYYYMMDDhhmm
      */
     private String TID;
 
     /**
-     * List of tickets a MovieGoer purchased under a particular TransactionID (TID)
+     * Name of MovieGoer who made a purchase under a particular TransactionID (TID)
      */
-    private Ticket[] tickets;
+    private String name;
 
     /**
      * Number of tickets a MovieGoer purchased under a particular TransactionID
@@ -30,45 +41,45 @@ public class Transaction {
     private int noOfTickets;
 
     /**
+     * Title of the movie made uner a particular TransactionID (TID)
+     */
+    private String movieTitle;
+
+    /**
+     * Showtime of the movie made under a particular TransactionID (TID)
+     */
+    private LocalDateTime showtime;
+
+    /**
      * Total price paid by a MovieGoer under a particular TransactionID (TID)
      */
     private float totalPrice;
 
     /**
-     * MovieGoer who made a purchase under a particular TransactionID (TID)
-     */
-    private MovieGoer movieGoer;
-
-    /**
-     * Name of MovieGoer who made a purchase under a particular TransactionID (TID)
-     */
-    private String name = movieGoer.getName();
-
-    /**
      * Constructor
      * 
      * @param cinemaCode  Cinema's code
-     * @param tickets     List of tickets a MovieGoer purchased under a particular
+     * @param name        Name of MovieGoer who made a purchase under a particular
      *                    TransactionID (TID)
      * @param noOfTickets Number of tickets a MovieGoer purchased under a particular
      *                    TransactionID
+     * @param movieTitle  Title of the movie made uner a particular TransactionID
+     *                    (TID)
+     * @param showtime    Showtime of the movie made under a particular
+     *                    TransactionID (TID)
      * @param totalPrice  Total price paid by a MovieGoer under a particular
      *                    TransactionID (TID)
-     * @param movieGoer   MovieGoer who made a purchase under a particular
-     *                    TransactionID (TID)
-     * @param name        Name of MovieGoer who made a purchase under a particular
-     *                    TransactionID (TID)
      */
-    public Transaction(String cinemaCode, Ticket[] tickets, int noOfTickets, float totalPrice, MovieGoer movieGoer,
-            String name) {
+    public Transaction(String cinemaCode, String name, int noOfTickets, String movieTitle, LocalDateTime showtime,
+            float totalPrice) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         this.TID = cinemaCode.concat(formatter.toString());
-        this.tickets = tickets;
+        this.name = movieGoer.getName();
         this.noOfTickets = tickets.length;
+        this.movieTitle = tickets[0].getMovie().getTitle();
+        this.showtime = tickets[0].getSession().getShowtime();
         this.totalPrice = totalPrice;
-        this.movieGoer = movieGoer;
-        this.name = name;
     }
 
     /**
@@ -95,6 +106,7 @@ public class Transaction {
      * @return noOfTickets
      */
     public int getNoOfTickets() {
+        noOfTickets = tickets.length;
         return noOfTickets;
     }
 
