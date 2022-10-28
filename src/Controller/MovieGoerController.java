@@ -7,6 +7,13 @@ import java.util.*;
 
 import Model.MovieGoer;
 
+/**
+ Controller for CRUD operations managing data relating to MovieGoer 
+ @author Sally Carrera 
+ @version 1.0
+ @since 17-10-2022
+ */
+
 public class MovieGoerController {
     /**
      * Path in database
@@ -34,7 +41,7 @@ public class MovieGoerController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 MovieGoer user = new MovieGoer(tokens[0], tokens[1], tokens[2], Integer.parseInt(tokens[3]), tokens[4]);
                 userArrayList.add(user);
             }
@@ -65,7 +72,7 @@ public class MovieGoerController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[1].equals(email)){
                     return new MovieGoer(tokens[0], tokens[1], tokens[2], Integer.valueOf(tokens[3]), tokens[4]);
                 }
@@ -126,7 +133,7 @@ public class MovieGoerController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
                 if (tokens[1].equals(user.getEmail())) {
                     Found = true;
@@ -218,7 +225,7 @@ public class MovieGoerController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
                 if (tokens[1].equals(user.getEmail())) {
                     Found = true;
@@ -313,7 +320,7 @@ public class MovieGoerController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
                 if (tokens[1].equals(user.getEmail())) {
                     //do nothing
@@ -398,7 +405,7 @@ public class MovieGoerController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
                 if (tokens[1].equals(email)) {
                     //do nothing

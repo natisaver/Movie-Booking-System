@@ -38,7 +38,7 @@ public class HolidayController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                     String dateTime = tokens[0] + " 00:00";
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
                     LocalDateTime newObj = LocalDateTime.parse(dateTime, formatter);
