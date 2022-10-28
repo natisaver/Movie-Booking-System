@@ -1,5 +1,7 @@
 package Model;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a ticket in the MOBLIMA Cinema Application
  * @author Sally Carrera 
@@ -7,180 +9,106 @@ package Model;
  * @since 18-10-2022
  */
 
-public class Ticket {
+ public class Ticket {
+	private Cineplex ticketCineplex;
+	private Cinema ticketCinema;
+	private LocalDateTime ticketShowTime;
+	private String ticketMovieTitle;
+	private movieType_Enum ticketMovieType;
+	private movieRating_Enum ticketMovieRating;
+	private int ticketSeat;
+	private ageGroup_Enum ticketAgeGroup;
 
-	private String transactionID;
-	private float price;
-	private ageGroup_Enum ageGroup;
-	private MovieSession bookingSession;
-	private Cinema bookingCinema;
-	private Cineplex bookingCineplex;
-	private Movie bookingMovie;
-	private Seat bookingSeat;
-
-	// Within each ticket, we need:
-	// cineplex x
-	// cinema x 
-	// MovieSession.showtime x
-	// Movie.movieTitle x
-	// Movie.movieType x
-	// Movie.movieRating x
-	// seatID
-	// ageGroup
-
-	/**
-	 * Constructor
-	 * 
-	 * @param bookingCineplex 		Ticket for which Cineplex
-	 * @param bookingCinema 		Ticket for which Cinema 
-	 * @param bookingSession 		Ticket for which Session
-	 * @param bookingMovie 			Ticket for which Movie
-	 * @param movieType 			Ticket for which Movie type
-	 * @param movieRating			Rating of movie that you booked
-	 * @param ageGroup 				Ticket Age Group (CHILD, ADULT, SENIOR, M18)
-	 * @param bookingSeat 			Ticket for which Seat
-	 */
-
-
-	public Ticket(String transactionID, float price, ageGroup_Enum ageGroup, MovieSession bookingSession, Cinema bookingCinema, Cineplex bookingCineplex, Movie bookingMovie, Seat bookingSeat) {
-				this.transactionID = transactionID;
-				this.price = price;
-				this.ageGroup = ageGroup;
-				this.bookingSession = bookingSession;
-				this.bookingCinema = bookingCinema;
-				this.bookingCineplex = bookingCineplex;
-				this.bookingMovie = bookingMovie;
-				this.bookingSeat = bookingSeat;
-		}
-		/**
-		 * Get transactionID of ticket 
-		 * @return transactionID of Ticket object.
-		 */
-		public String getTransactionID()
-		{
-				return this.transactionID;
-		}
-
-		/**
-		 * Set transactionID of ticket
-		 * @param transactionID 		transactionID of the Ticket object in XXXYYYYMMDDhhmm. 
-		 */
-		public void setTransactionID(String transactionID)
-		{
-				this.transactionID = transactionID;
-		}
-
-		/**
-		 * Get price of Ticket 
-		 * @return price of Ticket object.
-		 */
-		public float getPrice() {
-			return this.price;
-		}
-
-	/**
-	 * Set price of Ticket
-	 * @param price		price of Ticket object.
-	 */
-	public void setPrice(float price) {
-		this.price = price;
+	public Ticket(Cineplex tCineplex, Cinema tCinema, LocalDateTime tShowTime, String tMovieTitle, movieType_Enum tMovieType, movieRating_Enum tMovieRating, int tSeat, ageGroup_Enum tAgeGroup)
+	{
+		this.ticketCineplex = tCineplex;
+		this.ticketCinema = tCinema;
+		this.ticketShowTime = tShowTime;
+		this.ticketMovieTitle = tMovieTitle;
+		this.ticketMovieType = tMovieType;
+		this.ticketMovieRating = tMovieRating;
+		this.ticketSeat = tSeat;
+		this.ticketAgeGroup = tAgeGroup;
 	}
 
-		/**
-		 * Get age group of Ticket 
-		 * @return age group of Ticket object.
-	 * ageGroup_Enum: CHILD, ADULT, SENIOR, M18
-		 */
-	public ageGroup_Enum getAgeGroup() {
-		return this.ageGroup;
+	public Cineplex getCineplex()
+	{
+		return this.ticketCineplex;
 	}
 
-	/**
-	 * Set age group of Ticket
-	 * @param ageGroup	age group of the Ticket object.
-	 */
-	public void setAgeGroup(ageGroup_Enum ageGroup) {
-		this.ageGroup = ageGroup;
+	public void setCineplex(Cineplex tCineplex)
+	{
+		this.ticketCineplex = tCineplex;
 	}
 
-		/**
-		 * Get session of Ticket 
-		 * @return session of Ticket object.
-		 */
-	public MovieSession getSession() {
-				return this.bookingSession;
+	public Cinema getCinema()
+	{
+		return this.ticketCinema;
 	}
 
-	/**
-	 * Set session of Ticket
-	 * @param session 		session the Ticket object is for.
-	 */
-	public void setSession(MovieSession session) {
-				this.bookingSession = session;
+	public void setCinema(Cinema tCinema)
+	{
+		this.ticketCinema = tCinema;
 	}
 
-		/**
-		 * Get cinema of Ticket 
-		 * @return Cinema of Ticket object.
-		 */
-	public Cinema getCinema() {
-				return this.bookingCinema;
+	public LocalDateTime getShowTime()
+	{
+		return this.ticketShowTime;
 	}
 
-	/**
-	 * Set cinema of Ticket
-	 * @param cinema 		Cinema of Ticket object.
-	 */
-	public void setCinema(Cinema cinema) {
-				this.bookingCinema = cinema;
-	}
-		
-		/**
-		 * Get cineplex of Ticket 
-		 * @return Cineplex of Ticket object.
-		 */
-	public Cineplex getCineplex() {
-				return this.bookingCineplex;
+	public void setShowtime(LocalDateTime tShowTime)
+	{
+		this.ticketShowTime = tShowTime;
 	}
 
-	/**
-	 * Set cineplex of Ticket
-	 * @param cineplex 		Cineplex of the Ticket object.
-	 */
-	public void setCineplex(Cineplex cineplex) {
-				this.bookingCineplex = cineplex;
+	public String getTitle()
+	{
+		return this.ticketMovieTitle;
 	}
 
-		/**
-		 * Get movie of Ticket 
-		 * @return Movie of Ticket object.
-		 */
-	public Movie getMovie() {
-				return this.bookingMovie;
+	public void setTitle(String tMovieTitle)
+	{
+		this.ticketMovieTitle = tMovieTitle;
 	}
 
-	/**
-	 * Set movie of Ticket
-	 * @param movie			Movie of Ticket object.
-	 */
-	public void setMovie(Movie movie) {
-				this.bookingMovie = movie;
-	}
-		
-		/**
-		 * Get seat of Ticket 
-		 * @return Seat of Ticket object.
-		 */
-	public Seat getSeat() {
-				return this.bookingSeat;
+	public movieType_Enum getMovieType()
+	{
+		return this.ticketMovieType;
 	}
 
-	/**
-	 * Set seat of Ticket
-	 * @param seat			Seat that this Ticket object is for.
-	 */
-	public void setSeat(Seat seat) {
-				this.bookingSeat = seat;
+	public void setMovieType(movieType_Enum tMovieType_Enum)
+	{
+		this.ticketMovieType = tMovieType_Enum;
 	}
 
-}
+	public movieRating_Enum getMovieRating()
+	{
+		return this.ticketMovieRating;
+	}
+
+	public void setMovieRating(movieRating_Enum tMovieRating)
+	{
+		this.ticketMovieRating = tMovieRating;
+	}
+
+	public int getSeat()
+	{
+		return this.ticketSeat;
+	}
+
+	public void setSeat(int tSeat)
+	{
+		this.ticketSeat = tSeat;
+	}
+
+	public ageGroup_Enum getAgeGroup()
+	{
+		return this.ticketAgeGroup;
+	}
+
+	public void setAgeGroup(ageGroup_Enum tAgeGroup)
+	{
+		this.ticketAgeGroup = tAgeGroup;
+	}
+ }
+ 
