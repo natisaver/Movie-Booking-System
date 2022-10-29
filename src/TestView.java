@@ -19,12 +19,13 @@ public class TestView {
 
         // System.out.println(dateTime);
 
-        String str = "06/12/1992";
-        str = str + " 00:00";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
+        // String str = "06/12/1992";
+        // str = str + " 00:00";
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        // LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
 
-        System.out.println(dateTime);
+        LocalDateTime lt = LocalDateTime.now();
+        System.out.println(lt.getDayOfWeek().toString());
 
 
     }
