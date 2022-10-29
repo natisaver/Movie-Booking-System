@@ -277,9 +277,9 @@ public class MovieGoerController {
     }
 
     /**
-     *DELETE MovieGoer in the database
-     * @param user      User object to be added
-     * @return          <code>true</code> if User was updated, <code>false</code> if User doesnt exist or database is nonexistent
+     * DELETE MovieGoer in the database
+     * @param user      User object to be deleted
+     * @return          <code>true</code> if User was deleted, <code>false</code> if User doesnt exist or database is nonexistent
      */
     public static Boolean delete(MovieGoer user) {
 
