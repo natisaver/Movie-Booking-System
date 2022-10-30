@@ -38,9 +38,10 @@ public class Movie {
      * @param showingStatus     Movie showing status (Now showing, Coming soon or Preview)
      * @param movieType         Movie type (2D, 3D or Blockbuster)
      * @param movieRating       Movie rating (PG, PG13, NC16, M18 or R21)
+     * @param ticketSales       Movie ticket sales
      */
-    public Movie(String title, String director, String[] cast, String releaseDate, String endDate, String synopsis,
-            int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating) {
+    public Movie(String title, String director, String[] cast, LocalDateTime releaseDate, LocalDateTime endDate, String synopsis,
+            int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating, int ticketSales) {
         
         // Format the date using dd-MM-yyyy
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -56,6 +57,7 @@ public class Movie {
         this.movieType = movieType;
         this.movieRating = movieRating;
         this.reviewList = new HashMap<>();
+        this.ticketSales = ticketSales;
     }
 
     /**
