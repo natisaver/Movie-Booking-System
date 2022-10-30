@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 
 import Controller.*;
 import Model.*;
+import View.*;
 
 public class TestView {
     public static void main(String[] args) {
@@ -31,6 +32,9 @@ public class TestView {
 
         LocalDateTime lt = LocalDateTime.now();
         System.out.println(lt.getDayOfWeek().toString());
+
+        BaseMenu createAccount = new CreateAccount(null);
+        createAccount.execute();
 
     }
 }
