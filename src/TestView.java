@@ -25,7 +25,8 @@ public class TestView {
 
         // String str = "06/12/1992";
         // str = str + " 00:00";
-        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy
+        // HH:mm");
         // LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
 
         LocalDateTime lt = LocalDateTime.now();
