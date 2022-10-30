@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 import Model.Cinema;
 
 /**
@@ -15,29 +17,30 @@ public class Cineplex {
     /**
      * List of Cinemas under a particular Cineplex
      */
-    private Cinema[] cinemas;
+    private ArrayList<Cineplex> cinemas;
 
     /**
      * Cinema's name
      */
-    private String name;
+    private static String name;
 
     /**
      * Cinema's location
      */
-    private String location;
+    private static String location;
 
     /**
      * Constructor
      * 
-     * @param cinemas  List of Cinema's under a particular Cineplex
-     * @param name     Cinema's name
-     * @param location Cinema's location
+     * @param arrayList List of Cinema's under a particular Cineplex
+     * @param name      Cinema's name
+     * @param location  Cinema's location
      */
-    public Cineplex(Cinema[] cinemas, String name, String location) {
-        this.cinemas = cinemas;
-        this.location = location;
-        this.cinemas = new Cinema[3];
+    public Cineplex(ArrayList<Cineplex> arrayList, String name, String location) {
+        this.cinemas = arrayList;
+        this.name = name;
+        Cineplex.location = location;
+        // this.cinemas = new Cinema[3];
     }
 
     /**
@@ -45,7 +48,7 @@ public class Cineplex {
      * 
      * @return Cinema[] List of Cinemas under a particular Cineplex
      */
-    public Cinema[] getCinemas() {
+    public ArrayList<Cineplex> getCinemas() {
         return cinemas;
     }
 
@@ -63,8 +66,8 @@ public class Cineplex {
      * 
      * @param name Cinema's name
      */
-    public void setName(String name) {
-        this.name = name;
+    public static void setName(String cineplexName) {
+        name = cineplexName;
     }
 
     /**
@@ -81,8 +84,8 @@ public class Cineplex {
      * 
      * @param location Cinema's location
      */
-    public void setLocation(String location) {
-        this.location = location;
+    public static void setLocation(String cinelocation) {
+        location = cinelocation;
     }
 
 }

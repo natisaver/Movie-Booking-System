@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
+import Model.Ticket;
 import Model.Transaction;
 
 public class TransactionController {
@@ -13,11 +14,13 @@ public class TransactionController {
      */
     private final static String PATH = DataController.getPath("Transaction");
 
-    /** 
+    /**
      * READ every row of Transaction Database File
      * If Database file not found, ignore error and return empty list
-     * @return Model.{@link Transaction}  Return list of Transactions if any, else empty list
-    */
+     * 
+     * @return Model.{@link Transaction} Return list of Transactions if any, else
+     *         empty list
+     */
     public static ArrayList<Transaction> read() {
         // Check if database exists
         BufferedReader reader = null;
@@ -35,8 +38,9 @@ public class TransactionController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                Transaction transaction = new Transaction(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], tokens[5]);
-                userArrayList.add(user);
+                // Transaction transaction = new Transaction(tokens[0], tokens[1], tokens[2],
+                // tokens[3], tokens[4], tokens[5]);
+                // userArrayList.add(user);
             }
             reader.close();
         } catch (IOException e) {
@@ -45,10 +49,12 @@ public class TransactionController {
         return userArrayList;
     }
 
-    /** 
-     * READ and return a Transaction by searching for one with matching MovieGoer name in the Database
-     * @param name            name of MovieGoer to search for
-     * @return Transaction       Return Transaction if found, else null object
+    /**
+     * READ and return a Transaction by searching for one with matching MovieGoer
+     * name in the Database
+     * 
+     * @param name name of MovieGoer to search for
+     * @return Transaction Return Transaction if found, else null object
      */
     public static Transaction readByName(String name) {
         // Check if database exists
@@ -66,7 +72,7 @@ public class TransactionController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                if (tokens[1].equals(name)){
+                if (tokens[1].equals(name)) {
                     return new Transaction(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], token[5]);
                 }
             }
@@ -79,9 +85,11 @@ public class TransactionController {
     }
 
     /**
-     *CREATE Transaction in the database
-     * @param transaction      Transaction object to be added
-     * @return          <code>true</code> if Transaction was created, <code>false</code> if Transaction already exists, transactionID is a unique identifier
+     * CREATE Transaction in the database
+     * 
+     * @param transaction Transaction object to be added
+     * @return <code>true</code> if Transaction was created, <code>false</code> if
+     *         Transaction already exists, transactionID is a unique identifier
      */
     public static Boolean create(Transaction transaction) {
         File inputFile = new File(DataController.getPath("Transaction"));
@@ -132,7 +140,7 @@ public class TransactionController {
                     Found = true;
                     writer.close();
                     reader.close();
-                    //delete old file
+                    // delete old file
                     Files.delete(Paths.get(DataController.getPath("Temp")));
                     return false;
                 }
@@ -149,36 +157,36 @@ public class TransactionController {
                 writer.append(tokens[5]);
                 writer.append("\n");
             }
-            if (Found == false){
+            if (Found == false) {
                 writer.append(transaction.getTID());
                 writer.append(",");
                 writer.append(transaction.getMovieGoer().getName());
                 writer.append(",");
-                writer.append(transaction.getNoOfTickets());
+                // writer.append(transaction.getNoOfTickets());
                 writer.append(",");
-                writer.append(transaction.getMovie().getTitle());
+                writer.append(transaction.getTickets().toString());
                 writer.append(",");
-                writer.append(transaction.getSession().getShowtime());
-                writer.append(",");
-                writer.append(transaction.getTotalPrice());
+                // writer.append(transaction.getTotalPrice());
                 writer.append("\n");
             }
-        writer.close();
-        reader.close();
-        //delete old file
-        Files.delete(Paths.get(DataController.getPath("Transaction")));
+            writer.close();
+            reader.close();
+            // delete old file
+            Files.delete(Paths.get(DataController.getPath("Transaction")));
         } catch (IOException e) {
-        e.printStackTrace();}
-    //replace with the new file
-    tempFile.renameTo(new File(DataController.getPath("Transaction")));
-    return true;
-    }  
-
+            e.printStackTrace();
+        }
+        // replace with the new file
+        tempFile.renameTo(new File(DataController.getPath("Transaction")));
+        return true;
+    }
 
     /**
-     *DELETE Transaction in the database
-     * @param transaction     Transaction object to be added
-     * @return          <code>true</code> if Transaction was updated, <code>false</code> if Transaction doesnt exist or database is nonexistent
+     * DELETE Transaction in the database
+     * 
+     * @param transaction Transaction object to be added
+     * @return <code>true</code> if Transaction was updated, <code>false</code> if
+     *         Transaction doesnt exist or database is nonexistent
      */
     public static Boolean delete(Transaction transaction) {
 
@@ -227,10 +235,9 @@ public class TransactionController {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
                 if (tokens[0].equals(transaction.getTID())) {
-                    //do nothing
+                    // do nothing
                     Found = true;
-                }
-                else {
+                } else {
                     writer.append(tokens[0]);
                     writer.append(",");
                     writer.append(tokens[1]);
@@ -245,25 +252,28 @@ public class TransactionController {
                     writer.append("\n");
                 }
             }
-        writer.close();
-        reader.close();
-        if (Found == false){
-            //row not deleted
-            return false;
-        }
-        //delete old file
-        Files.delete(Paths.get(DataController.getPath("Transaction")));
+            writer.close();
+            reader.close();
+            if (Found == false) {
+                // row not deleted
+                return false;
+            }
+            // delete old file
+            Files.delete(Paths.get(DataController.getPath("Transaction")));
         } catch (IOException e) {
-        e.printStackTrace();}
-    //replace with the new file
-    tempFile.renameTo(new File(DataController.getPath("Transaction")));
-    return true;
+            e.printStackTrace();
+        }
+        // replace with the new file
+        tempFile.renameTo(new File(DataController.getPath("Transaction")));
+        return true;
     }
 
     /**
-     *DELETE Transaction by Email in the database
-     * @param email     User email to be added
-     * @return          True if User was updated, False if User doesnt exist or database is nonexistent
+     * DELETE Transaction by Email in the database
+     * 
+     * @param email User email to be added
+     * @return True if User was updated, False if User doesnt exist or database is
+     *         nonexistent
      */
     public static Boolean deleteByTransactionID(String TID) {
 
@@ -312,10 +322,9 @@ public class TransactionController {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
                 if (tokens[0].equals(TID)) {
-                    //do nothing
+                    // do nothing
                     Found = true;
-                }
-                else {
+                } else {
                     writer.append(tokens[0]);
                     writer.append(",");
                     writer.append(tokens[1]);
@@ -330,18 +339,19 @@ public class TransactionController {
                     writer.append("\n");
                 }
             }
-        writer.close();
-        reader.close();
-        if (Found == false){
-            //row not deleted
-            return false;
-        }
-        //delete old file
-        Files.delete(Paths.get(DataController.getPath("Transaction")));
+            writer.close();
+            reader.close();
+            if (Found == false) {
+                // row not deleted
+                return false;
+            }
+            // delete old file
+            Files.delete(Paths.get(DataController.getPath("Transaction")));
         } catch (IOException e) {
-        e.printStackTrace();}
-    //replace with the new file
-    tempFile.renameTo(new File(DataController.getPath("Transaction")));
-    return true;
+            e.printStackTrace();
+        }
+        // replace with the new file
+        tempFile.renameTo(new File(DataController.getPath("Transaction")));
+        return true;
     }
-}   
+}

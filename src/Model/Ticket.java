@@ -12,16 +12,16 @@ import java.time.LocalDateTime;
 /**
  * Constructor
  * 
- * @param ticketCineplex		Ticket for which Cineplex
- * @param ticketCinema			Ticket for which Cinema
- * @param ticketShowTime		Ticket for which Showtime
- * @param ticketMovieTitle		Ticket for which Movie
- * @param ticketMovieType		Ticket for which Movie Type
- * @param ticketMovieRating		Ticket for which Movie Rating
- * @param ticketSeat			Ticket for which Seat
- * @param ticketAgeGroup		Ticket for which Age Group
+ * @param ticketCineplex    Ticket for which Cineplex
+ * @param ticketCinema      Ticket for which Cinema
+ * @param ticketShowTime    Ticket for which Showtime
+ * @param ticketMovieTitle  Ticket for which Movie
+ * @param ticketMovieType   Ticket for which Movie Type
+ * @param ticketMovieRating Ticket for which Movie Rating
+ * @param ticketSeat        Ticket for which Seat
+ * @param ticketAgeGroup    Ticket for which Age Group
  */
- public class Ticket {
+public class Ticket {
 	private Cineplex ticketCineplex;
 	private Cinema ticketCinema;
 	private LocalDateTime ticketShowTime;
@@ -31,8 +31,8 @@ import java.time.LocalDateTime;
 	private int ticketSeat;
 	private ageGroup_Enum ticketAgeGroup;
 
-	public Ticket(Cineplex tCineplex, Cinema tCinema, LocalDateTime tShowTime, String tMovieTitle, movieType_Enum tMovieType, movieRating_Enum tMovieRating, int tSeat, ageGroup_Enum tAgeGroup)
-	{
+	public Ticket(Cineplex tCineplex, Cinema tCinema, LocalDateTime tShowTime, String tMovieTitle,
+			movieType_Enum tMovieType, movieRating_Enum tMovieRating, int tSeat, ageGroup_Enum tAgeGroup) {
 		this.ticketCineplex = tCineplex;
 		this.ticketCinema = tCinema;
 		this.ticketShowTime = tShowTime;
@@ -45,146 +45,145 @@ import java.time.LocalDateTime;
 
 	/**
 	 * Get Cineplex of Ticket.
+	 * 
 	 * @return Cineplex of Ticket object.
 	 */
-	public Cineplex getCineplex()
-	{
+	public Cineplex getCineplex() {
 		return this.ticketCineplex;
 	}
 
 	/**
 	 * Set Cineplex of Ticket.
-	 * @param tCineplex 		Cineplex of Ticket object.
+	 * 
+	 * @param tCineplex Cineplex of Ticket object.
 	 */
-	public void setCineplex(Cineplex tCineplex)
-	{
+	public void setCineplex(Cineplex tCineplex) {
 		this.ticketCineplex = tCineplex;
 	}
 
 	/**
 	 * Get Cinema of Ticket.
+	 * 
 	 * @return Cinema of Ticket object.
 	 */
-	public Cinema getCinema()
-	{
+	public Cinema getCinema() {
 		return this.ticketCinema;
 	}
 
 	/**
 	 * Set Cinema of Ticket.
-	 * @param tCinema		Cinema of Ticket object.
+	 * 
+	 * @param tCinema Cinema of Ticket object.
 	 */
-	public void setCinema(Cinema tCinema)
-	{
+	public void setCinema(Cinema tCinema) {
 		this.ticketCinema = tCinema;
 	}
 
 	/**
 	 * Get Showtime of Ticket.
+	 * 
 	 * @return Showtime of Ticket object.
 	 */
-	public LocalDateTime getShowTime()
-	{
+	public LocalDateTime getShowTime() {
 		return this.ticketShowTime;
 	}
 
 	/**
 	 * Set Showtime of Ticket.
-	 * @param tShowTime			Showtime of Ticket object.
+	 * 
+	 * @param tShowTime Showtime of Ticket object.
 	 */
-	public void setShowtime(LocalDateTime tShowTime)
-	{
+	public void setShowtime(LocalDateTime tShowTime) {
 		this.ticketShowTime = tShowTime;
 	}
 
 	/**
 	 * Get Movie Title of Ticket.
+	 * 
 	 * @return Movie Title of Ticket.
 	 */
-	public String getTitle()
-	{
+	public static String getTitle() {
 		return this.ticketMovieTitle;
 	}
 
 	/**
 	 * Set Movie Title of Ticket.
-	 * @param tMovieTitle		Movie Title of Ticket object.
+	 * 
+	 * @param tMovieTitle Movie Title of Ticket object.
 	 */
-	public void setTitle(String tMovieTitle)
-	{
+	public void setTitle(String tMovieTitle) {
 		this.ticketMovieTitle = tMovieTitle;
 	}
 
 	/**
 	 * Get Movie Type of Ticket.
+	 * 
 	 * @return Movie Type of Ticket object.
 	 */
-	public movieType_Enum getMovieType()
-	{
+	public movieType_Enum getMovieType() {
 		return this.ticketMovieType;
 	}
 
 	/**
 	 * Set Movie Type of Ticket.
-	 * @param tMovieType_Enum		Movie Type of Ticket Object.
+	 * 
+	 * @param tMovieType_Enum Movie Type of Ticket Object.
 	 */
-	public void setMovieType(movieType_Enum tMovieType_Enum)
-	{
+	public void setMovieType(movieType_Enum tMovieType_Enum) {
 		this.ticketMovieType = tMovieType_Enum;
 	}
 
 	/**
 	 * Get Movie Rating of Ticket.
+	 * 
 	 * @return Movie Rating of Ticket.
 	 */
-	public movieRating_Enum getMovieRating()
-	{
+	public movieRating_Enum getMovieRating() {
 		return this.ticketMovieRating;
 	}
 
 	/**
 	 * Set Movie Rating of Ticket.
-	 * @param tMovieRating		Movie Rating of Ticket object.
+	 * 
+	 * @param tMovieRating Movie Rating of Ticket object.
 	 */
-	public void setMovieRating(movieRating_Enum tMovieRating)
-	{
+	public void setMovieRating(movieRating_Enum tMovieRating) {
 		this.ticketMovieRating = tMovieRating;
 	}
 
 	/**
 	 * Get SeatID of Ticket.
+	 * 
 	 * @return SeatID of Ticket.
 	 */
-	public int getSeat()
-	{
+	public int getSeat() {
 		return this.ticketSeat;
 	}
 
 	/**
 	 * Set SeatID of Ticket.
-	 * @param tSeat			SeatID of Ticket object.
+	 * 
+	 * @param tSeat SeatID of Ticket object.
 	 */
-	public void setSeat(int tSeat)
-	{
+	public void setSeat(int tSeat) {
 		this.ticketSeat = tSeat;
 	}
 
 	/**
 	 * Get Age Group of Ticket.
+	 * 
 	 * @return Age Group of Ticket.
 	 */
-	public ageGroup_Enum getAgeGroup()
-	{
+	public ageGroup_Enum getAgeGroup() {
 		return this.ticketAgeGroup;
 	}
 
 	/**
 	 * Set Age Group of Ticket.
-	 * @param tAgeGroup 		Age Group of Ticket object.
+	 * 
+	 * @param tAgeGroup Age Group of Ticket object.
 	 */
-	public void setAgeGroup(ageGroup_Enum tAgeGroup)
-	{
+	public void setAgeGroup(ageGroup_Enum tAgeGroup) {
 		this.ticketAgeGroup = tAgeGroup;
 	}
- }
- 
+}

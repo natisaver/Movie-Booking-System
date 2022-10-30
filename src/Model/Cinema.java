@@ -14,7 +14,7 @@ public class Cinema {
      * Cinema's code which is a 3 letters String (eg. XXX)
      * Cinema's code will be used in the TransactionID
      */
-    private String cinemaCode;
+    private static String cinemaCode;
 
     /**
      * Cinema's class type
@@ -25,7 +25,7 @@ public class Cinema {
     /**
      * Cinema's list of movie sessions available
      */
-    private MovieSession[] showings;
+    private static MovieSession[] showings;
 
     /**
      * Constructor
@@ -35,9 +35,9 @@ public class Cinema {
      * @param showings    Cinema's list of movies sessions available
      */
     public Cinema(String cinemaCode, cinemaClass_Enum cinemaClass, MovieSession[] showings) {
-        this.cinemaCode = cinemaCode;
+        Cinema.cinemaCode = cinemaCode;
         this.cinemaClass = cinemaClass;
-        this.showings = new MovieSession[100];
+        Cinema.showings = new MovieSession[100];
     }
 
     /**
@@ -45,7 +45,7 @@ public class Cinema {
      * 
      * @return String Cinemas's code
      */
-    public String getCinemaCode() {
+    public static String getCinemaCode() {
         return cinemaCode;
     }
 
@@ -55,7 +55,7 @@ public class Cinema {
      * @param cinemaCode Cinema's code
      */
     public void setCinemaCode(String cinemaCode) {
-        this.cinemaCode = cinemaCode;
+        Cinema.cinemaCode = cinemaCode;
     }
 
     /**
@@ -82,7 +82,7 @@ public class Cinema {
      * 
      * @return MovieSession[] Cinema's list of movies sessions available
      */
-    public MovieSession[] getShowings() {
+    public static MovieSession[] getShowings() {
         return showings;
     }
 

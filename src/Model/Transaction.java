@@ -77,8 +77,8 @@ public class Transaction {
         this.TID = cinemaCode.concat(formatter.toString());
         this.name = movieGoer.getName();
         this.noOfTickets = tickets.length;
-        this.movieTitle = tickets[0].getMovie().getTitle();
-        this.showtime = tickets[0].getSession().getShowtime();
+        this.movieTitle = tickets[0].getTitle();
+        this.showtime = tickets[0].getShowTime();
         this.totalPrice = totalPrice;
     }
 
@@ -118,7 +118,7 @@ public class Transaction {
     public float getTotalPrice() {
         int i;
         for (i = 0; i < tickets.length; i++) {
-            totalPrice += tickets[i].getPrice();
+            // totalPrice += tickets[i].getPrice();
         }
         return totalPrice;
     }
