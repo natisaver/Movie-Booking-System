@@ -1,4 +1,4 @@
 transactionID,MovieGoerName,NoOfTickets,MovieTitle,Showtime,TotalPrice
-100202210261300,Bob,1,Jurassic World Dominion,13:00,13
-100202210261400,Ah Ming,2,Jurassic World Dominion,14:00,26
-101202210261300,William,2,Top Gun: Maverick,13:00,26
+100202210261300,Bob,1,Jurassic World Dominion,13:00,$13
+100202210261400,Ah Ming,2,Jurassic World Dominion,14:00,$26
+101202210261300,William,2,Top Gun: Maverick,13:00,$26
