@@ -10,6 +10,7 @@ import Model.Cineplex;
 import Model.Movie;
 import Model.Ticket;
 import Model.ageGroup_Enum;
+import Model.cinemaClass_Enum;
 import Model.movieRating_Enum;
 import Model.movieType_Enum;
 
@@ -26,6 +27,7 @@ public class BookTicket extends BaseMenu {
 
         Cineplex cineplex;
         String location;
+        cinemaClass_Enum cinemaType;
         Cinema cinema;
         LocalDateTime showtime;
         String movieTitle;
@@ -39,14 +41,21 @@ public class BookTicket extends BaseMenu {
 
         System.out.println("List of Cineplex: ");
         CineplexController.read();
+
         System.out.print("Please choose your preferred Cineplex's location: ");
         location = sc.next();
-        CineplexController.readByLocation(location);
+
         Cineplex.setLocation(location);
         Cineplex.setName("Sally Carrera");
-        cineplex = new Cineplex(CineplexController.readByLocation(location), "Sally Carrera", location);
-        // cineplex.setCinemas(CineplexController.readByLocation(location));
-        cinema = new Cinema("101", null, null);
+
+        System.out.println("");
+        System.out.println("List of Cinemas Class Type Available at " + location);
+        cineplex = new Cineplex(CineplexController.readByLocation(location), Cineplex.getName(), location);
+
+        System.out.println("Please choose your preferred Cinema Class Type: ");
+        cinemaType = cinemaClass_Enum.valueOf(sc.next().toUpperCase());
+
+        cinema = new Cinema("101", cinemaType, null);
 
         System.out.println("");
 

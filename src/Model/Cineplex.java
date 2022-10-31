@@ -39,7 +39,7 @@ public class Cineplex {
     public Cineplex(ArrayList<Cineplex> arrayList, String name, String location) {
         this.cinemas = arrayList;
         this.name = name;
-        Cineplex.location = location;
+        this.location = location;
         // this.cinemas = new Cinema[3];
     }
 
@@ -57,7 +57,7 @@ public class Cineplex {
      * 
      * @return String Cinema's name
      */
-    public String getName() {
+    public static String getName() {
         return name;
     }
 

@@ -6,6 +6,7 @@ import Controller.TransactionController;
 import Model.Cinema;
 import Model.MovieGoer;
 import Model.Transaction;
+import Model.User;
 
 public class CheckHistory extends BaseMenu {
 
@@ -27,8 +28,7 @@ public class CheckHistory extends BaseMenu {
 
         do {
 
-            // transaction = new Transaction(Cinema.getCinemaCode(),MovieGoer.getName());
-            // System.out.println(TransactionController.create(transaction));
+            System.out.println(TransactionController.readByName("Bob"));
             return new MovieGoerMainMenu(this.getPreviousMenu());
 
         } while (back != " ");

@@ -73,7 +73,7 @@ public class TransactionController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[1].equals(name)) {
-                    return new Transaction(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], token[5]);
+                    return new Transaction(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], tokens[5]);
                 }
             }
             reader.close();

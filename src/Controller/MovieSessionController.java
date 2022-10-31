@@ -25,7 +25,7 @@ public class MovieSessionController {
     /**
      * Path in database
      */
-    public final static String PATH = DataController.getPath("Movies");
+    public final static String PATH = DataController.getPath("Movie");
 
     /**
      * READ a list of movie sessions from Database
@@ -34,22 +34,57 @@ public class MovieSessionController {
      * @return Returns array of MovieSession if database exists, else null object
      */
     public static ArrayList<MovieSession> read(Cinema cinema) {
-        // // Check if database exists
-        // BufferedReader reader = null;
-        // try {
-        // reader = new BufferedReader(new FileReader(PATH));
-        // } catch (FileNotFoundException e) {
-        // e.printStackTrace();
-        // return new ArrayList<MovieSession>();
-        // }
+        // Check if database exists
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(PATH));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return new ArrayList<MovieSession>();
+        }
 
-        // // If Database Exists
-        // String line = "";
+        // If Database Exists
+        String line = "";
+        ArrayList<MovieSession> movieSessionList = new ArrayList<>();
+        try {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",");
+                if (tokens[0].equals(cinema.getCinemaCode())) {
+                    String movieTitle = tokens[1];
+                    String movieType = tokens[2];
+                    String date = tokens[3];
+                    String startTime = tokens[4];
+                    String dateTime = date + " " + startTime;
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                    LocalDateTime sessionTime = LocalDateTime.parse(dateTime, formatter);
+                    movieSessionList.add(new MovieSession(sessionTime, cinema.getCinemaClass(),
+                            movieTitle, movieType));
+                }
+            }
+
+            reader.close();
+            return movieSessionList;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return movieSessionList;
+        }
+
+        // String line1 = "";
+        // String splitBy1 = ",";
         // ArrayList<MovieSession> movieSessionList = new ArrayList<>();
         // try {
-        // reader.readLine();
-        // while ((line = reader.readLine()) != null) {
-        // String[] tokens = line.split(",");
+        // // parsing a CSV file into BufferedReader class constructor
+        // BufferedReader br = new BufferedReader(
+        // new
+        // FileReader("C:\\Users\\shiqi\\VSCode\\Moblima-Project-2\\Data\\Movies.csv"));
+        // while ((line1 = br.readLine()) != null)
+        // // returns a Boolean value
+        // {
+        // String[] token = line1.split(splitBy1);
+        // // use comma as separator
+        // System.out.println(token[0]);
+        // String[] tokens = line1.split(",");
         // if (tokens[0].equals(cinema.getCinemaCode())) {
         // String movieTitle = tokens[1];
         // String movieType = tokens[2];
@@ -64,44 +99,10 @@ public class MovieSessionController {
         // }
         // }
 
-        // reader.close();
-        // return movieSessionList;
         // } catch (IOException e) {
         // e.printStackTrace();
-        // return movieSessionList;
         // }
-
-        String line1 = "";
-        String splitBy1 = ",";
-        ArrayList<MovieSession> movieSessionList = new ArrayList<>();
-        try {
-            // parsing a CSV file into BufferedReader class constructor
-            BufferedReader br = new BufferedReader(
-                    new FileReader("C:\\Users\\shiqi\\VSCode\\Moblima-Project-2\\Data\\Movies.csv"));
-            while ((line1 = br.readLine()) != null)
-            // returns a Boolean value
-            {
-                String[] token = line1.split(splitBy1);
-                // use comma as separator
-                System.out.println(token[0]);
-                String[] tokens = line1.split(",");
-                if (tokens[0].equals(cinema.getCinemaCode())) {
-                    String movieTitle = tokens[1];
-                    String movieType = tokens[2];
-                    String date = tokens[3];
-                    String startTime = tokens[4];
-                    String dateTime = date + " " + startTime;
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                    LocalDateTime sessionTime = LocalDateTime.parse(dateTime, formatter);
-                    movieSessionList.add(new MovieSession(sessionTime, cinema.getCinemaClass(),
-                            movieTitle, movieType));
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return movieSessionList;
+        // return movieSessionList;
 
     }
 
@@ -113,7 +114,7 @@ public class MovieSessionController {
         try {
             // parsing a CSV file into BufferedReader class constructor
             BufferedReader br = new BufferedReader(
-                    new FileReader("C:\\Users\\shiqi\\VSCode\\Moblima-Project-2\\Data\\Movies.csv"));
+                    new FileReader("C:\\Users\\shiqi\\VSCode\\Moblima-Project-2\\Data\\Movie.csv"));
             while ((line1 = br.readLine()) != null)
             // returns a Boolean value
             {
