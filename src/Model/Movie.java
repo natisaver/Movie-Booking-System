@@ -22,7 +22,7 @@ public class Movie {
     private int duration;
     private showingStatus_Enum showingStatus;
     private static movieType_Enum movieType;
-    private movieRating_Enum movieRating;
+    private static movieRating_Enum movieRating;
     private HashMap<MovieGoer, Review> reviewList;
     private float reviewerRating;
     private int ticketSales;
@@ -70,8 +70,8 @@ public class Movie {
      * 
      * @return title of Movie object.
      */
-    public String getTitle() {
-        return this.title;
+    public static String getTitle() {
+        return Movie.title;
     }
 
     /**
@@ -220,8 +220,8 @@ public class Movie {
      * @return array of movie types of Movie object.
      *         movieType_Enum: TWOD, THREED, BLOCKBUSTER
      */
-    public movieType_Enum getMovieType() {
-        return this.movieType;
+    public static movieType_Enum getMovieType() {
+        return Movie.movieType;
     }
 
     /**
@@ -240,8 +240,8 @@ public class Movie {
      * @return movie rating of Movie object.
      *         movieRating_Enum: PG, PG13, NC16, M18, R21
      */
-    public movieRating_Enum getMovieRating() {
-        return this.movieRating;
+    public static movieRating_Enum getMovieRating() {
+        return Movie.movieRating;
     }
 
     /**
@@ -251,7 +251,7 @@ public class Movie {
      *                    movieRating_Enum: PG, PG13, NC16, M18, R21
      */
     public void setMovieRating(movieRating_Enum movieRating) {
-        this.movieRating = movieRating;
+        Movie.movieRating = movieRating;
     }
 
     /**

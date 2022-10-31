@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import Model.MovieSession;
+import Model.movieRating_Enum;
+import Model.movieType_Enum;
 import Model.Cinema;
 import Model.Movie;
 
@@ -25,7 +27,7 @@ public class MovieSessionController {
     /**
      * Path in database
      */
-    public final static String PATH = DataController.getPath("Movie");
+    public final static String PATH = DataController.getPath("MovieSessions");
 
     /**
      * READ a list of movie sessions from Database
@@ -70,74 +72,81 @@ public class MovieSessionController {
             return movieSessionList;
         }
 
-        // String line1 = "";
-        // String splitBy1 = ",";
-        // ArrayList<MovieSession> movieSessionList = new ArrayList<>();
-        // try {
-        // // parsing a CSV file into BufferedReader class constructor
-        // BufferedReader br = new BufferedReader(
-        // new
-        // FileReader("C:\\Users\\shiqi\\VSCode\\Moblima-Project-2\\Data\\Movies.csv"));
-        // while ((line1 = br.readLine()) != null)
-        // // returns a Boolean value
-        // {
-        // String[] token = line1.split(splitBy1);
-        // // use comma as separator
-        // System.out.println(token[0]);
-        // String[] tokens = line1.split(",");
-        // if (tokens[0].equals(cinema.getCinemaCode())) {
-        // String movieTitle = tokens[1];
-        // String movieType = tokens[2];
-        // String date = tokens[3];
-        // String startTime = tokens[4];
-        // String dateTime = date + " " + startTime;
-        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy
-        // HH:mm");
-        // LocalDateTime sessionTime = LocalDateTime.parse(dateTime, formatter);
-        // movieSessionList.add(new MovieSession(sessionTime, cinema.getCinemaClass(),
-        // movieTitle, movieType));
-        // }
-        // }
+    }
 
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // }
-        // return movieSessionList;
+    public static ArrayList<MovieSession> readbyMovieTitle(String cinemaCode, String movieTitle,
+            movieType_Enum movieType) {
+
+        // Check if database exists
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(PATH));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        // If Database Exists
+        String line = "";
+        ArrayList<MovieSession> sessionArrayList = new ArrayList<>();
+        // transactionArrayList = null;
+        try {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                if (tokens[0].equals(movieTitle) && tokens[1].equals(movieType.toString())) {
+                    System.out.println(tokens[0] + " " + tokens[2]);
+                }
+            }
+            reader.close();
+            return sessionArrayList;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
 
     }
 
-    public static ArrayList<MovieSession> readbyMovieTitle(Cinema cinema, String movieTitle) {
+    public static ArrayList<MovieSession> readbyShowtime(Cinema cinema, String movieTitle,
+            movieType_Enum movieType, String showtime) {
 
-        String line1 = "";
-        String splitBy1 = ",";
-        ArrayList<MovieSession> movieSessionList = new ArrayList<>();
+        // Check if database exists
+        BufferedReader reader = null;
         try {
-            // parsing a CSV file into BufferedReader class constructor
-            BufferedReader br = new BufferedReader(
-                    new FileReader("C:\\Users\\shiqi\\VSCode\\Moblima-Project-2\\Data\\Movie.csv"));
-            while ((line1 = br.readLine()) != null)
-            // returns a Boolean value
-            {
+            reader = new BufferedReader(new FileReader(PATH));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
 
-                String[] tokens = line1.split(splitBy1);
-                if (tokens[0].equals(movieTitle)) {
-                    String movieType = tokens[2];
-                    String date = tokens[3];
-                    String startTime = tokens[4];
-                    String dateTime = date + " " + startTime;
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                    LocalDateTime sessionTime = LocalDateTime.parse(dateTime, formatter);
-                    movieSessionList.add(new MovieSession(sessionTime, cinema.getCinemaClass(),
-                            movieTitle, movieType));
-                    System.out.println(tokens[0]);
-                } else
-                    continue;
+        // If Database Exists
+        String line = "";
+        ArrayList<MovieSession> sessionArrayList = new ArrayList<>();
+        // transactionArrayList = null;
+        try {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                if (tokens[0].equals(movieTitle) && tokens[1].equals(movieType.toString())
+                        && tokens[2].equals(showtime)) {
+                    // String date = tokens[3];
+                    // String startTime = tokens[4];
+                    // String dateTime = date + " " + startTime;
+                    // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy
+                    // HH:mm");
+                    // LocalDateTime sessionTime = LocalDateTime.parse(showtime, formatter);
+                    // sessionArrayList.add(new MovieSession(sessionTime, cinema.getCinemaClass(),
+                    // movieTitle, movieType.toString()));
+
+                    System.out.println(tokens[0] + " " + tokens[2]);
+                }
             }
-
+            reader.close();
+            return sessionArrayList;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-        return movieSessionList;
 
     }
 

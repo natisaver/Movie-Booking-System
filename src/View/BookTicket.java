@@ -3,14 +3,19 @@ package View;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import Controller.CineplexController;
 import Controller.MovieSessionController;
+import Controller.PriceController;
 import Controller.TransactionController;
 import Model.Cinema;
 import Model.Cineplex;
 import Model.Movie;
+import Model.MovieGoer;
+import Model.MovieSession;
+import Model.Seat;
 import Model.Ticket;
 import Model.Transaction;
 import Model.ageGroup_Enum;
@@ -40,13 +45,10 @@ public class BookTicket extends BaseMenu {
         String location;
         cinemaClass_Enum cinemaType;
         Cinema cinema;
-        LocalDateTime showtime;
-        String movieTitle;
+        String showtime = "";
+        String movieTitle = "";
         movieType_Enum movieType;
         movieRating_Enum movieRating;
-        int seat;
-        float totalPrice;
-        ageGroup_Enum ageGroup;
 
         System.out.println("(Enter blank space for both to quit)");
 
@@ -79,29 +81,80 @@ public class BookTicket extends BaseMenu {
         System.out.println("\nList of Movies Available: \n");
         MovieSessionController.read(cinema);
 
-        // Field for user to enter choice of MovieTitle
+        // Field for user to enter choice of movieTitle
         System.out.print("\nPlease choose your preferred Movie: ");
-        movieTitle = sc.next();
+        movieTitle = sc.nextLine();
+        movieTitle += sc.nextLine();
         Movie.setTitle(movieTitle);
-        Movie.setMovieType(movieType_Enum.valueOf(sc.next().toUpperCase()));
+        // movieType = movieType_Enum.valueOf(sc.next().toUpperCase());
+        Movie.setMovieType(movieType_Enum.BLOCKBUSTER);
 
-        // Display list of Movie Showtime, filtered by choosen MovieTitle
-        MovieSessionController.readbyMovieTitle(cinema, movieTitle);
+        // Display list of Movie Showtime, filtered by choosen movieTitle and movieType
+        System.out.println("List of Sessions Available: \n");
+        cinema.getShowings(); // System.out.print(cinema.getShowings());
 
-        for (int i = 0; i < Cinema.getShowings().length; i++) {
-            System.out.println("List of Sessions Available: \n");
-            MovieSessionController.readbyMovieTitle(cinema, movieTitle);
+        // Field for user to enter choice of session
+        System.out.print("\nPlease choose your preferred Session: ");
+        showtime = sc.nextLine();
 
-            System.out.print("\nPlease choose your preferred Session: ");
-            String movieSession = sc.next();
+        System.out.println("\nDetails of selected Movie Session: ");
+        MovieSessionController.readbyShowtime(cinema, movieTitle, Movie.getMovieType(), showtime);
+        // MovieSession session = (MovieSessionController.readbyShowtime(cinema,
+        // movieTitle,
+        // Movie.getMovieType(), showtime)).get(0);
+
+        System.out.print("\nPlease enter the number of seats being purchased: ");
+        int noOfTickets = sc.nextInt();
+
+        // Create an array of tickets to store all tickets made in this transaction
+        ArrayList<Ticket> ticket = new ArrayList<>();
+        int seat = 0;
+        float totalPrice = 0;
+        ageGroup_Enum ageGroup;
+
+        for (int i = 0; i < noOfTickets; i++) {
+
+            // Display list of age groups available for the tickets
+            System.out.println("\nList of Age Groups: \n");
+            System.out.println("1) CHILD");
+            System.out.println("2) ADULT");
+            System.out.println("3) SENIOR");
+
+            // Field for user to enter age group for each ticket
+            System.out.print("Please select an age group for Ticket " + (i + 1) + ": ");
+            ageGroup = ageGroup_Enum.valueOf(sc.next().toUpperCase());
+
+            switch (ageGroup) {
+                case CHILD:
+                    ageGroup = ageGroup_Enum.CHILD;
+                    totalPrice += PriceController.calculatePrice(null, ageGroup, cinema.getCinemaClass());
+                    break;
+                case ADULT:
+                    ageGroup = ageGroup_Enum.ADULT;
+                    totalPrice += PriceController.calculatePrice(null, ageGroup, cinema.getCinemaClass());
+                    break;
+                case SENIOR:
+                    ageGroup = ageGroup_Enum.SENIOR;
+                    totalPrice += PriceController.calculatePrice(null, ageGroup, cinema.getCinemaClass());
+                    break;
+            }
+
+            ticket.add(new Ticket(cineplex, cinema, LocalDateTime.parse(showtime), movieTitle, Movie.getMovieType(),
+                    Movie.getMovieRating(), seat, ageGroup));
         }
 
-        // Ticket ticket = new Ticket(cineplex, cinema, showtime, movieTitle,
-        // movieType,movieRating, seat, ageGroup);
-        // System.out.println(TicketController.create(ticket));
-        // Transaction transaction = new Transaction(movieTitle, location, seat,
-        // movieTitle, showtime, totalPrice);
-        // TransactionController.create(transaction);
+        // Get current date time
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+        String formatDateTime = now.format(formatter);
+        System.out.println(formatDateTime);
+
+        String TID = cinema.getCinemaCode().concat(formatDateTime);
+
+        // Create transaction
+        Transaction transaction = new Transaction(TID, "", noOfTickets, movieTitle,
+                LocalDateTime.parse(showtime), totalPrice);
+        TransactionController.create(transaction);
 
         return new MovieGoerMainMenu(this.getPreviousMenu());
     }

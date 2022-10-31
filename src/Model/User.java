@@ -56,7 +56,7 @@ public class User {
      * @return String this user's name
      */
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**

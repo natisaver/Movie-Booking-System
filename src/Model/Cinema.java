@@ -1,5 +1,9 @@
 package Model;
 
+import java.util.ArrayList;
+
+import Controller.MovieSessionController;
+
 /**
  * Represents a cinema in the MOBLIMA Cinema Application
  * 
@@ -82,8 +86,8 @@ public class Cinema {
      * 
      * @return MovieSession[] Cinema's list of movies sessions available
      */
-    public static MovieSession[] getShowings() {
-        return showings;
+    public ArrayList<MovieSession> getShowings() {
+        return MovieSessionController.readbyMovieTitle(cinemaCode, Movie.getTitle(), Movie.getMovieType());
     }
 
 }
