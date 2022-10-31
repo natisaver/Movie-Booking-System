@@ -28,20 +28,21 @@ public class MovieGoerLogin extends BaseMenu {
             System.out.print("Password:");
             password = sc.next();
 
-            // check if username & password is correct - IDK HOW TO DO HELP
-
             user = MovieGoerController.readByEmail(email);
-            // user = MovieGoerController.readByEmailnPassword(email, password);
 
+            // Email does not exist. Return error message
             if (user == null) {
                 System.out.println("Email does not exist");
                 System.out.println("Reenter your credentials or create an account");
-            } else if (!(user.getPassword().equals(password))) {
+            }
+            // Email exist, but does not match password in database. Return error message
+            else if (!(user.getPassword().equals(password))) {
                 System.out.println(user.getPassword());
                 System.out.println("Wrong email or Password");
                 System.out.println("Reenter your credentials");
-            } else {
-                // Correct Username & Password will direct to UserMainMenu
+            }
+            // Correct Email & Password will direct user to UserMainMenu
+            else {
                 System.out.println("You've successfully login!");
                 return new CreateAccount(this.getPreviousMenu());
             }

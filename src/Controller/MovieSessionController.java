@@ -50,17 +50,17 @@ public class MovieSessionController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
-                if (tokens[0].equals(cinema.getCinemaCode())) {
-                    String movieTitle = tokens[1];
-                    String movieType = tokens[2];
-                    String date = tokens[3];
-                    String startTime = tokens[4];
-                    String dateTime = date + " " + startTime;
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                    LocalDateTime sessionTime = LocalDateTime.parse(dateTime, formatter);
-                    movieSessionList.add(new MovieSession(sessionTime, cinema.getCinemaClass(),
-                            movieTitle, movieType));
-                }
+                // String movieTitle = tokens[1];
+                // String movieType = tokens[2];
+                // String date = tokens[3];
+                // String startTime = tokens[4];
+                // String dateTime = date + " " + startTime;
+                // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy
+                // HH:mm");
+                // LocalDateTime sessionTime = LocalDateTime.parse(dateTime, formatter);
+                // movieSessionList.add(new MovieSession(sessionTime, cinema.getCinemaClass(),
+                // movieTitle, movieType));
+                System.out.println(tokens[0]);
             }
 
             reader.close();
