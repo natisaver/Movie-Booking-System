@@ -23,12 +23,11 @@ public class CheckHistory extends BaseMenu {
         Transaction transaction;
 
         System.out.println("Below is the list of past transactions made: ");
-        back = sc.next();
         System.out.println("(Enter blank space for both to quit)");
 
         do {
-
-            System.out.println(TransactionController.readByName("Bob"));
+            TransactionController.readByName(MovieGoer.getName());
+            back = sc.next();
             return new MovieGoerMainMenu(this.getPreviousMenu());
 
         } while (back != " ");
