@@ -26,7 +26,16 @@ public class CheckHistory extends BaseMenu {
         System.out.println("(Enter blank space for both to quit)");
 
         do {
-            TransactionController.readByName(MovieGoer.getName());
+            // if transaction records exist
+            if (TransactionController.readByName("Bob") != null) {
+
+            }
+            // if no transaction records exist
+            else {
+                System.out.println("No Transaction Records found!");
+            }
+
+            // type any character to exit
             back = sc.next();
             return new MovieGoerMainMenu(this.getPreviousMenu());
 

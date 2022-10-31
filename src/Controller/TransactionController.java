@@ -3,6 +3,7 @@ package Controller;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import Model.Ticket;
@@ -38,39 +39,16 @@ public class TransactionController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                System.out.println(tokens[0] + " " + tokens[1] + " " + tokens[2] + tokens[3] + " " + tokens[4] + " "
-                        + tokens[5]);
+                System.out
+                        .println(tokens[0] + " " + tokens[1] + " " + tokens[2] + " " + tokens[3] + " " + tokens[4] + " "
+                                + tokens[5]);
             }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return cineplexArrayList;
-        // // Check if database exists
-        // BufferedReader reader = null;
-        // try {
-        // reader = new BufferedReader(new FileReader(PATH));
-        // } catch (FileNotFoundException e) {
-        // e.printStackTrace();
-        // return new ArrayList<Transaction>();
-        // }
 
-        // // If Database Exists
-        // String line = "";
-        // ArrayList<Transaction> userArrayList = new ArrayList<>();
-        // try {
-        // reader.readLine();
-        // while ((line = reader.readLine()) != null) {
-        // String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-        // // Transaction transaction = new Transaction(tokens[0], tokens[1], tokens[2],
-        // // tokens[3], tokens[4], tokens[5]);
-        // // userArrayList.add(user);
-        // }
-        // reader.close();
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // }
-        // return userArrayList;
     }
 
     /**
@@ -94,50 +72,29 @@ public class TransactionController {
         // If Database Exists
         String line = "";
         ArrayList<Transaction> transactionArrayList = new ArrayList<>();
+        // transactionArrayList = null;
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[1].equals(name)) {
-                    // transactionArrayList.add(new Transaction(null, tokens[1], 0, tokens[0], null,
-                    // 0));
-                    System.out.println(tokens[0] + " " + tokens[1] + " " + tokens[2] + tokens[3] + " " + tokens[4] + " "
-                            + tokens[5]);
+                    // transactionArrayList
+                    // .add(new Transaction(tokens[0], tokens[1], Integer.valueOf(tokens[2]),
+                    // tokens[0], null,
+                    // Integer.valueOf(tokens[5])));
+                    System.out.println(
+                            tokens[0] + " " + tokens[1] + " " + tokens[2] + " " + tokens[3] + " " + tokens[4] + " "
+                                    + tokens[5]);
+                    return transactionArrayList;
                 }
             }
             reader.close();
-            return transactionArrayList;
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
-            return transactionArrayList;
+            return null;
         }
 
-        // // Check if database exists
-        // BufferedReader reader = null;
-        // try {
-        // reader = new BufferedReader(new FileReader(PATH));
-        // } catch (FileNotFoundException e) {
-        // e.printStackTrace();
-        // return null;
-        // }
-
-        // // If Database Exists
-        // String line = "";
-        // try {
-        // reader.readLine();
-        // while ((line = reader.readLine()) != null) {
-        // String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-        // if (tokens[1].equals(name)) {
-        // return new Transaction(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4],
-        // tokens[5]);
-        // }
-        // }
-        // reader.close();
-        // return null;
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // return null;
-        // }
     }
 
     /**
