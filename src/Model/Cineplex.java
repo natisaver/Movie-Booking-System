@@ -22,12 +22,12 @@ public class Cineplex {
     /**
      * Cinema's name
      */
-    private static String name;
+    private String name;
 
     /**
      * Cinema's location
      */
-    private static String location;
+    private String location;
 
     /**
      * Constructor
@@ -57,8 +57,8 @@ public class Cineplex {
      * 
      * @return String Cinema's name
      */
-    public static String getName() {
-        return name;
+    public String getName() {
+        return this.name;
     }
 
     /**
@@ -66,8 +66,8 @@ public class Cineplex {
      * 
      * @param name Cinema's name
      */
-    public static void setName(String cineplexName) {
-        name = cineplexName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -84,8 +84,8 @@ public class Cineplex {
      * 
      * @param location Cinema's location
      */
-    public static void setLocation(String cinelocation) {
-        location = cinelocation;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
 }

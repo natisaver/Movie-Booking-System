@@ -12,7 +12,7 @@ public class User {
     /**
      * User's Name
      */
-    private static String name;
+    private String name;
 
     /**
      * User's Email Address
@@ -44,7 +44,7 @@ public class User {
      * 
      */
     public User(String name, String email, int role, String password) {
-        User.name = name;
+        this.name = name;
         this.email = email;
         this.role = role;
         this.password = password;
@@ -55,8 +55,8 @@ public class User {
      * 
      * @return String this user's name
      */
-    public static String getName() {
-        return name;
+    public String getName() {
+        return this.name;
     }
 
     /**

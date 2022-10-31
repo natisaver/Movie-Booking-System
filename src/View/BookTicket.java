@@ -27,7 +27,10 @@ public class BookTicket extends BaseMenu {
     @Override
     public BaseMenu execute() {
 
-        Cineplex cineplex;
+        Cineplex cineplex = new Cineplex(null, null, null);
+        Movie movie = new Movie("", "", null, null, null, "", 0, null, null, null,
+                0);
+
         String location;
         cinemaClass_Enum cinemaType;
         Cinema cinema;
@@ -41,40 +44,51 @@ public class BookTicket extends BaseMenu {
 
         System.out.println("(Enter blank space for both to quit)");
 
+        // Display list of Cineplex for users to choose from
         System.out.println("List of Cineplex: \n");
         CineplexController.read();
 
+        // Field for user to enter choice of Cineplex's location
         System.out.print("\nPlease choose your preferred Cineplex's location: ");
         location = sc.next();
 
-        Cineplex.setLocation(location);
-        Cineplex.setName("Sally Carrera");
+        // Set location of cineplex and name of cineplex based on the user's preferred
+        // cineplex choice
+        cineplex.setLocation(location);
+        cineplex.setName("Sally Carrera");
 
-        System.out.println("");
-        System.out.println("List of Cinemas Class Type Available at " + location + "\n");
-        cineplex = new Cineplex(CineplexController.readByLocation(location), Cineplex.getName(), location);
+        // Display list of Cinema Class Type, filtered by choosen Cineplex's location
+        System.out.println("\nList of Cinemas Class Type Available at " + location + "\n");
+        CineplexController.readByLocation(location);
+        // cineplex = new Cineplex(CineplexController.readByLocation(location),
+        // cineplex.getName(), location);
 
-        System.out.println("\nPlease choose your preferred Cinema Class Type: ");
+        // Field for user to enter Cinema Class Type
+        System.out.print("\nPlease choose your preferred Cinema Class Type: ");
         cinemaType = cinemaClass_Enum.valueOf(sc.next().toUpperCase());
 
         cinema = new Cinema("101", cinemaType, null);
 
-        System.out.println("");
-
-        System.out.println("List of Movies Available: \n");
+        // Display list of Movies for users to choose from
+        System.out.println("\nList of Movies Available: \n");
         MovieSessionController.read(cinema);
+
+        // Field for user to enter choice of MovieTitle
         System.out.print("\nPlease choose your preferred Movie: ");
-        movieTitle = sc.next();
-        Movie.setTitle(movieTitle);
-        MovieSessionController.readbyMovieTitle(cinema, movieTitle);
+        // movieTitle = sc.next();
+        // movie.setTitle(movieTitle);
+        // movie.setMovieType(movieType_Enum.valueOf(sc.next().toUpperCase()));
 
-        for (int i = 0; i < Cinema.getShowings().length; i++) {
-            System.out.println("List of Sessions Available: ");
-            MovieSessionController.readbyMovieTitle(cinema, movieTitle);
+        // // Display list of Movie Showtime, filtered by choosen MovieTitle
+        // MovieSessionController.readbyMovieTitle(cinema, movieTitle);
 
-            System.out.print("\nPlease choose your preferred Session: ");
-            String movieSession = sc.next();
-        }
+        // for (int i = 0; i < Cinema.getShowings().length; i++) {
+        // System.out.println("List of Sessions Available: \n");
+        // MovieSessionController.readbyMovieTitle(cinema, movieTitle);
+
+        // System.out.print("\nPlease choose your preferred Session: ");
+        // String movieSession = sc.next();
+        // }
 
         // Ticket ticket = new Ticket(cineplex, cinema, showtime, movieTitle,
         // movieType,movieRating, seat, ageGroup);

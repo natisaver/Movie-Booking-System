@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 
 public class Movie {
-    private static String title;
+    private String title;
     private String director;
     private String[] cast;
     private LocalDateTime releaseDate;
@@ -30,25 +30,28 @@ public class Movie {
     /**
      * Constructor
      * 
-     * @param title             Movie title
-     * @param director          Movie director
-     * @param cast              Movie cast (at least 2)
-     * @param releaseDate       Movie release date
-     * @param endDate           Movie ending date
-     * @param synopsis          Movie synopsis
-     * @param duration          Movie runtime
-     * @param showingStatus     Movie showing status (Now showing, Coming soon or Preview)
-     * @param movieType         Movie type (2D, 3D or Blockbuster)
-     * @param movieRating       Movie rating (PG, PG13, NC16, M18 or R21)
-     * @param ticketSales       Movie ticket sales
+     * @param title         Movie title
+     * @param director      Movie director
+     * @param cast          Movie cast (at least 2)
+     * @param releaseDate   Movie release date
+     * @param endDate       Movie ending date
+     * @param synopsis      Movie synopsis
+     * @param duration      Movie runtime
+     * @param showingStatus Movie showing status (Now showing, Coming soon or
+     *                      Preview)
+     * @param movieType     Movie type (2D, 3D or Blockbuster)
+     * @param movieRating   Movie rating (PG, PG13, NC16, M18 or R21)
+     * @param ticketSales   Movie ticket sales
      */
-    public Movie(String title, String director, String[] cast, LocalDateTime releaseDate, LocalDateTime endDate, String synopsis,
-            int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating, int ticketSales) {
-        
+    public Movie(String title, String director, String[] cast, LocalDateTime releaseDate, LocalDateTime endDate,
+            String synopsis,
+            int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating,
+            int ticketSales) {
+
         // Format the date using dd-MM-yyyy
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-        Movie.title = title;
+        this.title = title;
         this.director = director;
         this.cast = cast;
         this.releaseDate = LocalDateTime.parse(releaseDate + "00:00", formatter);
@@ -67,8 +70,8 @@ public class Movie {
      * 
      * @return title of Movie object.
      */
-    public static String getTitle() {
-        return Movie.title;
+    public String getTitle() {
+        return this.title;
     }
 
     /**
@@ -76,7 +79,7 @@ public class Movie {
      * 
      * @param title title of Movie object.
      */
-    public static void setTitle(String movieTitle) {
+    public void setTitle(String movieTitle) {
         title = movieTitle;
     }
 
