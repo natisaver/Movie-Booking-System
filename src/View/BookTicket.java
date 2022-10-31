@@ -1,6 +1,8 @@
 package View;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import Controller.CineplexController;
@@ -28,8 +30,12 @@ public class BookTicket extends BaseMenu {
     public BaseMenu execute() {
 
         Cineplex cineplex = new Cineplex(null, null, null);
-        Movie movie = new Movie("", "", null, null, null, "", 0, null, null, null,
-                0);
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // LocalDateTime str = LocalDateTime.now();
+        // Movie movie = new Movie("", "", null, LocalDateTime.parse(str.toString(),
+        // formatter),
+        // LocalDateTime.parse(str.toString(), formatter), "", 0, null, null, null,
+        // 0);
 
         String location;
         cinemaClass_Enum cinemaType;
@@ -75,20 +81,20 @@ public class BookTicket extends BaseMenu {
 
         // Field for user to enter choice of MovieTitle
         System.out.print("\nPlease choose your preferred Movie: ");
-        // movieTitle = sc.next();
-        // movie.setTitle(movieTitle);
-        // movie.setMovieType(movieType_Enum.valueOf(sc.next().toUpperCase()));
+        movieTitle = sc.next();
+        Movie.setTitle(movieTitle);
+        Movie.setMovieType(movieType_Enum.valueOf(sc.next().toUpperCase()));
 
-        // // Display list of Movie Showtime, filtered by choosen MovieTitle
-        // MovieSessionController.readbyMovieTitle(cinema, movieTitle);
+        // Display list of Movie Showtime, filtered by choosen MovieTitle
+        MovieSessionController.readbyMovieTitle(cinema, movieTitle);
 
-        // for (int i = 0; i < Cinema.getShowings().length; i++) {
-        // System.out.println("List of Sessions Available: \n");
-        // MovieSessionController.readbyMovieTitle(cinema, movieTitle);
+        for (int i = 0; i < Cinema.getShowings().length; i++) {
+            System.out.println("List of Sessions Available: \n");
+            MovieSessionController.readbyMovieTitle(cinema, movieTitle);
 
-        // System.out.print("\nPlease choose your preferred Session: ");
-        // String movieSession = sc.next();
-        // }
+            System.out.print("\nPlease choose your preferred Session: ");
+            String movieSession = sc.next();
+        }
 
         // Ticket ticket = new Ticket(cineplex, cinema, showtime, movieTitle,
         // movieType,movieRating, seat, ageGroup);

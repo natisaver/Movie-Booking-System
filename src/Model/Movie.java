@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 
 public class Movie {
-    private String title;
+    private static String title;
     private String director;
     private String[] cast;
     private LocalDateTime releaseDate;
@@ -21,7 +21,7 @@ public class Movie {
     private String synopsis;
     private int duration;
     private showingStatus_Enum showingStatus;
-    private movieType_Enum movieType;
+    private static movieType_Enum movieType;
     private movieRating_Enum movieRating;
     private HashMap<MovieGoer, Review> reviewList;
     private float reviewerRating;
@@ -79,7 +79,7 @@ public class Movie {
      * 
      * @param title title of Movie object.
      */
-    public void setTitle(String movieTitle) {
+    public static void setTitle(String movieTitle) {
         title = movieTitle;
     }
 
@@ -230,8 +230,8 @@ public class Movie {
      * @param movieType movie type of Movie object.
      *                  movieType_Enum: TWOD, THREED, BLOCKBUSTER
      */
-    public void setMovieType(movieType_Enum movieType) {
-        this.movieType = movieType;
+    public static void setMovieType(movieType_Enum movieType) {
+        Movie.movieType = movieType;
     }
 
     /**
