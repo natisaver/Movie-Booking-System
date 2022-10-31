@@ -49,15 +49,21 @@ public class CreateAccount extends BaseMenu {
             if (!password.equals(confirmPassword)) {
                 System.out.println("Password fields does not match");
                 System.out.println("Reenter your credentials");
+            } else if (MovieGoerController.readByEmail(email) != null) {
+                System.out.println("You already have an account under this email");
+                System.out.println("Please reenter a new email");
             } else {
                 // Available/Eligible Username & Password will direct to UserMainMenu
                 user = new MovieGoer(username, email, phoneNo, age, password);
-                System.out.println(MovieGoerController.create(user));
+                if (MovieGoerController.create(user)) {
+                    System.out.println("You've successfully created an account!");
+                }
                 return new MovieGoerMainMenu(this.getPreviousMenu());
 
             }
 
-        } while (username != " " && password != " " && confirmPassword != " " && !password.equals(confirmPassword));
+        } while ((username != " " && password != " " && confirmPassword != " ") || !password.equals(confirmPassword)
+                || MovieGoerController.readByEmail(email) != null);
 
         return new MovieGoerMainMenu(this.getPreviousMenu());
     }

@@ -33,11 +33,11 @@ public class TestView {
         LocalDateTime lt = LocalDateTime.now();
         System.out.println(lt.getDayOfWeek().toString());
 
-        // BaseMenu createAccount = new CreateAccount(null);
-        // createAccount.execute();
+        BaseMenu createAccount = new CreateAccount(null);
+        createAccount.execute();
 
-        BaseMenu movieGoerLogin = new MovieGoerLogin(null);
-        movieGoerLogin.execute();
+        // BaseMenu movieGoerLogin = new MovieGoerLogin(null);
+        // movieGoerLogin.execute();
 
         // BaseMenu bookTicket = new BookTicket(null);
         // bookTicket.execute();
