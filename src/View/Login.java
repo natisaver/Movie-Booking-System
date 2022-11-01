@@ -48,42 +48,39 @@ public class Login extends BaseMenu {
 
         do {
             System.out.print("Email:");
-            // sc.nextLine();
             email = sc.nextLine();
 
             System.out.print("Password:");
-            // sc.nextLine();
             password = sc.nextLine();
 
-            // Email does not exist in database. Return error message
-
+            // Checks if Email in database
             user = MovieGoerController.readByEmail(email);
             admin = AdminController.readByEmail(email);
 
-            // if (user == null && admin == null ) {
-            //     System.out.println("Email does not exist");
-            //     System.out.println("Reenter your credentials or create an account");
-            // }
-            // // Email exists, but does not match password in database. Return error message
-            // else if (!(user.getPassword().equals(password)) && !(admin.getPassword().equals(password))) {
-            //     // System.out.println(user.getPassword());
-            //     // System.out.println(admin.getPassword());
-            //     System.out.println("Wrong email or Password");
-            //     System.out.println("Reenter your credentials");
-            // }
-            // // Correct Email & Password will direct user to relevant page
-            // else {
-            //     System.out.println("You've successfully login!");
-            //     //moviegoer page
-            //     if (admin == null){
+            // Email does not exist in database. Return error message
+            if (user == null && admin == null ) {
+                System.out.println("Email does not exist");
+                System.out.println("Re-enter your credentials or create an account");
+            }
+            // Email exists, but does not match password in database. Return error message
+            else if ((user != null && !(user.getPassword().equals(password))) || (admin != null && !(admin.getPassword().equals(password)))) {
+                // System.out.println(user.getPassword());
+                // System.out.println(admin.getPassword());
+                System.out.println("Wrong email or Password");
+                System.out.println("Reenter your credentials");
+            }
+            // Correct Email & Password will direct user to relevant page
+            else {
+                System.out.println("You've successfully login!");
+                //moviegoer page
+                if (admin == null){
 
-            //     }
-            //     //admin page
-            //     if (user == null) {
+                }
+                //admin page
+                if (user == null) {
 
-            //     }
-            //     // return new CreateAccount(this.getPreviousMenu());
-            // }
+                }
+            }
         } while (!(email.isBlank() || password.isBlank()));
         return this.getPreviousMenu();
         // return new MainMenu(null, -1);
