@@ -8,14 +8,14 @@ public abstract class BaseMenu {
         this.previousMenu = previousMenu;
     }
 
-    //abstract execute class to navigate to next pages
+    // abstract execute class to navigate to next pages
     public abstract BaseMenu execute();
 
-    //method to get previous menu
+    // method to get previous menu
     protected BaseMenu getPreviousMenu() {
         if (previousMenu != null)
             return previousMenu;
-        //if it's the first page
+        // if it's the first page
         else
             return this;
     }

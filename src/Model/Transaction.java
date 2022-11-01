@@ -70,15 +70,16 @@ public class Transaction {
      * @param totalPrice  Total price paid by a MovieGoer under a particular
      *                    TransactionID (TID)
      */
-    public Transaction(String cinemaCode, String name, int noOfTickets, String movieTitle, LocalDateTime showtime,
+    public Transaction(String TID, String name, int noOfTickets, String movieTitle, LocalDateTime showtime,
             float totalPrice) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        this.TID = cinemaCode.concat(formatter.toString());
+        // this.TID = cinemaCode.concat(formatter.toString());
+        this.TID = TID;
         this.name = movieGoer.getName();
         this.noOfTickets = tickets.length;
-        this.movieTitle = tickets[0].getMovie().getTitle();
-        this.showtime = tickets[0].getSession().getShowtime();
+        this.movieTitle = tickets[0].getTitle();
+        this.showtime = tickets[0].getShowTime();
         this.totalPrice = totalPrice;
     }
 
@@ -118,7 +119,7 @@ public class Transaction {
     public float getTotalPrice() {
         int i;
         for (i = 0; i < tickets.length; i++) {
-            totalPrice += tickets[i].getPrice();
+            // totalPrice += tickets[i].getPrice();
         }
         return totalPrice;
     }

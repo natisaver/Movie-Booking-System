@@ -8,12 +8,18 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import Model.MovieSession;
+import Model.movieRating_Enum;
+import Model.movieType_Enum;
 import Model.Cinema;
+import Model.Movie;
 
- /**
- * Reads movie titles, date and times, and cinema class of movie sessions from csv file in the MOBLIMA Cinema Application
- * The csv file is in the format of "Cinema Code", "Movie Title", "Movie Type", "Session Date", "Session Start Time"
- * @author Sally Carrera 
+/**
+ * Reads movie titles, date and times, and cinema class of movie sessions from
+ * csv file in the MOBLIMA Cinema Application
+ * The csv file is in the format of "Cinema Code", "Movie Title", "Movie Type",
+ * "Session Date", "Session Start Time"
+ * 
+ * @author Sally Carrera
  * @version 1.0
  * @since 21-10-2022
  */
@@ -23,9 +29,10 @@ public class MovieSessionController {
      */
     public final static String PATH = DataController.getPath("MovieSessions");
 
-    /** 
+    /**
      * READ a list of movie sessions from Database
-     * @param cinemaCode    Cinema's code
+     * 
+     * @param cinemaCode Cinema's code
      * @return Returns array of MovieSession if database exists, else null object
      */
     public static ArrayList<MovieSession> read(Cinema cinema) {
@@ -45,31 +52,111 @@ public class MovieSessionController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
-                if (tokens[0].equals(cinema.getCinemaCode())) {
-                    String movieTitle = tokens[1];
-                    String movieType = tokens[2];
-                    String date = tokens[3];
-                    String startTime = tokens[4];
-                    String dateTime = date + " " + startTime;
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                    LocalDateTime sessionTime = LocalDateTime.parse(dateTime, formatter);
-                    movieSessionList.add(new MovieSession(sessionTime, cinema.getCinemaClass(), movieTitle, movieType));
-                }
+                // String movieTitle = tokens[1];
+                // String movieType = tokens[2];
+                // String date = tokens[3];
+                // String startTime = tokens[4];
+                // String dateTime = date + " " + startTime;
+                // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy
+                // HH:mm");
+                // LocalDateTime sessionTime = LocalDateTime.parse(dateTime, formatter);
+                // movieSessionList.add(new MovieSession(sessionTime, cinema.getCinemaClass(),
+                // movieTitle, movieType));
+                System.out.println(tokens[0]);
             }
-            
+
             reader.close();
             return movieSessionList;
         } catch (IOException e) {
             e.printStackTrace();
             return movieSessionList;
         }
+
+    }
+
+    public static ArrayList<MovieSession> readbyMovieTitle(String cinemaCode, String movieTitle,
+            movieType_Enum movieType) {
+
+        // Check if database exists
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(PATH));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        // If Database Exists
+        String line = "";
+        ArrayList<MovieSession> sessionArrayList = new ArrayList<>();
+        // transactionArrayList = null;
+        try {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                if (tokens[0].equals(movieTitle) && tokens[1].equals(movieType.toString())) {
+                    System.out.println(tokens[0] + " " + tokens[2]);
+                }
+            }
+            reader.close();
+            return sessionArrayList;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public static ArrayList<MovieSession> readbyShowtime(Cinema cinema, String movieTitle,
+            movieType_Enum movieType, String showtime) {
+
+        // Check if database exists
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(PATH));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        // If Database Exists
+        String line = "";
+        ArrayList<MovieSession> sessionArrayList = new ArrayList<>();
+        // transactionArrayList = null;
+        try {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                if (tokens[0].equals(movieTitle) && tokens[1].equals(movieType.toString())
+                        && tokens[2].equals(showtime)) {
+                    // String date = tokens[3];
+                    // String startTime = tokens[4];
+                    // String dateTime = date + " " + startTime;
+                    // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy
+                    // HH:mm");
+                    // LocalDateTime sessionTime = LocalDateTime.parse(showtime, formatter);
+                    // sessionArrayList.add(new MovieSession(sessionTime, cinema.getCinemaClass(),
+                    // movieTitle, movieType.toString()));
+
+                    System.out.println(tokens[0] + " " + tokens[2]);
+                }
+            }
+            reader.close();
+            return sessionArrayList;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     /**
      * CREATE MovieSession in the database
-     * @param cinema    Cinema in which MovieSession will run in
-     * @param session   MovieSession to be added
-     * @return          <code>true</code> if MovieSession was added, <code>false</code> if MovieSession clashes with an existing MovieSession
+     * 
+     * @param cinema  Cinema in which MovieSession will run in
+     * @param session MovieSession to be added
+     * @return <code>true</code> if MovieSession was added, <code>false</code> if
+     *         MovieSession clashes with an existing MovieSession
      */
     public static Boolean createSession(Cinema cinema, MovieSession session) {
         File inputFile = new File(DataController.getPath("MovieSessions"));
@@ -135,24 +222,25 @@ public class MovieSessionController {
                 writer.append(session.getShowtime().format(formatter));
                 writer.append("\n");
             }
-        writer.close();
-        reader.close();
-        //delete old file
-        Files.delete(Paths.get(DataController.getPath("MovieSessions")));
-        }
-        catch (IOException e) {
+            writer.close();
+            reader.close();
+            // delete old file
+            Files.delete(Paths.get(DataController.getPath("MovieSessions")));
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        //replace with the new file
+        // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("MovieSessions")));
         return true;
     }
 
     /**
-     *UPDATE MovieSession in the database
-     * @param cinema    Cinema in which MovieSession to be updated runs in
-     * @param session   MovieSession object to be updated
-     * @return          <code>true</code> if MovieSession was updated, <code>false</code> if MovieSession doesnt exist or database is nonexistent
+     * UPDATE MovieSession in the database
+     * 
+     * @param cinema  Cinema in which MovieSession to be updated runs in
+     * @param session MovieSession object to be updated
+     * @return <code>true</code> if MovieSession was updated, <code>false</code> if
+     *         MovieSession doesnt exist or database is nonexistent
      */
     public static Boolean update(Cinema cinema, MovieSession session) {
 
@@ -214,8 +302,7 @@ public class MovieSessionController {
                     writer.append(",");
                     writer.append(startTime);
                     writer.append("\n");
-                }
-                else {
+                } else {
                     writer.append(tokens[0]);
                     writer.append(",");
                     writer.append(tokens[1]);
@@ -228,25 +315,28 @@ public class MovieSessionController {
                     writer.append("\n");
                 }
             }
-        writer.close();
-        reader.close();
-        if (!Found) {
-            return false;
-        }
-        //delete old file
-        Files.delete(Paths.get(DataController.getPath("MovieSessions")));
+            writer.close();
+            reader.close();
+            if (!Found) {
+                return false;
+            }
+            // delete old file
+            Files.delete(Paths.get(DataController.getPath("MovieSessions")));
         } catch (IOException e) {
-        e.printStackTrace();}
-    //replace with the new file
-    tempFile.renameTo(new File(DataController.getPath("MovieSessions")));
-    return true;
+            e.printStackTrace();
+        }
+        // replace with the new file
+        tempFile.renameTo(new File(DataController.getPath("MovieSessions")));
+        return true;
     }
 
     /**
      * DELETE MovieSession in the database
-     * @param cinema    Cinema in which MovieSession to be deleted runs in
-     * @param session   MovieSession object to be deleted
-     * @return          <code>true</code> if MovieSession was deleted, <code>false</code> if MovieSession doesnt exist or database is nonexistent
+     * 
+     * @param cinema  Cinema in which MovieSession to be deleted runs in
+     * @param session MovieSession object to be deleted
+     * @return <code>true</code> if MovieSession was deleted, <code>false</code> if
+     *         MovieSession doesnt exist or database is nonexistent
      */
     public static Boolean delete(Cinema cinema, MovieSession session) {
 
@@ -297,10 +387,9 @@ public class MovieSessionController {
                 String dateTime = date + " " + startTime;
                 LocalDateTime sessionTime = LocalDateTime.parse(dateTime, formatter);
                 if ((tokens[0].equals(cinema.getCinemaCode())) && (sessionTime.equals(session.getShowtime()))) {
-                    //do nothing
+                    // do nothing
                     Found = true;
-                }
-                else {
+                } else {
                     writer.append(tokens[0]);
                     writer.append(",");
                     writer.append(tokens[1]);
@@ -313,18 +402,19 @@ public class MovieSessionController {
                     writer.append("\n");
                 }
             }
-        writer.close();
-        reader.close();
-        if (!Found){
-            //Session not deleted
-            return false;
-        }
-        //delete old file
-        Files.delete(Paths.get(DataController.getPath("MovieGoer")));
+            writer.close();
+            reader.close();
+            if (!Found) {
+                // Session not deleted
+                return false;
+            }
+            // delete old file
+            Files.delete(Paths.get(DataController.getPath("MovieGoer")));
         } catch (IOException e) {
-        e.printStackTrace();}
-    //replace with the new file
-    tempFile.renameTo(new File(DataController.getPath("MovieGoer")));
-    return true;
+            e.printStackTrace();
+        }
+        // replace with the new file
+        tempFile.renameTo(new File(DataController.getPath("MovieGoer")));
+        return true;
     }
 }

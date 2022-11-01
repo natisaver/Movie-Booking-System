@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 import Model.Cinema;
 
 /**
@@ -15,7 +17,7 @@ public class Cineplex {
     /**
      * List of Cinemas under a particular Cineplex
      */
-    private Cinema[] cinemas;
+    private ArrayList<Cineplex> cinemas;
 
     /**
      * Cinema's name
@@ -30,14 +32,15 @@ public class Cineplex {
     /**
      * Constructor
      * 
-     * @param cinemas  List of Cinema's under a particular Cineplex
-     * @param name     Cinema's name
-     * @param location Cinema's location
+     * @param arrayList List of Cinema's under a particular Cineplex
+     * @param name      Cinema's name
+     * @param location  Cinema's location
      */
-    public Cineplex(Cinema[] cinemas, String name, String location) {
-        this.cinemas = cinemas;
+    public Cineplex(ArrayList<Cineplex> arrayList, String name, String location) {
+        this.cinemas = arrayList;
+        this.name = name;
         this.location = location;
-        this.cinemas = new Cinema[3];
+        // this.cinemas = new Cinema[3];
     }
 
     /**
@@ -45,7 +48,7 @@ public class Cineplex {
      * 
      * @return Cinema[] List of Cinemas under a particular Cineplex
      */
-    public Cinema[] getCinemas() {
+    public ArrayList<Cineplex> getCinemas() {
         return cinemas;
     }
 
@@ -55,7 +58,7 @@ public class Cineplex {
      * @return String Cinema's name
      */
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
