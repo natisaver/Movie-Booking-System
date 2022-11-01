@@ -34,7 +34,7 @@ public class MovieGoerController {
         try {
             reader = new BufferedReader(new FileReader(PATH));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return new ArrayList<MovieGoer>();
         }
 
@@ -50,7 +50,7 @@ public class MovieGoerController {
             }
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return userArrayList;
     }
@@ -68,7 +68,7 @@ public class MovieGoerController {
         try {
             reader = new BufferedReader(new FileReader(PATH));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
 
@@ -85,7 +85,7 @@ public class MovieGoerController {
             reader.close();
             return null;
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
     }
@@ -108,11 +108,11 @@ public class MovieGoerController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
 
@@ -131,7 +131,7 @@ public class MovieGoerController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         Boolean Found = false;
@@ -182,7 +182,7 @@ public class MovieGoerController {
             // delete old file
             Files.delete(Paths.get(DataController.getPath("MovieGoer")));
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("MovieGoer")));
@@ -208,11 +208,11 @@ public class MovieGoerController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
 
@@ -231,7 +231,7 @@ public class MovieGoerController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         Boolean Found = false;
@@ -279,7 +279,7 @@ public class MovieGoerController {
             // delete old file
             Files.delete(Paths.get(DataController.getPath("MovieGoer")));
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("MovieGoer")));
@@ -305,11 +305,11 @@ public class MovieGoerController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
 
@@ -328,7 +328,7 @@ public class MovieGoerController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         Boolean Found = false;
@@ -366,7 +366,7 @@ public class MovieGoerController {
             // delete old file
             Files.delete(Paths.get(DataController.getPath("MovieGoer")));
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("MovieGoer")));
@@ -392,11 +392,11 @@ public class MovieGoerController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
 
@@ -415,7 +415,7 @@ public class MovieGoerController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         Boolean Found = false;
@@ -453,7 +453,7 @@ public class MovieGoerController {
             // delete old file
             Files.delete(Paths.get(DataController.getPath("MovieGoer")));
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("MovieGoer")));

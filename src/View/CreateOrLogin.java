@@ -1,7 +1,7 @@
 package View;
 import java.util.Scanner;
 
-public class CreateOrLogin {
+public class CreateOrLogin extends BaseMenu {
     Scanner sc = new Scanner(System.in);
 
     public CreateOrLogin(BaseMenu previousMenu) {

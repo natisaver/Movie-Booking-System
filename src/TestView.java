@@ -42,11 +42,14 @@ public class TestView {
         // BaseMenu movieGoerLogin = new MovieGoerLogin(null);
         // movieGoerLogin.execute();
 
-        BaseMenu bookTicket = new BookTicket(null);
-        bookTicket.execute();
+        // BaseMenu bookTicket = new BookTicket(null);
+        // bookTicket.execute();
 
         // BaseMenu checkHistory = new CheckHistory(null);
         // checkHistory.execute();
+
+        BaseMenu mainmenu = new Login(null, -1);
+        mainmenu.execute();
 
     }
 }

@@ -1,0 +1,1 @@
+nextMenu = new Quit(this);
