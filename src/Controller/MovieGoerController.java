@@ -23,7 +23,7 @@ public class MovieGoerController {
     /** 
      * READ every row of MovieGoer Database File
      * If Database file not found, ignore error and return empty list
-     * @return Model.{@link MovieGoer}  Return list of MovieGoers if any, else empty list
+     * @return      Return list of MovieGoers if any, else empty list
     */
     public static ArrayList<MovieGoer> read() {
         // Check if database exists
@@ -54,8 +54,8 @@ public class MovieGoerController {
 
     /** 
      * READ and return a MovieGoer by searching for one with matching email in the Database
-     * @param email             Email of MovieGoer to search for
-     * @return MovieGoer        Return MovieGoer if found, else null object
+     * @param email         Email of MovieGoer to search for
+     * @return              Return MovieGoer if found, else null object
      */
     public static MovieGoer readByEmail(String email) {
         // Check if database exists
@@ -87,8 +87,8 @@ public class MovieGoerController {
 
     /**
      * CREATE MovieGoer in the database
-     * @param user      User object to be added
-     * @return          <code>true</code> if User was created, <code>false</code> if User already exists, email is a unique identifier
+     * @param user      MovieGoer object to be added
+     * @return          <code>true</code> if MovieGoer was created, <code>false</code> if MovieGoer already exists, email is a unique identifier
      */
     public static Boolean create(MovieGoer user) {
         File inputFile = new File(DataController.getPath("MovieGoer"));
@@ -183,8 +183,8 @@ public class MovieGoerController {
 
     /**
      *UPDATE MovieGoer in the database
-     * @param user      User object to be added
-     * @return          <code>true</code> if User was updated, <code>false</code> if User doesnt exist or database is nonexistent
+     * @param user      MovieGoer object to be updated
+     * @return          <code>true</code> if MovieGoer was updated, <code>false</code> if MovieGoer doesnt exist or database is nonexistent
      */
     public static Boolean update(MovieGoer user) {
 
@@ -278,8 +278,8 @@ public class MovieGoerController {
 
     /**
      * DELETE MovieGoer in the database
-     * @param user      User object to be deleted
-     * @return          <code>true</code> if User was deleted, <code>false</code> if User doesnt exist or database is nonexistent
+     * @param user      MovieGoer object to be deleted
+     * @return          <code>true</code> if MovieGoer was deleted, <code>false</code> if MovieGoer doesnt exist or database is nonexistent
      */
     public static Boolean delete(MovieGoer user) {
 
@@ -363,8 +363,8 @@ public class MovieGoerController {
 
     /**
      *DELETE MovieGoer by Email in the database
-     * @param email     User email to be added
-     * @return          True if User was updated, False if User doesnt exist or database is nonexistent
+     * @param email     Email of MovieGoer to be deleted
+     * @return          <code>true</code> if MovieGoer was deleted, <code>false</code> if MovieGoer doesnt exist or database is nonexistent
      */
     public static Boolean deleteByEmail(String email) {
 
