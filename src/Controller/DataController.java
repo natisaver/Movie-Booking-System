@@ -17,7 +17,7 @@ public class DataController {
      * @return path of csv file
      */
     public static String getPath(String str) {
-        return "Data/" + str + ".csv";
+        return "src/Data/" + str + ".csv";
     }
 
 }
