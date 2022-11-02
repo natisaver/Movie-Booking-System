@@ -109,7 +109,7 @@ public class MovieSession {
     }
 
     /**
-     * Get the MovieSession's seating plan
+     * Get the MovieSession's seating arrangement
      * @param cinemaClass The cinemaClass of the cinema that the MovieSession is being held in
      */
     public void showSeatings(cinemaClass_Enum cinemaClass) {
