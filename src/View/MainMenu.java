@@ -34,10 +34,13 @@ public class MainMenu extends BaseMenu{
         int choice;
 
         System.out.println(ConsoleColours.WHITE_BOLD + "Movie Booking and Listing Management Application (MOBLIMA)");
+        System.out.flush();
         System.out.println(ConsoleColours.WHITE +"1. Browse");
+        System.out.flush();
         System.out.println("2. Login");
         System.out.println("3. Create Account");
         System.out.println("4. " + ConsoleColours.RED + "Quit" + ConsoleColours.RESET);
+        System.out.flush();
 
         do{
             System.out.print("Enter your choice:");
