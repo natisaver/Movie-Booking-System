@@ -107,4 +107,171 @@ public class MovieSession {
     public movieType_Enum getMovieType() {
         return this.movieType;
     }
+
+    /**
+     * Get the MovieSession's seating plan
+     * @param cinemaClass The cinemaClass of the cinema that the MovieSession is being held in
+     */
+    public void showSeatings(cinemaClass_Enum cinemaClass) {
+        int i, j;
+        int count = 1;
+        int maxRow = 0;
+        int maxCol = 0;
+        if (cinemaClass == cinemaClass_Enum.GOLD) {
+            maxRow = 4;
+            maxCol = 12;
+            System.out.println("  ==============SCREEN==============");
+            for (i=0;i<=maxCol;i++) {
+                if (i==0) {
+                    System.out.print("   ");
+                }
+                else if (i==maxCol) {
+                    System.out.println();
+                }
+                else if (i%3 == 0) System.out.print(" ");
+                else {
+                    System.out.print(count + "   ");
+                    count++;
+                }
+            }
+            for (i=0;i<maxRow;i++) {
+                for (j=0;j<=maxCol;j++) {
+                    if (j==0) {
+                        char rowChar = (char)(i+'A');
+                        System.out.print(rowChar);
+                    }
+                    else if (j==maxCol) {
+                        char rowChar = (char)(i+'A');
+                        System.out.println(" "+rowChar);
+                    }
+                    else if (j%3 == 0) System.out.print(" ");
+                    else {
+                        if (this.sessionSeats[i][j-1].getIsOccupied()) System.out.print(" [x]");
+                        else System.out.print(" [ ]");
+                    }
+                }
+            }
+            count = 1;
+            for (i=0;i<=maxCol;i++) {
+                if (i==0) {
+                    System.out.print("   ");
+                }
+                else if (i==maxCol) {
+                    System.out.println();
+                }
+                else if (i%3 == 0) System.out.print(" ");
+                else {
+                    System.out.print(count + "   ");
+                    count++;
+                }
+            }
+        } else if (cinemaClass == cinemaClass_Enum.MAX) {
+            maxRow = 17;
+            maxCol = 39;
+            char rowChar;
+            System.out.println("  =====================================================================SCREEN======================================================================");
+            for (i=0;i<=maxCol;i++) {
+                if (i==0) {
+                    System.out.print("   ");
+                }
+                else if (i==maxCol) {
+                    System.out.println();
+                }
+                else if ((i==9) || (i==30)) System.out.print(" ");
+                else {
+                    if (count<9) System.out.print(count + "   ");
+                    else System.out.print(count + "  ");
+                    count++;
+                }
+            }
+            for (i=0;i<maxRow;i++) {
+                for (j=0;j<=maxCol;j++) {
+                    if (j==0) {
+                        if (i>12) rowChar = (char)(i+'C');
+                        else if (i>7) rowChar = (char)(i+'B');
+                        else rowChar = (char)(i+'A');
+                        System.out.print(rowChar);
+                    }
+                    else if (j==maxCol) {
+                        if (i>12) rowChar = (char)(i+'C');
+                        else if (i>7) rowChar = (char)(i+'B');
+                        else rowChar = (char)(i+'A');
+                        System.out.println(" " + rowChar);
+                    }
+                    else if ((j==9) || (j==30)) System.out.print(" ");
+                    else if ((i==maxRow-1) && ((j==1) || (j==2) || (j==37) || (j==38))) System.out.print("    ");
+                    else {
+                        if (this.sessionSeats[i][j-1].getIsOccupied()) System.out.print(" [x]");
+                        else System.out.print(" [ ]");
+                    }
+                }
+            }
+            count = 1;
+            for (i=0;i<=maxCol;i++) {
+                if (i==0) {
+                    System.out.print("   ");
+                }
+                else if (i==maxCol) {
+                    System.out.println();
+                }
+                else if ((i==9) || (i==30)) System.out.print(" ");
+                else {
+                    if (count<9) System.out.print(count + "   ");
+                    else System.out.print(count + "  ");
+                    count++;
+                }
+            }
+        } else if (cinemaClass == cinemaClass_Enum.STANDARD) {
+            maxRow = 10;
+            maxCol = 14;
+            char rowChar;
+            System.out.println("  ======================SCREEN=======================");
+            for (i=0;i<=maxCol;i++) {
+                if (i==0) {
+                    System.out.print("   ");
+                }
+                else if (i==maxCol) {
+                    System.out.println();
+                }
+                else {
+                    if (count<9) System.out.print(count + "   ");
+                    else System.out.print(count + "  ");
+                    count++;
+                }
+            }
+            for (i=0;i<maxRow;i++) {
+                for (j=0;j<=maxCol;j++) {
+                    if (j==0) {
+                        if (i>7) rowChar = (char)(i+'B');
+                        else rowChar = (char)(i+'A');
+                        System.out.print(rowChar);
+                    }
+                    else if (j==maxCol) {
+                        if (i>7) rowChar = (char)(i+'B');
+                        else rowChar = (char)(i+'A');
+                        System.out.println(" "+rowChar);
+                    }
+                    else if ((i==maxRow-1) && (j==5)) System.out.print("    ");
+                    else {
+                        if (this.sessionSeats[i][j-1].getIsOccupied()) System.out.print(" [x]");
+                        else System.out.print(" [ ]");
+                    }
+                }
+            }
+            count = 1;
+            for (i=0;i<=maxCol;i++) {
+                if (i==0) {
+                    System.out.print("   ");
+                }
+                else if (i==maxCol) {
+                    System.out.println();
+                }
+                else {
+                    if (count<9) System.out.print(count + "   ");
+                    else System.out.print(count + "  ");
+                    count++;
+                }
+            }
+        }
+    }
 }
