@@ -50,6 +50,10 @@ public class Login extends BaseMenu {
             System.out.print("Email:");
             email = sc.nextLine();
 
+            if(email.isBlank()){
+                break;
+            }
+
             System.out.print("Password:");
             password = sc.nextLine();
 
