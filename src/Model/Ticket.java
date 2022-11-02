@@ -102,7 +102,7 @@ public class Ticket {
 	 * 
 	 * @return Movie Title of Ticket.
 	 */
-	public static String getTitle() {
+	public String getTitle() {
 		return this.ticketMovieTitle;
 	}
 
