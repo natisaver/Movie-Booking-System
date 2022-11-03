@@ -281,10 +281,12 @@ public class Movie {
      */
     public float getOverallRating() {
         this.reviewerRating = 0;
+        int n = 0;
         for (Review value : reviewList.values()) {
+            n++;
             this.reviewerRating += value.getRating();
         }
-        return reviewerRating;
+        return reviewerRating/n;
     }
 
     /**

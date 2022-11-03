@@ -48,7 +48,7 @@ public class TestView {
         // BaseMenu checkHistory = new CheckHistory(null);
         // checkHistory.execute();
 
-        BaseMenu ListTopFive = new ListTopFive(null);
+        BaseMenu ListTopFive = new ListTopFive(null, -1);
         ListTopFive.execute();
 
     }

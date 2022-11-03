@@ -1,22 +1,27 @@
 package View;
 
+import java.io.Console;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import Controller.AdminController;
 import Controller.MovieGoerController;
 import Model.MovieGoer;
 
 public class CreateAccount extends BaseMenu {
 
     Scanner sc = new Scanner(System.in);
+    private Pattern regexPattern;
+    private Matcher regMatcher;
 
-    public CreateAccount(BaseMenu previousMenu) {
-        super(previousMenu);
+    public CreateAccount(BaseMenu previousMenu, int accesslevel) {
+        super(previousMenu, accesslevel);
     }
 
     @Override
     public BaseMenu execute() {
-
-        String username;
+        String name;
         String email;
         String phoneNo;
         int age;
@@ -24,48 +29,119 @@ public class CreateAccount extends BaseMenu {
         String confirmPassword;
         MovieGoer user;
 
-        System.out.println("Please create an account using your preferred Username & Password");
-        System.out.println("(Enter blank space for both to quit)");
+        System.out.println("Please create an account using your Email & Password");
+        System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
 
         do {
-            System.out.print("Username: ");
-            username = sc.next();
+            System.out.println("Your Name: ");
+            name = sc.nextLine();
+            if(name.isBlank()){
+                break;
+            }
+            System.out.println("ur indicated name is " + name);
 
-            System.out.print("Email: ");
-            email = sc.next();
-
-            System.out.print("Phone Number: ");
-            phoneNo = sc.next();
-
-            System.out.print("Age: ");
-            age = sc.nextInt();
-
-            System.out.print("Password: ");
-            password = sc.next();
-
-            System.out.print("Confirm Password: ");
-            confirmPassword = sc.next();
-
-            if (!password.equals(confirmPassword)) {
-                System.out.println("Password fields does not match");
-                System.out.println("Reenter your credentials");
-            } else if (MovieGoerController.readByEmail(email) != null) {
-                System.out.println("You already have an account under this email");
-                System.out.println("Please reenter a new email");
-            } else {
-                // Available/Eligible Username & Password will direct to UserMainMenu
-                user = new MovieGoer(username, email, phoneNo, age, password);
-                if (MovieGoerController.create(user)) {
-                    System.out.println("You've successfully created an account!");
+            System.out.println("Email: ");
+            //make sure email is valid
+            do {
+                email = sc.nextLine();
+                System.out.println("You entered: " + email);
+                //early termination
+                if(email.isBlank()){
+                    return this.getPreviousMenu().getPreviousMenu();
                 }
-                return new MovieGoerMainMenu(this.getPreviousMenu());
+                regexPattern = Pattern.compile("^[(a-zA-Z-0-9-\\_\\+\\.)]+@[(a-z-A-z)]+\\.[(a-zA-z)]{2,3}$");
+                regMatcher = regexPattern.matcher(email);
+                //valid email can break
+                if (regMatcher.matches() && (MovieGoerController.readByEmail(email.toLowerCase()) == null && AdminController.readByEmail(email.toLowerCase()) == null)){
+                    break;
+                }
+                System.out.println(ConsoleColours.RED + "Either an account already exists under this email address OR the email is invalid" + ConsoleColours.RESET);
+                System.out.println("Please Reenter an Email Address:");
 
+            } while (!regMatcher.matches() || (MovieGoerController.readByEmail(email.toLowerCase()) != null || AdminController.readByEmail(email.toLowerCase()) != null));
+
+            //check for valid phone number
+            String numregex = "^(?!(0))[0-9]+$";
+            System.out.println("Phone Number: ");
+            phoneNo = sc.nextLine();
+
+            while (!phoneNo.matches(numregex)) {
+                //early termination
+                if(phoneNo.isBlank()){
+                    return this.getPreviousMenu().getPreviousMenu();
+                }
+                System.out.println(ConsoleColours.RED + "Please key a valid Phone Number:" + ConsoleColours.RESET);
+                phoneNo = sc.nextLine();
             }
 
-        } while ((username != " " && password != " " && confirmPassword != " ") || !password.equals(confirmPassword)
-                || MovieGoerController.readByEmail(email) != null);
+            //check for valid age
+            System.out.println("Age: ");
+            String ageString = sc.nextLine();
+            while (!ageString.matches(numregex)) {
+                //early termination
+                if(ageString.isBlank()){
+                    return this.getPreviousMenu().getPreviousMenu();
+                }
+                System.out.println(ConsoleColours.RED + "Please key a valid Age:" + ConsoleColours.RESET);
+                ageString = sc.nextLine();
+            }
+            age = Integer.parseInt(ageString);
 
-        return new MovieGoerMainMenu(this.getPreviousMenu());
+            //check for valid password
+            System.out.println(ConsoleColours.CYAN_BRIGHT + "Password must be:");
+            System.out.println("At least 3 characters long");
+            System.out.println("Contain both alphabets and numbers" + ConsoleColours.RESET);
+            System.out.println("Password: ");
+            password = sc.nextLine();
+
+            if(password.isBlank()){
+                System.out.println("password is blank");
+                break;
+            }
+
+            //ensure password meets valid requirements
+            while (!((password.length() >= 3) && (password.matches(".*[a-z]+.*")) && (password.matches(".*[0-9]+.*")))){
+                System.out.println(ConsoleColours.RED + "Password must follow requirements: " + ConsoleColours.RESET);
+                password = sc.nextLine();
+                //early termination
+                if(password.isBlank()){
+                    return this.getPreviousMenu().getPreviousMenu();
+                }
+            }
+
+            System.out.println("Confirm Password: ");
+            confirmPassword = sc.nextLine();
+            if(confirmPassword.isBlank()){
+                break;
+            }
+
+            while (!password.equals(confirmPassword)) {
+                System.out.println(ConsoleColours.RED + "Password fields does not match" + ConsoleColours.RESET);
+                System.out.println("Reenter the password");
+                confirmPassword = sc.nextLine();
+                //early termination
+                if(confirmPassword.isBlank()){
+                    return this.getPreviousMenu().getPreviousMenu();
+                }
+            } 
+            
+            //Account Creation was Successful
+            user = new MovieGoer(name, email.toLowerCase(), phoneNo, age, password);
+            if (MovieGoerController.create(user)) {
+                System.out.println(ConsoleColours.GREEN_BOLD + "You've successfully created an account!" + ConsoleColours.RESET);
+                return new MovieGoerMainMenu(this.getPreviousMenu().getPreviousMenu(), 0, user);
+            }
+            else {
+                System.out.println(ConsoleColours.RED_BOLD + "ERROR in account creation" + ConsoleColours.RESET);
+                return new MovieGoerMainMenu(this.getPreviousMenu().getPreviousMenu(), -1, null);
+            }
+
+
+
+
+        } while ((!name.isBlank() && !password.isBlank() ));
+
+        return this.getPreviousMenu().getPreviousMenu();
     }
 
 }
