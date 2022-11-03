@@ -8,9 +8,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import Model.Holiday;
 
- /**
- * Reads name and date of public holidays from csv file in the MOBLIMA Cinema Application
- * @author Sally Carrera 
+/**
+ * Reads name and date of public holidays from csv file in the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
  * @version 1.0
  * @since 21-10-2022
  */
@@ -20,9 +22,11 @@ public class HolidayController {
      */
     public final static String PATH = DataController.getPath("Holiday");
 
-    /** 
+    /**
      * READ a list of holidays from Database
-     * @return ArrayList    Return array of Holiday if database exists, else null object
+     * 
+     * @return ArrayList Return array of Holiday if database exists, else null
+     *         object
      */
     public static ArrayList<Holiday> read() {
         // Check if database exists
@@ -41,12 +45,18 @@ public class HolidayController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+<<<<<<< HEAD
+                String dateTime = tokens[0] + "00:00";
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                LocalDateTime newObj = LocalDateTime.parse(tokens[0] + " 00:00", formatter);
+=======
                 String dateTime = tokens[0] + " 00:00";
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 LocalDateTime newObj = LocalDateTime.parse(dateTime, formatter);
+>>>>>>> master
                 holidayArrayList.add(new Holiday(tokens[1], newObj));
             }
-            
+
             reader.close();
             return holidayArrayList;
         } catch (IOException e) {
@@ -72,14 +82,15 @@ public class HolidayController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                System.out.println(tokens[0] + ", " + tokens[1]); 
+                System.out.println(tokens[0] + ", " + tokens[1]);
                 lineCount++;
             }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (lineCount > 0) return true;
+        if (lineCount > 0)
+            return true;
         return false;
     }
 
@@ -121,9 +132,9 @@ public class HolidayController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
                 String holidayDate = tokens[0];
-                if (holiday.format(formatter).substring(0,10).equals(holidayDate)) {
+                if (holiday.format(formatter).substring(0, 10).equals(holidayDate)) {
                     Found = true;
-                    writer.append(holiday.format(formatter).substring(0,10));
+                    writer.append(holiday.format(formatter).substring(0, 10));
                     writer.append(",");
                     writer.append(holidayName);
                     writer.append("\n");
@@ -134,17 +145,17 @@ public class HolidayController {
                 writer.append("\n");
             }
             if (!Found) {
-                writer.append(holiday.format(formatter).substring(0,10));
+                writer.append(holiday.format(formatter).substring(0, 10));
                 writer.append(",");
                 writer.append(holidayName);
                 writer.append("\n");
             }
             writer.close();
             reader.close();
-		if (Found) {
-			Files.delete(Paths.get(DataController.getPath("Temp")));
-			return false;
-		}
+            if (Found) {
+                Files.delete(Paths.get(DataController.getPath("Temp")));
+                return false;
+            }
             // delete old file
             Files.delete(Paths.get(DataController.getPath("Holiday")));
         } catch (IOException e) {
@@ -193,14 +204,13 @@ public class HolidayController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
                 String holidayDate = tokens[0];
-                if (oldHoliday.format(formatter).substring(0,10).equals(holidayDate)) {
+                if (oldHoliday.format(formatter).substring(0, 10).equals(holidayDate)) {
                     Found = true;
-                    writer.append(newHoliday.format(formatter).substring(0,10));
+                    writer.append(newHoliday.format(formatter).substring(0, 10));
                     writer.append(",");
                     writer.append(holidayName);
                     writer.append("\n");
-                }
-                else {
+                } else {
                     writer.append(tokens[0]);
                     writer.append(",");
                     writer.append(tokens[1]);
@@ -209,10 +219,10 @@ public class HolidayController {
             }
             writer.close();
             reader.close();
-		if (!Found) {
-			Files.delete(Paths.get(DataController.getPath("Temp")));
-			return false;
-		}
+            if (!Found) {
+                Files.delete(Paths.get(DataController.getPath("Temp")));
+                return false;
+            }
             // delete old file
             Files.delete(Paths.get(DataController.getPath("Holiday")));
         } catch (IOException e) {
@@ -261,7 +271,8 @@ public class HolidayController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
                 String holidayDate = tokens[0];
-                if (holiday.format(formatter).substring(0,10).equals(holidayDate)) Found = true;
+                if (holiday.format(formatter).substring(0, 10).equals(holidayDate))
+                    Found = true;
                 else {
                     writer.append(tokens[0]);
                     writer.append(",");
@@ -271,10 +282,10 @@ public class HolidayController {
             }
             writer.close();
             reader.close();
-		if (!Found) {
-			Files.delete(Paths.get(DataController.getPath("Temp")));
-			return false;
-		}
+            if (!Found) {
+                Files.delete(Paths.get(DataController.getPath("Temp")));
+                return false;
+            }
             // delete old file
             Files.delete(Paths.get(DataController.getPath("Holiday")));
         } catch (IOException e) {
@@ -322,7 +333,8 @@ public class HolidayController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
                 String name = tokens[1];
-                if (holidayName.equals(name)) Found = true;
+                if (holidayName.equals(name))
+                    Found = true;
                 else {
                     writer.append(tokens[0]);
                     writer.append(",");
@@ -332,10 +344,10 @@ public class HolidayController {
             }
             writer.close();
             reader.close();
-		if (!Found) {
-			Files.delete(Paths.get(DataController.getPath("Temp")));
-			return false;
-		}
+            if (!Found) {
+                Files.delete(Paths.get(DataController.getPath("Temp")));
+                return false;
+            }
             // delete old file
             Files.delete(Paths.get(DataController.getPath("Holiday")));
         } catch (IOException e) {

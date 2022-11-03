@@ -14,19 +14,20 @@ import Model.MovieGoer;
  * @since 01-11-2022
  */
 
-public class MovieGoerMainMenu extends BaseMenu{
+public class MovieGoerMainMenu extends BaseMenu {
     Scanner sc = new Scanner(System.in);
 
-    /** 
+    /**
      * Current User
      */
     MovieGoer moviegoer = null;
 
-    /** 
+    /**
      * Constructor to store previous page and access level
-     * @param previousMenu     the previous page
-     * @param accesslevel      the level of access
-     * @param moviegoer        movieGoer Object
+     * 
+     * @param previousMenu the previous page
+     * @param accesslevel  the level of access
+     * @param moviegoer    movieGoer Object
      */
     public MovieGoerMainMenu(BaseMenu previousMenu, int accesslevel, MovieGoer moviegoer) {
         super(previousMenu, accesslevel);
@@ -44,20 +45,19 @@ public class MovieGoerMainMenu extends BaseMenu{
         System.out.println("3. Check booking history");
         if (this.moviegoer == null) {
             System.out.println("4. Back");
-        }
-        else {
+        } else {
             System.out.println("4. Logout");
         }
 
         BaseMenu nextMenu = this;
 
-        //keep asking for choice
+        // keep asking for choice
         System.out.println("Enter your choice: ");
         String choicestr = sc.nextLine();
 
         while (!choicestr.matches(numregex)) {
-            //early termination
-            if(choicestr.isBlank()){
+            // early termination
+            if (choicestr.isBlank()) {
                 return this.getPreviousMenu();
             }
             System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
@@ -65,22 +65,25 @@ public class MovieGoerMainMenu extends BaseMenu{
         }
 
         choice = Integer.valueOf(choicestr);
-        
+
         switch (choice) {
             case 1:
-                // nextMenu = new BookTicket(this);
+                nextMenu = new BookTicket(this, -1, moviegoer);
                 break;
             case 2:
-                if (moviegoer == null){
+                if (moviegoer == null) {
                     nextMenu = new CreateOrLogin(nextMenu, -1);
-                }
-                else {
+                } else {
                     System.out.println("You can leave a review");
                 }
                 // nextMenu = new LeaveReview(this);
                 break;
             case 3:
-                // nextMenu = new CheckHistory(this);
+                if (moviegoer == null) {
+                    nextMenu = new CreateOrLogin(nextMenu, -1);
+                } else {
+                    nextMenu = new CheckHistory(this, 0, moviegoer);
+                }
                 break;
             case 4:
                 nextMenu = new MainMenu(null, -1);
@@ -90,7 +93,6 @@ public class MovieGoerMainMenu extends BaseMenu{
                 System.out.println(ConsoleColours.RED + "Going Back" + ConsoleColours.RESET);
                 break;
         }
-
 
         return nextMenu;
 

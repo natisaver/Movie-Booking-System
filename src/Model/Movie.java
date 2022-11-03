@@ -44,8 +44,10 @@ public class Movie {
      * @param movieRating   Movie rating (PG, PG13, NC16, M18 or R21)
      * @param ticketSales   Movie ticket sales
      */
-    public Movie(String title, String director, String[] cast, String releaseDate, String endDate, String synopsis,
-            int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating, int ticketSales) {
+    public Movie(String title, String director, String[] cast, String releaseDate, String endDate,
+            String synopsis,
+            int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating,
+            int ticketSales) {
 
         // Format the date using dd-MM-yyyy
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -287,7 +289,7 @@ public class Movie {
             n++;
             this.reviewerRating += value.getRating();
         }
-        return reviewerRating/n;
+        return reviewerRating / n;
     }
 
     /**
