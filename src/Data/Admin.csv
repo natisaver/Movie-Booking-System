@@ -1,4 +1,3 @@
 Name,Email,PhoneNum,Age,Password,Role
-Bob,bobby@gmail.com,,,123,1
-Ah Ming,ahming@yahoo.com.sg,,,123,1
-William,william@gmail.com,,,123,1
+Bob,admin1@gmail.com,,,123,1
+William,admin@gmail.com,,,123,1

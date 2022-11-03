@@ -25,8 +25,7 @@ public class MovieGoerController {
      * READ every row of MovieGoer Database File
      * If Database file not found, ignore error and return empty list
      * 
-     * @return Model.{@link MovieGoer} Return list of MovieGoers if any, else empty
-     *         list
+     * @return Model.{@link MovieGoer} Return list of MovieGoers if any, else empty list
      */
     public static ArrayList<MovieGoer> read() {
         // Check if database exists
@@ -34,7 +33,7 @@ public class MovieGoerController {
         try {
             reader = new BufferedReader(new FileReader(PATH));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return new ArrayList<MovieGoer>();
         }
 
@@ -50,17 +49,15 @@ public class MovieGoerController {
             }
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return userArrayList;
     }
 
-    /**
-     * READ and return a MovieGoer by searching for one with matching email in the
-     * Database
-     * 
-     * @param email Email of MovieGoer to search for
-     * @return MovieGoer Return MovieGoer if found, else null object
+    /** 
+     * READ and return a MovieGoer by searching for one with matching email in the Database
+     * @param email         Email of MovieGoer to search for
+     * @return              Return MovieGoer if found, else null object
      */
     public static MovieGoer readByEmail(String email) {
         // Check if database exists
@@ -68,7 +65,7 @@ public class MovieGoerController {
         try {
             reader = new BufferedReader(new FileReader(PATH));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
 
@@ -78,14 +75,14 @@ public class MovieGoerController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                if (tokens[1].equals(email)) {
+                if (tokens[1].toLowerCase().equals(email)) {
                     return new MovieGoer(tokens[0], tokens[1], tokens[2], Integer.valueOf(tokens[3]), tokens[4]);
                 }
             }
             reader.close();
             return null;
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
     }
@@ -93,9 +90,9 @@ public class MovieGoerController {
     /**
      * CREATE MovieGoer in the database
      * 
-     * @param user User object to be added
-     * @return <code>true</code> if User was created, <code>false</code> if User
-     *         already exists, email is a unique identifier
+     * @param       user User object to be added
+     * @return      <code>true</code> if User was created, <code>false</code> if User already exists
+     *              email is a unique identifier
      */
     public static Boolean create(MovieGoer user) {
         File inputFile = new File(DataController.getPath("MovieGoer"));
@@ -108,11 +105,11 @@ public class MovieGoerController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
 
@@ -131,7 +128,8 @@ public class MovieGoerController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            return false;
         }
 
         Boolean Found = false;
@@ -142,7 +140,7 @@ public class MovieGoerController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(user.getEmail())) {
+                if (tokens[1].toLowerCase().equals(user.getEmail())) {
                     Found = true;
                     writer.close();
                     reader.close();
@@ -177,12 +175,18 @@ public class MovieGoerController {
                 writer.append("0");
                 writer.append("\n");
             }
+        } catch (IOException e) {
+            return false;
+        }
+        try {
             writer.close();
             reader.close();
             // delete old file
             Files.delete(Paths.get(DataController.getPath("MovieGoer")));
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("didnt manage to delete old data");
+            return false;
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("MovieGoer")));
@@ -208,11 +212,11 @@ public class MovieGoerController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
 
@@ -231,7 +235,7 @@ public class MovieGoerController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         Boolean Found = false;
@@ -242,7 +246,7 @@ public class MovieGoerController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(user.getEmail())) {
+                if (tokens[1].toLowerCase().equals(user.getEmail())) {
                     Found = true;
                     writer.append(user.getName());
                     writer.append(",");
@@ -279,7 +283,7 @@ public class MovieGoerController {
             // delete old file
             Files.delete(Paths.get(DataController.getPath("MovieGoer")));
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("MovieGoer")));
@@ -305,11 +309,11 @@ public class MovieGoerController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
 
@@ -328,7 +332,7 @@ public class MovieGoerController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         Boolean Found = false;
@@ -339,7 +343,7 @@ public class MovieGoerController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(user.getEmail())) {
+                if (tokens[1].toLowerCase().equals(user.getEmail())) {
                     // do nothing
                     Found = true;
                 } else {
@@ -366,7 +370,7 @@ public class MovieGoerController {
             // delete old file
             Files.delete(Paths.get(DataController.getPath("MovieGoer")));
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("MovieGoer")));
@@ -392,11 +396,11 @@ public class MovieGoerController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
 
@@ -415,7 +419,7 @@ public class MovieGoerController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         Boolean Found = false;
@@ -426,7 +430,7 @@ public class MovieGoerController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(email)) {
+                if (tokens[1].toLowerCase().equals(email)) {
                     // do nothing
                     Found = true;
                 } else {
@@ -453,7 +457,7 @@ public class MovieGoerController {
             // delete old file
             Files.delete(Paths.get(DataController.getPath("MovieGoer")));
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("MovieGoer")));

@@ -69,7 +69,11 @@ public class Movie {
      * @return title of Movie object.
      */
     public String getTitle() {
+<<<<<<< HEAD
+        return Movie.title;
+=======
         return this.title;
+>>>>>>> master
     }
 
     /**
