@@ -43,7 +43,7 @@ public class Movie {
      * @param movieRating   Movie rating (PG, PG13, NC16, M18 or R21)
      * @param ticketSales   Movie ticket sales
      */
-    public Movie(String title, String director, String[] cast, LocalDateTime releaseDate, LocalDateTime endDate, String synopsis,
+    public Movie(String title, String director, String[] cast, String releaseDate, String endDate, String synopsis,
             int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating, int ticketSales) {
 
         // Format the date using dd-MM-yyyy
@@ -52,8 +52,8 @@ public class Movie {
         this.title = title;
         this.director = director;
         this.cast = cast;
-        this.releaseDate = LocalDateTime.parse(releaseDate + "00:00", formatter);
-        this.endDate = LocalDateTime.parse(endDate + "00:00", formatter);
+        this.releaseDate = LocalDateTime.parse(releaseDate + " 00:00", formatter);
+        this.endDate = LocalDateTime.parse(endDate + " 00:00", formatter);
         this.synopsis = synopsis;
         this.duration = duration;
         this.showingStatus = showingStatus;
@@ -133,7 +133,7 @@ public class Movie {
      */
     public void setReleaseDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        this.releaseDate = LocalDateTime.parse(date + "00:00", formatter);
+        this.releaseDate = LocalDateTime.parse(date + " 00:00", formatter);
     }
 
     /**
@@ -152,7 +152,7 @@ public class Movie {
      */
     public void setEndDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        this.endDate = LocalDateTime.parse(date + "00:00", formatter);
+        this.endDate = LocalDateTime.parse(date + " 00:00", formatter);
     }
 
     /**

@@ -45,10 +45,9 @@ public class MovieController {
         ArrayList<Movie> movieArrayList = new ArrayList<>();
         try {
             reader.readLine();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                Movie movie = new Movie(tokens[0], tokens[1], line.split(tokens[2]), LocalDateTime.parse(tokens[3] + "00:00", formatter), LocalDateTime.parse(tokens[4] + "00:00", formatter), tokens[5], Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]), movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]), Integer.parseInt(tokens[10]));
+                Movie movie = new Movie(tokens[0], tokens[1], line.split(tokens[2]), tokens[3], tokens[4], tokens[5], Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]), movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]), Integer.parseInt(tokens[10]));
                 movieArrayList.add(movie);
             }
             reader.close();
@@ -72,11 +71,10 @@ public class MovieController {
         String line = "";
         try {
             reader.readLine();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[1].equals(Title)){
-                    return new Movie(tokens[0], tokens[1], line.split(tokens[2]), LocalDateTime.parse(tokens[3] + "00:00", formatter), LocalDateTime.parse(tokens[4] + "00:00", formatter), tokens[5], Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]), movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]), Integer.parseInt(tokens[10]));
+                    return new Movie(tokens[0], tokens[1], line.split(tokens[2]), tokens[3], tokens[4], tokens[5], Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]), movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]), Integer.parseInt(tokens[10]));
                 }
             }
             reader.close();
