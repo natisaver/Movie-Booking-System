@@ -63,26 +63,26 @@ public class Login extends BaseMenu {
 
             // Email does not exist in database. Return error message
             if (user == null && admin == null ) {
-                System.out.println("Email does not exist");
+                System.out.println(ConsoleColours.RED + "Email does not exist." + ConsoleColours.RESET);
                 System.out.println("Re-enter your credentials or create an account");
             }
             // Email exists, but does not match password in database. Return error message
             else if ((user != null && !(user.getPassword().equals(password))) || (admin != null && !(admin.getPassword().equals(password)))) {
                 // System.out.println(user.getPassword());
                 // System.out.println(admin.getPassword());
-                System.out.println("Wrong email or Password");
+                System.out.println(ConsoleColours.RED + "Wrong email or Password." + ConsoleColours.RESET);
                 System.out.println("Reenter your credentials");
             }
             // Correct Email & Password will direct user to relevant page
             else {
-                System.out.println("You've successfully login!");
+                System.out.println(ConsoleColours.GREEN + "You've successfully login!" + ConsoleColours.RESET);
                 //moviegoer page
                 if (admin == null){
-
+                    return new MovieGoerMainMenu(this, 0, user);
                 }
                 //admin page
                 if (user == null) {
-
+                    return new AdminMainMenu(this, 1, admin);
                 }
             }
         } while (!(email.isBlank() || password.isBlank()));

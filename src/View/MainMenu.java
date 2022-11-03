@@ -33,7 +33,7 @@ public class MainMenu extends BaseMenu{
         BaseMenu nextMenu = this;
         int choice;
 
-        System.out.println(ConsoleColours.WHITE_BOLD + "Movie Booking and Listing Management Application (MOBLIMA)");
+        System.out.println(ConsoleColours.PURPLE_BOLD + "Movie Booking and Listing Management Application (MOBLIMA)");
         System.out.flush();
         System.out.println(ConsoleColours.WHITE +"1. Browse");
         System.out.flush();
@@ -48,13 +48,13 @@ public class MainMenu extends BaseMenu{
 
             switch (choice) {
                 case 1:
-                    // nextMenu = new MovieGoerMainMenu(this);
+                    nextMenu = new MovieGoerMainMenu(this, -1, null);
                     break;
                 case 2:
                     nextMenu = new Login(this, -1);
                     break;
                 case 3:
-                    //nextMenu = new AdminMainMenu(this);
+                    nextMenu = new CreateAccount(this, -1);
                     break;
                 case 4:
                     nextMenu = new Quit(this);

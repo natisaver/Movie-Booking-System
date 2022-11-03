@@ -70,7 +70,7 @@ public class Movie {
      * 
      * @return title of Movie object.
      */
-    public static String getTitle() {
+    public String getTitle() {
         return Movie.title;
     }
 
@@ -79,7 +79,7 @@ public class Movie {
      * 
      * @param title title of Movie object.
      */
-    public static void setTitle(String movieTitle) {
+    public void setTitle(String movieTitle) {
         title = movieTitle;
     }
 

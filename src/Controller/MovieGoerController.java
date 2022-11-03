@@ -132,6 +132,7 @@ public class MovieGoerController {
 
         } catch (IOException e) {
             //e.printStackTrace();
+            return false;
         }
 
         Boolean Found = false;
@@ -177,12 +178,18 @@ public class MovieGoerController {
                 writer.append("0");
                 writer.append("\n");
             }
+        } catch (IOException e) {
+            return false;
+        }
+        try {
             writer.close();
             reader.close();
             // delete old file
             Files.delete(Paths.get(DataController.getPath("MovieGoer")));
         } catch (IOException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
+            System.out.println("didnt manage to delete old data");
+            return false;
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("MovieGoer")));
