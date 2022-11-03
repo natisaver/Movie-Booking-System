@@ -209,8 +209,7 @@ public class MovieController {
     return true;
     }
     
-    // Need help with update class :<
-    /*public static Boolean update(Movie movie)
+    public static Boolean update(Movie movie)
     {
         File inputFile = new File(DataController.getPath("Movie"));
         File tempFile = new File(DataController.getPath("Temp"));
@@ -268,63 +267,70 @@ public class MovieController {
 
                 if (tokens[1].equals(movie.getTitle())) {
                     Found = true;
-                    writer.append(tokens[0]);
+                    writer.append(movie.getTitle());
                     writer.append(",");
-                    writer.append(tokens[1]);
+                    writer.append(movie.getDirector());
                     writer.append(",");
-                    writer.append(tokens[2]);
+                    writer.append(Arrays.toString(movie.getCast()));
                     writer.append(",");
-                    writer.append(tokens[3]);
+                    writer.append(movie.getReleaseDate().format(formatter));
                     writer.append(",");
-                    writer.append(tokens[4]);
+                    writer.append(movie.getEndDate().format(formatter));
                     writer.append(",");
-                    writer.append(tokens[5]);
+                    writer.append(movie.getSynopsis());
                     writer.append(",");
-                    writer.append(tokens[6]);
+                    writer.append(Integer.toString(movie.getDuration()));
                     writer.append(",");
-                    writer.append(tokens[7]);
+                    writer.append(movie.getShowingStatus().name());
                     writer.append(",");
-                    writer.append(tokens[8]);
+                    writer.append(movie.getMovieType().name());
                     writer.append(",");
-                    writer.append(tokens[9]);
+                    writer.append(movie.getMovieRating().name());
                     writer.append(",");
-                    writer.append(tokens[10]);
+                    writer.append(Integer.toString(movie.getTicketSales())); //Ticket sales starts at 0.
                     writer.append("\n");
             }
-            if (Found == false){
-                writer.append(movie.getTitle());
+            else{
+                writer.append(tokens[0]);
                 writer.append(",");
-                writer.append(movie.getDirector());
+                writer.append(tokens[1]);
                 writer.append(",");
-                writer.append(Arrays.toString(movie.getCast()));
+                writer.append(tokens[2]);
                 writer.append(",");
-                writer.append(movie.getReleaseDate().format(formatter));
+                writer.append(tokens[3]);
                 writer.append(",");
-                writer.append(movie.getEndDate().format(formatter));
+                writer.append(tokens[4]);
                 writer.append(",");
-                writer.append(movie.getSynopsis());
+                writer.append(tokens[5]);
                 writer.append(",");
-                writer.append(Integer.toString(movie.getDuration()));
+                writer.append(tokens[6]);
                 writer.append(",");
-                writer.append(movie.getShowingStatus().name());
+                writer.append(tokens[7]);
                 writer.append(",");
-                writer.append(movie.getMovieType().name());
+                writer.append(tokens[8]);
                 writer.append(",");
-                writer.append(movie.getMovieRating().name());
+                writer.append(tokens[9]);
                 writer.append(",");
-                writer.append("0"); //Ticket sales starts at 0.
+                writer.append(tokens[10]);
                 writer.append("\n");
             }
+        }
         writer.close();
         reader.close();
+        if (Found == false)
+        {
+            return false;
+        }
         //delete old file
         Files.delete(Paths.get(DataController.getPath("Movie")));
         } catch (IOException e) {
-        e.printStackTrace();}
+        e.printStackTrace();
+    }
     //replace with the new file
     tempFile.renameTo(new File(DataController.getPath("Movie")));
     return true;
-    }*/
+}
+
 
     public static Boolean delete(Movie movie) {
 
