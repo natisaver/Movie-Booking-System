@@ -8,7 +8,7 @@ import Model.Holiday;
 
  /**
  * Reads name and date of public holidays from csv file in the MOBLIMA Cinema Application
- * @author CS2002 Group 
+ * @author Sally Carrera 
  * @version 1.0
  * @since 21-10-2022
  */
@@ -19,7 +19,7 @@ public class HolidayController {
     public final static String PATH = DataController.getPath("Holiday");
 
     /** 
-     * READ and list of holidays from Database
+     * READ a list of holidays from Database
      * @return ArrayList    Return array of Holiday if database exists, else null object
      */
     public static ArrayList<Holiday> read() {
@@ -38,7 +38,7 @@ public class HolidayController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                     String dateTime = tokens[0] + " 00:00";
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
                     LocalDateTime newObj = LocalDateTime.parse(dateTime, formatter);

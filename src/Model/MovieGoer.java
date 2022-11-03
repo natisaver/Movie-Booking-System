@@ -28,7 +28,7 @@ public class MovieGoer extends User{
 	/**
      * Current Available Roles
      */
-    public static final int MOVIE_GOER = 0, ADMIN = 1;
+    public static final int MOVIE_GOER = 1, ADMIN = 0;
 
 	/** 
 	 * Constructor
@@ -70,7 +70,7 @@ public class MovieGoer extends User{
      * Set user's phone number
      * @param phoneNum   user's phoneNumber
      */
-    public void setName(String phoneNum) {
+    public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
 

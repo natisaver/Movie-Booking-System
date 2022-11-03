@@ -23,7 +23,7 @@ public class AdminController {
         try {
             reader = new BufferedReader(new FileReader(PATH));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            // //e.printStackTrace();
             return new ArrayList<Admin>();
         }
 
@@ -33,13 +33,13 @@ public class AdminController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 Admin user = new Admin(tokens[0], tokens[1], tokens[4]);
                 userArrayList.add(user);
             }
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            // //e.printStackTrace();
         }
         return userArrayList;
     }
@@ -55,7 +55,7 @@ public class AdminController {
         try {
             reader = new BufferedReader(new FileReader(PATH));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            // //e.printStackTrace();
             return null;
         }
 
@@ -64,15 +64,15 @@ public class AdminController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
-                if (tokens[1].equals(email)){
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                if (tokens[1].toLowerCase().equals(email)){
                     return new Admin(tokens[0], tokens[1], tokens[4]);
                 }
             }
             reader.close();
             return null;
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
     }
@@ -93,11 +93,11 @@ public class AdminController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
 
@@ -116,7 +116,7 @@ public class AdminController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         Boolean Found = false;
@@ -125,10 +125,15 @@ public class AdminController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(user.getEmail())) {
+                if (tokens[1].toLowerCase().equals(user.getEmail())) {
                     Found = true;
+                    writer.close();
+                    reader.close();
+                    //delete old file
+                    Files.delete(Paths.get(DataController.getPath("Temp")));
+                    return false;
                 }
                 writer.append(tokens[0]);
                 writer.append(",");
@@ -162,7 +167,8 @@ public class AdminController {
         //delete old file
         Files.delete(Paths.get(DataController.getPath("Admin")));
         } catch (IOException e) {
-        e.printStackTrace();}
+        //e.printStackTrace();
+        }
     //replace with the new file
     tempFile.renameTo(new File(DataController.getPath("Admin")));
     return true;
@@ -185,11 +191,11 @@ public class AdminController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
 
@@ -208,7 +214,7 @@ public class AdminController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         Boolean Found = false;
@@ -217,9 +223,9 @@ public class AdminController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(user.getEmail())) {
+                if (tokens[1].toLowerCase().equals(user.getEmail())) {
                     Found = true;
                     writer.append(user.getName());
                     writer.append(",");
@@ -257,7 +263,8 @@ public class AdminController {
         //delete old file
         Files.delete(Paths.get(DataController.getPath("Admin")));
         } catch (IOException e) {
-        e.printStackTrace();}
+        //e.printStackTrace();
+        }
     //replace with the new file
     tempFile.renameTo(new File(DataController.getPath("Admin")));
     return true;
@@ -280,11 +287,11 @@ public class AdminController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
 
@@ -303,7 +310,7 @@ public class AdminController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         Boolean Found = false;
@@ -312,9 +319,9 @@ public class AdminController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(user.getEmail())) {
+                if (tokens[1].toLowerCase().equals(user.getEmail())) {
                     //do nothing
                     Found = true;
                 }
@@ -342,7 +349,8 @@ public class AdminController {
         //delete old file
         Files.delete(Paths.get(DataController.getPath("Admin")));
         } catch (IOException e) {
-        e.printStackTrace();}
+        //e.printStackTrace();
+        }
     //replace with the new file
     tempFile.renameTo(new File(DataController.getPath("Admin")));
     return true;
@@ -365,11 +373,11 @@ public class AdminController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
 
@@ -388,7 +396,7 @@ public class AdminController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         Boolean Found = false;
@@ -397,9 +405,9 @@ public class AdminController {
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(email)) {
+                if (tokens[1].toLowerCase().equals(email)) {
                     //do nothing
                     Found = true;
                 }
@@ -427,7 +435,8 @@ public class AdminController {
         //delete old file
         Files.delete(Paths.get(DataController.getPath("Admin")));
         } catch (IOException e) {
-        e.printStackTrace();}
+        //e.printStackTrace();
+        }
     //replace with the new file
     tempFile.renameTo(new File(DataController.getPath("Admin")));
     return true;
