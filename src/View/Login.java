@@ -57,6 +57,10 @@ public class Login extends BaseMenu {
             System.out.print("Password:");
             password = sc.nextLine();
 
+            if(password.isBlank()){
+                break;
+            }
+
             // Checks if Email in database
             user = MovieGoerController.readByEmail(email);
             admin = AdminController.readByEmail(email);

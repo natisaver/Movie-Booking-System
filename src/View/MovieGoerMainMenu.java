@@ -36,6 +36,7 @@ public class MovieGoerMainMenu extends BaseMenu{
     @Override
     public BaseMenu execute() {
         int choice;
+        String numregex = "^(?!(0))[0-4]{1}$";
 
         System.out.println(ConsoleColours.YELLOW_BOLD + "Customer Menu Options:" + ConsoleColours.RESET);
         System.out.println("1. Book ticket");
@@ -49,37 +50,47 @@ public class MovieGoerMainMenu extends BaseMenu{
         }
 
         BaseMenu nextMenu = this;
-        
-        do{
-            System.out.print("Enter your choice:");
-            choice = sc.nextInt();
 
-            
-            switch (choice) {
-                case 1:
-                    // nextMenu = new BookTicket(this);
-                    break;
-                case 2:
-                    if (moviegoer == null){
-                        nextMenu = new CreateOrLogin(nextMenu, -1);
-                    }
-                    else {
-                        System.out.println("You can leave a review");
-                    }
-                    // nextMenu = new LeaveReview(this);
-                    break;
-                case 3:
-                    // nextMenu = new CheckHistory(this);
-                    break;
-                case 4:
-                    nextMenu = new MainMenu(null, -1);
-                    break;
-                default:
-                    choice = -1;
-                    System.out.println(ConsoleColours.RED + "Please enter a valid choice." + ConsoleColours.RESET);
-                    break;
+        //keep asking for choice
+        System.out.println("Enter your choice: ");
+        String choicestr = sc.nextLine();
+
+        while (!choicestr.matches(numregex)) {
+            //early termination
+            if(choicestr.isBlank()){
+                return this.getPreviousMenu();
             }
-        }while(choice == -1);
+            System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
+            choicestr = sc.nextLine();
+        }
+
+        choice = Integer.valueOf(choicestr);
+        
+        switch (choice) {
+            case 1:
+                // nextMenu = new BookTicket(this);
+                break;
+            case 2:
+                if (moviegoer == null){
+                    nextMenu = new CreateOrLogin(nextMenu, -1);
+                }
+                else {
+                    System.out.println("You can leave a review");
+                }
+                // nextMenu = new LeaveReview(this);
+                break;
+            case 3:
+                // nextMenu = new CheckHistory(this);
+                break;
+            case 4:
+                nextMenu = new MainMenu(null, -1);
+                break;
+            default:
+                choice = -1;
+                System.out.println(ConsoleColours.RED + "Going Back" + ConsoleColours.RESET);
+                break;
+        }
+
 
         return nextMenu;
 
