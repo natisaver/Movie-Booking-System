@@ -32,6 +32,7 @@ public class MainMenu extends BaseMenu{
     public BaseMenu execute() {
         BaseMenu nextMenu = this;
         int choice;
+        String numregex = "^(?!(0))[0-4]{1}$";
 
         System.out.println(ConsoleColours.PURPLE_BOLD + "Movie Booking and Listing Management Application (MOBLIMA)");
         System.out.flush();
@@ -42,29 +43,39 @@ public class MainMenu extends BaseMenu{
         System.out.println("4. " + ConsoleColours.RED + "Quit" + ConsoleColours.RESET);
         System.out.flush();
 
-        do{
-            System.out.print("Enter your choice:");
-            choice = sc.nextInt();
+        //keep asking for choice
+        System.out.println("Enter your choice: ");
+        String choicestr = sc.nextLine();
 
-            switch (choice) {
-                case 1:
-                    nextMenu = new MovieGoerMainMenu(this, -1, null);
-                    break;
-                case 2:
-                    nextMenu = new Login(this, -1);
-                    break;
-                case 3:
-                    nextMenu = new CreateAccount(this, -1);
-                    break;
-                case 4:
-                    nextMenu = new Quit(this);
-                    break;
-                default:
-                    choice = -1;
-                    System.out.println(ConsoleColours.RED + "Please enter a valid choice." + ConsoleColours.RESET);
-                    break;
+        while (!choicestr.matches(numregex)) {
+            //early termination
+            if(choicestr.isBlank()){
+                return this.getPreviousMenu();
             }
-        } while(choice==-1);
+            System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
+            choicestr = sc.nextLine();
+        }
+
+        choice = Integer.valueOf(choicestr);
+
+        switch (choice) {
+            case 1:
+                nextMenu = new MovieGoerMainMenu(this, -1, null);
+                break;
+            case 2:
+                nextMenu = new Login(this, -1);
+                break;
+            case 3:
+                nextMenu = new CreateAccount(this, -1);
+                break;
+            case 4:
+                nextMenu = new Quit(this);
+                break;
+            default:
+                choice = -1;
+                System.out.println(ConsoleColours.RED + "Quitting." + ConsoleColours.RESET);
+                break;
+        }
 
         return nextMenu;
     }

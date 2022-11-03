@@ -47,7 +47,7 @@ public class CreateAccount extends BaseMenu {
                 System.out.println("You entered: " + email);
                 //early termination
                 if(email.isBlank()){
-                    return this.getPreviousMenu().getPreviousMenu();
+                    return this.getPreviousMenu();
                 }
                 regexPattern = Pattern.compile("^[(a-zA-Z-0-9-\\_\\+\\.)]+@[(a-z-A-z)]+\\.[(a-zA-z)]{2,3}$");
                 regMatcher = regexPattern.matcher(email);
@@ -68,7 +68,7 @@ public class CreateAccount extends BaseMenu {
             while (!phoneNo.matches(numregex)) {
                 //early termination
                 if(phoneNo.isBlank()){
-                    return this.getPreviousMenu().getPreviousMenu();
+                    return this.getPreviousMenu();
                 }
                 System.out.println(ConsoleColours.RED + "Please key a valid Phone Number:" + ConsoleColours.RESET);
                 phoneNo = sc.nextLine();
@@ -80,7 +80,7 @@ public class CreateAccount extends BaseMenu {
             while (!ageString.matches(numregex)) {
                 //early termination
                 if(ageString.isBlank()){
-                    return this.getPreviousMenu().getPreviousMenu();
+                    return this.getPreviousMenu();
                 }
                 System.out.println(ConsoleColours.RED + "Please key a valid Age:" + ConsoleColours.RESET);
                 ageString = sc.nextLine();
@@ -105,7 +105,7 @@ public class CreateAccount extends BaseMenu {
                 password = sc.nextLine();
                 //early termination
                 if(password.isBlank()){
-                    return this.getPreviousMenu().getPreviousMenu();
+                    return this.getPreviousMenu();
                 }
             }
 
@@ -121,7 +121,7 @@ public class CreateAccount extends BaseMenu {
                 confirmPassword = sc.nextLine();
                 //early termination
                 if(confirmPassword.isBlank()){
-                    return this.getPreviousMenu().getPreviousMenu();
+                    return this.getPreviousMenu();
                 }
             } 
             
