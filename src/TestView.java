@@ -33,8 +33,8 @@ public class TestView {
         // HH:mm");
         // LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
 
-        LocalDateTime lt = LocalDateTime.now();
-        System.out.println(lt.getDayOfWeek().toString());
+        //LocalDateTime lt = LocalDateTime.now();
+        //System.out.println(lt.getDayOfWeek().toString());
 
         // BaseMenu createAccount = new CreateAccount(null);
         // createAccount.execute();
@@ -42,14 +42,14 @@ public class TestView {
         // BaseMenu movieGoerLogin = new MovieGoerLogin(null);
         // movieGoerLogin.execute();
 
-        // BaseMenu bookTicket = new BookTicket(null);
-        // bookTicket.execute();
+        //BaseMenu bookTicket = new BookTicket(null);
+        //bookTicket.execute();
 
         // BaseMenu checkHistory = new CheckHistory(null);
         // checkHistory.execute();
 
-        BaseMenu mainmenu = new Login(null, -1);
-        mainmenu.execute();
+        BaseMenu ListTopFive = new ListTopFive(null, -1);
+        ListTopFive.execute();
 
     }
 }
