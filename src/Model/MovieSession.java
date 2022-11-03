@@ -109,6 +109,20 @@ public class MovieSession {
     }
 
     /**
+     * Book a seat in this MovieSession
+     * @param id
+     */
+    public void bookSeat(String id) {
+		int row, column;
+		if (Character.compare('O', id.charAt(0)) < 0) row = (int)(id.charAt(0) - 67);
+		else if (Character.compare('I', id.charAt(0)) < 0) row = (int)(id.charAt(0) - 66);
+		else row = (int)(id.charAt(0) - 65);
+		if (id.length() > 2) column = Integer.parseInt(id.substring(id.length()-2))-1;
+		else column = Integer.parseInt(id.substring(1))-1;
+		this.sessionSeats[row][column].setIsOccupied();
+	}
+
+    /**
      * Get the MovieSession's seating arrangement
      * @param cinemaClass The cinemaClass of the cinema that the MovieSession is being held in
      */
@@ -135,6 +149,7 @@ public class MovieSession {
                 }
             }
             for (i=0;i<maxRow;i++) {
+                int seatCount = 0;
                 for (j=0;j<=maxCol;j++) {
                     if (j==0) {
                         char rowChar = (char)(i+'A');
@@ -146,8 +161,9 @@ public class MovieSession {
                     }
                     else if (j%3 == 0) System.out.print(" ");
                     else {
-                        if (this.sessionSeats[i][j-1].getIsOccupied()) System.out.print(" [x]");
+                        if (this.sessionSeats[i][seatCount].getIsOccupied()) System.out.print(" [x]");
                         else System.out.print(" [ ]");
+                        seatCount++;
                     }
                 }
             }
@@ -185,6 +201,7 @@ public class MovieSession {
                 }
             }
             for (i=0;i<maxRow;i++) {
+                int seatCount = 0;
                 for (j=0;j<=maxCol;j++) {
                     if (j==0) {
                         if (i>12) rowChar = (char)(i+'C');
@@ -201,8 +218,9 @@ public class MovieSession {
                     else if ((j==9) || (j==30)) System.out.print(" ");
                     else if ((i==maxRow-1) && ((j==1) || (j==2) || (j==37) || (j==38))) System.out.print("    ");
                     else {
-                        if (this.sessionSeats[i][j-1].getIsOccupied()) System.out.print(" [x]");
+                        if (this.sessionSeats[i][seatCount].getIsOccupied()) System.out.print(" [x]");
                         else System.out.print(" [ ]");
+                        seatCount++;
                     }
                 }
             }
@@ -240,6 +258,7 @@ public class MovieSession {
                 }
             }
             for (i=0;i<maxRow;i++) {
+                int seatCount = 0;
                 for (j=0;j<=maxCol;j++) {
                     if (j==0) {
                         if (i>7) rowChar = (char)(i+'B');
@@ -253,8 +272,9 @@ public class MovieSession {
                     }
                     else if ((i==maxRow-1) && (j==5)) System.out.print("    ");
                     else {
-                        if (this.sessionSeats[i][j-1].getIsOccupied()) System.out.print(" [x]");
+                        if (this.sessionSeats[i][seatCount].getIsOccupied()) System.out.print(" [x]");
                         else System.out.print(" [ ]");
+                        seatCount++;
                     }
                 }
             }
