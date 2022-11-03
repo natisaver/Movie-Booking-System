@@ -265,6 +265,13 @@ public class Movie {
     }
 
     /**
+     * Set number of tickets sold to 0 for new movie added.
+     */
+    public void setTicketSales() {
+        this.ticketSales = 0;
+    }
+
+    /**
      * Increment ticket sales. 
      * @param noOfTicket        number of ticket customer bought in single transaction.
      * Called when customer purchase tickets.

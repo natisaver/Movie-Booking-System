@@ -31,7 +31,7 @@ public class MovieSession {
      * @param cinemaClass   The MovieSession's cinemaClass
      * @param title         The MovieSession's movie title
      */
-    public MovieSession(LocalDateTime showtime, cinemaClass_Enum cinemaClass, String title) {
+    public MovieSession(LocalDateTime showtime, cinemaClass_Enum cinemaClass, String title, String cinemaCode) {
         this.showtime = showtime;
         int maxRow = 0;
         int maxCol = 0;
