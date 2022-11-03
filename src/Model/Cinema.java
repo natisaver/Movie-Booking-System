@@ -24,7 +24,7 @@ public class Cinema {
      * Cinema's class type
      * Possible Cinema's class type: (Standard, Platinum Movie Suites)
      */
-    private cinemaClass_Enum cinemaClass;
+    private static cinemaClass_Enum cinemaClass;
 
     /**
      * Cinema's list of movie sessions available
@@ -68,7 +68,7 @@ public class Cinema {
      * @return cinemaClass_Enum Cinema's class type
      *         Possible Cinema's class type: (Standard, Platinum Movie Suites)
      */
-    public cinemaClass_Enum getCinemaClass() {
+    public static cinemaClass_Enum getCinemaClass() {
         return cinemaClass;
     }
 
@@ -86,10 +86,12 @@ public class Cinema {
      * 
      * @return MovieSession[] Cinema's list of movies sessions available
      */
-    public ArrayList<MovieSession> getShowings() {
-        String str = "2022-11-01";
-        Movie movie = new Movie("", "", null, str, str, null, 0, null, null, null, 0);
-        return MovieSessionController.readbyMovieTitle(cinemaCode, movie.getTitle(), movie.getMovieType());
-    }
+    // public ArrayList<MovieSession> getShowings() {
+    // String str = "2022-11-01";
+    // Movie movie = new Movie("", "", null, str, str, null, 0, null, null, null,
+    // 0);
+    // return MovieSessionController.readbyMovieTitle(cinemaCode, movie.getTitle(),
+    // movie.getMovieType());
+    // }
 
 }

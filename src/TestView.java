@@ -47,14 +47,17 @@ public class TestView {
         // BaseMenu movieGoerLogin = new MovieGoerLogin(null);
         // movieGoerLogin.execute();
 
-        BaseMenu bookTicket = new BookTicket(null);
-        bookTicket.execute();
+        // BaseMenu bookTicket = new BookTicket(null);
+        // bookTicket.execute();
 
         // BaseMenu mainMenu = new MovieGoerLogin(null);
         // mainMenu.execute();
 
-        // BaseMenu checkHistory = new CheckHistory(null);
+        // BaseMenu checkHistory = new CheckHistory(null, 0, null);
         // checkHistory.execute();
+
+        BaseMenu mainmenu = new MainMenu(null, -1);
+        mainmenu.execute();
 
     }
 }

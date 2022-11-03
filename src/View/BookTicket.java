@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Controller.CineplexController;
+import Controller.MovieController;
 import Controller.MovieSessionController;
 import Controller.PriceController;
 import Controller.TransactionController;
@@ -27,8 +28,14 @@ public class BookTicket extends BaseMenu {
 
     Scanner sc = new Scanner(System.in);
 
-    public BookTicket(BaseMenu previousMenu) {
-        super(previousMenu);
+    /**
+     * Current User
+     */
+    MovieGoer moviegoer = null;
+
+    public BookTicket(BaseMenu previousMenu, int accesslevel, MovieGoer moviegoer) {
+        super(previousMenu, accesslevel);
+        this.moviegoer = moviegoer;
     }
 
     @Override
@@ -45,7 +52,7 @@ public class BookTicket extends BaseMenu {
         String location;
         cinemaClass_Enum cinemaType;
         Cinema cinema;
-        String showtime = "";
+
         String movieTitle = "";
         movieType_Enum movieType;
         movieRating_Enum movieRating;
@@ -80,6 +87,7 @@ public class BookTicket extends BaseMenu {
         // Display list of Movies for users to choose from
         System.out.println("\nList of Movies Available: \n");
         MovieSessionController.read(cinema);
+        // MovieController.read();
 
         // Field for user to enter choice of movieTitle
         System.out.print("\nPlease choose your preferred Movie: ");
@@ -91,16 +99,29 @@ public class BookTicket extends BaseMenu {
 
         // Display list of Movie Showtime, filtered by choosen movieTitle and movieType
         System.out.println("List of Sessions Available: \n");
-        cinema.getShowings(); // System.out.print(cinema.getShowings());
+        // cinema.getShowings(); // System.out.print(cinema.getShowings());
+        System.out.println(MovieSessionController.readbyMovieTitle(cinema, movie.getTitle(), movie.getMovieType()));
+
+        // Create MovieSession object
+        String strdate = "2022-11-01";
+        String strtime = "13:00";
+        MovieSession movieSession = new MovieSession(strdate, strtime,
+                cinema.getCinemaClass(), null,
+                movie.getMovieType().toString());
 
         // Field for user to enter choice of session
-        System.out.print("\nPlease choose your preferred Session: ");
-        showtime = sc.nextLine();
+        System.out.print("\nPlease choose your preferred Session Date: ");
+        String date = sc.nextLine();
+        System.out.print("\nPlease choose your preferred Session Time: ");
+        String time = sc.nextLine();
+        movieSession.setShowtime(date, time);
         // movieSession.setShowtime(LocalDateTime.parse(showtime));
         // System.out.println(movieSession.getShowtime());
 
         System.out.println("\nDetails of selected Movie Session: ");
-        MovieSessionController.readbyShowtime(cinema, movieTitle, movie.getMovieType(), showtime);
+        MovieSessionController.readbyShowtime(cinema, movieTitle, movie.getMovieType(),
+                movieSession.getShowtime().toString());
+
         // MovieSession session = (MovieSessionController.readbyShowtime(cinema,
         // movieTitle,
         // movie.getMovieType(), showtime)).get(0);
@@ -125,13 +146,6 @@ public class BookTicket extends BaseMenu {
             // Field for user to enter age group for each ticket
             System.out.print("Please select an age group for Ticket " + (i + 1) + ": ");
             ageGroup = ageGroup_Enum.valueOf(sc.next().toUpperCase());
-
-            // Create MovieSession object
-            String strdate = "2022-11-01";
-            String strtime = "13:00";
-            MovieSession movieSession = new MovieSession(strdate, strtime,
-                    cinema.getCinemaClass(), null,
-                    movie.getMovieType().toString());
 
             movieSession.showSeatings(cinema.getCinemaClass());
 
@@ -164,9 +178,9 @@ public class BookTicket extends BaseMenu {
 
         // Create transaction
         Transaction transaction = new Transaction(TID, "", noOfTickets, movieTitle,
-                showtime, totalPrice);
+                movieSession.getShowtime().toString(), totalPrice);
         TransactionController.create(transaction);
 
-        return new MovieGoerMainMenu(this.getPreviousMenu());
+        return new MovieGoerMainMenu(this.getPreviousMenu(), 0, moviegoer);
     }
 }

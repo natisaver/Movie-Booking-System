@@ -80,7 +80,7 @@ public class Movie {
      * @param title title of Movie object.
      */
     public void setTitle(String movieTitle) {
-        this.title = movieTitle;
+        title = movieTitle;
     }
 
     /**

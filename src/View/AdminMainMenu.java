@@ -1,11 +1,19 @@
 package View;
 import java.util.Scanner;
 
+import Model.Admin;
+
 public class AdminMainMenu extends BaseMenu{
     Scanner sc = new Scanner(System.in);
+    
+    /** 
+     * Current User
+     */
+    Admin admin = null;
 
-    public AdminMainMenu(BaseMenu previousMenu) {
-        super(previousMenu);
+    public AdminMainMenu(BaseMenu previousMenu, int accesslevel, Admin admin) {
+        super(previousMenu, accesslevel);
+        this.admin = admin;
     }
 
     @Override
@@ -17,27 +25,30 @@ public class AdminMainMenu extends BaseMenu{
         System.out.println("2. Enter movie details");
         System.out.println("3. Update movie details");
         System.out.println("4. List Top 5 movies");
-        System.out.println("5. Back");
+        System.out.println("5. Logout");
+
+        BaseMenu nextMenu = this;
+
         do{
             System.out.print("Enter your choice:");
             choice = sc.nextInt();
 
-            BaseMenu nextMenu = this;
+
             switch (choice) {
                 case 1:
-                    nextMenu = new ConfigureSettings(this);
+                    // nextMenu = new ConfigureSettings(this);
                     break;
                 case 2:
-                    nextMenu = new EnterDetails(this);
+                    // nextMenu = new EnterDetails(this);
                     break;
                 case 3:
-                    nextMenu = new UpdateDetails(this);
+                    // nextMenu = new UpdateDetails(this);
                     break;
                 case 4:
-                    nextMenu = new ListTop5(this);
+                    // nextMenu = new ListTop5(this);
                     break;
                 case 5:
-                    nextMenu = this.getPreviousMenu();
+                    nextMenu = new MainMenu(null, -1);
                     break;
                 default:
                     choice = -1;
