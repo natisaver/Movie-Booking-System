@@ -2,6 +2,7 @@ package Model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -15,7 +16,7 @@ import java.util.HashMap;
 public class Movie {
     private String title;
     private String director;
-    private String[] cast;
+    private ArrayList<String> cast;
     private LocalDateTime releaseDate;
     private LocalDateTime endDate;
     private String synopsis;
@@ -51,7 +52,7 @@ public class Movie {
 
         this.title = title;
         this.director = director;
-        this.cast = cast;
+        this.cast = new ArrayList<String>();
         this.releaseDate = LocalDateTime.parse(releaseDate + " 00:00", formatter);
         this.endDate = LocalDateTime.parse(endDate + " 00:00", formatter);
         this.synopsis = synopsis;
@@ -104,7 +105,7 @@ public class Movie {
      * 
      * @return casts of Movie object.
      */
-    public String[] getCast() {
+    public ArrayList<String> getCast() {
         return this.cast;
     }
 
@@ -113,7 +114,7 @@ public class Movie {
      * 
      * @param cast casts of Movie object.
      */
-    public void setCast(String[] cast) {
+    public void setCast(ArrayList<String> cast) {
         this.cast = cast;
     }
 
