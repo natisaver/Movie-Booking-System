@@ -1,23 +1,21 @@
 package View;
-import Model.Cinema;
 import Model.Movie;
-import Model.MovieSession;
 import Model.movieRating_Enum;
 import Model.movieType_Enum;
 
 import java.util.Arrays;
 import java.util.Scanner;
-import java.time.LocalDateTime;
+
+import Controller.MovieController;
+
 import java.time.format.DateTimeFormatter;
 
 public class EnterMovieDetails extends BaseMenu{
-    private Movie movie;
-    private MovieSession movieSession;
-    private Cinema cinema;
+    Movie movie;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public EnterMovieDetails(BaseMenu previousMenu) {
-        super(previousMenu);
+    public EnterMovieDetails(BaseMenu previousMenu, int accesslevel) {
+        super(previousMenu, accesslevel);
     }
 
     public BaseMenu execute(){
@@ -28,10 +26,18 @@ public class EnterMovieDetails extends BaseMenu{
         int inputInt;
         String inputArray[];
 
-
         do{
             System.out.println("Enter Movie Title: ");
             inputString = sc.next();
+            movie = MovieController.readByTitle(inputString);
+            
+            //Checks if Movie already exists in the database
+            if(movie == null){
+                System.out.println("Movie does not exist.");
+                System.out.println("Re-enter Movie Title");
+                //need to reprompt here
+            }
+
             movie.setTitle(inputString);
 
             System.out.println("Enter Movie Type: ");
@@ -67,24 +73,16 @@ public class EnterMovieDetails extends BaseMenu{
             System.out.println("Enter End Date (yyyy-MM-dd): ");
             inputString = sc.next();
             movie.setEndDate(inputString);
-
-            //set showtime & cinemaCode concurrently
-            do{
-                System.out.println("Enter Cinema Code to screen movie: ");
-                inputString = sc.next();
-                cinema.setCinemaCode(inputString);
-                System.out.println("Enter Showtime (yyyy-MM-dd HH:mm): ");
-                System.out.println("Enter blank to finish adding showtimes.");
-                inputString = sc.next();
-                movieSession.setShowtime(LocalDateTime.parse(inputString, formatter));
-            }while(inputString != null);
             
             //setting ticket sales to 0 when new movie created
             movie.setTicketSales();
 
-            System.out.println("Enter 1 to create another movie");
-            System.out.println("Enter any other integer to quit");
-            inputInt = sc.nextInt();
+            //add newly created movie to csv
+            MovieController.create(movie);
+
+            // System.out.println("Enter 1 to create another movie");
+            // System.out.println("Enter any other integer to quit");
+            // inputInt = sc.nextInt();
         }while(inputInt == 1);
 
         //go back
