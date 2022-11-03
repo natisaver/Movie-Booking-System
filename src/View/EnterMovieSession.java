@@ -3,18 +3,22 @@ package View;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import Controller.MovieController;
-import Controller.MovieSessionController;
-import Model.Cinema;
+import Controller.CineplexController;
 import Model.Movie;
 import Model.MovieSession;
 
 public class EnterMovieSession extends BaseMenu{
+
     private Movie movie;
     private MovieSession movieSession;
-    private Cinema cinema;
+    private Pattern regexPattern;
+    private Matcher regMatcher;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    Scanner sc = new Scanner(System.in);
+    String date;
 
     public EnterMovieSession(BaseMenu previousMenu, int accesslevel, Movie movie) {
         super(previousMenu, accesslevel);
@@ -22,9 +26,77 @@ public class EnterMovieSession extends BaseMenu{
     }
 
     public BaseMenu execute(){
-        Scanner sc = new Scanner(System.in);
-        String inputString;
-        int inputInt;
+        
+        System.out.println("Input a New Session for Current Movie");
+        System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
+        
+        System.out.println(ConsoleColours.BLUE + "Here are the current codes:" + ConsoleColours.RESET);
+        System.out.println(CineplexController.read());
+
+        //accept cinema code and check
+        String numregex = "^(?!(0))[0-9]{3}$";
+        System.out.println("Enter cinema code of cinema to add to: ");
+        String choicestr = sc.nextLine();
+
+        while (!choicestr.matches(numregex)) {
+            //early termination
+            if(choicestr.isBlank()){
+                return this.getPreviousMenu().getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
+            choicestr = sc.nextLine();
+        }
+        
+        //accept date and check
+        String dateCheck = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$";
+		System.out.println("Enter the date of the holiday: (dd/MM/yyyy)");
+		date = sc.nextLine();
+        while (!date.matches(dateCheck)) {
+            if(date.isBlank()){
+                return this.getPreviousMenu().getPreviousMenu();
+            }
+            System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
+            date = sc.nextLine();
+        }
+		date += " 00:00";
+		LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+
+		System.out.println("Enter the name of the holiday:");
+		name = sc.nextLine();
+
+		if (HolidayController.addHoliday(dateTime, name)) System.out.println("Holiday added!");
+		else System.out.println("Holiday already exists!");
+  }
+        
+        do {
+            System.out.println("Enter Cinema Codes");
+
+            name = sc.nextLine();
+            if(name.isBlank()){
+                break;
+            }
+            System.out.println("ur indicated name is " + name);
+
+            System.out.println("Email: ");
+            //make sure email is valid
+            do {
+                email = sc.nextLine();
+                System.out.println("You entered: " + email);
+                //early termination
+                if(email.isBlank()){
+                    return this.getPreviousMenu();
+                }
+                regexPattern = Pattern.compile("^[(a-zA-Z-0-9-\\_\\+\\.)]+@[(a-z-A-z)]+\\.[(a-zA-z)]{2,3}$");
+                regMatcher = regexPattern.matcher(email);
+                //valid email can break
+                if (regMatcher.matches() && (MovieGoerController.readByEmail(email.toLowerCase()) == null && AdminController.readByEmail(email.toLowerCase()) == null)){
+                    break;
+                }
+                System.out.println(ConsoleColours.RED + "Either an account already exists under this email address OR the email is invalid" + ConsoleColours.RESET);
+                System.out.println("Please Reenter an Email Address:");
+
+            } while (!regMatcher.matches() || (MovieGoerController.readByEmail(email.toLowerCase()) != null || AdminController.readByEmail(email.toLowerCase()) != null));
+
 
         System.out.println("Enter Cinema Code: ");
         inputString = sc.nextLine();
