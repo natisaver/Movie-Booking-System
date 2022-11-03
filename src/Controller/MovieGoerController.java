@@ -24,15 +24,10 @@ public class MovieGoerController {
     /**
      * READ every row of MovieGoer Database File
      * If Database file not found, ignore error and return empty list
-<<<<<<< HEAD
-     * @return      Return list of MovieGoers if any, else empty list
-    */
-=======
      * 
      * @return Model.{@link MovieGoer} Return list of MovieGoers if any, else empty
      *         list
      */
->>>>>>> 352355738788b608b51d3b96a167c7e64e111cbd
     public static ArrayList<MovieGoer> read() {
         // Check if database exists
         BufferedReader reader = null;
