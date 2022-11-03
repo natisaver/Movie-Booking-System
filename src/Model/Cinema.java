@@ -49,7 +49,7 @@ public class Cinema {
      * 
      * @return String Cinemas's code
      */
-    public static String getCinemaCode() {
+    public String getCinemaCode() {
         return cinemaCode;
     }
 
@@ -87,7 +87,9 @@ public class Cinema {
      * @return MovieSession[] Cinema's list of movies sessions available
      */
     public ArrayList<MovieSession> getShowings() {
-        return MovieSessionController.readbyMovieTitle(cinemaCode, Movie.getTitle(), Movie.getMovieType());
+        String str = "2022-11-01";
+        Movie movie = new Movie("", "", null, str, str, null, 0, null, null, null, 0);
+        return MovieSessionController.readbyMovieTitle(cinemaCode, movie.getTitle(), movie.getMovieType());
     }
 
 }

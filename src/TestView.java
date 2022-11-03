@@ -36,6 +36,11 @@ public class TestView {
         LocalDateTime lt = LocalDateTime.now();
         System.out.println(lt.getDayOfWeek().toString());
 
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+        String formatDateTime = now.format(formatter1);
+        System.out.println(formatDateTime);
+
         // BaseMenu createAccount = new CreateAccount(null);
         // createAccount.execute();
 
@@ -44,6 +49,9 @@ public class TestView {
 
         BaseMenu bookTicket = new BookTicket(null);
         bookTicket.execute();
+
+        // BaseMenu mainMenu = new MovieGoerLogin(null);
+        // mainMenu.execute();
 
         // BaseMenu checkHistory = new CheckHistory(null);
         // checkHistory.execute();

@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 
 public class Movie {
-    private static String title;
+    private String title;
     private String director;
     private String[] cast;
     private LocalDateTime releaseDate;
@@ -21,8 +21,8 @@ public class Movie {
     private String synopsis;
     private int duration;
     private showingStatus_Enum showingStatus;
-    private static movieType_Enum movieType;
-    private static movieRating_Enum movieRating;
+    private movieType_Enum movieType;
+    private movieRating_Enum movieRating;
     private HashMap<MovieGoer, Review> reviewList;
     private float reviewerRating;
     private int ticketSales;
@@ -43,7 +43,7 @@ public class Movie {
      * @param movieRating   Movie rating (PG, PG13, NC16, M18 or R21)
      * @param ticketSales   Movie ticket sales
      */
-    public Movie(String title, String director, String[] cast, LocalDateTime releaseDate, LocalDateTime endDate,
+    public Movie(String title, String director, String[] cast, String releaseDate, String endDate,
             String synopsis,
             int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating,
             int ticketSales) {
@@ -54,8 +54,8 @@ public class Movie {
         this.title = title;
         this.director = director;
         this.cast = cast;
-        this.releaseDate = LocalDateTime.parse(releaseDate + "00:00", formatter);
-        this.endDate = LocalDateTime.parse(endDate + "00:00", formatter);
+        this.releaseDate = LocalDateTime.parse(releaseDate + " 00:00", formatter);
+        this.endDate = LocalDateTime.parse(endDate + " 00:00", formatter);
         this.synopsis = synopsis;
         this.duration = duration;
         this.showingStatus = showingStatus;
@@ -70,8 +70,8 @@ public class Movie {
      * 
      * @return title of Movie object.
      */
-    public static String getTitle() {
-        return Movie.title;
+    public String getTitle() {
+        return this.title;
     }
 
     /**
@@ -79,8 +79,8 @@ public class Movie {
      * 
      * @param title title of Movie object.
      */
-    public static void setTitle(String movieTitle) {
-        title = movieTitle;
+    public void setTitle(String movieTitle) {
+        this.title = movieTitle;
     }
 
     /**
@@ -220,8 +220,8 @@ public class Movie {
      * @return array of movie types of Movie object.
      *         movieType_Enum: TWOD, THREED, BLOCKBUSTER
      */
-    public static movieType_Enum getMovieType() {
-        return Movie.movieType;
+    public movieType_Enum getMovieType() {
+        return this.movieType;
     }
 
     /**
@@ -230,8 +230,8 @@ public class Movie {
      * @param movieType movie type of Movie object.
      *                  movieType_Enum: TWOD, THREED, BLOCKBUSTER
      */
-    public static void setMovieType(movieType_Enum movieType) {
-        Movie.movieType = movieType;
+    public void setMovieType(movieType_Enum movieType) {
+        this.movieType = movieType;
     }
 
     /**
@@ -240,8 +240,8 @@ public class Movie {
      * @return movie rating of Movie object.
      *         movieRating_Enum: PG, PG13, NC16, M18, R21
      */
-    public static movieRating_Enum getMovieRating() {
-        return Movie.movieRating;
+    public movieRating_Enum getMovieRating() {
+        return this.movieRating;
     }
 
     /**
@@ -251,7 +251,7 @@ public class Movie {
      *                    movieRating_Enum: PG, PG13, NC16, M18, R21
      */
     public void setMovieRating(movieRating_Enum movieRating) {
-        Movie.movieRating = movieRating;
+        this.movieRating = movieRating;
     }
 
     /**
