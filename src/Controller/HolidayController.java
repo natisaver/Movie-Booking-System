@@ -123,7 +123,7 @@ public class HolidayController {
         return true;
     }
 
-    public static Boolean updateHoliday(LocalDateTime holiday, String holidayName) {
+    public static Boolean updateHoliday(LocalDateTime oldHoliday, LocalDateTime newHoliday, String holidayName) {
         File inputFile = new File(DataController.getPath("Holiday"));
         File tempFile = new File(DataController.getPath("Temp"));
 
@@ -160,10 +160,10 @@ public class HolidayController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
-                String holidayExist = tokens[1];
-                if (holidayName.equals(holidayExist)) {
+                String holidayDate = tokens[0];
+                if (oldHoliday.format(formatter).substring(0,10).equals(holidayDate)) {
                     Found = true;
-                    writer.append(holiday.format(formatter).substring(0,10));
+                    writer.append(newHoliday.format(formatter).substring(0,10));
                     writer.append(",");
                     writer.append(holidayName);
                     writer.append("\n");

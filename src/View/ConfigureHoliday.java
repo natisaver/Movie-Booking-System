@@ -26,18 +26,23 @@ public class ConfigureHoliday {
   }
 
   public void updateHoliday() {
-    String date, name;
+    String oldDate, newDate, name;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     
 		System.out.println("Enter the date of the holiday to be updated: (dd/MM/yyyy)");
-		date = sc.nextLine();
-		date += " 00:00";
-		LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+		oldDate = sc.nextLine();
+		oldDate += " 00:00";
+		LocalDateTime oldHoliday = LocalDateTime.parse(oldDate, formatter);
+
+    System.out.println("Enter the new date of the holiday: (dd/MM/yyyy)");
+    newDate = sc.nextLine();
+    newDate += " 00:00";
+    LocalDateTime newHoliday = LocalDateTime.parse(newDate, formatter);
 
     System.out.println("Enter the name of the holiday to be updated:");
 		name = sc.nextLine();
 
-		if (HolidayController.updateHoliday(dateTime, name)) System.out.println("Holiday updated!");
+		if (HolidayController.updateHoliday(oldHoliday, newHoliday, name)) System.out.println("Holiday updated!");
 		else System.out.println("Holiday doesn't exist!");
   }
 
