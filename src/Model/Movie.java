@@ -2,6 +2,7 @@ package Model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -15,7 +16,7 @@ import java.util.HashMap;
 public class Movie {
     private String title;
     private String director;
-    private String[] cast;
+    private ArrayList<String> cast;
     private LocalDateTime releaseDate;
     private LocalDateTime endDate;
     private String synopsis;
@@ -43,15 +44,17 @@ public class Movie {
      * @param movieRating   Movie rating (PG, PG13, NC16, M18 or R21)
      * @param ticketSales   Movie ticket sales
      */
-    public Movie(String title, String director, String[] cast, String releaseDate, String endDate, String synopsis,
-            int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating, int ticketSales) {
+    public Movie(String title, String director, String[] cast, String releaseDate, String endDate,
+            String synopsis,
+            int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating,
+            int ticketSales) {
 
         // Format the date using dd-MM-yyyy
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         this.title = title;
         this.director = director;
-        this.cast = cast;
+        this.cast = new ArrayList<String>();
         this.releaseDate = LocalDateTime.parse(releaseDate + " 00:00", formatter);
         this.endDate = LocalDateTime.parse(endDate + " 00:00", formatter);
         this.synopsis = synopsis;
@@ -104,7 +107,7 @@ public class Movie {
      * 
      * @return casts of Movie object.
      */
-    public String[] getCast() {
+    public ArrayList<String> getCast() {
         return this.cast;
     }
 
@@ -113,7 +116,7 @@ public class Movie {
      * 
      * @param cast casts of Movie object.
      */
-    public void setCast(String[] cast) {
+    public void setCast(ArrayList<String> cast) {
         this.cast = cast;
     }
 
@@ -286,7 +289,7 @@ public class Movie {
             n++;
             this.reviewerRating += value.getRating();
         }
-        return reviewerRating/n;
+        return reviewerRating / n;
     }
 
     /**

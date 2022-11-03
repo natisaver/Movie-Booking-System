@@ -12,8 +12,11 @@ public class CheckHistory extends BaseMenu {
 
     Scanner sc = new Scanner(System.in);
 
-    public CheckHistory(BaseMenu previousMenu) {
-        super(previousMenu);
+    MovieGoer moviegoer = null;
+
+    public CheckHistory(BaseMenu previousMenu, int accesslevel, MovieGoer moviegoer) {
+        super(previousMenu, accesslevel);
+        this.moviegoer = moviegoer;
     }
 
     @Override
@@ -27,7 +30,7 @@ public class CheckHistory extends BaseMenu {
 
         do {
             // if transaction records exist
-            if (TransactionController.readByName("Bob") != null) {
+            if (TransactionController.readByName(moviegoer.getName()) != null) {
 
             }
             // if no transaction records exist
@@ -37,9 +40,18 @@ public class CheckHistory extends BaseMenu {
 
             // type any character to exit
             back = sc.next();
-            return new MovieGoerMainMenu(this.getPreviousMenu());
 
-        } while (back != " ");
+            if (back.isBlank()) {
+                System.out.println("password is blank");
+                break;
+            }
+
+            return new MovieGoerMainMenu(this.getPreviousMenu(), 0, moviegoer);
+
+        } while (!back.isBlank());
+
+        return this.getPreviousMenu();
+
     }
 
 }

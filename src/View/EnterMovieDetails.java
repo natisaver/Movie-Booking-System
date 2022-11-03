@@ -3,7 +3,7 @@ import Model.Movie;
 import Model.movieRating_Enum;
 import Model.movieType_Enum;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import Controller.MovieController;
@@ -24,7 +24,7 @@ public class EnterMovieDetails extends BaseMenu{
         Scanner sc = new Scanner(System.in);
         String inputString;
         int inputInt;
-        String inputArray[];
+        ArrayList<String> inputArray = new ArrayList<String>(); 
 
         do{
             System.out.println("Enter Movie Title: ");
@@ -59,11 +59,12 @@ public class EnterMovieDetails extends BaseMenu{
             System.out.println("Enter Cast: ");
             int i=0;
             do{
-                inputArray[i].concat(sc.next());
+                inputArray.add(sc.next());
                 i++;
-            }while(inputArray[i] != null);
+            }while(inputArray.get(i) != null);
             movie.setCast(inputArray);
-            Arrays.fill(inputArray, null); //clear array after - for use next time
+            //clear array after - for use next time
+            inputArray.clear();
 
 
             System.out.println("Enter Release Date (yyyy-MM-dd): ");

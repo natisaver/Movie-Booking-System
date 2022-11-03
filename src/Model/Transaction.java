@@ -70,7 +70,7 @@ public class Transaction {
      * @param totalPrice  Total price paid by a MovieGoer under a particular
      *                    TransactionID (TID)
      */
-    public Transaction(String TID, String name, int noOfTickets, String movieTitle, LocalDateTime showtime,
+    public Transaction(String TID, String name, int noOfTickets, String movieTitle, String showtime,
             float totalPrice) {
         // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 

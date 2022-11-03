@@ -1,50 +1,30 @@
-﻿Date,Name
-01/01/2022,New Year's Day
-01/02/2022,Chinese New Year
-02/02/2022,Chinese New Year
-15/04/2022,Good Friday
-01/05/2022,Labour Day
-02/05/2022,Labour Day (moved forward)
-03/05/2022,Hari Raya Puasa
-15/05/2022,Vesak Day
-16/05/2022,Vesak Day (moved forward)
-10/07/2022,Hari Raya Haji
-11/07/2022,Hari Raya Haji (moved forward)
-09/08/2022,National Day
-24/10/2022,Deepavali
-25/12/2022,Christmas Day
-26/12/2022,Christmas Day (moved forward)
-01/01/2023,New Year's Day
-02/01/2023,New Year's Day (moved forward)
-22/01/2023,Chinese New Year
-23/01/2023,Chinese New Year
-24/01/2023,Chinese New Year (moved forward)
-07/04/2023,Good Friday
-22/04/2023,Hari Raya Puasa
-01/05/2023,Labour Day
-02/06/2023,Vesak Day
-29/06/2023,Hari Raya Haji
-09/08/2023,National Day
-12/11/2023,Deepavali
-13/11/2023,Deepavali (moved forward)
-25/12/2023,Christmas Day
-,
-,
-,
-,
-,
-,
-,
-,
-,
-,
-,
-,
-,
-,
-,
-,
-,
-,
-,
-,
+Date,Name
+2022-01-01,New Year's Day
+2022-01-02,Chinese New Year
+2022-02-02,Chinese New Year
+2022-04-15,Good Friday
+2022-01-05,Labour Day
+2022-02-05,Labour Day (moved forward)
+2022-03-05,Hari Raya Puasa
+2022-05-15,Vesak Day
+2022-05-16,Vesak Day (moved forward)
+2022-10-07,Hari Raya Haji
+2022-11-07,Hari Raya Haji (moved forward)
+2022-09-08,National Day
+2022-10-24,Deepavali
+2022-12-25,Christmas Day
+2022-12-26,Christmas Day (moved forward)
+2023-01-01,New Year's Day
+2023-02-01,New Year's Day (moved forward)
+2023-01-22,Chinese New Year
+2023-01-23,Chinese New Year
+2023-01-24,Chinese New Year (moved forward)
+2023-07-04,Good Friday
+2023-04-24,Hari Raya Puasa
+2023-01-05,Labour Day
+2023-02-06,Vesak Day
+2023-06-29,Hari Raya Haji
+2023-09-08,National Day
+2023-12-11,Deepavali
+2023-11-13,Deepavali (moved forward)
+2023-12-25,Christmas Day

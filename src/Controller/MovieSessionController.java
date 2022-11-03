@@ -27,7 +27,7 @@ public class MovieSessionController {
     /**
      * Path in database
      */
-    public final static String PATH = DataController.getPath("MovieSessions");
+    public final static String PATH = DataController.getPath("MovieSession");
 
     /**
      * READ a list of movie sessions from Database
@@ -52,16 +52,16 @@ public class MovieSessionController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
-                // String movieTitle = tokens[1];
-                // String movieType = tokens[2];
-                // String date = tokens[3];
-                // String startTime = tokens[4];
+                String movieTitle = tokens[0];
+                String movieType = tokens[1];
+                String sessionDate = tokens[2];
+                String sessionTime = tokens[3];
                 // String dateTime = date + " " + startTime;
                 // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy
                 // HH:mm");
-                // LocalDateTime sessionTime = LocalDateTime.parse(dateTime, formatter);
-                // movieSessionList.add(new MovieSession(sessionTime, cinema.getCinemaClass(),
-                // movieTitle, movieType));
+                // String sessionTime = dateTime;
+                movieSessionList.add(new MovieSession(sessionDate, sessionTime, cinema.getCinemaClass(),
+                        movieTitle, movieType));
                 System.out.println(tokens[0]);
             }
 
@@ -74,8 +74,10 @@ public class MovieSessionController {
 
     }
 
-    public static ArrayList<MovieSession> readbyMovieTitle(String cinemaCode, String movieTitle,
+    public static ArrayList<MovieSession> readbyMovieTitle(Cinema cinema, String movieTitle,
             movieType_Enum movieType) {
+
+        // Cinema cinema = new Cinema(cinemaCode, null, null);
 
         // Check if database exists
         BufferedReader reader = null;
@@ -94,8 +96,10 @@ public class MovieSessionController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                if (tokens[0].equals(movieTitle) && tokens[1].equals(movieType.toString())) {
+                if (tokens[0].equals(movieTitle) || tokens[1].equals(movieType.toString())) {
                     System.out.println(tokens[0] + " " + tokens[2]);
+                    sessionArrayList.add(new MovieSession(tokens[2], tokens[3], Cinema.getCinemaClass(),
+                            movieTitle, movieType.toString()));
                 }
             }
             reader.close();
@@ -109,6 +113,8 @@ public class MovieSessionController {
 
     public static ArrayList<MovieSession> readbyShowtime(Cinema cinema, String movieTitle,
             movieType_Enum movieType, String showtime) {
+
+        // Cinema cinema = new Cinema(cinemaCode, null, null);
 
         // Check if database exists
         BufferedReader reader = null;
@@ -129,6 +135,12 @@ public class MovieSessionController {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[0].equals(movieTitle) && tokens[1].equals(movieType.toString())
                         && tokens[2].equals(showtime)) {
+
+                    String sessionDate = tokens[2];
+                    String sessionTime = tokens[3];
+                    System.out.println(tokens[0] + " " + tokens[2]);
+                    sessionArrayList.add(new MovieSession(sessionDate, sessionTime, cinema.getCinemaClass(),
+                            movieTitle, movieType.toString()));
                     // String date = tokens[3];
                     // String startTime = tokens[4];
                     // String dateTime = date + " " + startTime;
@@ -137,8 +149,6 @@ public class MovieSessionController {
                     // LocalDateTime sessionTime = LocalDateTime.parse(showtime, formatter);
                     // sessionArrayList.add(new MovieSession(sessionTime, cinema.getCinemaClass(),
                     // movieTitle, movieType.toString()));
-
-                    System.out.println(tokens[0] + " " + tokens[2]);
                 }
             }
             reader.close();
