@@ -1,5 +1,5 @@
 package View;
 
-public class UpdateDetails {
+public class UpdateDetails extends BaseMenu{
     
 }
