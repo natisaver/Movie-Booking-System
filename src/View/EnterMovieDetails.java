@@ -10,13 +10,13 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class EnterDetails extends BaseMenu{
+public class EnterMovieDetails extends BaseMenu{
     private Movie movie;
     private MovieSession movieSession;
     private Cinema cinema;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public EnterDetails(BaseMenu previousMenu) {
+    public EnterMovieDetails(BaseMenu previousMenu) {
         super(previousMenu);
     }
 
