@@ -1,16 +1,19 @@
 package Controller;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-import Model.Movie;
-import Model.movieRating_Enum;
-import Model.movieType_Enum;
-import Model.showingStatus_Enum;
+import Model.*;
 
 /**
  * Controller for CRUD operations managing data relating to Movie
@@ -47,7 +50,6 @@ public class MovieController {
         ArrayList<Movie> movieArrayList = new ArrayList<>();
         try {
             reader.readLine();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 Movie movie = new Movie(tokens[0], tokens[1], line.split(tokens[2]), tokens[3], tokens[4], tokens[5],
@@ -63,7 +65,7 @@ public class MovieController {
         return movieArrayList;
     }
 
-    public static Movie readByTitle(String Title) {
+    public static Movie readByTitle(String title) {
         // Check if database exists
         BufferedReader reader = null;
         try {
@@ -77,10 +79,9 @@ public class MovieController {
         String line = "";
         try {
             reader.readLine();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                if (tokens[1].equals(Title)) {
+                if (tokens[1].toLowerCase().equals(title.toLowerCase())) {
                     return new Movie(tokens[0], tokens[1], line.split(tokens[2]), tokens[3], tokens[4], tokens[5],
                             Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]),
                             movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]),
@@ -150,7 +151,7 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(movie.getTitle())) {
+                if (tokens[1].toLowerCase().equals(movie.getTitle().toLowerCase())) {
                     Found = true;
                     writer.close();
                     reader.close();
@@ -272,7 +273,7 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(movie.getTitle())) {
+                if (tokens[1].toLowerCase().equals(movie.getTitle().toLowerCase())) {
                     Found = true;
                     writer.append(movie.getTitle());
                     writer.append(",");
@@ -392,7 +393,7 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(movie.getTitle())) {
+                if (tokens[1].toLowerCase().equals(movie.getTitle().toLowerCase())) {
                     // do nothing
                     Found = true;
                 } else {
@@ -492,7 +493,7 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(title)) {
+                if (tokens[1].toLowerCase().equals(title.toLowerCase())) {
                     // do nothing
                     Found = true;
                 } else {

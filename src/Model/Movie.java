@@ -135,7 +135,7 @@ public class Movie {
      */
     public void setReleaseDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        this.releaseDate = LocalDateTime.parse(date + "00:00", formatter);
+        this.releaseDate = LocalDateTime.parse(date + " 00:00", formatter);
     }
 
     /**
@@ -154,7 +154,7 @@ public class Movie {
      */
     public void setEndDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        this.endDate = LocalDateTime.parse(date + "00:00", formatter);
+        this.endDate = LocalDateTime.parse(date + " 00:00", formatter);
     }
 
     /**
@@ -283,10 +283,12 @@ public class Movie {
      */
     public float getOverallRating() {
         this.reviewerRating = 0;
+        int n = 0;
         for (Review value : reviewList.values()) {
+            n++;
             this.reviewerRating += value.getRating();
         }
-        return reviewerRating;
+        return reviewerRating / n;
     }
 
     /**
@@ -296,6 +298,13 @@ public class Movie {
      */
     public int getTicketSales() {
         return this.ticketSales;
+    }
+
+    /**
+     * Set number of tickets sold to 0 for new movie added.
+     */
+    public void setTicketSales() {
+        this.ticketSales = 0;
     }
 
     /**
