@@ -78,7 +78,7 @@ public class MovieGoerController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                if (tokens[1].equals(email)) {
+                if (tokens[1].toLowerCase().equals(email)) {
                     return new MovieGoer(tokens[0], tokens[1], tokens[2], Integer.valueOf(tokens[3]), tokens[4]);
                 }
             }
@@ -142,7 +142,7 @@ public class MovieGoerController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(user.getEmail())) {
+                if (tokens[1].toLowerCase().equals(user.getEmail())) {
                     Found = true;
                     writer.close();
                     reader.close();
@@ -242,7 +242,7 @@ public class MovieGoerController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(user.getEmail())) {
+                if (tokens[1].toLowerCase().equals(user.getEmail())) {
                     Found = true;
                     writer.append(user.getName());
                     writer.append(",");
@@ -339,7 +339,7 @@ public class MovieGoerController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(user.getEmail())) {
+                if (tokens[1].toLowerCase().equals(user.getEmail())) {
                     // do nothing
                     Found = true;
                 } else {
@@ -426,7 +426,7 @@ public class MovieGoerController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].equals(email)) {
+                if (tokens[1].toLowerCase().equals(email)) {
                     // do nothing
                     Found = true;
                 } else {

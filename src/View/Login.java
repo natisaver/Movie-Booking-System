@@ -48,7 +48,7 @@ public class Login extends BaseMenu {
 
         do {
             System.out.print("Email:");
-            email = sc.nextLine();
+            email = sc.nextLine().toLowerCase();
 
             if(email.isBlank()){
                 break;
