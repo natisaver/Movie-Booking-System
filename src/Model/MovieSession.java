@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 public class MovieSession {
     /**
-     * MovieSession's show time, in the format of dd-MM-yyyy HH:mm
+     * MovieSession's show time, in the format of yyyy-MM-dd HH:mm
      */
     private static LocalDateTime showtime;
 
