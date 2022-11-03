@@ -257,7 +257,8 @@ public class AdminController {
             }
         writer.close();
         reader.close();
-        if (Found == false){
+        if (Found == false) {
+            Files.delete(Paths.get(DataController.getPath("Temp")));
             return false;
         }
         //delete old file

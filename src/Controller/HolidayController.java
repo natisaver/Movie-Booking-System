@@ -163,21 +163,21 @@ public class HolidayController {
                 String holidayExist = tokens[1];
                 if (holidayName.equals(holidayExist)) {
                     Found = true;
+                    writer.append(holiday.format(formatter).substring(0,10));
+                    writer.append(",");
+                    writer.append(holidayName);
+                    writer.append("\n");
                 }
-                writer.append(tokens[0]);
-                writer.append(",");
-                writer.append(tokens[1]);
-                writer.append("\n");
-            }
-            if (!Found) {
-                writer.append(holiday.format(formatter).substring(0,10));
-                writer.append(",");
-                writer.append(holidayName);
-                writer.append("\n");
+                else {
+                    writer.append(tokens[0]);
+                    writer.append(",");
+                    writer.append(tokens[1]);
+                    writer.append("\n");
+                }
             }
             writer.close();
             reader.close();
-		if (Found) {
+		if (!Found) {
 			Files.delete(Paths.get(DataController.getPath("Temp")));
 			return false;
 		}

@@ -28,20 +28,32 @@ public class ConfigureHoliday {
   public void updateHoliday() {
     String date, name;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
-		System.out.println("Enter the date of the holiday: (dd/MM/yyyy)");
+    
+		System.out.println("Enter the date of the holiday to be updated: (dd/MM/yyyy)");
 		date = sc.nextLine();
 		date += " 00:00";
 		LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
 
-		System.out.println("Enter the name of the holiday:");
+    System.out.println("Enter the name of the holiday to be updated:");
 		name = sc.nextLine();
 
-		if (HolidayController.addHoliday(dateTime, name)) System.out.println("Holiday added!");
-		else System.out.println("Holiday already exists!");
+		if (HolidayController.updateHoliday(dateTime, name)) System.out.println("Holiday updated!");
+		else System.out.println("Holiday doesn't exist!");
   }
 
   public void removeHoliday() {
+    String date, name;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
+    System.out.println("Enter the name of the holiday to be deleted:");
+		name = sc.nextLine();
+
+		System.out.println("Enter the date of the holiday to be updated: (dd/MM/yyyy)");
+		date = sc.nextLine();
+		date += " 00:00";
+		LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+
+		if (HolidayController.updateHoliday(dateTime, name)) System.out.println("Holiday updated!");
+		else System.out.println("Holiday doesn't exist!");
   }
 }
