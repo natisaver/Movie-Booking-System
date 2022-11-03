@@ -9,12 +9,21 @@ import Controller.HolidayController;
 public class ConfigureHoliday {
   Scanner sc = new Scanner(System.in);
 
+  public void viewHolidays() {
+    if (!HolidayController.printHolidays()) System.out.println("There are no saved holidays");
+  }
+
   public void addHoliday() {
     String date, name;
+    String dateCheck = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$";
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
 		System.out.println("Enter the date of the holiday: (dd/MM/yyyy)");
 		date = sc.nextLine();
+    while (!date.matches(dateCheck)) {
+      System.out.println("Please enter the date in the required format: (dd/MM/yyyy)");
+      date = sc.nextLine();
+    }
 		date += " 00:00";
 		LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
 
@@ -27,15 +36,24 @@ public class ConfigureHoliday {
 
   public void updateHoliday() {
     String oldDate, newDate, name;
+    String dateCheck = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$";
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     
 		System.out.println("Enter the date of the holiday to be updated: (dd/MM/yyyy)");
 		oldDate = sc.nextLine();
+    while (!oldDate.matches(dateCheck)) {
+      System.out.println("Please enter the date in the required format: (dd/MM/yyyy)");
+      oldDate = sc.nextLine();
+    }
 		oldDate += " 00:00";
 		LocalDateTime oldHoliday = LocalDateTime.parse(oldDate, formatter);
 
     System.out.println("Enter the new date of the holiday: (dd/MM/yyyy)");
     newDate = sc.nextLine();
+    while (!newDate.matches(dateCheck)) {
+      System.out.println("Please enter the date in the required format: (dd/MM/yyyy)");
+      newDate = sc.nextLine();
+    }
     newDate += " 00:00";
     LocalDateTime newHoliday = LocalDateTime.parse(newDate, formatter);
 
@@ -46,19 +64,29 @@ public class ConfigureHoliday {
 		else System.out.println("Holiday doesn't exist!");
   }
 
-  public void removeHoliday() {
+  public void deleteHoliday(Boolean byName) {
     String date, name;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-    System.out.println("Enter the name of the holiday to be deleted:");
-		name = sc.nextLine();
+    if (!byName) {
+      String dateCheck = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$";
+      System.out.println("Enter the date of the holiday to be deleted: (dd/MM/yyyy)");
+      date = sc.nextLine();
+      while (!date.matches(dateCheck)) {
+        System.out.println("Please enter the date in the required format: (dd/MM/yyyy)");
+        date = sc.nextLine();
+      }
+      date += " 00:00";
+      LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+      if (HolidayController.deleteSingleHoliday(dateTime)) System.out.println("Holiday deleted!");
+      else System.out.println("Holiday date not found!");
+    }
 
-		System.out.println("Enter the date of the holiday to be updated: (dd/MM/yyyy)");
-		date = sc.nextLine();
-		date += " 00:00";
-		LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-
-		if (HolidayController.updateHoliday(dateTime, name)) System.out.println("Holiday updated!");
-		else System.out.println("Holiday doesn't exist!");
+    else {
+      System.out.println("Enter the name of the holiday to be deleted:");
+		  name = sc.nextLine();
+      if (HolidayController.deleteHolidayName(name)) System.out.println("Holiday(s) deleted!");
+      else System.out.println("Holiday name not found!");
+    }
   }
 }
