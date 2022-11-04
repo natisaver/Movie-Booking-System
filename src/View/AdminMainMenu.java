@@ -21,12 +21,12 @@ public class AdminMainMenu extends BaseMenu{
         int choice;
         String numregex = "^(?!(0))[0-5]{1}$";
 
-        System.out.println("Admin Menu Options:");
+        System.out.println(ConsoleColours.PURPLE_BOLD + "Admin Menu Options:" + ConsoleColours.RESET);
         System.out.println("1. Configure System Settings");
         System.out.println("2. Enter movie details");
         System.out.println("3. Update movie details");
         System.out.println("4. List Top 5 movies");
-        System.out.println("5. Logout");
+        System.out.println(ConsoleColours.RED + "5. Logout" + ConsoleColours.RESET);
 
         BaseMenu nextMenu = this;
 
