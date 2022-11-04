@@ -543,4 +543,33 @@ public class MovieController {
         tempFile.renameTo(new File(DataController.getPath("Movie")));
         return true;
     }
+
+    public static int getMovieDuration(String title) {
+        // Check if database exists
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(PATH));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+        // If Database Exists
+        String line = "";
+        try {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                if (tokens[0].equals(title)) {
+                    int duration = Integer.valueOf(tokens[6]);
+                    return duration;
+                }
+                // System.out.println(tokens[0]);
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

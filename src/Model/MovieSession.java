@@ -41,10 +41,9 @@ public class MovieSession {
      * @param movie       The MovieSession's movie title
      * @param movieType   The MovieSession's movie type (2D, 3D or Blockbuster)
      */
-    public MovieSession(String showdate, String showtime, cinemaClass_Enum cinemaClass, String title,
+    public MovieSession(LocalDateTime showtime, cinemaClass_Enum cinemaClass, String title,
             String movieType) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        this.showtime = LocalDateTime.parse(showdate + 'T' + showtime, formatter);
+        this.showtime = showtime;
         int maxRow = 0;
         int maxCol = 0;
         if (cinemaClass == cinemaClass_Enum.GOLD) {
