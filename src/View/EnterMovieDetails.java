@@ -45,6 +45,7 @@ public class EnterMovieDetails extends BaseMenu{
         String inputString, numRegex, strRegex;
         ArrayList<String> inputArray = new ArrayList<String>(); 
 
+        //Enter Movie Title to create
         System.out.println(ConsoleColours.WHITE_BRIGHT + "Enter Details of New Movie:" + ConsoleColours.RESET);
         System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
         System.out.println("Enter Movie Title: ");
@@ -60,6 +61,7 @@ public class EnterMovieDetails extends BaseMenu{
         }
         movie.setTitle(inputString);
 
+        //Enter Movie Type
         strRegex = "TWOD" + "THREED" + "BLOCKBUSTER";
         System.out.println("Enter Movie Type: ");
         inputString = sc.nextLine().toUpperCase();
@@ -73,6 +75,7 @@ public class EnterMovieDetails extends BaseMenu{
         }
         movie.setMovieType(movieType_Enum.valueOf(inputString));
 
+        //Enter Movie Rating
         strRegex = "PG" + "PG13" + "NC16" + "M18" + "R21";
         System.out.println("Enter Movie Rating: ");
         inputString = sc.nextLine().toUpperCase();
@@ -86,6 +89,7 @@ public class EnterMovieDetails extends BaseMenu{
         }
         movie.setMovieRating(movieRating_Enum.valueOf(inputString));
 
+        //Enter Movie Duration
         numRegex = "^([1-9][0-9]|[1-2][0-9][0-9])$";
         System.out.println("Enter Movie Duration (in minutes): ");
         inputString = sc.nextLine();
@@ -99,6 +103,7 @@ public class EnterMovieDetails extends BaseMenu{
         }
         movie.setDuration(Integer.parseInt(inputString));
 
+        //Enter Movie Synopsis
         System.out.println("Enter Synopsis: ");
         inputString = sc.nextLine();
         if(inputString.isBlank()){
@@ -106,6 +111,7 @@ public class EnterMovieDetails extends BaseMenu{
         }
         movie.setSynopsis(inputString);
 
+        //Enter Movie Director
         System.out.println("Enter Director: ");
         inputString = sc.nextLine();
         if(inputString.isBlank()){
@@ -113,6 +119,7 @@ public class EnterMovieDetails extends BaseMenu{
         }
         movie.setDirector(inputString);
 
+        //Enter Movie Cast
         System.out.println("Enter Cast: ");
         int i=0;
         do{
@@ -129,6 +136,7 @@ public class EnterMovieDetails extends BaseMenu{
         //clear array after - for use next time
         inputArray.clear();
 
+        //Enter Movie Release Date
         String dateCheck = "^((2000|2400|2800|(19|2[0-9])(0[48]|[2468][048]|[13579][26]))-02-29)$" 
                         + "|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$"
                         + "|^(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))$" 
@@ -144,6 +152,7 @@ public class EnterMovieDetails extends BaseMenu{
         }
         movie.setReleaseDate(inputString);
 
+        //Enter Movie End Date
         System.out.println("Enter End Date (yyyy-MM-dd): ");
         inputString = sc.nextLine();
         while (!inputString.matches(dateCheck)){
@@ -155,14 +164,13 @@ public class EnterMovieDetails extends BaseMenu{
         }
         movie.setEndDate(inputString);
         
-        //setting ticket sales to 0 when new movie created
+        //Set ticket sales to 0 when new movie created
         movie.setTicketSales();
 
-        //add newly created movie to csv
+        //Add newly created movie object to csv
         MovieController.create(movie);
 
-
-        //go to nextMenu
+        //Go to nextMenu
         nextMenu = new EnterMovieSession(this, 1, movie);
         return nextMenu;
     }

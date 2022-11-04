@@ -62,6 +62,7 @@ public class UpdateDetails extends BaseMenu{
         //If Movie exists, movie object will be the stated Movie
 
         do{
+            //Menu choices to Update Movie Details
             System.out.println(ConsoleColours.PURPLE_BOLD + "Update Details:" + ConsoleColours.RESET);
             System.out.println("1. Movie Title");
             System.out.println("2. Movie Type");
@@ -94,7 +95,8 @@ public class UpdateDetails extends BaseMenu{
             choice = Integer.valueOf(choiceStr);
 
             switch (choice) {
-                
+
+                //Update Movie Title
                 case 1:
                     System.out.println("Enter Updated Title: ");
                     inputString = sc.nextLine();
@@ -104,7 +106,8 @@ public class UpdateDetails extends BaseMenu{
                     movie.setTitle(inputString);
                     MovieController.update(movie);
                     break;
-
+                
+                //Update Movie Type
                 case 2:
                     strRegex = "TWOD" + "THREED" + "BLOCKBUSTER";
                     System.out.println("Enter Updated Movie Type: ");
@@ -121,6 +124,7 @@ public class UpdateDetails extends BaseMenu{
                     MovieController.update(movie);
                     break;
 
+                //Update Movie Rating
                 case 3:
                     strRegex = "PG" + "PG13" + "NC16" + "M18" + "R21";
                     System.out.println("Enter Updated Movie Rating: ");
@@ -137,6 +141,7 @@ public class UpdateDetails extends BaseMenu{
                     MovieController.update(movie);
                     break;
 
+                //Update Movie Duration
                 case 4:
                     numRegex = "^([1-9][0-9]|[1-2][0-9][0-9])$";
                     System.out.println("Enter Updated Movie Duration (in minutes): ");
@@ -153,6 +158,7 @@ public class UpdateDetails extends BaseMenu{
                     MovieController.update(movie);
                     break;
 
+                //Update Movie Synopsis
                 case 5:
                     System.out.println("Enter Updated Synopsis: ");
                     inputString = sc.nextLine();
@@ -163,6 +169,7 @@ public class UpdateDetails extends BaseMenu{
                     MovieController.update(movie);
                     break;
 
+                //Update Movie Director
                 case 6:
                     System.out.println("Enter Updated Director: ");
                     inputString = sc.nextLine();
@@ -173,6 +180,7 @@ public class UpdateDetails extends BaseMenu{
                     MovieController.update(movie);
                     break;
 
+                //Update Movie Cast
                 case 7:
                     System.out.println("Enter Updated Cast: ");
                     //clear current cast first 
@@ -194,6 +202,7 @@ public class UpdateDetails extends BaseMenu{
                     inputArray.clear();
                     break;
 
+                //Update Movie Release & End Date
                 case 8:
                     String dateCheck = "^((2000|2400|2800|(19|2[0-9])(0[48]|[2468][048]|[13579][26]))-02-29)$" 
                         + "|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$"
@@ -224,29 +233,35 @@ public class UpdateDetails extends BaseMenu{
                     MovieController.update(movie);
                     break;
 
+                //Update Movie Type
                 case 9:
 
                     break;
 
+                //Update Movie Type
                 case 10:
                     
                     break;
 
+                //Delete Movie from Movie.csv
                 case 11:
                     MovieController.delete(movie);
                     break;
 
+                //Return to previousMenu
                 case 12:
                     nextMenu = this.getPreviousMenu();
                     return nextMenu;
 
+                //Terminate Program
                 case 13:
                     nextMenu = new Quit(this);
                     return nextMenu;
-
+                
+                //Should not enter here since regex is used
                 default:
-                    choice = -1;
-                    System.out.println(ConsoleColours.RED + "Quitting." + ConsoleColours.RESET);
+                    System.out.println(ConsoleColours.RED + "Invalid choice. Please re-enter your choice." + ConsoleColours.RESET);
+                    System.out.println();
                     break;
             }
         }while(true);
