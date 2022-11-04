@@ -106,14 +106,6 @@ public class TransactionController {
      *         Transaction already exists, transactionID is a unique identifier
      */
 
-    /**
-     * CREATE MovieGoer in the database
-     * 
-     * @param user User object to be added
-     * @return <code>true</code> if User was created, <code>false</code> if User
-     *         already exists
-     *         email is a unique identifier
-     */
     public static Boolean create(String TID, String name, int noOfTickets, String movieTitle, String showTime,
             float totalPrice) {
         File inputFile = new File(DataController.getPath("Transaction"));
@@ -155,9 +147,6 @@ public class TransactionController {
 
         Boolean Found = false;
         String line;
-
-        // Movie movie = new Movie(line, line, null, line, line, line, 0, null, null,
-        // null, 0);
 
         try {
             reader.readLine();

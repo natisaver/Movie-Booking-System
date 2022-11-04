@@ -308,7 +308,7 @@ public class BookTicket extends BaseMenu {
         }
 
         Transaction transaction = new Transaction(TID, moviegoer.getName(), noOfTickets,
-                hashMapMovie.get(movieTitle).getTitle(),
+                movie.getTitle(),
                 movieSession.getShowtime().toString(), totalPrice);
 
         if (TransactionController.create(TID, moviegoer.getName(), noOfTickets, hashMapMovie.get(movieTitle).getTitle(),
