@@ -48,8 +48,13 @@ public class EnterMovieSession extends BaseMenu{
         }
         
         //accept date and check
-        String dateCheck = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$";
-		System.out.println("Enter the date of the holiday: (dd/MM/yyyy)");
+        String dateCheck = "^((2000|2400|2800|(19|2[0-9])(0[48]|[2468][048]|[13579][26]))-02-29)$" 
+        + "|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$"
+        + "|^(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))$" 
+        + "|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        System.out.println("Enter the date of the holiday: (yyyy-MM-dd)");
 		date = sc.nextLine();
         while (!date.matches(dateCheck)) {
             if(date.isBlank()){
@@ -58,6 +63,19 @@ public class EnterMovieSession extends BaseMenu{
             System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
             date = sc.nextLine();
         }
+
+
+        System.out.println("Enter the start time: (HH:mm)");
+		date = sc.nextLine();
+        while (!date.matches(dateCheck)) {
+            if(date.isBlank()){
+                return this.getPreviousMenu().getPreviousMenu();
+            }
+            System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
+            date = sc.nextLine();
+        }
+        
+
 		date += " 00:00";
 		LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
 
