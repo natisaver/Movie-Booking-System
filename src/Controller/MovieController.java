@@ -52,7 +52,7 @@ public class MovieController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                Movie movie = new Movie(tokens[0], tokens[1], line.split(tokens[2]), tokens[3], tokens[4], tokens[5],
+                Movie movie = new Movie(tokens[0], tokens[1], new ArrayList<String>(Arrays.asList(tokens[2].split(","))), tokens[3], tokens[4], tokens[5],
                         Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]),
                         movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]),
                         Integer.parseInt(tokens[10]));
@@ -83,10 +83,10 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[1].toLowerCase().equals(title.toLowerCase())) {
-                    return new Movie(tokens[0], tokens[1], line.split(tokens[2]), tokens[3], tokens[4], tokens[5],
-                            Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]),
-                            movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]),
-                            Integer.parseInt(tokens[10]));
+                    return new Movie(tokens[0], tokens[1], new ArrayList<String>(Arrays.asList(tokens[2].split(","))), tokens[3], tokens[4], tokens[5],
+                        Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]),
+                        movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]),
+                        Integer.parseInt(tokens[10]));
                 }
             }
             reader.close();
@@ -188,8 +188,11 @@ public class MovieController {
                 writer.append(",");
                 writer.append(movie.getDirector());
                 writer.append(",");
-                writer.append(Arrays.toString(movie.getCast()));
-                writer.append(",");
+                StringBuilder sb = new StringBuilder();
+                for (String s : movie.getCast()){
+                    sb.append(s);
+                    sb.append(",");
+                }
                 writer.append(movie.getReleaseDate().format(formatter));
                 writer.append(",");
                 writer.append(movie.getEndDate().format(formatter));
@@ -280,8 +283,11 @@ public class MovieController {
                     writer.append(",");
                     writer.append(movie.getDirector());
                     writer.append(",");
-                    writer.append(Arrays.toString(movie.getCast()));
-                    writer.append(",");
+                    StringBuilder sb = new StringBuilder();
+                    for (String s : movie.getCast()){
+                        sb.append(s);
+                        sb.append(",");
+                    }
                     writer.append(movie.getReleaseDate().format(formatter));
                     writer.append(",");
                     writer.append(movie.getEndDate().format(formatter));
