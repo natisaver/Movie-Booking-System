@@ -2,20 +2,16 @@ package View;
 
 import java.util.Scanner;
 
-import Model.Admin;
-
 public class ConfigureSettings extends BaseMenu{
     Scanner sc = new Scanner(System.in);
-    Admin admin;
 
     /** 
      * Constructor to store previous page and access level
      * @param previousMenu     the previous page
      * @param accesslevel      the level of access
      */
-    public ConfigureSettings(BaseMenu previousMenu, int accesslevel, Admin admin) {
+    public ConfigureSettings(BaseMenu previousMenu, int accesslevel) {
         super(previousMenu, accesslevel);
-        this.admin = admin;
     }
 
     public BaseMenu execute() {
@@ -46,10 +42,10 @@ public class ConfigureSettings extends BaseMenu{
 
         switch (choice) {
             case 1:
-                //nextMenu = new ConfigurePrice(this, 1, admin);
+                //nextMenu = new ConfigurePrice(this, 1);
                 break;
             case 2:
-                nextMenu = new ConfigureHoliday(this, 1, admin);
+                nextMenu = new ConfigureHoliday(this, 1);
                 break;
             case 3:
                 nextMenu = this.getPreviousMenu();

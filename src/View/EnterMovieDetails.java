@@ -1,5 +1,4 @@
 package View;
-import Model.Admin;
 import Model.Movie;
 import Model.movieRating_Enum;
 import Model.movieType_Enum;
@@ -22,7 +21,6 @@ import java.time.format.DateTimeFormatter;
 public class EnterMovieDetails extends BaseMenu{
     Scanner sc = new Scanner(System.in);
     Movie movie = new Movie();
-    Admin admin;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /** 
@@ -30,9 +28,8 @@ public class EnterMovieDetails extends BaseMenu{
      * @param previousMenu     the previous page
      * @param accesslevel      the level of access
      */
-    public EnterMovieDetails(BaseMenu previousMenu, int accesslevel, Admin admin) {
+    public EnterMovieDetails(BaseMenu previousMenu, int accesslevel) {
         super(previousMenu, accesslevel);
-        this.admin = admin;
     }
 
     /**
