@@ -22,16 +22,14 @@ public class ListTopFive extends BaseMenu
         BaseMenu nextMenu = this;
         int choice;
         ArrayList<Movie> movies;
-        int numberMovie;
         Movie temp;
         
         String numregex = "^(?!(0))[0-4]{1}$";
 
         do{
             movies = MovieController.read();
-            numberMovie = movies.size();
-            Movie[] movieArray = new Movie[numberMovie];
-            for(int x = 0; x < numberMovie; x++)
+            Movie[] movieArray = new Movie[movies.size()];
+            for(int x = 0; x < movies.size(); x++)
             {
                 movieArray[x] = movies.get(x);
             }
@@ -60,7 +58,7 @@ public class ListTopFive extends BaseMenu
 
             switch (choice) {
                 case 1:
-                for(int i = 1; i < numberMovie; i++)
+                for(int i = 1; i < movies.size(); i++)
                 {
                     Movie key = movieArray[i];
                     int j = i-1;
@@ -82,7 +80,7 @@ public class ListTopFive extends BaseMenu
                     break;
                             
                 case 2:
-                for(int i = 1; i < numberMovie; i++)
+                for(int i = 1; i < movies.size() ; i++)
                 {
                     Movie key = movieArray[i];
                     int j = i-1;
