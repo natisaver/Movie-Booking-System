@@ -1,9 +1,0 @@
-TID,MovieGoerName,NoOfTickets,MovieTitle,Showtime,TotalPrice
-100202210261300,Bob,1,Jurassic World Dominion,13:00,$13
-100202210261400,Ah Ming,2,Jurassic World Dominion,14:00,$26
-101202210261300,William,2,Top Gun: Maverick,13:00,$26
-<<<<<<< HEAD
-101202211041331,Bob,2,Emergency Declaration (3D),2022-11-01T13:00,24.0
-=======
-101202211041344,Bob,1,Emergency Declaration (2D),2022-11-02T19:00,10.5
->>>>>>> sqbranch
