@@ -9,10 +9,6 @@ import java.util.*;
 
 import Model.MovieSession;
 import Model.cinemaClass_Enum;
-import Model.movieRating_Enum;
-import Model.movieType_Enum;
-import Model.Cinema;
-import Model.Movie;
 
 /**
  * Reads movie titles, date and times, and cinema class of movie sessions from
@@ -284,12 +280,12 @@ public class MovieSessionController {
     /**
      * UPDATE MovieSession in the database
      * 
-     * @param cinema  Cinema in which MovieSession to be updated runs in
+     * @param cinemaCode  Cinema Code of cinema in which MovieSession to be updated runs in
      * @param session MovieSession object to be updated
      * @return <code>true</code> if MovieSession was updated, <code>false</code> if
      *         MovieSession doesnt exist or database is nonexistent
      */
-    public static Boolean update(Cinema cinema, MovieSession session) {
+    public static Boolean update(String cinemaCode, MovieSession session) {
 
         File inputFile = new File(DataController.getPath("MovieSession"));
         File tempFile = new File(DataController.getPath("Temp"));
@@ -339,13 +335,18 @@ public class MovieSessionController {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 LocalDateTime lower = LocalDateTime.parse(tokens[2] + " " + tokens[3], formatter);
                 LocalDateTime upper = lower.plusMinutes(MovieController.getMovieDuration(tokens[0]));
-                if ((tokens[4].equals(cinema.getCinemaCode())) && 
+                if ((tokens[4].equals(cinemaCode)) && 
                 (((sessionTime.isAfter(lower) || sessionTime.equals(lower)) && (sessionTime.isBefore(upper) || sessionTime.equals(upper))) ||
                 ((sessionTimeEnd.isAfter(lower) || sessionTimeEnd.equals(lower)) && (sessionTimeEnd.isBefore(upper) || sessionTimeEnd.equals(upper))))) {
                     Clash = true;
                     break;
                 }
-                if ((tokens[4].equals(cinema.getCinemaCode())) && (sessionTime.equals(lower))) {
+                if ((tokens[4].equals(cinemaCode)) && (sessionTime.equals(lower))) {
+                    if (!tokens[5].equals("\"\"")) {
+                        System.out.println("This session already has bookings!");
+                        Clash = true;
+                        break;
+                    }
                     String dateTime = sessionTime.format(formatter);
                     writer.append(session.getTitle());
                     writer.append(",");
@@ -355,7 +356,7 @@ public class MovieSessionController {
                     writer.append(",");
                     writer.append(dateTime.substring(11));
                     writer.append(",");
-                    writer.append(cinema.getCinemaCode());
+                    writer.append(cinemaCode);
                     writer.append(",");
                     writer.append("\"\"");
                     writer.append("\n");
@@ -369,6 +370,8 @@ public class MovieSessionController {
                     writer.append(tokens[3]);
                     writer.append(",");
                     writer.append(tokens[4]);
+                    writer.append(",");
+                    writer.append(tokens[5]);
                     writer.append("\n");
                 }
             }
@@ -376,9 +379,11 @@ public class MovieSessionController {
             reader.close();
             if (Clash) {
                 Files.delete(Paths.get(DataController.getPath("Temp")));
+                System.out.println("Movie session clashes with existing movie sessions!");
                 return false;
             }
             if (!Found) {
+                System.out.println("Movie session not found!");
                 return false;
             }
             // delete old file
@@ -394,12 +399,12 @@ public class MovieSessionController {
     /**
      * DELETE MovieSession in the database
      * 
-     * @param cinema  Cinema in which MovieSession to be deleted runs in
+     * @param cinemaCode  Cinema Code of cinema in which MovieSession to be deleted runs in
      * @param session MovieSession object to be deleted
      * @return <code>true</code> if MovieSession was deleted, <code>false</code> if
      *         MovieSession doesnt exist or database is nonexistent
      */
-    public static Boolean delete(Cinema cinema, MovieSession session) {
+    public static Boolean delete(String cinemaCode, MovieSession session) {
 
         File inputFile = new File(DataController.getPath("MovieSessions"));
         File tempFile = new File(DataController.getPath("Temp"));
@@ -420,34 +425,32 @@ public class MovieSessionController {
         }
 
         try {
-            writer.append("Cinema Code");
+            writer.append("Title");
             writer.append(",");
-            writer.append("Movie Title");
+            writer.append("movieType");
             writer.append(",");
-            writer.append("Movie Type");
+            writer.append("ShowDate");
             writer.append(",");
-            writer.append("Session Date");
+            writer.append("Showtime");
             writer.append(",");
-            writer.append("Session Start Time");
+            writer.append("cinemaCode");
+            writer.append(",");
+            writer.append("bookedSeats");
             writer.append("\n");
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         Boolean Found = false;
         String line;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                String date = tokens[3];
-                String startTime = tokens[4];
-                String dateTime = date + " " + startTime;
-                LocalDateTime sessionTime = LocalDateTime.parse(dateTime, formatter);
-                if ((tokens[0].equals(cinema.getCinemaCode())) && (sessionTime.equals(session.getShowtime()))) {
+                LocalDateTime sessionTime = LocalDateTime.parse(tokens[2] + " " + tokens[3], formatter);
+                if ((tokens[4].equals(cinemaCode)) && (sessionTime.equals(session.getShowtime()))) {
                     // do nothing
                     Found = true;
                 } else {
@@ -460,6 +463,8 @@ public class MovieSessionController {
                     writer.append(tokens[3]);
                     writer.append(",");
                     writer.append(tokens[4]);
+                    writer.append(",");
+                    writer.append(tokens[5]);
                     writer.append("\n");
                 }
             }
