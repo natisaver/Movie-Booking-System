@@ -9,7 +9,8 @@ import Model.Movie;
 import Model.MovieSession;
 import Model.ageGroup_Enum;
 import Model.cinemaClass_Enum; 
-import Model.movieType_Enum; 
+import Model.movieType_Enum;
+import Model.seatType_Enum; 
 
 /**
  * Controller to determine the price of a ticket in MOBLIMA Cinema Application
@@ -26,15 +27,17 @@ public class PriceController {
      * @param cinemaClass_Enum      Input Cinema Class
      * @return price                Return price of ticket
      */
-    public static double calculatePrice(MovieSession session, ageGroup_Enum ageGroup, cinemaClass_Enum cinemaClass) {
-        String movietype, agegroup, cinemaclass;
+    public static double calculatePrice(MovieSession session, ageGroup_Enum ageGroup, cinemaClass_Enum cinemaClass, seatType_Enum seatType) {
+        String movietype, agegroup, cinemaclass, seattype;
         LocalDateTime dateTime;
         Boolean isHoliday = false;
 
-        movietype = session.getMovieType().toString();
-        agegroup = ageGroup.toString();
-        cinemaclass = cinemaClass.toString();
         dateTime = session.getShowtime();
+
+        movietype = session.getMovieType().name();
+        agegroup = ageGroup.name();
+        cinemaclass = cinemaClass.name();
+        seattype = seatType.name();
 
         //check if current day is a public holiday
         ArrayList<Holiday> holidayArrayList = HolidayController.read();
@@ -46,66 +49,94 @@ public class PriceController {
         if (!isHoliday && dateTime.getHour() < 18 && agegroup == "CHILD" && dateTime.getDayOfWeek().toString() != "SATURDAY" && dateTime.getDayOfWeek().toString() != "SUNDAY"){
             switch(movietype){
                 case "THREED":
-                    if (cinemaclass == "GOLD"){
-                        return 11.00;
+                    if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                        return PriceDataController.readByID("0")[2] + PriceDataController.readByID("0")[3] + PriceDataController.readByID("0")[4];
                     }
-                    else if (cinemaclass == "MAX"){
-                        return 10.00;
-
+                    else if (cinemaclass == "GOLD"){
+                        return PriceDataController.readByID("0")[2] + PriceDataController.readByID("0")[3];
+                    }
+                    else if (seattype == "ELITE"){
+                        return PriceDataController.readByID("0")[2] + PriceDataController.readByID("0")[4];
                     }
                     else {
-                        return 9.00;
+                        return PriceDataController.readByID("0")[2];
                     }   
 
 
                 case "BLOCKBUSTER":
-                    if (cinemaclass == "GOLD"){
-                        return 10.00;
+                    if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                        return PriceDataController.readByID("0")[1] + PriceDataController.readByID("0")[3] + PriceDataController.readByID("0")[4];
                     }
-                    else if (cinemaclass == "MAX"){
-                        return 9.00;
+                    else if (cinemaclass == "GOLD"){
+                        return PriceDataController.readByID("0")[1] + PriceDataController.readByID("0")[3];
+                    }
+                    else if (seattype == "ELITE"){
+                        return PriceDataController.readByID("0")[1] + PriceDataController.readByID("0")[4];
                     }
                     else {
-                        return 8.00;
-                    }   
+                        return PriceDataController.readByID("0")[1];
+                    }    
 
                 default:
-                    if (cinemaclass == "GOLD"){
-                        return 9.00;
+                    if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                        return PriceDataController.readByID("0")[0] + PriceDataController.readByID("0")[3] + PriceDataController.readByID("0")[4];
                     }
-                    else if (cinemaclass == "MAX"){
-                        return 8.00;
+                    else if (cinemaclass == "GOLD"){
+                        return PriceDataController.readByID("0")[0] + PriceDataController.readByID("0")[3];
+                    }
+                    else if (seattype == "ELITE"){
+                        return PriceDataController.readByID("0")[0] + PriceDataController.readByID("0")[4];
                     }
                     else {
-                        return 7.00;
-                    }   
+                        return PriceDataController.readByID("0")[0];
+                    }      
             }
         }
         //for seniors (before 6pm, excluding PH & weekends & 3D Movies)
         if (!isHoliday && dateTime.getHour() < 18 && agegroup == "SENIOR" && dateTime.getDayOfWeek().toString() != "SATURDAY" && dateTime.getDayOfWeek().toString() != "SUNDAY"){
             switch(movietype){
-                case "BLOCKBUSTER":
-                    if (cinemaclass == "GOLD"){
-                        return 7.00;
+                case "THREED":
+                    if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                        return PriceDataController.readByID("1")[2] + PriceDataController.readByID("1")[3] + PriceDataController.readByID("0")[4];
                     }
-                    else if (cinemaclass == "MAX"){
-                        return 6.00;
+                    else if (cinemaclass == "GOLD"){
+                        return PriceDataController.readByID("1")[2] + PriceDataController.readByID("1")[3];
+                    }
+                    else if (seattype == "ELITE"){
+                        return PriceDataController.readByID("1")[2] + PriceDataController.readByID("1")[4];
                     }
                     else {
-                        return 5.00;
+                        return PriceDataController.readByID("1")[2];
                     }   
 
-                case "TWOD":
-                    if (cinemaclass == "GOLD"){
-                        return 6.00;
+
+                case "BLOCKBUSTER":
+                    if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                        return PriceDataController.readByID("1")[1] + PriceDataController.readByID("1")[3] + PriceDataController.readByID("0")[4];
                     }
-                    else if (cinemaclass == "MAX"){
-                        return 5.00;
+                    else if (cinemaclass == "GOLD"){
+                        return PriceDataController.readByID("1")[1] + PriceDataController.readByID("1")[3];
+                    }
+                    else if (seattype == "ELITE"){
+                        return PriceDataController.readByID("1")[1] + PriceDataController.readByID("1")[4];
                     }
                     else {
-                        return 4.00;
-                    }   
-                //no case for "THREED", charged adult pricing
+                        return PriceDataController.readByID("1")[1];
+                    }    
+
+                default:
+                    if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                        return PriceDataController.readByID("1")[0] + PriceDataController.readByID("1")[3] + PriceDataController.readByID("0")[4];
+                    }
+                    else if (cinemaclass == "GOLD"){
+                        return PriceDataController.readByID("1")[0] + PriceDataController.readByID("1")[3];
+                    }
+                    else if (seattype == "ELITE"){
+                        return PriceDataController.readByID("1")[0] + PriceDataController.readByID("1")[4];
+                    }
+                    else {
+                        return PriceDataController.readByID("1")[0];
+                    }  
             }
         }
 
@@ -113,169 +144,239 @@ public class PriceController {
         switch(dateTime.getDayOfWeek().toString()){
             //friday special price
             case "FRIDAY":
-                switch(movietype){
-                    //3D pricing is regardless of time
-                    case "THREED":
-                        if (cinemaclass == "GOLD"){
-                            return 17.00;
-                        }
-                        else if (cinemaclass == "MAX"){
-                            return 16.00;
-                        }
-                        else {
-                            return 15.00;
-                        }   
-
-                    case "BLOCKBUSTER":
-                        if (cinemaclass == "GOLD"){
-                            if (dateTime.getHour() < 18)
-                                return 12.50;
-                            else 
-                                return 14.00;
-                        }
-                        else if (cinemaclass == "MAX"){
-                            if (dateTime.getHour() < 18)
-                                return 11.50;
-                            else 
-                                return 13.00;
-                        }
-                        else {
-                            if (dateTime.getHour() < 18)
-                                return 10.50;
-                            else 
-                                return 12.00;
-                        }   
-                    //case "TWOD"
-                    default:
-                        if (cinemaclass == "GOLD"){
-                            if (dateTime.getHour() < 18)
-                                return 12.50;
-                            else 
-                                return 14.00;
-                        }
-                        else if (cinemaclass == "MAX"){
-                            if (dateTime.getHour() < 18)
-                                return 11.50;
-                            else 
-                                return 13.00;
-                        }
-                        else {
-                            if (dateTime.getHour() < 18)
-                                return 10.50;
-                            else 
-                                return 12.00;
-                        }  
+                if (dateTime.getHour() < 18) {
+                    switch(movietype){
+                        case "THREED":
+                            if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                                return PriceDataController.readByID("4")[2] + PriceDataController.readByID("4")[3] + PriceDataController.readByID("4")[4];
+                            }
+                            else if (cinemaclass == "GOLD"){
+                                return PriceDataController.readByID("4")[2] + PriceDataController.readByID("4")[3];
+                            }
+                            else if (seattype == "ELITE"){
+                                return PriceDataController.readByID("4")[2] + PriceDataController.readByID("4")[4];
+                            }
+                            else {
+                                return PriceDataController.readByID("4")[2];
+                            }   
+        
+        
+                        case "BLOCKBUSTER":
+                            if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                                return PriceDataController.readByID("4")[1] + PriceDataController.readByID("4")[3] + PriceDataController.readByID("4")[4];
+                            }
+                            else if (cinemaclass == "GOLD"){
+                                return PriceDataController.readByID("4")[1] + PriceDataController.readByID("4")[3];
+                            }
+                            else if (seattype == "ELITE"){
+                                return PriceDataController.readByID("")[1] + PriceDataController.readByID("4")[4];
+                            }
+                            else {
+                                return PriceDataController.readByID("4")[1];
+                            }    
+        
+                        default:
+                            if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                                return PriceDataController.readByID("4")[0] + PriceDataController.readByID("4")[3] + PriceDataController.readByID("4")[4];
+                            }
+                            else if (cinemaclass == "GOLD"){
+                                return PriceDataController.readByID("4")[0] + PriceDataController.readByID("4")[3];
+                            }
+                            else if (seattype == "ELITE"){
+                                return PriceDataController.readByID("4")[0] + PriceDataController.readByID("4")[4];
+                            }
+                            else {
+                                return PriceDataController.readByID("4")[0];
+                            }      
+                    }
                 }
+                else {
+                    switch(movietype){
+                        case "THREED":
+                            if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                                return PriceDataController.readByID("5")[2] + PriceDataController.readByID("5")[3] + PriceDataController.readByID("5")[4];
+                            }
+                            else if (cinemaclass == "GOLD"){
+                                return PriceDataController.readByID("5")[2] + PriceDataController.readByID("5")[3];
+                            }
+                            else if (seattype == "ELITE"){
+                                return PriceDataController.readByID("5")[2] + PriceDataController.readByID("5")[4];
+                            }
+                            else {
+                                return PriceDataController.readByID("5")[2];
+                            }   
+        
+        
+                        case "BLOCKBUSTER":
+                            if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                                return PriceDataController.readByID("5")[1] + PriceDataController.readByID("5")[3] + PriceDataController.readByID("5")[4];
+                            }
+                            else if (cinemaclass == "GOLD"){
+                                return PriceDataController.readByID("5")[1] + PriceDataController.readByID("5")[3];
+                            }
+                            else if (seattype == "ELITE"){
+                                return PriceDataController.readByID("5")[1] + PriceDataController.readByID("5")[4];
+                            }
+                            else {
+                                return PriceDataController.readByID("5")[1];
+                            }    
+        
+                        default:
+                            if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                                return PriceDataController.readByID("5")[0] + PriceDataController.readByID("5")[3] + PriceDataController.readByID("5")[4];
+                            }
+                            else if (cinemaclass == "GOLD"){
+                                return PriceDataController.readByID("5")[0] + PriceDataController.readByID("5")[3];
+                            }
+                            else if (seattype == "ELITE"){
+                                return PriceDataController.readByID("5")[0] + PriceDataController.readByID("5")[4];
+                            }
+                            else {
+                                return PriceDataController.readByID("5")[0];
+                            }      
+                    }
+                }
+                
 
             //thursday all day special price
             case "THURSDAY":
                 switch(movietype){
                     case "THREED":
-                        if (cinemaclass == "GOLD"){
-                            return 13.00;
+                        if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                            return PriceDataController.readByID("3")[2] + PriceDataController.readByID("3")[3] + PriceDataController.readByID("3")[4];
                         }
-                        else if (cinemaclass == "MAX"){
-                            return 12.00;
+                        else if (cinemaclass == "GOLD"){
+                            return PriceDataController.readByID("3")[2] + PriceDataController.readByID("3")[3];
+                        }
+                        else if (seattype == "ELITE"){
+                            return PriceDataController.readByID("3")[2] + PriceDataController.readByID("3")[4];
                         }
                         else {
-                            return 11.00;
+                            return PriceDataController.readByID("3")[2];
                         }   
 
+
                     case "BLOCKBUSTER":
-                        if (cinemaclass == "GOLD"){
-                            return 12.50;
+                        if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                            return PriceDataController.readByID("3")[1] + PriceDataController.readByID("3")[3] + PriceDataController.readByID("3")[4];
                         }
-                        else if (cinemaclass == "MAX"){
-                            return 11.50;
+                        else if (cinemaclass == "GOLD"){
+                            return PriceDataController.readByID("3")[1] + PriceDataController.readByID("3")[3];
+                        }
+                        else if (seattype == "ELITE"){
+                            return PriceDataController.readByID("3")[1] + PriceDataController.readByID("3")[4];
                         }
                         else {
-                            return 10.50;
-                        }   
-                    //case "TWOD"
+                            return PriceDataController.readByID("3")[1];
+                        }    
+
                     default:
-                        if (cinemaclass == "GOLD"){
-                            return 11.50;
+                        if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                            return PriceDataController.readByID("3")[0] + PriceDataController.readByID("3")[3] + PriceDataController.readByID("3")[4];
                         }
-                        else if (cinemaclass == "MAX"){
-                            return 10.50;
+                        else if (cinemaclass == "GOLD"){
+                            return PriceDataController.readByID("3")[0] + PriceDataController.readByID("3")[3];
+                        }
+                        else if (seattype == "ELITE"){
+                            return PriceDataController.readByID("3")[0] + PriceDataController.readByID("3")[4];
                         }
                         else {
-                            return 9.50;
-                        }  
+                            return PriceDataController.readByID("3")[0];
+                        }      
                 }
             //weekend all day pricing
             case "SATURDAY":
             case "SUNDAY":
                 switch(movietype){
                     case "THREED":
-                        if (cinemaclass == "GOLD"){
-                            return 17.00;
+                        if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                            return PriceDataController.readByID("6")[2] + PriceDataController.readByID("6")[3] + PriceDataController.readByID("6")[4];
                         }
-                        else if (cinemaclass == "MAX"){
-                            return 16.00;
+                        else if (cinemaclass == "GOLD"){
+                            return PriceDataController.readByID("6")[2] + PriceDataController.readByID("6")[3];
+                        }
+                        else if (seattype == "ELITE"){
+                            return PriceDataController.readByID("6")[2] + PriceDataController.readByID("6")[4];
                         }
                         else {
-                            return 15.00;
+                            return PriceDataController.readByID("6")[2];
                         }   
+
 
                     case "BLOCKBUSTER":
-                        if (cinemaclass == "GOLD"){
-                            return 14.00;
+                        if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                            return PriceDataController.readByID("6")[1] + PriceDataController.readByID("6")[3] + PriceDataController.readByID("6")[4];
                         }
-                        else if (cinemaclass == "MAX"){
-                            return 13.00;
+                        else if (cinemaclass == "GOLD"){
+                            return PriceDataController.readByID("6")[1] + PriceDataController.readByID("6")[3];
+                        }
+                        else if (seattype == "ELITE"){
+                            return PriceDataController.readByID("6")[1] + PriceDataController.readByID("6")[4];
                         }
                         else {
-                            return 12.00;
-                        }   
+                            return PriceDataController.readByID("6")[1];
+                        }    
 
                     default:
-                        if (cinemaclass == "GOLD"){
-                            return 13.00;
+                        if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                            return PriceDataController.readByID("6")[0] + PriceDataController.readByID("6")[3] + PriceDataController.readByID("6")[4];
                         }
-                        else if (cinemaclass == "MAX"){
-                            return 12.00;
+                        else if (cinemaclass == "GOLD"){
+                            return PriceDataController.readByID("6")[0] + PriceDataController.readByID("6")[3];
+                        }
+                        else if (seattype == "ELITE"){
+                            return PriceDataController.readByID("6")[0] + PriceDataController.readByID("6")[4];
                         }
                         else {
-                            return 11.00;
-                        }   
+                            return PriceDataController.readByID("6")[0];
+                        }      
                 }
             
             //mon to wed all day pricing
             default:
                 switch(movietype){
                     case "THREED":
-                        if (cinemaclass == "GOLD"){
-                            return 13.00;
+                        if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                            return PriceDataController.readByID("2")[2] + PriceDataController.readByID("2")[3] + PriceDataController.readByID("2")[4];
                         }
-                        else if (cinemaclass == "MAX"){
-                            return 12.00;
+                        else if (cinemaclass == "GOLD"){
+                            return PriceDataController.readByID("2")[2] + PriceDataController.readByID("2")[3];
+                        }
+                        else if (seattype == "ELITE"){
+                            return PriceDataController.readByID("2")[2] + PriceDataController.readByID("2")[4];
                         }
                         else {
-                            return 11.00;
+                            return PriceDataController.readByID("2")[2];
                         }   
+
 
                     case "BLOCKBUSTER":
-                        if (cinemaclass == "GOLD"){
-                            return 11.50;
+                        if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                            return PriceDataController.readByID("2")[1] + PriceDataController.readByID("2")[3] + PriceDataController.readByID("2")[4];
                         }
-                        else if (cinemaclass == "MAX"){
-                            return 10.50;
+                        else if (cinemaclass == "GOLD"){
+                            return PriceDataController.readByID("2")[1] + PriceDataController.readByID("2")[3];
+                        }
+                        else if (seattype == "ELITE"){
+                            return PriceDataController.readByID("2")[1] + PriceDataController.readByID("2")[4];
                         }
                         else {
-                            return 9.50;
-                        }   
+                            return PriceDataController.readByID("2")[1];
+                        }    
 
                     default:
-                        if (cinemaclass == "GOLD"){
-                            return 10.50;
+                        if (cinemaclass == "GOLD" && seattype == "ELITE"){
+                            return PriceDataController.readByID("2")[0] + PriceDataController.readByID("2")[3] + PriceDataController.readByID("2")[4];
                         }
-                        else if (cinemaclass == "MAX"){
-                            return 9.50;
+                        else if (cinemaclass == "GOLD"){
+                            return PriceDataController.readByID("2")[0] + PriceDataController.readByID("2")[3];
+                        }
+                        else if (seattype == "ELITE"){
+                            return PriceDataController.readByID("2")[0] + PriceDataController.readByID("2")[4];
                         }
                         else {
-                            return 8.50;
-                        }  
+                            return PriceDataController.readByID("2")[0];
+                        }      
                 }
             
         }

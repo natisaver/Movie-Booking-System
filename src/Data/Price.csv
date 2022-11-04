@@ -1,0 +1,8 @@
+type,REGULAR,BLOCKBUSTER,THREED,Name,gold increment,elite seat increment
+0,7,8,9,Child Ticket,1,1.5
+1,4,5,6,Senior Ticket,1,1.5
+2,8.5,9.5,11,Adult Ticket (Mon-Wed),1,1.5
+3,9.5,10.5,11,Adult Ticket (Thu),1,1.5
+4,9.5,10.5,15,Adult Ticket (Fri before 6pm),1,1.5
+5,11,12,15,Adult Ticket (Fri after 6pm),1,1.5
+6,11,12,15,Adult Ticket (Weekend),1,1.5
