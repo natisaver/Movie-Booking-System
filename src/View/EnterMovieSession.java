@@ -46,10 +46,9 @@ public class EnterMovieSession extends BaseMenu{
      * @param accesslevel      the level of access
      * @param movie            the movie object to make a session for
      */
-    public EnterMovieSession(BaseMenu previousMenu, int accesslevel, Movie movie, Admin admin) {
+    public EnterMovieSession(BaseMenu previousMenu, int accesslevel, Movie movie) {
         super(previousMenu, accesslevel);
         this.movie = movie;
-        this.admin = admin;
     }
 
     /**
@@ -172,6 +171,7 @@ public class EnterMovieSession extends BaseMenu{
         } while (overlaps == true);
 
         //SUCCESS
-        return new AdminMainMenu(this.getPreviousMenu().getPreviousMenu().getPreviousMenu(), 1, admin);
+        movieSession = new MovieSession(insertStart, CinemaController.readByCode(choicestr).getCinemaClass(),movie.getTitle());
+        return this.getPreviousMenu().getPreviousMenu();
     }
 }
