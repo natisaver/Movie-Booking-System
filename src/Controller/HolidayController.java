@@ -48,10 +48,6 @@ public class HolidayController {
                 String dateTime = tokens[0] + " 00:00";
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 LocalDateTime newObj = LocalDateTime.parse(dateTime, formatter);
-                // String dateTime = tokens[0] + "00:00";
-                // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd
-                // HH:mm");
-                // LocalDateTime newObj = LocalDateTime.parse(tokens[0] + " 00:00", formatter);
                 holidayArrayList.add(new Holiday(tokens[1], newObj));
             }
 

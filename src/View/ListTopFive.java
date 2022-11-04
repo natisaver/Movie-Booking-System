@@ -19,32 +19,46 @@ public class ListTopFive extends BaseMenu
     @Override
     public BaseMenu execute() 
     {
+        BaseMenu nextMenu = this;
         int choice;
         ArrayList<Movie> movies;
-        int numberMovie;
         Movie temp;
         
-        System.out.println("Would you like to: ");
-        System.out.println("1. Print out Top 5 Movies by Ticket Sales");
-        System.out.println("2. Print out Top 5 Movies by Average Reviews");
-        System.out.println("3. Back");
-        BaseMenu nextMenu = this;
+        String numregex = "^(?!(0))[0-4]{1}$";
 
         do{
-            System.out.print("Enter your choice: ");
-            choice = sc.nextInt();
-            
             movies = MovieController.read();
-            numberMovie = movies.size();
-            Movie[] movieArray = new Movie[numberMovie];
-            for(int x = 0; x < numberMovie; x++)
+            Movie[] movieArray = new Movie[movies.size()];
+            for(int x = 0; x < movies.size(); x++)
             {
                 movieArray[x] = movies.get(x);
             }
 
+            System.out.println(ConsoleColours.PURPLE_BOLD + "List Top 5: " + ConsoleColours.RESET);
+            System.out.println("1. Print out Top 5 Movies by Ticket Sales");
+            System.out.println("2. Print out Top 5 Movies by Average Reviews");
+            System.out.println(ConsoleColours.YELLOW + "3. Back" + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.RED + "4. Quit" + ConsoleColours.RESET);
+            
+            // Keep asking for choice
+            System.out.print("Enter your choice: ");
+            String choicestr = sc.nextLine();
+
+            while(!choicestr.matches(numregex))
+            {
+                if(choicestr.isBlank())
+                {
+                    return this.getPreviousMenu();
+                }
+                System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
+                choicestr = sc.nextLine();
+            }
+
+            choice = Integer.valueOf(choicestr);
+
             switch (choice) {
                 case 1:
-                for(int i = 1; i < numberMovie; i++)
+                for(int i = 1; i < movies.size(); i++)
                 {
                     Movie key = movieArray[i];
                     int j = i-1;
@@ -64,10 +78,9 @@ public class ListTopFive extends BaseMenu
                     System.out.println("Number " + k + " : " + movieArray[k-1].getTitle());
                 }
                     break;
-            
-                
+                            
                 case 2:
-                for(int i = 1; i < numberMovie; i++)
+                for(int i = 1; i < movies.size() ; i++)
                 {
                     Movie key = movieArray[i];
                     int j = i-1;
@@ -92,12 +105,11 @@ public class ListTopFive extends BaseMenu
                     nextMenu = this.getPreviousMenu();
                     break;
                 
-                default:
-                    choice = -1;
-                    System.out.println(ConsoleColours.RED + "Please enter a valid choice." + ConsoleColours.RESET);
+                case 4:
+                    nextMenu = new Quit(this);
                     break;
             }
-        }while(choice == -1);
+        }while(choice < 4);
         return nextMenu;
     }
 }
