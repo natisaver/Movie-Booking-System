@@ -59,8 +59,8 @@ public class TestView {
                 // BaseMenu mainmenu = new MainMenu(null, -1);
                 // mainmenu.execute();
 
-                // BaseMenu test = new Test(null, 1);
-                // test.execute();
+                BaseMenu updateDetails = new UpdateDetails(null, 1);
+                updateDetails.execute();
 
                 BaseMenu enterMovieDetails = new EnterMovieDetails(null, 1);
                 enterMovieDetails.execute();
