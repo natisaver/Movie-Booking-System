@@ -69,7 +69,7 @@ public class Cinema {
      *         Possible Cinema's class type: (Standard, Platinum Movie Suites)
      */
     public cinemaClass_Enum getCinemaClass() {
-        return this.cinemaClass;
+        return cinemaClass;
     }
 
     /**

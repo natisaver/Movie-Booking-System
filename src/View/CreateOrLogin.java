@@ -1,13 +1,33 @@
 package View;
 import java.util.Scanner;
 
+/**
+ * Intermediary Access Denied Page
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 03-11-2022
+ */
 public class CreateOrLogin extends BaseMenu {
     Scanner sc = new Scanner(System.in);
 
+    /** 
+     * Constructor to store previous page and access level
+     * @param previousMenu     the previous page
+     * @param accesslevel      the level of access
+     */
     public CreateOrLogin(BaseMenu previousMenu, int accesslevel) {
         super(previousMenu, accesslevel);
     }
-
+    /**
+     * Selection Menu
+     * Create Account
+     * Login
+     * Go Back
+     * @return to the page according to user's selected choice
+     */
     @Override
     public BaseMenu execute() {
         int choice;

@@ -1,5 +1,6 @@
 package Model;
 
+import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -48,7 +49,7 @@ public class Transaction {
     /**
      * Showtime of the movie made under a particular TransactionID (TID)
      */
-    private LocalDateTime showtime;
+    private String showtime;
 
     /**
      * Total price paid by a MovieGoer under a particular TransactionID (TID)
@@ -76,10 +77,10 @@ public class Transaction {
 
         // this.TID = cinemaCode.concat(formatter.toString());
         this.TID = TID;
-        this.name = movieGoer.getName();
-        this.noOfTickets = tickets.length;
-        this.movieTitle = tickets[0].getTitle();
-        this.showtime = tickets[0].getShowTime();
+        this.name = name;
+        this.noOfTickets = noOfTickets;
+        this.movieTitle = movieTitle;
+        this.showtime = showtime;
         this.totalPrice = totalPrice;
     }
 

@@ -18,75 +18,134 @@ public class EnterMovieDetails extends BaseMenu{
         super(previousMenu, accesslevel);
     }
 
-    public BaseMenu execute(){
-        System.out.println("Create Movie:");
 
+    public BaseMenu execute(){
+        BaseMenu nextMenu = this;
         Scanner sc = new Scanner(System.in);
-        String inputString;
-        int inputInt;
+        String inputString, numRegex, strRegex;
         ArrayList<String> inputArray = new ArrayList<String>(); 
 
-        do{
-            System.out.println("Enter Movie Title: ");
-            inputString = sc.next();
+        System.out.println(ConsoleColours.WHITE_BRIGHT + "Enter Details of New Movie:" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
+    
+        System.out.println("Enter Movie Title: ");
+        inputString = sc.nextLine();
+        movie = MovieController.readByTitle(inputString);
+        
+        //Checks if Movie already exists in the database
+        while(movie != null){
+            System.out.println(ConsoleColours.RED + "Movie already exists." + ConsoleColours.RESET);
+            System.out.println("Re-enter Movie Title");
+            inputString = sc.nextLine();
             movie = MovieController.readByTitle(inputString);
-            
-            //Checks if Movie already exists in the database
-            if(movie == null){
-                System.out.println("Movie does not exist.");
-                System.out.println("Re-enter Movie Title");
-                //need to reprompt here
+        }
+        movie.setTitle(inputString);
+
+        strRegex = "TWOD" + "THREED" + "BLOCKBUSTER";
+        System.out.println("Enter Movie Type: ");
+        inputString = sc.nextLine().toUpperCase();
+        while (!inputString.matches(strRegex)) {
+            //early termination
+            if(inputString.isBlank()){
+                return this.getPreviousMenu();
             }
+            System.out.println(ConsoleColours.RED + "Please enter a valid Movie Type:" + ConsoleColours.RESET);
+            inputString = sc.nextLine();
+        }
+        movie.setMovieType(movieType_Enum.valueOf(inputString));
 
-            movie.setTitle(inputString);
+        strRegex = "PG" + "PG13" + "NC16" + "M18" + "R21";
+        System.out.println("Enter Movie Rating: ");
+        inputString = sc.nextLine().toUpperCase();
+        while (!inputString.matches(strRegex)) {
+            //early termination
+            if(inputString.isBlank()){
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please enter a valid Movie Rating:" + ConsoleColours.RESET);
+            inputString = sc.nextLine();
+        }
+        movie.setMovieRating(movieRating_Enum.valueOf(inputString));
 
-            System.out.println("Enter Movie Type: ");
-            inputString = sc.next();
-            movie.setMovieType(movieType_Enum.valueOf(inputString.toUpperCase()));
+        numRegex = "^([1-9][0-9]|[1-2][0-9][0-9])$";
+        System.out.println("Enter Movie Duration (in minutes): ");
+        inputString = sc.nextLine();
+        while (!inputString.matches(numRegex)) {
+            //early termination
+            if(inputString.isBlank()){
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please enter a valid Duration:" + ConsoleColours.RESET);
+            inputString = sc.nextLine();
+        }
+        movie.setDuration(Integer.parseInt(inputString));
 
-            System.out.println("Enter Movie Rating: ");
-            inputString = sc.next();
-            movie.setMovieRating(movieRating_Enum.valueOf(inputString.toUpperCase()));
+        System.out.println("Enter Synopsis: ");
+        inputString = sc.nextLine();
+        if(inputString.isBlank()){
+            return this.getPreviousMenu();
+        }
+        movie.setSynopsis(inputString);
 
-            System.out.println("Enter Synopsis: ");
-            inputString = sc.next();
-            movie.setSynopsis(inputString);
+        System.out.println("Enter Director: ");
+        inputString = sc.nextLine();
+        if(inputString.isBlank()){
+            return this.getPreviousMenu();
+        }
+        movie.setDirector(inputString);
 
-            System.out.println("Enter Director: ");
-            inputString = sc.next();
-            movie.setDirector(inputString);
-
-            System.out.println("Enter Cast: ");
-            int i=0;
-            do{
-                inputArray.add(sc.next());
+        System.out.println("Enter Cast: ");
+        int i=0;
+        do{
+            inputString = sc.nextLine();
+            if(inputString.isBlank()){
+                return this.getPreviousMenu();
+            }
+            else{
+                inputArray.add(inputString);
                 i++;
-            }while(inputArray.get(i) != null);
-            movie.setCast(inputArray);
-            //clear array after - for use next time
-            inputArray.clear();
+            }
+        }while(inputArray.get(i) != null);
+        movie.setCast(inputArray);
+        //clear array after - for use next time
+        inputArray.clear();
+
+        String dateCheck = "^((2000|2400|2800|(19|2[0-9])(0[48]|[2468][048]|[13579][26]))-02-29)$" 
+                        + "|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$"
+                        + "|^(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))$" 
+                        + "|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$";
+
+        System.out.println("Enter Release Date (yyyy-MM-dd): ");
+        inputString = sc.nextLine();
+        while (!inputString.matches(dateCheck)){
+            if(inputString.isBlank()){
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
+            inputString = sc.nextLine();
+        }
+        movie.setReleaseDate(inputString);
+
+        System.out.println("Enter End Date (yyyy-MM-dd): ");
+        inputString = sc.nextLine();
+        while (!inputString.matches(dateCheck)){
+            if(inputString.isBlank()){
+                return this.getPreviousMenu();
+            }
+            System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
+            inputString = sc.nextLine();
+        }
+        movie.setEndDate(inputString);
+        
+        //setting ticket sales to 0 when new movie created
+        movie.setTicketSales();
+
+        //add newly created movie to csv
+        MovieController.create(movie);
 
 
-            System.out.println("Enter Release Date (yyyy-MM-dd): ");
-            inputString = sc.next();
-            movie.setReleaseDate(inputString);
-
-            System.out.println("Enter End Date (yyyy-MM-dd): ");
-            inputString = sc.next();
-            movie.setEndDate(inputString);
-            
-            //setting ticket sales to 0 when new movie created
-            movie.setTicketSales();
-
-            //add newly created movie to csv
-            MovieController.create(movie);
-
-            // System.out.println("Enter 1 to create another movie");
-            // System.out.println("Enter any other integer to quit");
-            // inputInt = sc.nextInt();
-        }while(inputInt == 1);
-
-        //go back
-        return this.getPreviousMenu();
+        //go to nextMenu
+        nextMenu = new EnterMovieSession(this, 1, movie);
+        return nextMenu;
     }
 }
