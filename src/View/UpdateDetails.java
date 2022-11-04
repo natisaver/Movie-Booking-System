@@ -8,14 +8,37 @@ import java.util.Scanner;
 
 import Controller.MovieController;
 
+/**
+ * The page for Admin to update details of existing Movie.
+ * the MOBLIMA Cinema
+ * Application
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 04-11-2022
+ */
 public class UpdateDetails extends BaseMenu{
+    Scanner sc = new Scanner(System.in);
+
+    /** 
+     * Constructor to store previous page and access level
+     * @param previousMenu     the previous page
+     * @param accesslevel      the level of access
+     */
     public UpdateDetails(BaseMenu previousMenu, int accesslevel) {
         super(previousMenu, accesslevel);
     }
 
+    /**
+     * UpdateDetails Menu Functionality
+     * Update Movie Title, Movie Type, Movie Rating, Movie Duration,
+     * Synopsis, Director, Cast, Release Date & End Date, Showtime,
+     * Cinema, or Delete Movie
+     * User can also choose to go Back or Quit
+     * @return AdminMainMenu or Terminates
+     */
+    @Override
     public BaseMenu execute(){
         BaseMenu nextMenu = this;
-        Scanner sc = new Scanner(System.in);
         int choice;
         Movie movie = new Movie();
         String choiceStr, inputString, numRegex, strRegex;
@@ -23,11 +46,12 @@ public class UpdateDetails extends BaseMenu{
 
         System.out.println("Enter Title of existing Movie to be updated:");
         inputString = sc.nextLine();
-        //go back if blank is entered
+        //Go back to previousMenu if blank is entered
         if(inputString.isBlank()){
             return this.getPreviousMenu();
         }
         movie = MovieController.readByTitle(inputString);
+        
         //Checks if Movie exists in the database
         while(movie == null){
             System.out.println(ConsoleColours.RED + "Movie does not exist." + ConsoleColours.RESET);
@@ -35,7 +59,7 @@ public class UpdateDetails extends BaseMenu{
             inputString = sc.nextLine();
             movie = MovieController.readByTitle(inputString);
         }
-        //if Movie exists, movie object will be the stated Movie
+        //If Movie exists, movie object will be the stated Movie
 
         do{
             System.out.println(ConsoleColours.PURPLE_BOLD + "Update Details:" + ConsoleColours.RESET);
