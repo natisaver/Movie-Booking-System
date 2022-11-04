@@ -35,7 +35,7 @@ public class MovieSessionController {
      * @param cinema Cinema Object
      * @return Returns array of MovieSession if database exists, else null object
      */
-    public static ArrayList<MovieSession> read(Cinema cinema) {
+    public static ArrayList<MovieSession> read(String cinemaCode) {
         // Check if database exists
         BufferedReader reader = null;
         try {
@@ -60,7 +60,8 @@ public class MovieSessionController {
                 // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy
                 // HH:mm");
                 // String sessionTime = dateTime;
-                movieSessionList.add(new MovieSession(sessionDate, sessionTime, cinema.getCinemaClass(),
+                movieSessionList.add(new MovieSession(sessionDate, sessionTime,
+                        ((Cinema) CineplexController.readByCinemaCode(cinemaCode)).getCinemaClass(),
                         movieTitle, movieType));
                 System.out.println(tokens[0]);
             }
