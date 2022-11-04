@@ -11,7 +11,7 @@ import Controller.MovieController;
 import java.time.format.DateTimeFormatter;
 
 public class EnterMovieDetails extends BaseMenu{
-    Movie movie;
+    Movie movie = new Movie();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public EnterMovieDetails(BaseMenu previousMenu, int accesslevel) {
