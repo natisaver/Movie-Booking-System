@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import Controller.CinemaController;
 import Controller.CineplexController;
 import Controller.LocalDateTimeComparator;
 import Controller.MovieSessionController;
@@ -104,13 +105,13 @@ public class EnterMovieSession extends BaseMenu{
 
         //validity check loop, continues while date and time overlaps:
         do {
-            System.out.println("Enter the date of the holiday: (yyyy-MM-dd)");
+            System.out.println("Enter the date of movie screening: (yyyy-MM-dd)");
             date = sc.nextLine();
             while (!date.matches(dateCheck)) {
                 if(date.isBlank()){
                     return this.getPreviousMenu().getPreviousMenu();
                 }
-                System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
+                System.out.println(ConsoleColours.RED + "Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
                 date = sc.nextLine();
             }
     
@@ -123,7 +124,7 @@ public class EnterMovieSession extends BaseMenu{
                 if(date.isBlank()){
                     return this.getPreviousMenu().getPreviousMenu();
                 }
-                System.out.println("Please enter the time in the required format: (HH:mm)");
+                System.out.println(ConsoleColours.RED + "Please enter the time in the required format: (HH:mm)" + ConsoleColours.RESET);
                 time = sc.nextLine();
             }
         
