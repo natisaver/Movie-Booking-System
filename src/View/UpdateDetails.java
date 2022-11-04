@@ -4,6 +4,7 @@ import Model.movieRating_Enum;
 import Model.movieType_Enum;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import Controller.MovieController;
@@ -41,7 +42,7 @@ public class UpdateDetails extends BaseMenu{
         BaseMenu nextMenu = this;
         int choice;
         Movie movie = new Movie();
-        String choiceStr, inputString, numRegex, strRegex;
+        String choiceStr, inputString, numRegex;
         ArrayList<String> inputArray = new ArrayList<String>(); 
 
         System.out.println("Enter Title of existing Movie to be updated:");
@@ -109,34 +110,40 @@ public class UpdateDetails extends BaseMenu{
                 
                 //Update Movie Type
                 case 2:
-                    strRegex = "TWOD" + "THREED" + "BLOCKBUSTER";
+                    String[] strRegex = {"TWOD", "THREED", "BLOCKBUSTER"};
                     System.out.println("Enter Updated Movie Type: ");
+                    System.out.println(ConsoleColours.YELLOW + "(TWOD, THREED, BLOCKBUSTER)" + ConsoleColours.RESET);
                     inputString = sc.nextLine().toUpperCase();
-                    while (!inputString.matches(strRegex)) {
+                    System.out.println(inputString);
+                    while (!Arrays.asList(strRegex).contains(inputString)) {
                         //early termination
                         if(inputString.isBlank()){
                             return this.getPreviousMenu();
                         }
                         System.out.println(ConsoleColours.RED + "Please enter a valid Movie Type:" + ConsoleColours.RESET);
-                        inputString = sc.nextLine();
+                        inputString = sc.nextLine().toUpperCase();
                     }
+                    System.out.println(ConsoleColours.GREEN + "Movie Type changed to: " + inputString + ConsoleColours.RESET);
                     movie.setMovieType(movieType_Enum.valueOf(inputString));
                     MovieController.update(movie);
                     break;
 
                 //Update Movie Rating
                 case 3:
-                    strRegex = "PG" + "PG13" + "NC16" + "M18" + "R21";
+                    String[] strRegex2 = {"PG", "PG13", "NC16", "M18", "R21"};
                     System.out.println("Enter Updated Movie Rating: ");
+                    System.out.println(ConsoleColours.YELLOW + "(PG, PG13, NC16, M18, R21)" + ConsoleColours.RESET);
                     inputString = sc.nextLine().toUpperCase();
-                    while (!inputString.matches(strRegex)) {
+                    System.out.println(inputString);
+                    while (!Arrays.asList(strRegex2).contains(inputString)) {
                         //early termination
                         if(inputString.isBlank()){
                             return this.getPreviousMenu();
                         }
                         System.out.println(ConsoleColours.RED + "Please enter a valid Movie Rating:" + ConsoleColours.RESET);
-                        inputString = sc.nextLine();
+                        inputString = sc.nextLine().toUpperCase();
                     }
+                    System.out.println(ConsoleColours.GREEN + "Movie Rating changed to: " + inputString + ConsoleColours.RESET);
                     movie.setMovieRating(movieRating_Enum.valueOf(inputString));
                     MovieController.update(movie);
                     break;
@@ -154,6 +161,7 @@ public class UpdateDetails extends BaseMenu{
                         System.out.println(ConsoleColours.RED + "Please enter a valid Duration:" + ConsoleColours.RESET);
                         inputString = sc.nextLine();
                     }
+                    System.out.println(ConsoleColours.GREEN + "Movie Duration changed to: " + inputString + " minutes" + ConsoleColours.RESET);
                     movie.setDuration(Integer.parseInt(inputString));
                     MovieController.update(movie);
                     break;
@@ -165,6 +173,7 @@ public class UpdateDetails extends BaseMenu{
                     if(inputString.isBlank()){
                         return this.getPreviousMenu();
                     }
+                    System.out.println(ConsoleColours.GREEN + "Movie Synopsis changed" + ConsoleColours.RESET);
                     movie.setSynopsis(inputString);
                     MovieController.update(movie);
                     break;
@@ -176,6 +185,7 @@ public class UpdateDetails extends BaseMenu{
                     if(inputString.isBlank()){
                         return this.getPreviousMenu();
                     }
+                    System.out.println(ConsoleColours.GREEN + "Movie Director changed to: " + inputString + ConsoleColours.RESET);
                     movie.setDirector(inputString);
                     MovieController.update(movie);
                     break;
@@ -188,16 +198,19 @@ public class UpdateDetails extends BaseMenu{
                     int i=0;
                     do{
                         inputString = sc.nextLine();
-                        if(inputString.isBlank()){
+                        if(inputString.isBlank() && inputArray.isEmpty()){
                             return this.getPreviousMenu();
+                        }
+                        else if (inputString.isBlank()){
+                            break;
                         }
                         else{
                             inputArray.add(inputString);
                             i++;
                         }
-                    }while(inputArray.get(i) != null);
+                    }while(!inputArray.isEmpty());
+                    System.out.println(ConsoleColours.GREEN + "Movie Cast changed" + ConsoleColours.RESET);
                     movie.setCast(inputArray);
-                    MovieController.update(movie);
                     //clear array after - for use next time
                     inputArray.clear();
                     break;
@@ -209,7 +222,7 @@ public class UpdateDetails extends BaseMenu{
                         + "|^(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))$" 
                         + "|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$";
 
-                    System.out.println("Enter Release Date (yyyy-MM-dd): ");
+                    System.out.println("Enter Updated Release Date (yyyy-MM-dd): ");
                     inputString = sc.nextLine();
                     while (!inputString.matches(dateCheck)){
                     if(inputString.isBlank()){
@@ -218,9 +231,10 @@ public class UpdateDetails extends BaseMenu{
                     System.out.println(ConsoleColours.RED + "Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
                     inputString = sc.nextLine();
                     }
+                    System.out.println(ConsoleColours.GREEN + "Movie Release Date changed to: " + inputString + ConsoleColours.RESET);
                     movie.setReleaseDate(inputString);
 
-                    System.out.println("Enter End Date (yyyy-MM-dd): ");
+                    System.out.println("Enter Updated End Date (yyyy-MM-dd): ");
                     inputString = sc.nextLine();
                     while (!inputString.matches(dateCheck)){
                     if(inputString.isBlank()){
@@ -229,16 +243,17 @@ public class UpdateDetails extends BaseMenu{
                     System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
                     inputString = sc.nextLine();
                     }
+                    System.out.println(ConsoleColours.GREEN + "Movie End Date changed to: " + inputString + ConsoleColours.RESET);
                     movie.setEndDate(inputString);
                     MovieController.update(movie);
                     break;
 
-                //Update Movie Type
+                //Update Showtime
                 case 9:
 
                     break;
 
-                //Update Movie Type
+                //Update Cinema
                 case 10:
                     
                     break;

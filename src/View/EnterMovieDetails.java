@@ -64,8 +64,10 @@ public class EnterMovieDetails extends BaseMenu{
         movie = new Movie();
         movie.setTitle(inputString);
 
+        //Enter Movie Type
         String[] strRegex = {"TWOD", "THREED", "BLOCKBUSTER"};
         System.out.println("Enter Movie Type: ");
+        System.out.println(ConsoleColours.YELLOW + "(TWOD, THREED, BLOCKBUSTER)" + ConsoleColours.RESET);
         inputString = sc.nextLine().toUpperCase();
         System.out.println(inputString);
         while (!Arrays.asList(strRegex).contains(inputString)) {
@@ -75,13 +77,14 @@ public class EnterMovieDetails extends BaseMenu{
             }
             System.out.println(ConsoleColours.RED + "Please enter a valid Movie Type:" + ConsoleColours.RESET);
             inputString = sc.nextLine().toUpperCase();
-            System.out.println(inputString);
-
         }
+        System.out.println(ConsoleColours.GREEN + "Movie Type added" + ConsoleColours.RESET);
         movie.setMovieType(movieType_Enum.valueOf(inputString));
 
+        //Enter Movie Rating
         String[] strRegex2 = {"PG", "PG13", "NC16", "M18", "R21"};
         System.out.println("Enter Movie Rating: ");
+        System.out.println(ConsoleColours.YELLOW + "(PG, PG13, NC16, M18, R21)" + ConsoleColours.RESET);
         inputString = sc.nextLine().toUpperCase();
         System.out.println(inputString);
         while (!Arrays.asList(strRegex2).contains(inputString)) {
@@ -91,8 +94,8 @@ public class EnterMovieDetails extends BaseMenu{
             }
             System.out.println(ConsoleColours.RED + "Please enter a valid Movie Rating:" + ConsoleColours.RESET);
             inputString = sc.nextLine().toUpperCase();
-            System.out.println(inputString);
         }
+        System.out.println(ConsoleColours.GREEN + "Movie Rating added" + ConsoleColours.RESET);
         movie.setMovieRating(movieRating_Enum.valueOf(inputString));
 
         //Enter Movie Duration
@@ -107,6 +110,7 @@ public class EnterMovieDetails extends BaseMenu{
             System.out.println(ConsoleColours.RED + "Please enter a valid Duration:" + ConsoleColours.RESET);
             inputString = sc.nextLine();
         }
+        System.out.println(ConsoleColours.GREEN + "Movie Duration added" + ConsoleColours.RESET);
         movie.setDuration(Integer.parseInt(inputString));
 
         //Enter Movie Synopsis
@@ -115,6 +119,7 @@ public class EnterMovieDetails extends BaseMenu{
         if(inputString.isBlank()){
             return this.getPreviousMenu();
         }
+        System.out.println(ConsoleColours.GREEN + "Movie Synopsis added" + ConsoleColours.RESET);
         movie.setSynopsis(inputString);
 
         //Enter Movie Director
@@ -123,6 +128,7 @@ public class EnterMovieDetails extends BaseMenu{
         if(inputString.isBlank()){
             return this.getPreviousMenu();
         }
+        System.out.println(ConsoleColours.GREEN + "Movie Director added" + ConsoleColours.RESET);
         movie.setDirector(inputString);
 
         //Enter Movie Cast
@@ -141,6 +147,7 @@ public class EnterMovieDetails extends BaseMenu{
                 i++;
             }
         }while(!inputArray.isEmpty());
+        System.out.println(ConsoleColours.GREEN + "Movie Cast added" + ConsoleColours.RESET);
         movie.setCast(inputArray);
         //clear array after - for use next time
         inputArray.clear();
@@ -159,6 +166,7 @@ public class EnterMovieDetails extends BaseMenu{
             System.out.println(ConsoleColours.RED + "Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
             inputString = sc.nextLine();
         }
+        System.out.println(ConsoleColours.GREEN + "Movie Release Date added" + ConsoleColours.RESET);
         movie.setReleaseDate(inputString);
 
         //Enter Movie End Date
@@ -171,6 +179,7 @@ public class EnterMovieDetails extends BaseMenu{
             System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
             inputString = sc.nextLine();
         }
+        System.out.println(ConsoleColours.GREEN + "Movie End Date added" + ConsoleColours.RESET);
         movie.setEndDate(inputString);
         
         //Set ticket sales to 0 when new movie created
@@ -180,7 +189,7 @@ public class EnterMovieDetails extends BaseMenu{
         MovieController.create(movie);
 
         //Go to nextMenu
-        nextMenu = new EnterMovieSession(this, 1, movie, admin);
+        nextMenu = new EnterMovieSession(this, 1, movie);
         return nextMenu;
     }
 }
