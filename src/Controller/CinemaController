@@ -17,7 +17,7 @@ import Model.Holiday;
  * @version 1.0
  * @since 21-10-2022
  */
-public class CineplexController {
+public class CinemaController {
     /**
      * Path in database
      */
@@ -56,3 +56,4 @@ public class CineplexController {
             return null;
         }
     }
+}
