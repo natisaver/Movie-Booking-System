@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +37,7 @@ public class MovieController {
      * @return Model.{@link Movie} Return list of Movie if any, else empty list
      */
     public static ArrayList<Movie> read() {
+        updateStatus();
         // Check if database exists
         BufferedReader reader = null;
         try {
@@ -67,6 +69,7 @@ public class MovieController {
     }
 
     public static Movie readByTitle(String title) {
+        updateStatus();
         // Check if database exists
         BufferedReader reader = null;
         try {
@@ -82,7 +85,7 @@ public class MovieController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                if (tokens[1].toLowerCase().equals(title.toLowerCase())) {
+                if (tokens[0].toLowerCase().equals(title.toLowerCase())) {
                     return new Movie(tokens[0], tokens[1], new ArrayList<String>(Arrays.asList(tokens[2].split(","))), tokens[3], tokens[4], tokens[5],
                         Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]),
                         movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]),
@@ -92,7 +95,7 @@ public class MovieController {
             reader.close();
             return null;
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             return null;
         }
     }
@@ -341,6 +344,29 @@ public class MovieController {
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("Movie")));
+        return true;
+    }
+
+    /**
+     * @param movie
+     * @return
+     */
+    public static Boolean updateStatus()
+    {
+        ArrayList<Movie> movies;
+        movies = MovieController.read();
+        for(int x = 0; x < movies.size(); x++)
+        {
+            if(movies.get(x).getReleaseDate().isAfter(LocalDateTime.now()) || movies.get(x).getReleaseDate().isEqual(LocalDateTime.now()));
+            {
+                movies.get(x).setShowingStatus(showingStatus_Enum.NOW_SHOWING);
+            }
+            if(movies.get(x).getEndDate().isAfter(LocalDateTime.now()) || movies.get(x).getEndDate().isEqual(LocalDateTime.now()));
+            {
+                movies.get(x).setShowingStatus(showingStatus_Enum.END_OF_SHOWING);
+            }
+            update(movies.get(x));
+        }
         return true;
     }
 
