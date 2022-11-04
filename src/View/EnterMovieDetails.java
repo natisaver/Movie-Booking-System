@@ -34,7 +34,7 @@ public class EnterMovieDetails extends BaseMenu{
         
         //Checks if Movie already exists in the database
         while(movie != null){
-            System.out.println("Movie already exists.");
+            System.out.println(ConsoleColours.RED + "Movie already exists." + ConsoleColours.RESET);
             System.out.println("Re-enter Movie Title");
             inputString = sc.nextLine();
             movie = MovieController.readByTitle(inputString);
@@ -54,20 +54,6 @@ public class EnterMovieDetails extends BaseMenu{
         }
         movie.setMovieType(movieType_Enum.valueOf(inputString));
 
-        
-        numRegex = "^([1-9][0-9]|[1-2][0-9][0-9])$";
-        System.out.println("Enter Movie Duration (in minutes): ");
-        inputString = sc.nextLine();
-        while (!inputString.matches(numRegex)) {
-            //early termination
-            if(inputString.isBlank()){
-                return this.getPreviousMenu();
-            }
-            System.out.println(ConsoleColours.RED + "Please enter a valid Duration:" + ConsoleColours.RESET);
-            inputString = sc.nextLine();
-        }
-        movie.setDuration(Integer.parseInt(inputString));
-
         strRegex = "PG" + "PG13" + "NC16" + "M18" + "R21";
         System.out.println("Enter Movie Rating: ");
         inputString = sc.nextLine().toUpperCase();
@@ -80,6 +66,19 @@ public class EnterMovieDetails extends BaseMenu{
             inputString = sc.nextLine();
         }
         movie.setMovieRating(movieRating_Enum.valueOf(inputString));
+
+        numRegex = "^([1-9][0-9]|[1-2][0-9][0-9])$";
+        System.out.println("Enter Movie Duration (in minutes): ");
+        inputString = sc.nextLine();
+        while (!inputString.matches(numRegex)) {
+            //early termination
+            if(inputString.isBlank()){
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please enter a valid Duration:" + ConsoleColours.RESET);
+            inputString = sc.nextLine();
+        }
+        movie.setDuration(Integer.parseInt(inputString));
 
         System.out.println("Enter Synopsis: ");
         inputString = sc.nextLine();
@@ -146,8 +145,7 @@ public class EnterMovieDetails extends BaseMenu{
 
 
         //go to nextMenu
-        //nextMenu = new EnterMovieSession();
-        //nextMenu = new MovieGoerMainMenu(this, -1, null);
-        //return nextMenu;
+        nextMenu = new EnterMovieSession(this, 1, movie);
+        return nextMenu;
     }
 }
