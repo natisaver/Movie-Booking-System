@@ -18,18 +18,18 @@ public class Cinema {
      * Cinema's code which is a 3 letters String (eg. XXX)
      * Cinema's code will be used in the TransactionID
      */
-    private static String cinemaCode;
+    private String cinemaCode;
 
     /**
      * Cinema's class type
      * Possible Cinema's class type: (Standard, Platinum Movie Suites)
      */
-    private static cinemaClass_Enum cinemaClass;
+    private cinemaClass_Enum cinemaClass;
 
     /**
      * Cinema's list of movie sessions available
      */
-    private static MovieSession[] showings;
+    private MovieSession[] showings;
 
     /**
      * Constructor
@@ -39,9 +39,9 @@ public class Cinema {
      * @param showings    Cinema's list of movies sessions available
      */
     public Cinema(String cinemaCode, cinemaClass_Enum cinemaClass, MovieSession[] showings) {
-        Cinema.cinemaCode = cinemaCode;
+        this.cinemaCode = cinemaCode;
         this.cinemaClass = cinemaClass;
-        Cinema.showings = new MovieSession[100];
+        this.showings = new MovieSession[100];
     }
 
     /**
@@ -59,7 +59,7 @@ public class Cinema {
      * @param cinemaCode Cinema's code
      */
     public void setCinemaCode(String cinemaCode) {
-        Cinema.cinemaCode = cinemaCode;
+        this.cinemaCode = cinemaCode;
     }
 
     /**
