@@ -57,7 +57,7 @@ public class EnterMovieSession extends BaseMenu{
         System.out.println(CineplexController.read());
 
         System.out.println(ConsoleColours.BLUE + "Here are the current Sessions:" + ConsoleColours.RESET);
-        System.out.println(MovieSessionController.read());
+        System.out.println(MovieSessionController.read(null).toString());
 
         //accept cinema code and check
         String numregex = "^(?!(0))[0-9]{3}$";
@@ -117,6 +117,8 @@ public class EnterMovieSession extends BaseMenu{
         //checking for interval overlaps
         long duration = this.movie.getDuration();
         insertEnd = insertStart.plusMinutes(duration);
+
+
 
         //iterate through csv & look for same cinema code in the movieSession csv
         //compare inputted start time (use java fn)
