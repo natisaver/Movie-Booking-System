@@ -56,11 +56,17 @@ public class TestView {
                 // BaseMenu checkHistory = new CheckHistory(null, 0, null);
                 // checkHistory.execute();
 
-                // BaseMenu mainmenu = new MainMenu(null, -1);
-                // mainmenu.execute();
+                BaseMenu mainmenu = new MainMenu(null, -1);
+                mainmenu.execute();
 
-                BaseMenu updateDetails = new UpdateDetails(null, 1);
-                updateDetails.execute();
+                // BaseMenu updateDetails = new UpdateDetails(null, 1);
+                // updateDetails.execute();
+
+                // BaseMenu adminMainMenu = new AdminMainMenu(null, 1, null);
+                // adminMainMenu.execute();
+
+                // BaseMenu configureSettings = new ConfigureSettings(null, 1);
+                // configureSettings.execute();
 
                 // BaseMenu enterMovieDetails = new EnterMovieDetails(null, 1);
                 // enterMovieDetails.execute();

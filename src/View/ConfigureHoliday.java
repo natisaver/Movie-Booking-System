@@ -62,7 +62,7 @@ public class ConfigureHoliday extends BaseMenu{
         //View Holiday
         case 1:
           if (!HolidayController.printHolidays())
-            System.out.println("There are no saved holidays");
+            System.out.println(ConsoleColours.RED + "There are no saved holidays" + ConsoleColours.RESET);
           break;
         
         //Add New Holiday
@@ -73,7 +73,7 @@ public class ConfigureHoliday extends BaseMenu{
             if(date.isBlank()){
               return this.getPreviousMenu();
             }
-            System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
+            System.out.println(ConsoleColours.RED +"Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
             date = sc.nextLine();
           }
           date += " 00:00";
@@ -83,9 +83,9 @@ public class ConfigureHoliday extends BaseMenu{
           name = sc.nextLine();
 
           if (HolidayController.addHoliday(dateTime, name))
-            System.out.println("Holiday added!");
+            System.out.println(ConsoleColours.GREEN + "Holiday added!" + ConsoleColours.RESET);
           else
-            System.out.println("Holiday already exists!");
+            System.out.println(ConsoleColours.RED + "Holiday already exists!" + ConsoleColours.RESET);
           break;
         
         //Update Holiday
@@ -96,7 +96,7 @@ public class ConfigureHoliday extends BaseMenu{
             if(oldDate.isBlank()){
               return this.getPreviousMenu();
             }
-            System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
+            System.out.println(ConsoleColours.RED +"Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
             oldDate = sc.nextLine();
           }
           oldDate += " 00:00";
@@ -108,7 +108,7 @@ public class ConfigureHoliday extends BaseMenu{
             if(newDate.isBlank()){
               return this.getPreviousMenu();
             }
-            System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
+            System.out.println(ConsoleColours.RED +"Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
             newDate = sc.nextLine();
           }
           newDate += " 00:00";
@@ -118,9 +118,9 @@ public class ConfigureHoliday extends BaseMenu{
           name = sc.nextLine();
       
           if (HolidayController.updateHoliday(oldHoliday, newHoliday, name))
-            System.out.println("Holiday updated!");
+            System.out.println(ConsoleColours.GREEN + "Holiday updated!" + ConsoleColours.RESET);
           else
-            System.out.println("Holiday doesn't exist!");
+            System.out.println(ConsoleColours.RED + "Holiday doesn't exist!" + ConsoleColours.RESET);
           break;
 
         //Delete Holiday
@@ -153,13 +153,13 @@ public class ConfigureHoliday extends BaseMenu{
               if(date.isBlank()){
                 return this.getPreviousMenu();
               }
-              System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
+              System.out.println(ConsoleColours.RED +"Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
               date = sc.nextLine();
             }
             date += " 00:00";
             dateTime = LocalDateTime.parse(date, formatter);
-            if (HolidayController.deleteSingleHoliday(dateTime)) System.out.println("Holiday deleted!");
-            else System.out.println("Holiday date not found!");
+            if (HolidayController.deleteSingleHoliday(dateTime)) System.out.println(ConsoleColours.GREEN + "Holiday deleted!" + ConsoleColours.RESET);
+            else System.out.println(ConsoleColours.RED + "Holiday date not found!" + ConsoleColours.RESET);
           }
       
           else {
@@ -169,12 +169,16 @@ public class ConfigureHoliday extends BaseMenu{
               return this.getPreviousMenu();
             }
             if (HolidayController.deleteHolidayName(name)) System.out.println("Holiday(s) deleted!");
-            else System.out.println("Holiday name not found!");
+            else System.out.println(ConsoleColours.RED + "Holiday name not found!" + ConsoleColours.RESET);
           }
           break;
+        
+        //Return to previousMenu
         case 5:
           nextMenu = this.getPreviousMenu();
           return nextMenu;
+
+        //Terminate Program
         case 6:
           nextMenu = new Quit(this);
           return nextMenu;
