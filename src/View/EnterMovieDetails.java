@@ -4,6 +4,7 @@ import Model.movieRating_Enum;
 import Model.movieType_Enum;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import Controller.MovieController;
@@ -42,7 +43,8 @@ public class EnterMovieDetails extends BaseMenu{
     @Override
     public BaseMenu execute(){
         BaseMenu nextMenu = this;
-        String inputString, numRegex, strRegex;
+        Scanner sc = new Scanner(System.in);
+        String inputString, numRegex;
         ArrayList<String> inputArray = new ArrayList<String>(); 
 
         //Enter Movie Title to create
@@ -59,33 +61,37 @@ public class EnterMovieDetails extends BaseMenu{
             inputString = sc.nextLine();
             movie = MovieController.readByTitle(inputString);
         }
+        movie = new Movie();
         movie.setTitle(inputString);
 
-        //Enter Movie Type
-        strRegex = "TWOD" + "THREED" + "BLOCKBUSTER";
+        String[] strRegex = {"TWOD", "THREED", "BLOCKBUSTER"};
         System.out.println("Enter Movie Type: ");
         inputString = sc.nextLine().toUpperCase();
-        while (!inputString.matches(strRegex)) {
+        System.out.println(inputString);
+        while (!Arrays.asList(strRegex).contains(inputString)) {
             //early termination
             if(inputString.isBlank()){
                 return this.getPreviousMenu();
             }
             System.out.println(ConsoleColours.RED + "Please enter a valid Movie Type:" + ConsoleColours.RESET);
-            inputString = sc.nextLine();
+            inputString = sc.nextLine().toUpperCase();
+            System.out.println(inputString);
+
         }
         movie.setMovieType(movieType_Enum.valueOf(inputString));
 
-        //Enter Movie Rating
-        strRegex = "PG" + "PG13" + "NC16" + "M18" + "R21";
+        String[] strRegex2 = {"PG", "PG13", "NC16", "M18", "R21"};
         System.out.println("Enter Movie Rating: ");
         inputString = sc.nextLine().toUpperCase();
-        while (!inputString.matches(strRegex)) {
+        System.out.println(inputString);
+        while (!Arrays.asList(strRegex2).contains(inputString)) {
             //early termination
             if(inputString.isBlank()){
                 return this.getPreviousMenu();
             }
             System.out.println(ConsoleColours.RED + "Please enter a valid Movie Rating:" + ConsoleColours.RESET);
-            inputString = sc.nextLine();
+            inputString = sc.nextLine().toUpperCase();
+            System.out.println(inputString);
         }
         movie.setMovieRating(movieRating_Enum.valueOf(inputString));
 
@@ -124,14 +130,17 @@ public class EnterMovieDetails extends BaseMenu{
         int i=0;
         do{
             inputString = sc.nextLine();
-            if(inputString.isBlank()){
+            if(inputString.isBlank() && inputArray.isEmpty()){
                 return this.getPreviousMenu();
+            }
+            else if (inputString.isBlank()){
+                break;
             }
             else{
                 inputArray.add(inputString);
                 i++;
             }
-        }while(inputArray.get(i) != null);
+        }while(!inputArray.isEmpty());
         movie.setCast(inputArray);
         //clear array after - for use next time
         inputArray.clear();

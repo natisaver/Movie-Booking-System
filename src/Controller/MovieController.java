@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -37,7 +38,6 @@ public class MovieController {
      * @return Model.{@link Movie} Return list of Movie if any, else empty list
      */
     public static ArrayList<Movie> read() {
-        updateStatus();
         // Check if database exists
         BufferedReader reader = null;
         try {
@@ -148,7 +148,7 @@ public class MovieController {
 
         Boolean Found = false;
         String line;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         try {
             reader.readLine();
@@ -187,24 +187,51 @@ public class MovieController {
                 writer.append("\n");
             }
             if (Found == false) {
-                writer.append(movie.getTitle());
+                writer.append('"'+movie.getTitle()+'"');
                 writer.append(",");
-                writer.append(movie.getDirector());
+                writer.append('"'+movie.getDirector()+'"');
                 writer.append(",");
                 StringBuilder sb = new StringBuilder();
                 for (String s : movie.getCast()){
-                    sb.append(s);
+                    sb.append('"'+s+'"');
                     sb.append(",");
                 }
                 writer.append(movie.getReleaseDate().format(formatter));
                 writer.append(",");
                 writer.append(movie.getEndDate().format(formatter));
                 writer.append(",");
-                writer.append(movie.getSynopsis());
+                writer.append('"'+movie.getSynopsis()+'"');
                 writer.append(",");
                 writer.append(Integer.toString(movie.getDuration()));
                 writer.append(",");
-                writer.append(movie.getShowingStatus().name());
+                System.out.println(movie.getReleaseDate());
+                System.out.println(movie.getEndDate());
+                System.out.println(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+                showingStatus_Enum showingStatus = showingStatus_Enum.NOW_SHOWING;
+                LocalDateTime save = LocalDateTime.now();
+                String curString = save.format(formatter).substring(0,10);
+                LocalDateTime curTime = LocalDateTime.parse(curString, formatter);
+                if(movie.getReleaseDate().minusWeeks(4).isAfter(curTime) || movie.getReleaseDate().minusWeeks(4).isEqual(curTime))
+                {
+                    showingStatus = showingStatus_Enum.COMING_SOON;
+                    System.out.println("entered coming soon");
+                }
+                if(movie.getReleaseDate().minusWeeks(1).isAfter(curTime) || movie.getReleaseDate().minusWeeks(1).isEqual(curTime))
+                {
+                    showingStatus = showingStatus_Enum.PREVIEW;
+                    System.out.println("entered preview");
+                }                
+                if(movie.getReleaseDate().isAfter(curTime) || movie.getReleaseDate().isEqual(curTime));
+                {
+                    showingStatus = showingStatus_Enum.NOW_SHOWING;
+                    System.out.println("entered now showing");
+                }
+                if(movie.getEndDate().isBefore(curTime));
+                {
+                    showingStatus = showingStatus_Enum.END_OF_SHOWING;
+                    System.out.println("enter end of showing");
+                }
+                writer.append(showingStatus.name());
                 writer.append(",");
                 writer.append(movie.getMovieType().name());
                 writer.append(",");
@@ -282,7 +309,7 @@ public class MovieController {
 
                 if (tokens[1].toLowerCase().equals(movie.getTitle().toLowerCase())) {
                     Found = true;
-                    writer.append(movie.getTitle());
+                    writer.append('"'+ movie.getTitle() + '"');
                     writer.append(",");
                     writer.append(movie.getDirector());
                     writer.append(",");
