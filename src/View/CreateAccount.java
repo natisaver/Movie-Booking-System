@@ -9,18 +9,42 @@ import Controller.AdminController;
 import Controller.MovieGoerController;
 import Model.MovieGoer;
 
+/**
+ * Create Account Form Page
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 03-11-2022
+ */
+
 public class CreateAccount extends BaseMenu {
 
     Scanner sc = new Scanner(System.in);
     private Pattern regexPattern;
     private Matcher regMatcher;
 
+    /** 
+     * Constructor to store previous page and access level
+     * @param previousMenu     the previous page
+     * @param accesslevel      the level of access
+     */
     public CreateAccount(BaseMenu previousMenu, int accesslevel) {
         super(previousMenu, accesslevel);
     }
-
+    /**
+     * Create Account functionality
+     * Ensures that the email the user tries to enter is unique
+     * and not already in the database
+     * Also has email, password Validation
+     * @return to the MovieGoer Page if successful, else go back a page upon early termination
+     */
     @Override
     public BaseMenu execute() {
+        /** 
+         * User's indicated details, and a MovieGoer Class Object to store inputted information.
+         */
         String name;
         String email;
         String phoneNo;

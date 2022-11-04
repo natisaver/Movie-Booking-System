@@ -198,24 +198,9 @@ public class MovieGoerController {
     }
 
     /**
-<<<<<<< HEAD
-     * UPDATE MovieGoer in the database
-     * 
-<<<<<<< HEAD
-     * @param user MovieGoer object to be updated
-     * @return <code>true</code> if MovieGoer was updated, <code>false</code> if
-     *         MovieGoer doesnt exist or database is nonexistent
-=======
-     * @param user User object to be added
-     * @return <code>true</code> if User was updated, <code>false</code> if User
-     *         doesnt exist or database is nonexistent
->>>>>>> a4a5677492dcaa8493310a90900b353d9cc38cec
->>>>>>> master
-=======
      *UPDATE MovieGoer in the database
      * @param user      MovieGoer object to be updated
      * @return          <code>true</code> if MovieGoer was updated, <code>false</code> if MovieGoer doesnt exist or database is nonexistent
->>>>>>> master
      */
     public static Boolean update(MovieGoer user) {
 
@@ -309,22 +294,8 @@ public class MovieGoerController {
 
     /**
      * DELETE MovieGoer in the database
-<<<<<<< HEAD
-     * 
-<<<<<<< HEAD
-     * @param user MovieGoer object to be deleted
-     * @return <code>true</code> if MovieGoer was deleted, <code>false</code> if
-     *         MovieGoer doesnt exist or database is nonexistent
-=======
-     * @param user User object to be deleted
-     * @return <code>true</code> if User was deleted, <code>false</code> if User
-     *         doesnt exist or database is nonexistent
->>>>>>> a4a5677492dcaa8493310a90900b353d9cc38cec
->>>>>>> master
-=======
      * @param user      MovieGoer object to be deleted
      * @return          <code>true</code> if MovieGoer was deleted, <code>false</code> if MovieGoer doesnt exist or database is nonexistent
->>>>>>> master
      */
     public static Boolean delete(MovieGoer user) {
 
@@ -407,29 +378,9 @@ public class MovieGoerController {
     }
 
     /**
-<<<<<<< HEAD
-     * <<<<<<< HEAD
      * DELETE MovieGoer by Email in the database
-     * 
-     * @param email Email of MovieGoer to be deleted
-     * @return <code>true</code> if MovieGoer was deleted, <code>false</code> if
-     *         MovieGoer doesnt exist or database is nonexistent
-     *         =======
-     *         DELETE MovieGoer by Email in the database
-     * 
-     * @param email User email to be added
-     * @return True if User was updated, False if User doesnt exist or database is
-     *         nonexistent
-<<<<<<< HEAD
-     *         >>>>>>> 352355738788b608b51d3b96a167c7e64e111cbd
-=======
->>>>>>> a4a5677492dcaa8493310a90900b353d9cc38cec
->>>>>>> master
-=======
-     *DELETE MovieGoer by Email in the database
      * @param email     Email of MovieGoer to be deleted
      * @return          <code>true</code> if MovieGoer was deleted, <code>false</code> if MovieGoer doesnt exist or database is nonexistent
->>>>>>> master
      */
     public static Boolean deleteByEmail(String email) {
 

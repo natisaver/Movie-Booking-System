@@ -32,7 +32,7 @@ public class MovieSessionController {
     /**
      * READ a list of movie sessions from Database
      * 
-     * @param cinemaCode Cinema's code
+     * @param cinema Cinema Object
      * @return Returns array of MovieSession if database exists, else null object
      */
     public static ArrayList<MovieSession> read(Cinema cinema) {
