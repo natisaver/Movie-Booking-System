@@ -28,11 +28,11 @@ public class Ticket {
 	private String ticketMovieTitle;
 	private movieType_Enum ticketMovieType;
 	private movieRating_Enum ticketMovieRating;
-	private int ticketSeat;
+	private String ticketSeat;
 	private ageGroup_Enum ticketAgeGroup;
 
 	public Ticket(Cineplex tCineplex, Cinema tCinema, LocalDateTime tShowTime, String tMovieTitle,
-			movieType_Enum tMovieType, movieRating_Enum tMovieRating, int tSeat, ageGroup_Enum tAgeGroup) {
+			movieType_Enum tMovieType, movieRating_Enum tMovieRating, String tSeat, ageGroup_Enum tAgeGroup) {
 		this.ticketCineplex = tCineplex;
 		this.ticketCinema = tCinema;
 		this.ticketShowTime = tShowTime;
@@ -156,7 +156,7 @@ public class Ticket {
 	 * 
 	 * @return SeatID of Ticket.
 	 */
-	public int getSeat() {
+	public String getSeat() {
 		return this.ticketSeat;
 	}
 
@@ -165,7 +165,7 @@ public class Ticket {
 	 * 
 	 * @param tSeat SeatID of Ticket object.
 	 */
-	public void setSeat(int tSeat) {
+	public void setSeat(String tSeat) {
 		this.ticketSeat = tSeat;
 	}
 

@@ -29,6 +29,36 @@ public class CineplexController {
      * @return ArrayList Return array of Cineplex if database exists, else null
      *         object
      */
+
+    // public static HashMap<Integer, Cineplex> read() {
+    // // Check if database exists
+    // BufferedReader reader = null;
+    // try {
+    // reader = new BufferedReader(new FileReader(PATH));
+    // } catch (FileNotFoundException e) {
+    // e.printStackTrace();
+    // return new HashMap<Integer, Cineplex>();
+    // }
+
+    // // If Database Exists
+    // String line = "";
+    // HashMap<Integer, Cineplex> cineplexList = new HashMap<Integer, Cineplex>();
+    // int i = 1;
+    // try {
+    // reader.readLine();
+    // while ((line = reader.readLine()) != null) {
+    // String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+    // cineplexList.put(i, cineplexList.get(i));
+    // System.out.println(i + ": " + tokens[0] + " (" + tokens[2] + ")");
+    // i++;
+    // }
+    // reader.close();
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // }
+    // return cineplexList;
+    // }
+
     public static ArrayList<Cineplex> read() {
         // Check if database exists
         BufferedReader reader = null;
@@ -42,11 +72,14 @@ public class CineplexController {
         // If Database Exists
         String line = "";
         ArrayList<Cineplex> cineplexArrayList = new ArrayList<>();
+        int i = 1;
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                System.out.println(tokens[1] + " " + tokens[2] + " " + tokens[0]);
+                cineplexArrayList.add(new Cineplex(null, tokens[0], tokens[0]));
+                System.out.println(tokens[0] + " (" + tokens[2] + ")");
+                i++;
             }
             reader.close();
         } catch (IOException e) {
@@ -69,13 +102,15 @@ public class CineplexController {
         // If Database Exists
         String line = "";
         ArrayList<Cineplex> cineplexArrayList = new ArrayList<>();
+        int i = 1;
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[0].equals(location)) {
                     cineplexArrayList.add(new Cineplex(null, tokens[0], tokens[0]));
-                    System.out.println(tokens[1] + " " + tokens[2] + " " + tokens[0]);
+                    System.out.println(tokens[2]);
+                    i++;
                 }
             }
             reader.close();

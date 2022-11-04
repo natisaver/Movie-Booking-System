@@ -96,9 +96,9 @@ public class MovieSessionController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                if (tokens[0].equals(movieTitle) || tokens[1].equals(movieType.toString())) {
+                if (tokens[0].equals(movieTitle) && tokens[1].equals(movieType.toString())) {
                     System.out.println(tokens[0] + " " + tokens[2]);
-                    sessionArrayList.add(new MovieSession(tokens[2], tokens[3], Cinema.getCinemaClass(),
+                    sessionArrayList.add(new MovieSession(tokens[2], tokens[3], cinema.getCinemaClass(),
                             movieTitle, movieType.toString()));
                 }
             }
@@ -106,13 +106,13 @@ public class MovieSessionController {
             return sessionArrayList;
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return sessionArrayList;
         }
 
     }
 
-    public static ArrayList<MovieSession> readbyShowtime(Cinema cinema, String movieTitle,
-            movieType_Enum movieType, String showtime) {
+    public static ArrayList<MovieSession> readbyShowDate(Cinema cinema, String movieTitle,
+            movieType_Enum movieType, String date) {
 
         // Cinema cinema = new Cinema(cinemaCode, null, null);
 
@@ -134,11 +134,50 @@ public class MovieSessionController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[0].equals(movieTitle) && tokens[1].equals(movieType.toString())
-                        && tokens[2].equals(showtime)) {
+                        && tokens[2].equals(date)) {
+                    System.out.println(tokens[0] + " " + tokens[3]);
+                    sessionArrayList.add(new MovieSession(tokens[2], tokens[3], cinema.getCinemaClass(),
+                            movieTitle, movieType.toString()));
+                }
+            }
+            reader.close();
+            return sessionArrayList;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public static ArrayList<MovieSession> readbyShowTime(Cinema cinema, String movieTitle,
+            movieType_Enum movieType, String date, String time) {
+
+        // Cinema cinema = new Cinema(cinemaCode, null, null);
+
+        // Check if database exists
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(PATH));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        // If Database Exists
+        String line = "";
+        ArrayList<MovieSession> sessionArrayList = new ArrayList<>();
+        // transactionArrayList = null;
+        try {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                if (tokens[0].equals(movieTitle) && tokens[1].equals(movieType.toString())
+                        && tokens[2].equals(date) && tokens[3].equals(time)) {
 
                     String sessionDate = tokens[2];
                     String sessionTime = tokens[3];
-                    System.out.println(tokens[0] + " " + tokens[2]);
+                    System.out.println("Movie Title: " + tokens[0] + "\n" + "Date: " + tokens[2] + "\n" + "Start Time "
+                            + tokens[3]);
                     sessionArrayList.add(new MovieSession(sessionDate, sessionTime, cinema.getCinemaClass(),
                             movieTitle, movieType.toString()));
                     // String date = tokens[3];
@@ -169,7 +208,7 @@ public class MovieSessionController {
      *         MovieSession clashes with an existing MovieSession
      */
     public static Boolean createSession(Cinema cinema, MovieSession session) {
-        File inputFile = new File(DataController.getPath("MovieSessions"));
+        File inputFile = new File(DataController.getPath("MovieSession"));
         File tempFile = new File(DataController.getPath("Temp"));
 
         BufferedReader reader = null;
@@ -235,12 +274,12 @@ public class MovieSessionController {
             writer.close();
             reader.close();
             // delete old file
-            Files.delete(Paths.get(DataController.getPath("MovieSessions")));
+            Files.delete(Paths.get(DataController.getPath("MovieSession")));
         } catch (IOException e) {
             e.printStackTrace();
         }
         // replace with the new file
-        tempFile.renameTo(new File(DataController.getPath("MovieSessions")));
+        tempFile.renameTo(new File(DataController.getPath("MovieSession")));
         return true;
     }
 
@@ -254,7 +293,7 @@ public class MovieSessionController {
      */
     public static Boolean update(Cinema cinema, MovieSession session) {
 
-        File inputFile = new File(DataController.getPath("MovieSessions"));
+        File inputFile = new File(DataController.getPath("MovieSession"));
         File tempFile = new File(DataController.getPath("Temp"));
 
         BufferedReader reader = null;
