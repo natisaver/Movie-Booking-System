@@ -30,6 +30,12 @@ public class Movie {
 
     /**
      * Constructor
+     */
+    public Movie()
+    {}
+
+    /**
+     * Constructor
      * 
      * @param title         Movie title
      * @param director      Movie director
@@ -44,10 +50,6 @@ public class Movie {
      * @param movieRating   Movie rating (PG, PG13, NC16, M18 or R21)
      * @param ticketSales   Movie ticket sales
      */
-    
-    public Movie()
-    {}
-     
     public Movie(String title, String director, ArrayList<String> cast, String releaseDate, String endDate,
             String synopsis,
             int duration, showingStatus_Enum showingStatus, movieType_Enum movieType, movieRating_Enum movieRating,
