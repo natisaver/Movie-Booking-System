@@ -98,7 +98,7 @@ public class MovieSessionController {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[0].equals(movieTitle) || tokens[1].equals(movieType.toString())) {
                     System.out.println(tokens[0] + " " + tokens[2]);
-                    sessionArrayList.add(new MovieSession(tokens[2], tokens[3], Cinema.getCinemaClass(),
+                    sessionArrayList.add(new MovieSession(tokens[2], tokens[3], cinema.getCinemaClass(),
                             movieTitle, movieType.toString()));
                 }
             }

@@ -126,7 +126,7 @@ public class BookTicket extends BaseMenu {
         // movieTitle,
         // movie.getMovieType(), showtime)).get(0);
 
-        System.out.print("\nPlease enter the number of seats being purchased: ");
+        System.out.print("\nPlease enter the number of tickets being purchased: ");
         int noOfTickets = sc.nextInt();
 
         // Create an array of tickets to store all tickets made in this transaction
