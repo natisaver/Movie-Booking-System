@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import Controller.CineplexController;
 import Controller.MovieController;
@@ -61,8 +63,6 @@ public class BookTicket extends BaseMenu {
         String str = "2022-11-01";
         Movie movie = new Movie("", "", cast, str, str, null, 0, null, null, null, 0);
 
-        String movieTitle = "";
-
         String numregex = "^(?!(0))[0-4]{1}$";
 
         // System.out.println("(Enter blank space for both to quit)");
@@ -71,58 +71,45 @@ public class BookTicket extends BaseMenu {
          * Display list of Cineplex for users to choose from
          */
         System.out.println("\nList of Cineplex: \n");
+
         ArrayList<Cineplex> cineplexArray = CineplexController.read();
-
-        // LinkedHashMap<Integer, Cineplex> cineplexList = new LinkedHashMap<Integer,
-        // Cineplex>();
-        // Set<Integer> keySet = cineplexList.keySet();
-        // Integer[] keyArray = keySet.toArray(new Integer[keySet.size()]);
-        // for (int j = 1; j < cineplexArray.size(); j++) {
-        // keyArray[j] = j;
-        // }
-        // Integer index = 1;
-        // Integer key = keyArray[index - 1];
-        // System.out.println("Value at index " + index
-        // + " is : " + cineplexArray.get(key));
-        // for (int j = 0; j < cineplexArray.size(); j++) {
-        // cineplexList.put(index, cineplexList.get(key));
-        // }
-
-        // cineplexList.put(index, cineplexList.get(key));
-
-        // System.out.println(cineplexList.get(1));
+        Map<Integer, Cineplex> hashMap = new HashMap();
+        for (int j = 0; j < cineplexArray.size(); j++) {
+            int k = j + 1;
+            hashMap.put(k - 1, cineplexArray.get(k - 1));
+            // Cinema cinema = new Cinema(hashMap.getCinemaCode, cinemaType, null)
+            // System.out.println(k + ": " + hashMap.get(k - 1).getLocation());
+        }
 
         // /**
         // * Field for user to enter choice of Cineplex's location
         // */
         System.out.print("\nPlease choose your preferred Cineplex's location: ");
 
-        // String locationStr = sc.nextLine();
-        // while (!locationStr.matches(numregex)) {
-        // // early termination
-        // if (locationStr.isBlank()) {
-        // return this.getPreviousMenu();
-        // }
-        // System.out.println(ConsoleColours.RED + "Please enter a valid choice:" +
-        // ConsoleColours.RESET);
-        // locationStr = sc.nextLine();
-        // }
-        // int location = Integer.valueOf(locationStr);
-
-        String location = sc.next();
+        String locationStr = sc.nextLine();
+        while (!locationStr.matches(numregex)) {
+            // early termination
+            if (locationStr.isBlank()) {
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please enter a valid choice:" +
+                    ConsoleColours.RESET);
+            locationStr = sc.nextLine();
+        }
+        int location = Integer.valueOf(locationStr) - 1;
 
         /**
          * Set location of cineplex and name of cineplex based on the user's preferred
          * cineplex choice
          */
-        cineplex.setLocation(location);
+        cineplex.setLocation(hashMap.get(location).getLocation());
         cineplex.setName("Sally Carrera");
 
         /**
          * Display list of Cinema Class Type, filtered by choosen Cineplex's location
          */
-        System.out.println("\nList of Cinemas Class Type Available at " + location + "\n");
-        CineplexController.readByLocation(location);
+        System.out.println("\nList of Cinemas Class Type Available at " + hashMap.get(location).getLocation() + "\n");
+        CineplexController.readByLocation(hashMap.get(location).getLocation());
         // cineplex = new Cineplex(CineplexController.readByLocation(location),
         // cineplex.getName(), location);
 
@@ -137,23 +124,40 @@ public class BookTicket extends BaseMenu {
          * Display list of Movies for users to choose from
          */
         System.out.println("\nList of Movies Available: \n");
-        MovieController.read();
+
+        ArrayList<Movie> movieArray = MovieController.read();
+        Map<Integer, Movie> hashMapMovie = new HashMap();
+        for (int j = 0; j < movieArray.size(); j++) {
+            int k = j + 1;
+            hashMapMovie.put(k - 1, movieArray.get(k - 1));
+            System.out.println(k + ": " + hashMapMovie.get(k - 1).getTitle());
+        }
 
         /**
          * Field for user to enter choice of movieTitle
          */
         System.out.print("\nPlease choose your preferred Movie: ");
-        movieTitle = sc.nextLine();
-        movieTitle += sc.nextLine();
-        movie.setTitle(movieTitle);
-        // movieType = movieType_Enum.valueOf(sc.next().toUpperCase());
-        movie.setMovieType(movieType_Enum.BLOCKBUSTER);
+
+        String movieTitleStr = sc.next();
+        while (!movieTitleStr.matches(numregex)) {
+            // early termination
+            if (movieTitleStr.isBlank()) {
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please enter a valid choice:" +
+                    ConsoleColours.RESET);
+            movieTitleStr = sc.nextLine();
+        }
+        int movieTitle = Integer.valueOf(movieTitleStr) - 1;
+        movie.setTitle(hashMapMovie.get(movieTitle).getTitle());
+        movie.setMovieType(hashMapMovie.get(movieTitle).getMovieType());
 
         /**
          * Display list of Movie Showtime, filtered by choosen movieTitle and movieType
          */
         System.out.println("List of Sessions Available: \n");
-        MovieSessionController.readbyMovieTitle(cinema, movie.getTitle(), movie.getMovieType());
+        MovieSessionController.readbyMovieTitle(cinema, hashMapMovie.get(movieTitle).getTitle(),
+                hashMapMovie.get(movieTitle).getMovieType());
 
         /**
          * Create MovieSession object
@@ -167,7 +171,7 @@ public class BookTicket extends BaseMenu {
         /**
          * Field for user to enter choice of Session Date
          */
-        System.out.print("\nPlease choose your preferred Session Date: ");
+        System.out.print("\nPlease choose your preferred Session Date (yyyy-MM-dd): ");
         String date = sc.nextLine();
         String dateCheck = "^((2000|2400|2800|(19|2[0-9])(0[48]|[2468][048]|[13579][26]))-02-29)$"
                 + "|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$"
@@ -181,13 +185,15 @@ public class BookTicket extends BaseMenu {
         /**
          * Field for user to enter choice of Session Time
          */
-        MovieSessionController.readbyShowDate(cinema, movie.getTitle(), movie.getMovieType(), date);
-        System.out.print("\nPlease choose your preferred Session Time: ");
+        MovieSessionController.readbyShowDate(cinema, movie.getTitle(),
+                movie.getMovieType(), date);
+        System.out.print("\nPlease choose your preferred Session Time (HH:mm): ");
         String time = sc.nextLine();
         String timeCheck = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
         while (!time.matches(timeCheck)) {
-            System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
-            date = sc.nextLine();
+            System.out.println(ConsoleColours.RED + "Please enter the time in the required format: (HH:mm)"
+                    + ConsoleColours.RESET);
+            time = sc.nextLine();
         }
         movieSession.setShowtime(date, time);
 
@@ -196,11 +202,19 @@ public class BookTicket extends BaseMenu {
         /**
          * Create MovieSession object
          */
-        movieSession = (MovieSessionController.readbyShowTime(cinema, movieTitle, movie.getMovieType(), date, time))
+        movieSession = (MovieSessionController.readbyShowTime(cinema, movie.getTitle(),
+                movie.getMovieType(), date, time))
                 .get(0);
 
+        /**
+         * Display Available Seats
+         */
+        System.out.println("");
         movieSession.showSeatings(cinema.getCinemaClass());
 
+        /**
+         * Field for user to enter number of seats they would like
+         */
         System.out.print("\nPlease enter the number of seats being purchased: ");
         String noOfTicketsStr = sc.nextLine();
 
@@ -215,7 +229,9 @@ public class BookTicket extends BaseMenu {
 
         int noOfTickets = Integer.valueOf(noOfTicketsStr);
 
-        // Create an array of tickets to store all tickets made in this transaction
+        /**
+         * Create an array of tickets to store all tickets made in this transaction
+         */
         ArrayList<Ticket> ticket = new ArrayList<>();
         String id;
         float totalPrice = 0;
@@ -223,7 +239,7 @@ public class BookTicket extends BaseMenu {
 
         for (int i = 0; i < noOfTickets; i++) {
 
-            System.out.println("\nPlease enter the seat ID for Ticket " + (i + 1) + ": ");
+            System.out.print("\nPlease enter the seat ID for Ticket " + (i + 1) + ": ");
             id = sc.next();
             movieSession.bookSeat(id, cinemaType);
 
@@ -239,8 +255,16 @@ public class BookTicket extends BaseMenu {
              * Field for user to enter age group for each ticket
              */
             System.out.print("Please select an age group for Ticket " + (i + 1) + ": ");
-            // ageGroup = ageGroup_Enum.valueOf(sc.next().toUpperCase());
-            int age = sc.nextInt();
+            String ageStr = sc.next();
+            while (!ageStr.matches(numregex)) {
+                // early termination
+                if (ageStr.isBlank()) {
+                    return this.getPreviousMenu();
+                }
+                System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
+                ageStr = sc.nextLine();
+            }
+            int age = Integer.valueOf(ageStr);
 
             switch (age) {
                 case 1:
@@ -259,7 +283,11 @@ public class BookTicket extends BaseMenu {
 
             movieSession.showSeatings(cinema.getCinemaClass());
 
-            ticket.add(new Ticket(cineplex, cinema, movieSession.getShowtime(), movieTitle, movie.getMovieType(),
+            /**
+             * Add into ticket object into ticket array
+             */
+            ticket.add(new Ticket(cineplex, cinema, movieSession.getShowtime(), hashMapMovie.get(movieTitle).getTitle(),
+                    movie.getMovieType(),
                     movie.getMovieRating(), id, ageGroup));
         }
 
@@ -267,9 +295,8 @@ public class BookTicket extends BaseMenu {
 
         // Get current date time
         LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
         String formatDateTime = now.format(formatter1);
-        System.out.println(formatDateTime);
 
         String TID = cinema.getCinemaCode().concat(formatDateTime);
 
@@ -280,14 +307,17 @@ public class BookTicket extends BaseMenu {
             return new CreateOrLogin(this, -1);
         }
 
-        Transaction transaction = new Transaction(TID, moviegoer.getName(), noOfTickets, movieTitle,
+        Transaction transaction = new Transaction(TID, moviegoer.getName(), noOfTickets,
+                movie.getTitle(),
                 movieSession.getShowtime().toString(), totalPrice);
 
-        if (TransactionController.create(TID, moviegoer.getName(), noOfTickets, movieTitle,
-                movieSession.getShowtime().toString(), totalPrice))
+        if (TransactionController.create(TID, moviegoer.getName(), noOfTickets, hashMapMovie.get(movieTitle).getTitle(),
+                movieSession.getShowtime().toString(), totalPrice)) {
             System.out.println(
                     ConsoleColours.GREEN_BOLD + "Your ticket(s) have been successfully booked!" + ConsoleColours.RESET);
-        else
+            System.out.println("TID: " + TID);
+            System.out.println("Price Paid: " + totalPrice);
+        } else
             System.out.println(ConsoleColours.GREEN_BOLD + "Your booking is unsuccessful. Please try again."
                     + ConsoleColours.RESET);
 
