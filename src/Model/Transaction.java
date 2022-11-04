@@ -108,8 +108,15 @@ public class Transaction {
      * @return noOfTickets
      */
     public int getNoOfTickets() {
-        noOfTickets = tickets.length;
-        return noOfTickets;
+        try {
+            noOfTickets = tickets.length;
+            return noOfTickets;
+        } catch (NullPointerException e) {
+            // System.out.println("NullPointerException thrown!");
+        }
+        return 0;
+        // noOfTickets = tickets.length;
+        // return noOfTickets;
     }
 
     /**

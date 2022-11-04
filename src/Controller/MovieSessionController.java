@@ -61,7 +61,7 @@ public class MovieSessionController {
                 // HH:mm");
                 // String sessionTime = dateTime;
                 movieSessionList.add(new MovieSession(sessionDate, sessionTime,
-                        ((Cinema) CineplexController.readByCinemaCode(cinemaCode)).getCinemaClass(),
+                        (CineplexController.readByCode(cinemaCode)).getCinemas().get(0).getCinemaClass(),
                         movieTitle, movieType));
                 System.out.println(tokens[0]);
             }
@@ -112,7 +112,7 @@ public class MovieSessionController {
 
     }
 
-    public static ArrayList<MovieSession> readbyShowDate(Cinema cinema, String movieTitle,
+    public static ArrayList<MovieSession> readbyShowDate(String movieTitle,
             movieType_Enum movieType, String date) {
 
         // Cinema cinema = new Cinema(cinemaCode, null, null);

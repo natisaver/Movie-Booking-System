@@ -78,11 +78,13 @@ public class MovieController {
 
         // If Database Exists
         String line = "";
+
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[1].toLowerCase().equals(title.toLowerCase())) {
+
                     return new Movie(tokens[0], tokens[1], line.split(tokens[2]), tokens[3], tokens[4], tokens[5],
                             Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]),
                             movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]),
