@@ -48,13 +48,13 @@ public class AdminMainMenu extends BaseMenu{
 
         switch (choice) {
             case 1:
-                // nextMenu = new ConfigureSettings(this);
+                nextMenu = new ConfigureSettings(this, 1);
                 break;
             case 2:
-                // nextMenu = new EnterDetails(this);
+                nextMenu = new EnterMovieDetails(this, 1);
                 break;
             case 3:
-                // nextMenu = new UpdateDetails(this);
+                nextMenu = new UpdateDetails(this, 1);
                 break;
             case 4:
                 // nextMenu = new ListTop5(this);

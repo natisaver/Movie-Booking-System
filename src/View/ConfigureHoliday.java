@@ -6,20 +6,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import Controller.HolidayController;
-import Model.Admin;
 
 public class ConfigureHoliday extends BaseMenu{
   Scanner sc = new Scanner(System.in);
-  Admin admin;
 
   /** 
      * Constructor to store previous page and access level
      * @param previousMenu     the previous page
      * @param accesslevel      the level of access
      */
-    public ConfigureHoliday(BaseMenu previousMenu, int accesslevel, Admin admin) {
+    public ConfigureHoliday(BaseMenu previousMenu, int accesslevel) {
       super(previousMenu, accesslevel);
-      this.admin = admin;
   }
 
   public BaseMenu execute() {
