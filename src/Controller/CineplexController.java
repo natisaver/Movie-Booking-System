@@ -78,7 +78,7 @@ public class CineplexController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 cineplexArrayList.add(new Cineplex(null, tokens[0], tokens[0]));
-                System.out.println(tokens[0] + " (" + tokens[2] + ")");
+                System.out.println(i + ": " + tokens[0] + " (" + tokens[2] + ")");
                 i++;
             }
             reader.close();
@@ -108,7 +108,7 @@ public class CineplexController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[0].equals(location)) {
-                    cineplexArrayList.add(new Cineplex(null, tokens[0], tokens[0]));
+                    cineplexArrayList.add(new Cineplex(null, tokens[1], tokens[0]));
                     System.out.println(tokens[2]);
                     i++;
                 }

@@ -57,7 +57,7 @@ public class MovieController {
                         movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]),
                         Integer.parseInt(tokens[10]));
                 movieArrayList.add(movie);
-                System.out.println(tokens[0]);
+                // System.out.println(tokens[0]);
             }
             reader.close();
         } catch (IOException e) {
