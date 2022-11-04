@@ -67,7 +67,7 @@ public class EnterMovieDetails extends BaseMenu{
         //Enter Movie Type
         String[] strRegex = {"TWOD", "THREED", "BLOCKBUSTER"};
         System.out.println("Enter Movie Type: ");
-        System.out.println(ConsoleColours.YELLOW + "(TWOD, THREED, BLOCKBUSTER)" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.BLUE + "(TWOD, THREED, BLOCKBUSTER)" + ConsoleColours.RESET);
         inputString = sc.nextLine().toUpperCase();
         System.out.println(inputString);
         while (!Arrays.asList(strRegex).contains(inputString)) {
@@ -84,7 +84,7 @@ public class EnterMovieDetails extends BaseMenu{
         //Enter Movie Rating
         String[] strRegex2 = {"PG", "PG13", "NC16", "M18", "R21"};
         System.out.println("Enter Movie Rating: ");
-        System.out.println(ConsoleColours.YELLOW + "(PG, PG13, NC16, M18, R21)" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.BLUE + "(PG, PG13, NC16, M18, R21)" + ConsoleColours.RESET);
         inputString = sc.nextLine().toUpperCase();
         System.out.println(inputString);
         while (!Arrays.asList(strRegex2).contains(inputString)) {
