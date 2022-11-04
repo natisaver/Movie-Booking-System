@@ -84,6 +84,28 @@ public class MovieSession {
     }
 
     /**
+     * Get the MovieSession's date
+     * 
+     * @return this MovieSession's date
+     */
+    public String getSessionDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String date = this.showtime.format(formatter).substring(0,10);
+        return date;
+    }
+
+    /**
+     * Get the MovieSession's time
+     * 
+     * @return this MovieSession's time
+     */
+    public String getSessionTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String time = this.showtime.format(formatter).substring(11);
+        return time;
+    }
+
+    /**
      * Set the MovieSession's showtime
      * 
      * @param time MovieSession's showtime
