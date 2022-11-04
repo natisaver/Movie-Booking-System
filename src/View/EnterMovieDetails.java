@@ -18,39 +18,67 @@ public class EnterMovieDetails extends BaseMenu{
         super(previousMenu, accesslevel);
     }
 
-    public BaseMenu execute(){
-        System.out.println("Create Movie:");
 
+    public BaseMenu execute(){
+        BaseMenu nextMenu = this;
         Scanner sc = new Scanner(System.in);
-        String inputString;
+        String inputString, numRegex, strRegex;
         ArrayList<String> inputArray = new ArrayList<String>(); 
-    
+
+        System.out.println(ConsoleColours.WHITE_BRIGHT + "Enter Details of New Movie:" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
     
         System.out.println("Enter Movie Title: ");
         inputString = sc.nextLine();
         movie = MovieController.readByTitle(inputString);
         
         //Checks if Movie already exists in the database
-        if(movie == null){
-            System.out.println("Movie does not exist.");
+        while(movie != null){
+            System.out.println(ConsoleColours.RED + "Movie already exists." + ConsoleColours.RESET);
             System.out.println("Re-enter Movie Title");
-            //need to reprompt here
+            inputString = sc.nextLine();
+            movie = MovieController.readByTitle(inputString);
         }
         movie.setTitle(inputString);
 
+        strRegex = "TWOD" + "THREED" + "BLOCKBUSTER";
         System.out.println("Enter Movie Type: ");
-        inputString = sc.nextLine();
-        if(inputString.isBlank()){
-            return this.getPreviousMenu();
+        inputString = sc.nextLine().toUpperCase();
+        while (!inputString.matches(strRegex)) {
+            //early termination
+            if(inputString.isBlank()){
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please enter a valid Movie Type:" + ConsoleColours.RESET);
+            inputString = sc.nextLine();
         }
-        movie.setMovieType(movieType_Enum.valueOf(inputString.toUpperCase()));
+        movie.setMovieType(movieType_Enum.valueOf(inputString));
 
+        strRegex = "PG" + "PG13" + "NC16" + "M18" + "R21";
         System.out.println("Enter Movie Rating: ");
-        inputString = sc.nextLine();
-        if(inputString.isBlank()){
-            return this.getPreviousMenu();
+        inputString = sc.nextLine().toUpperCase();
+        while (!inputString.matches(strRegex)) {
+            //early termination
+            if(inputString.isBlank()){
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please enter a valid Movie Rating:" + ConsoleColours.RESET);
+            inputString = sc.nextLine();
         }
-        movie.setMovieRating(movieRating_Enum.valueOf(inputString.toUpperCase()));
+        movie.setMovieRating(movieRating_Enum.valueOf(inputString));
+
+        numRegex = "^([1-9][0-9]|[1-2][0-9][0-9])$";
+        System.out.println("Enter Movie Duration (in minutes): ");
+        inputString = sc.nextLine();
+        while (!inputString.matches(numRegex)) {
+            //early termination
+            if(inputString.isBlank()){
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please enter a valid Duration:" + ConsoleColours.RESET);
+            inputString = sc.nextLine();
+        }
+        movie.setDuration(Integer.parseInt(inputString));
 
         System.out.println("Enter Synopsis: ");
         inputString = sc.nextLine();
@@ -69,8 +97,14 @@ public class EnterMovieDetails extends BaseMenu{
         System.out.println("Enter Cast: ");
         int i=0;
         do{
-            inputArray.add(sc.next());
-            i++;
+            inputString = sc.nextLine();
+            if(inputString.isBlank()){
+                return this.getPreviousMenu();
+            }
+            else{
+                inputArray.add(inputString);
+                i++;
+            }
         }while(inputArray.get(i) != null);
         movie.setCast(inputArray);
         //clear array after - for use next time
@@ -87,7 +121,7 @@ public class EnterMovieDetails extends BaseMenu{
             if(inputString.isBlank()){
                 return this.getPreviousMenu();
             }
-            System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
+            System.out.println(ConsoleColours.RED + "Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
             inputString = sc.nextLine();
         }
         movie.setReleaseDate(inputString);
@@ -111,7 +145,7 @@ public class EnterMovieDetails extends BaseMenu{
 
 
         //go to nextMenu
-        nextMenu = new EnterMovieSession();
+        nextMenu = new EnterMovieSession(this, 1, movie);
         return nextMenu;
     }
 }
