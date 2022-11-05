@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import javax.swing.event.SwingPropertyChangeSupport;
+
 import Controller.MovieController;
 
 import java.time.format.DateTimeFormatter;
@@ -197,8 +199,47 @@ public class EnterMovieDetails extends BaseMenu{
         //ADD NEWLY CREATED MOVIE OBJECT TO CSV
         MovieController.create(movie);
 
-        //GO TO NEXTMENU
-        nextMenu = new EnterMovieSession(this, 1, movie);
+        System.out.println(ConsoleColours.GREEN_BOLD + "Movie successfully created." + ConsoleColours.RESET);
+        System.out.println();
+
+        System.out.println(ConsoleColours.WHITE_BOLD + "Would you like to continue to create movie sessions for this movie?" + ConsoleColours.RESET);
+        System.out.println("1. Yes");
+        System.out.println("2. No");
+        System.out.println(ConsoleColours.RED + "3. Quit" + ConsoleColours.RESET);
+        //keep asking for choice
+        System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
+        String choicestr = sc.nextLine();
+        System.out.println();
+
+        int choice;
+        String numregex = "^(?!(0))[0-3]{1}$";
+        while (!choicestr.matches(numregex)) {
+            //early termination
+            if(choicestr.isBlank()){
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
+            choicestr = sc.nextLine();
+            System.out.println();
+        }
+
+        choice = Integer.valueOf(choicestr);
+
+        switch (choice) {
+            case 1:
+                nextMenu = new EnterMovieSession(this, 1, movie);
+                break;
+            case 2:
+                nextMenu = this.getPreviousMenu();
+                break;
+            case 3:
+                nextMenu = new Quit(this);
+                break;
+            default:
+                choice = -1;
+                System.out.println("Please enter a valid choice.");
+                break;
+        }
         return nextMenu;
     }
 }
