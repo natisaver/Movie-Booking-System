@@ -28,6 +28,7 @@ public class ConfigureSettings extends BaseMenu{
         //Keep asking for choice
         System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
         String choicestr = sc.nextLine();
+        System.out.println();
 
         while (!choicestr.matches(numregex)) {
             //early termination
@@ -36,6 +37,7 @@ public class ConfigureSettings extends BaseMenu{
             }
             System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
             choicestr = sc.nextLine();
+            System.out.println();
         }
 
         choice = Integer.valueOf(choicestr);
