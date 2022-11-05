@@ -91,6 +91,7 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[0].substring(1, tokens[0].length() - 1).toLowerCase().equals(title.toLowerCase())) {
+                    reader.close();
                     return new Movie(tokens[0].substring(1, tokens[0].length() - 1),
                             tokens[1].substring(1, tokens[1].length() - 1),
                             new ArrayList<String>(
@@ -519,10 +520,16 @@ public class MovieController {
             writer.close();
             reader.close();
             // delete old file
-            Files.delete(Paths.get(DataController.getPath("Movie")));
         } catch (IOException e) {
-            // e.printStackTrace();
+            e.printStackTrace();
             System.out.println("probably here");
+            return false;
+        }
+        try {
+            Files.delete(Paths.get(DataController.getPath("Movie"))); }
+        catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("probably NOT here");
             return false;
         }
         // replace with the new file
