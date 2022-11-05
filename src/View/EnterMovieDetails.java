@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import Controller.MovieController;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -69,7 +70,6 @@ public class EnterMovieDetails extends BaseMenu{
         System.out.println("Enter Movie Type: ");
         System.out.println(ConsoleColours.BLUE + "(TWOD, THREED, BLOCKBUSTER)" + ConsoleColours.RESET);
         inputString = sc.nextLine().toUpperCase();
-        System.out.println(inputString);
         while (!Arrays.asList(strRegex).contains(inputString)) {
             //early termination
             if(inputString.isBlank()){
@@ -86,7 +86,6 @@ public class EnterMovieDetails extends BaseMenu{
         System.out.println("Enter Movie Rating: ");
         System.out.println(ConsoleColours.BLUE + "(PG, PG13, NC16, M18, R21)" + ConsoleColours.RESET);
         inputString = sc.nextLine().toUpperCase();
-        System.out.println(inputString);
         while (!Arrays.asList(strRegex2).contains(inputString)) {
             //early termination
             if(inputString.isBlank()){
@@ -149,14 +148,8 @@ public class EnterMovieDetails extends BaseMenu{
         }while(!inputArray.isEmpty());
         System.out.println(ConsoleColours.GREEN + "Movie Cast added" + ConsoleColours.RESET);
         movie.setCast(inputArray);
-        StringBuffer sb = new StringBuffer();
-        for (String s : movie.getCast()) {
-            sb.append(s);
-            sb.append(",");
-         }
-        System.out.println(sb.toString());
         //clear array after - for use next time
-        inputArray.clear();
+        //inputArray.clear();
 
         //Enter Movie Release Date
         String dateCheck = "^((2000|2400|2800|(19|2[0-9])(0[48]|[2468][048]|[13579][26]))-02-29)$" 
@@ -165,26 +158,38 @@ public class EnterMovieDetails extends BaseMenu{
                         + "|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$";
         System.out.println("Enter Release Date (yyyy-MM-dd): ");
         inputString = sc.nextLine();
-        while (!inputString.matches(dateCheck)){
+        while (!inputString.matches(dateCheck) || LocalDateTime.parse(inputString + " 00:00", formatter).isBefore(LocalDateTime.now())){
             if(inputString.isBlank()){
                 return this.getPreviousMenu();
             }
-            System.out.println(ConsoleColours.RED + "Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
+            if(!inputString.matches(dateCheck))
+                System.out.println(ConsoleColours.RED + "Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
+            else
+                System.out.println(ConsoleColours.RED + "Please enter a future date" + ConsoleColours.RESET);
             inputString = sc.nextLine();
         }
+
         System.out.println(ConsoleColours.GREEN + "Movie Release Date added" + ConsoleColours.RESET);
         movie.setReleaseDate(inputString);
 
         //Enter Movie End Date
         System.out.println("Enter End Date (yyyy-MM-dd): ");
         inputString = sc.nextLine();
-        while (!inputString.matches(dateCheck)){
+        while (!inputString.matches(dateCheck) || LocalDateTime.parse(inputString + " 00:00", formatter).isBefore(movie.getReleaseDate())){
             if(inputString.isBlank()){
                 return this.getPreviousMenu();
             }
-            System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
+            if(!inputString.matches(dateCheck))
+            {
+                System.out.println(ConsoleColours.RED + "Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
+            }  
+            else 
+            {
+                System.out.println(ConsoleColours.RED + "Please enter a date after release date" + ConsoleColours.RESET);
+            }          
             inputString = sc.nextLine();
         }
+
         System.out.println(ConsoleColours.GREEN + "Movie End Date added" + ConsoleColours.RESET);
         movie.setEndDate(inputString);
         
