@@ -8,15 +8,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import Controller.CineplexController;
 import Controller.MovieController;
-import Controller.MovieSessionController;
 
 /**
  * The page for Admin to update details of existing Movie.
@@ -57,11 +52,10 @@ public class UpdateMovieDetails extends BaseMenu{
         int choice;
         Movie movie = new Movie();
         String inputTitle, choiceStr, inputString, numRegex;
-        String choicestr;
         String dateCheck;
         ArrayList<String> inputArray = new ArrayList<String>(); 
 
-        System.out.println("Enter Title of existing Movie to be updated:");
+        System.out.println(ConsoleColours.WHITE_BOLD + "Enter Title of existing Movie to be updated:" + ConsoleColours.RESET);
         inputTitle = sc.nextLine();
         //Go back to previousMenu if blank is entered
         if(inputTitle.isBlank()){
@@ -95,7 +89,7 @@ public class UpdateMovieDetails extends BaseMenu{
             System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
 
             //Keep asking for choice
-            System.out.println("Enter your choice: ");
+            System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
             choiceStr = sc.nextLine();
             numRegex = "^([1-9]|[1][0-1])$";
             while (!choiceStr.matches(numRegex)) {

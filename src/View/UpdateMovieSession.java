@@ -16,7 +16,6 @@ import Model.Movie;
 import Model.MovieSession;
 
 public class UpdateMovieSession extends BaseMenu{
-    private MovieSession movieSession;
     Scanner sc = new Scanner(System.in);
     private Pattern regexPattern;
     private Matcher regMatcher;
