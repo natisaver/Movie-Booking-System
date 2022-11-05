@@ -33,16 +33,16 @@ public class ConfigurePrice extends BaseMenu{
         String ticketid;
 
         System.out.println(ConsoleColours.WHITE_BOLD + "Types of Tickets:" + ConsoleColours.RESET);
-        System.out.println("0. Child Ticket*");
-        System.out.println("1. Senior Ticket*");
-        System.out.println("2. Adult Ticket (Mon-Wed)");
-        System.out.println("3. Adult Ticket (Thu)");
-        System.out.println("4. Adult Ticket (Fri before 6pm)");
-        System.out.println("5. Adult Ticket (Fri after 6pm)");
-        System.out.println("6. Adult Ticket (Weekends)");
+        System.out.println("> Child Ticket" + ConsoleColours.RED + "*" + ConsoleColours.RESET + ConsoleColours.YELLOW + "\t\t\t(ID=0)" + ConsoleColours.RESET);
+        System.out.println("> Senior Ticket" + ConsoleColours.RED + "*" + ConsoleColours.RESET + ConsoleColours.YELLOW + "\t\t(ID=1)" + ConsoleColours.RESET);
+        System.out.println("> Adult Ticket (Mon-Wed)" + ConsoleColours.YELLOW + "\t(ID=2)" + ConsoleColours.RESET);
+        System.out.println("> Adult Ticket (Thu)" + ConsoleColours.YELLOW + "\t\t(ID=3)" + ConsoleColours.RESET);
+        System.out.println("> Adult Ticket (Fri before 6pm)"+ ConsoleColours.YELLOW + "\t(ID=4)" + ConsoleColours.RESET);
+        System.out.println("> Adult Ticket (Fri after 6pm)" + ConsoleColours.YELLOW + "\t(ID=5)" + ConsoleColours.RESET);
+        System.out.println("> Adult Ticket (Weekends)" + ConsoleColours.YELLOW + "\t(ID=6)" + ConsoleColours.RESET);
         System.out.println(ConsoleColours.RED_BRIGHT + "* means only valid before 6pm, and excluding weekends and public holidays" + ConsoleColours.RESET);
-        System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
-
+        System.out.println(ConsoleColours.GREEN + "(Leave any field empty to back)" + ConsoleColours.RESET);
+        System.out.println();
 
         String numregex = "^[0-6]{1}$";
         System.out.println("Please indicate ID of Ticket to Edit Price: ");
@@ -59,36 +59,85 @@ public class ConfigurePrice extends BaseMenu{
 
         System.out.println(ConsoleColours.WHITE_BOLD + "The current prices for this ticket are:" + ConsoleColours.RESET);
         double[] curprices = PriceDataController.readByID(ticketid); 
-        System.out.println("- Base Price for Regular: $" + curprices[0]);
-        System.out.println("- Base Price for BlockBuster: $" + curprices[1]);
-        System.out.println("- Base Price for 3D: $" + curprices[2]);
-        System.out.println("- Increment to Gold Cinema: $" + curprices[3]);
-        System.out.println("- Increment to Elite Seat: $" + curprices[4]);
+        System.out.println("> Base Price for Regular: $" + curprices[0]);
+        System.out.println("> Base Price for BlockBuster: $" + curprices[1]);
+        System.out.println("> Base Price for 3D: $" + curprices[2]);
+        System.out.println("> Increment to Gold Cinema: $" + curprices[3]);
+        System.out.println("> Increment to Elite Seat: $" + curprices[4]);
 
-        //
-        String numregex2 = "^(?:0|[1-9]\\d{0,2}(?:\\.\\d{3})*),\\d{2}$";
-        System.out.println("Enter Regular, Blockbuster, 3D base prices");
-        System.out.println("followed by $ increment for Gold Class Cinema from Standard Cinema");
-        System.out.println("and $ increment for Elite Seat from Basic Seat");
-        int i = 0;
-        String input;
         double[] inputList = new double[5];
-        do {
-            input = sc.nextLine();
-
-            while (!input.matches(numregex2)) {
-                //early termination
-                if(input.isBlank()){
-                    return this.getPreviousMenu();
-                }
-                System.out.println(ConsoleColours.RED + "Please key a valid Price" + ConsoleColours.RESET);
-                input = sc.nextLine();
+        String numregex2 = "\\d{1,3}[,\\.]?(\\d{1,2})?";
+        System.out.println(ConsoleColours.CYAN_BOLD + "Enter Price with Decimal (X.XX)" + ConsoleColours.RESET);
+        System.out.println();
+        System.out.println(ConsoleColours.WHITE_BOLD + "Enter Regular Base Price" + ConsoleColours.RESET);
+        String input = sc.nextLine();
+        while (!input.matches(numregex2)) {
+            //early termination
+            if(input.isBlank()){
+                return this.getPreviousMenu();
             }
-            inputList[i] = Double.parseDouble(input);
-            i++;
-        } while (i < 5);
+            System.out.println(ConsoleColours.RED + "Please key a valid Price" + ConsoleColours.RESET);
+            input = sc.nextLine();
+        }
+        inputList[0] = Double.parseDouble(input);
+
+        System.out.println(ConsoleColours.WHITE_BOLD + "Enter BlockBuster Base Price" + ConsoleColours.RESET);
+        input = sc.nextLine();
+        while (!input.matches(numregex2)) {
+            //early termination
+            if(input.isBlank()){
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please key a valid Price" + ConsoleColours.RESET);
+            input = sc.nextLine();
+        }
+        inputList[1] = Double.parseDouble(input);
+
         
-        PriceDataController.update(ticketid, inputList);
+        System.out.println(ConsoleColours.WHITE_BOLD + "Enter 3D Base Price" + ConsoleColours.RESET);
+        input = sc.nextLine();
+        while (!input.matches(numregex2)) {
+            //early termination
+            if(input.isBlank()){
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please key a valid Price" + ConsoleColours.RESET);
+            input = sc.nextLine();
+        }
+        inputList[2] = Double.parseDouble(input);
+
+        
+        System.out.println(ConsoleColours.WHITE_BOLD + "Enter Increment Amount from Standard Cinema -> Gold Cinema" + ConsoleColours.RESET);
+        input = sc.nextLine();
+        while (!input.matches(numregex2)) {
+            //early termination
+            if(input.isBlank()){
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please key a valid Price" + ConsoleColours.RESET);
+            input = sc.nextLine();
+        }
+        inputList[3] = Double.parseDouble(input);
+
+        System.out.println(ConsoleColours.WHITE_BOLD + "Enter Increment Amount from Basic Seat -> Elite Seat" + ConsoleColours.RESET);
+        input = sc.nextLine();
+        while (!input.matches(numregex2)) {
+            //early termination
+            if(input.isBlank()){
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please key a valid Price" + ConsoleColours.RESET);
+            input = sc.nextLine();
+        }
+        inputList[4] = Double.parseDouble(input);
+        
+        if(PriceDataController.update(ticketid, inputList) == true){
+            System.out.println(ConsoleColours.GREEN + "Successfully Updated Prices" + ConsoleColours.RESET);
+        }
+        else{
+            System.out.println(ConsoleColours.RED + "Error in updating ticket prices" + ConsoleColours.RESET);
+            return this.getPreviousMenu();
+        }
 
         return this.getPreviousMenu();
     }

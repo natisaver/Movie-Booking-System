@@ -427,12 +427,10 @@ public class MovieController {
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
             // e.printStackTrace();
-            System.out.println("cant find database ");
             return false;
 
         } catch (IOException e) {
             // e.printStackTrace();
-            System.out.println("wassp");
             return false;
         }
 
@@ -462,7 +460,6 @@ public class MovieController {
 
         } catch (IOException e) {
             // e.printStackTrace();
-            System.out.println("triggered");
             return false;
         }
 
@@ -500,7 +497,7 @@ public class MovieController {
                 if (end.isBefore(cur) || end.equals(cur)) {
                     showingStatus = showingStatus_Enum.END_OF_SHOWING;
                 }
-                System.out.println(showingStatus.name());
+                // System.out.println(showingStatus.name());
                 writer.append(tokens[0]);
                 writer.append(",");
                 writer.append(tokens[1]);
@@ -528,15 +525,15 @@ public class MovieController {
             reader.close();
             // delete old file
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("probably here");
+            // e.printStackTrace();
+            // System.out.println("probably here");
             return false;
         }
         try {
             Files.delete(Paths.get(DataController.getPath("Movie"))); }
         catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("probably NOT here");
+            // e.printStackTrace();
+            // System.out.println("probably NOT here");
             return false;
         }
         // replace with the new file
