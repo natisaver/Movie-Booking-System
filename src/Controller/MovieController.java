@@ -193,18 +193,28 @@ public class MovieController {
                 writer.append('"'+movie.getDirector()+'"');
                 writer.append(",");
                 
-                StringBuilder str = new StringBuilder("");
-                for(String eachstring : movie.getCast()){
-                    str.append(eachstring).append(",");
-                }
-                String castString = str.toString();
-                if (castString.length() > 0){
-                    castString = castString.substring(0, castString.length()-1);
-                }
-                writer.append('"' + castString +'"');
+                StringBuffer sb = new StringBuffer();
+                for (String s : movie.getCast()) {
+                    sb.append(s);
+                    sb.append(",");
+                 }
+                 String str = sb.toString();
+                // for(int i = 0; i < movie.getCast().size(); i++)
+                // {
+                //     System.out.println(movie.getCast().get(i));
+                //     castStringBuilder.append(movie.getCast().get(i));
+                //     castStringBuilder.append(',');
+                // }
+                // String castString = castStringBuilder.toString();
+                // System.out.println(castString);
+                // if (castString.length() > 0){
+                //     castString = castString.substring(0, castString.length()-1);
+                // }
+                // String str = Arrays.toString(movie.getCast().toArray());                 
+                writer.append('"' + str +'"');
                 writer.append(",");
-                // writer.append('"' + movie.getCast().toArray(new String[movie.getCast().size()]).toString()+'"');
-                // writer.append(",");
+
+
                 writer.append(movie.getReleaseDate().format(formatter));
                 writer.append(",");
                 writer.append(movie.getEndDate().format(formatter));

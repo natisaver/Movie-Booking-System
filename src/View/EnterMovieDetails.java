@@ -149,6 +149,12 @@ public class EnterMovieDetails extends BaseMenu{
         }while(!inputArray.isEmpty());
         System.out.println(ConsoleColours.GREEN + "Movie Cast added" + ConsoleColours.RESET);
         movie.setCast(inputArray);
+        StringBuffer sb = new StringBuffer();
+        for (String s : movie.getCast()) {
+            sb.append(s);
+            sb.append(",");
+         }
+        System.out.println(sb.toString());
         //clear array after - for use next time
         inputArray.clear();
 
