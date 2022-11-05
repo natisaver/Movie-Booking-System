@@ -387,12 +387,12 @@ public class MovieSessionController {
                 return false;
             }
             // delete old file
-            Files.delete(Paths.get(DataController.getPath("MovieSessions")));
+            Files.delete(Paths.get(DataController.getPath("MovieSession")));
         } catch (IOException e) {
             e.printStackTrace();
         }
         // replace with the new file
-        tempFile.renameTo(new File(DataController.getPath("MovieSessions")));
+        tempFile.renameTo(new File(DataController.getPath("MovieSession")));
         return true;
     }
 
@@ -406,7 +406,7 @@ public class MovieSessionController {
      */
     public static Boolean delete(String cinemaCode, MovieSession session) {
 
-        File inputFile = new File(DataController.getPath("MovieSessions"));
+        File inputFile = new File(DataController.getPath("MovieSession"));
         File tempFile = new File(DataController.getPath("Temp"));
 
         BufferedReader reader = null;
@@ -475,12 +475,56 @@ public class MovieSessionController {
                 return false;
             }
             // delete old file
-            Files.delete(Paths.get(DataController.getPath("MovieGoer")));
+            Files.delete(Paths.get(DataController.getPath("MovieSession")));
         } catch (IOException e) {
             e.printStackTrace();
         }
         // replace with the new file
-        tempFile.renameTo(new File(DataController.getPath("MovieGoer")));
+        tempFile.renameTo(new File(DataController.getPath("MovieSession")));
         return true;
+    }
+
+    public static void display(String cinemaCode, MovieSession session) {
+        BufferedReader[] reader = new BufferedReader[2];
+        try {
+            reader[0] = new BufferedReader(new FileReader(PATH));
+            reader[1] = new BufferedReader(new FileReader(cinePATH));
+        } catch (FileNotFoundException e) {
+            //e.printStackTrace();
+            return;
+        }
+
+        // If Databases Exist
+        String line = "";
+        Hashtable<String, String> cineplex = new Hashtable<>();
+        try {
+            reader[1].readLine();
+            while ((line = reader[1].readLine()) != null) {
+                String[] tokens = line.split(",");
+                cineplex.put(tokens[1], tokens[2]);
+            }
+            reader[1].close();
+        } catch (IOException e) {
+            //e.printStackTrace();
+            return;
+        }
+        cinemaClass_Enum cinemaClass = cinemaClass_Enum.valueOf(cineplex.get(cinemaCode));
+        try {
+            reader[0].readLine();
+            while ((line = reader[0].readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+                if (cinemaCode.equals(tokens[4]) && tokens[2].equals(session.getSessionDate()) && tokens[3].equals(session.getSessionTime())) {
+                    String seatStr = tokens[5].substring(1,tokens[5].length()-1);
+                    String[] seats = seatStr.split(",");
+                    for (int i=0;i<seats.length;i++) {
+                        session.bookSeat(seats[i], cinemaClass);
+                    }
+                }
+            }
+            session.showSeatings(cinemaClass);
+            reader[0].close();
+        } catch (IOException e) {
+            //e.printStackTrace();
+        }
     }
 }
