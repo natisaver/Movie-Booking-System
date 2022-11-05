@@ -60,6 +60,9 @@ public class EnterMovieDetails extends BaseMenu{
             System.out.println(ConsoleColours.RED + "Movie already exists." + ConsoleColours.RESET);
             System.out.println("Re-enter Movie Title");
             inputString = sc.nextLine();
+            if(inputString.isBlank()){
+                return this.getPreviousMenu();
+            }
             movie = MovieController.readByTitle(inputString);
         }
         movie = new Movie();
