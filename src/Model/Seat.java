@@ -19,7 +19,8 @@ public class Seat {
     private boolean isOccupied;
 
     /**
-     * Enum value to check seat type
+     * Seat's type
+     * Possible seat's types: Basic, Couple, Elite
      */
     private seatType_Enum seatType;
 
@@ -36,10 +37,29 @@ public class Seat {
     
     /**
      * Get the seat's ID
+     * 
      * @return this seat's ID
      */
     public String getSeatID() {
         return this.seatID;
+    }
+
+    /**
+     * Set the seat's seatType
+     * @param seatType  the seat's seatType
+     */
+    public void setSeatType(seatType_Enum seatType) {
+        this.seatType = seatType;
+    }
+
+    /**
+     * Get the seat's seatType
+     * 
+     * @return  the seat's type
+     *          Possible seat's type: (Basic, Couple, Elite)
+     */
+    public seatType_Enum getSeatType() {
+        return this.seatType;
     }
     
     /**
@@ -57,21 +77,5 @@ public class Seat {
     public void setIsOccupied() {
         this.isOccupied = !this.isOccupied;
     }
-    
-    /**
-     * Get the seat type
-     * @return this seat type 
-     */
-    public seatType_Enum getSeatType() {
-        return this.seatType;
-    }
-
-    /**
-     * Set the seat type
-     */
-    public void setSeatType(seatType_Enum seatType) {
-        this.seatType = seatType;
-    }
-
 }
 
