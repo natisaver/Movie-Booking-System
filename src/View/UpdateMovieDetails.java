@@ -27,7 +27,7 @@ import Controller.MovieSessionController;
  * @version 1.0
  * @since 04-11-2022
  */
-public class UpdateDetails extends BaseMenu{
+public class UpdateMovieDetails extends BaseMenu{
     private MovieSession movieSession;
     Scanner sc = new Scanner(System.in);
     private Pattern regexPattern;
@@ -43,7 +43,7 @@ public class UpdateDetails extends BaseMenu{
      * @param previousMenu     the previous page
      * @param accesslevel      the level of access
      */
-    public UpdateDetails(BaseMenu previousMenu, int accesslevel) {
+    public UpdateMovieDetails(BaseMenu previousMenu, int accesslevel) {
         super(previousMenu, accesslevel);
     }
 

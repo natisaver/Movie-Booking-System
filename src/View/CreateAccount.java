@@ -57,11 +57,21 @@ public class CreateAccount extends BaseMenu {
         System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
 
         do {
-            System.out.println("Your Name: ");
-            name = sc.nextLine();
-            if(name.isBlank()){
-                break;
-            }
+            do {
+                System.out.println("Your Name: ");
+                name = sc.nextLine();
+                if(name.isBlank()){
+                    return this.getPreviousMenu();
+                }
+                regexPattern = Pattern.compile("^[^,]+$");
+                regMatcher = regexPattern.matcher(name);
+                if (regMatcher.matches()){
+                    break;
+                }
+                System.out.println(ConsoleColours.RED + "Name cannot contain commas" + ConsoleColours.RESET);
+                System.out.println("Please Reenter a valid name:");
+            } while (!regMatcher.matches());
+
             System.out.println("ur indicated name is " + name);
 
             System.out.println("Email: ");
