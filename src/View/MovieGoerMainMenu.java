@@ -1,8 +1,14 @@
 package View;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import Model.Cinema;
+import Model.Movie;
 import Model.MovieGoer;
+import Model.MovieSession;
+import Model.Ticket;
+import Model.Transaction;
 
 /**
  * MovieGoer Main Menu
@@ -21,6 +27,11 @@ public class MovieGoerMainMenu extends BaseMenu {
      * Current User
      */
     MovieGoer moviegoer = null;
+    Movie movie = null;
+    MovieSession movieSession = null;
+    Cinema cinema = null;
+    ArrayList<Ticket> ticket = new ArrayList<>();
+    Transaction transaction = null;
 
     /**
      * Constructor to store previous page and access level
@@ -29,9 +40,15 @@ public class MovieGoerMainMenu extends BaseMenu {
      * @param accesslevel  the level of access
      * @param moviegoer    movieGoer Object
      */
-    public MovieGoerMainMenu(BaseMenu previousMenu, int accesslevel, MovieGoer moviegoer) {
+    public MovieGoerMainMenu(BaseMenu previousMenu, int accesslevel, MovieGoer moviegoer, Movie movie,
+            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction) {
         super(previousMenu, accesslevel);
         this.moviegoer = moviegoer;
+        this.movie = movie;
+        this.movieSession = movieSession;
+        this.cinema = cinema;
+        this.ticket = ticket;
+        this.transaction = transaction;
     }
 
     @Override
@@ -69,11 +86,11 @@ public class MovieGoerMainMenu extends BaseMenu {
 
         switch (choice) {
             case 1:
-                nextMenu = new BookTicket(this, -1, moviegoer);
+                nextMenu = new BookTicket(this, -1, moviegoer, movie, movieSession, cinema, ticket, transaction);
                 break;
             case 2:
                 if (moviegoer == null) {
-                    nextMenu = new CreateOrLogin(nextMenu, -1);
+                    nextMenu = new CreateOrLogin(nextMenu, -1, null, null, null, null, ticket, null);
                 } else {
                     System.out.println(ConsoleColours.WHITE_BOLD + "You can leave a review" + ConsoleColours.RESET);
                 }
@@ -81,13 +98,13 @@ public class MovieGoerMainMenu extends BaseMenu {
                 break;
             case 3:
                 if (moviegoer == null) {
-                    nextMenu = new CreateOrLogin(nextMenu, -1);
+                    nextMenu = new CreateOrLogin(nextMenu, -1, null, null, null, null, ticket, null);
                 } else {
-                    nextMenu = new CheckHistory(this, 0, moviegoer);
+                    nextMenu = new CheckHistory(this, 0, moviegoer, movie, movieSession, cinema, ticket, transaction);
                 }
                 break;
             case 4:
-                nextMenu = new MainMenu(null, -1);
+                nextMenu = new MainMenu(null, -1, moviegoer, movie, movieSession, cinema, ticket, transaction);
                 break;
             case 5:
                 nextMenu = new Quit(this);

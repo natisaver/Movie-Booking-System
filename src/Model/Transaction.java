@@ -1,6 +1,5 @@
 package Model;
 
-import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class Transaction {
     /**
      * List of tickets a MovieGoer purchased under a particular TransactionID (TID)
      */
-    
+
     private ArrayList<Ticket> tickets = new ArrayList<Ticket>();
 
     /**
@@ -37,7 +36,6 @@ public class Transaction {
      * Total price paid by a MovieGoer under a particular TransactionID (TID)
      */
     private double totalPrice = 0;
-
 
     /**
      * TransactionID displayed in the format of XXXYYYYMMDDhhmm
@@ -74,20 +72,21 @@ public class Transaction {
     /**
      * Constructor
      * 
-     * @param tickets     Array List of Tickets bought in this transaction
-     * @param movieGoer   MovieGoer Object that bought the tickets 
+     * @param tickets   Array List of Tickets bought in this transaction
+     * @param movieGoer MovieGoer Object that bought the tickets
      */
     public Transaction(ArrayList<Ticket> tickets, MovieGoer movieGoer) {
         this.tickets = tickets;
         this.movieGoer = movieGoer;
         LocalDateTime now = LocalDateTime.now();
         this.boughtTime = now;
-        //calculate price of all tickets
-        for(int i = 0; i < tickets.size(); i++) {
+        // calculate price of all tickets
+        for (int i = 0; i < tickets.size(); i++) {
             Ticket cur = tickets.get(i);
-            totalPrice += PriceController.calculatePriceDirect(cur.getShowTime(), cur.getMovieType(), cur.getAgeGroup(), cur.getCinema().getCinemaClass(), cur.getSeat().getSeatType());
+            totalPrice += PriceController.calculatePriceDirect(cur.getShowTime(), cur.getMovieType(), cur.getAgeGroup(),
+                    cur.getCinema().getCinemaClass(), cur.getSeat().getSeatType());
         }
-        //other initialised attributes
+        // other initialised attributes
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
         String formatDateTime = now.format(formatter);
         this.TID = tickets.get(0).getCinema().getCinemaCode() + formatDateTime;
@@ -186,6 +185,5 @@ public class Transaction {
     public String getCinemaCode() {
         return this.cinemaCode;
     }
-
 
 }

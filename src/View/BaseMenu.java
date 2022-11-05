@@ -1,7 +1,7 @@
 package View;
 
 /**
- * BaseMenu Abstract Class 
+ * BaseMenu Abstract Class
  * Template for implementation, to create any type of desired menu
  * the MOBLIMA Cinema
  * Application
@@ -12,21 +12,22 @@ package View;
  */
 
 public abstract class BaseMenu {
-    /** 
+    /**
      * previousMenu attribute to store previous page
      * accesslevel attribute to determine user feature access
      * -1: no login access
-     *  0: moviegoer
-     *  1: admin
+     * 0: moviegoer
+     * 1: admin
      */
 
     private BaseMenu previousMenu;
-    private int accesslevel = -1;
+    public int accesslevel = -1;
 
-    /** 
+    /**
      * Constructor to store the previous menu page
-     * @param previousMenu     the previous page
-    */
+     * 
+     * @param previousMenu the previous page
+     */
     public BaseMenu(BaseMenu previousMenu, int accesslevel) {
         this.previousMenu = previousMenu;
         this.accesslevel = accesslevel;
@@ -35,6 +36,7 @@ public abstract class BaseMenu {
     /**
      * This method is called to execute page functionality
      * on the start of the page
+     * 
      * @return the next page to execute
      */
     public abstract BaseMenu execute();
@@ -42,7 +44,8 @@ public abstract class BaseMenu {
     /**
      * This method provides backing functionality
      * checks if current page has a previous page
-     * @return the previous page 
+     * 
+     * @return the previous page
      */
     protected BaseMenu getPreviousMenu() {
         if (previousMenu != null)

@@ -54,7 +54,7 @@ public class MovieSessionController {
             }
             reader[1].close();
         } catch (IOException e) {
-            //e.printStackTrace();
+            // e.printStackTrace();
             return new ArrayList<MovieSession>();
         }
         ArrayList<MovieSession> movieSessionList = new ArrayList<>();
@@ -73,7 +73,7 @@ public class MovieSessionController {
             reader[0].close();
             return movieSessionList;
         } catch (IOException e) {
-            //e.printStackTrace();
+            // e.printStackTrace();
             return movieSessionList;
         }
     }
@@ -100,7 +100,7 @@ public class MovieSessionController {
             }
             reader[1].close();
         } catch (IOException e) {
-            //e.printStackTrace();
+            // e.printStackTrace();
             return new ArrayList<MovieSession>();
         }
         ArrayList<MovieSession> movieSessionList = new ArrayList<>();
@@ -120,7 +120,7 @@ public class MovieSessionController {
             reader[0].close();
             return movieSessionList;
         } catch (IOException e) {
-            //e.printStackTrace();
+            // e.printStackTrace();
             return movieSessionList;
         }
     }
@@ -147,7 +147,7 @@ public class MovieSessionController {
             }
             reader[1].close();
         } catch (IOException e) {
-            //e.printStackTrace();
+            // e.printStackTrace();
             return new ArrayList<MovieSession>();
         }
         ArrayList<MovieSession> movieSessionList = new ArrayList<>();
@@ -167,7 +167,7 @@ public class MovieSessionController {
             reader[0].close();
             return movieSessionList;
         } catch (IOException e) {
-            //e.printStackTrace();
+            // e.printStackTrace();
             return movieSessionList;
         }
     }
@@ -175,8 +175,8 @@ public class MovieSessionController {
     /**
      * CREATE MovieSession in the database
      * 
-     * @param cinemaCode  Cinema Code of cinema in which MovieSession will run in
-     * @param session MovieSession to be added
+     * @param cinemaCode Cinema Code of cinema in which MovieSession will run in
+     * @param session    MovieSession to be added
      * @return <code>true</code> if MovieSession was added, <code>false</code> if
      *         MovieSession clashes with an existing MovieSession
      */
@@ -223,14 +223,17 @@ public class MovieSessionController {
         try {
             reader.readLine();
             LocalDateTime sessionTime = session.getShowtime();
-            LocalDateTime sessionTimeEnd = sessionTime.plusMinutes(MovieController.readByTitle(session.getTitle()).getDuration());
+            LocalDateTime sessionTimeEnd = sessionTime
+                    .plusMinutes(MovieController.readByTitle(session.getTitle()).getDuration());
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
                 LocalDateTime lower = LocalDateTime.parse(tokens[2] + " " + tokens[3], formatter);
                 LocalDateTime upper = lower.plusMinutes(MovieController.readByTitle(tokens[0]).getDuration());
-                if ((tokens[4].equals(cinemaCode)) && 
-                (((sessionTime.isAfter(lower) || sessionTime.equals(lower)) && (sessionTime.isBefore(upper) || sessionTime.equals(upper))) ||
-                ((sessionTimeEnd.isAfter(lower) || sessionTimeEnd.equals(lower)) && (sessionTimeEnd.isBefore(upper) || sessionTimeEnd.equals(upper))))) {
+                if ((tokens[4].equals(cinemaCode)) &&
+                        (((sessionTime.isAfter(lower) || sessionTime.equals(lower))
+                                && (sessionTime.isBefore(upper) || sessionTime.equals(upper))) ||
+                                ((sessionTimeEnd.isAfter(lower) || sessionTimeEnd.equals(lower))
+                                        && (sessionTimeEnd.isBefore(upper) || sessionTimeEnd.equals(upper))))) {
                     Clash = true;
                 }
                 writer.append(tokens[0]);
@@ -252,7 +255,7 @@ public class MovieSessionController {
                 writer.append(",");
                 writer.append(session.getMovieType().name());
                 writer.append(",");
-                writer.append(dateTime.substring(0,10));
+                writer.append(dateTime.substring(0, 10));
                 writer.append(",");
                 writer.append(dateTime.substring(11));
                 writer.append(",");
@@ -280,8 +283,9 @@ public class MovieSessionController {
     /**
      * UPDATE MovieSession in the database
      * 
-     * @param cinemaCode  Cinema Code of cinema in which MovieSession to be updated runs in
-     * @param session MovieSession object to be updated
+     * @param cinemaCode Cinema Code of cinema in which MovieSession to be updated
+     *                   runs in
+     * @param session    MovieSession object to be updated
      * @return <code>true</code> if MovieSession was updated, <code>false</code> if
      *         MovieSession doesnt exist or database is nonexistent
      */
@@ -330,14 +334,17 @@ public class MovieSessionController {
         try {
             reader.readLine();
             LocalDateTime sessionTime = session.getShowtime();
-            LocalDateTime sessionTimeEnd = sessionTime.plusMinutes(MovieController.readByTitle(session.getTitle()).getDuration());
+            LocalDateTime sessionTimeEnd = sessionTime
+                    .plusMinutes(MovieController.readByTitle(session.getTitle()).getDuration());
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 LocalDateTime lower = LocalDateTime.parse(tokens[2] + " " + tokens[3], formatter);
                 LocalDateTime upper = lower.plusMinutes(MovieController.readByTitle(tokens[0]).getDuration());
-                if ((tokens[4].equals(cinemaCode)) && 
-                (((sessionTime.isAfter(lower) || sessionTime.equals(lower)) && (sessionTime.isBefore(upper) || sessionTime.equals(upper))) ||
-                ((sessionTimeEnd.isAfter(lower) || sessionTimeEnd.equals(lower)) && (sessionTimeEnd.isBefore(upper) || sessionTimeEnd.equals(upper))))) {
+                if ((tokens[4].equals(cinemaCode)) &&
+                        (((sessionTime.isAfter(lower) || sessionTime.equals(lower))
+                                && (sessionTime.isBefore(upper) || sessionTime.equals(upper))) ||
+                                ((sessionTimeEnd.isAfter(lower) || sessionTimeEnd.equals(lower))
+                                        && (sessionTimeEnd.isBefore(upper) || sessionTimeEnd.equals(upper))))) {
                     Clash = true;
                     break;
                 }
@@ -352,7 +359,7 @@ public class MovieSessionController {
                     writer.append(",");
                     writer.append(session.getMovieType().name());
                     writer.append(",");
-                    writer.append(dateTime.substring(0,10));
+                    writer.append(dateTime.substring(0, 10));
                     writer.append(",");
                     writer.append(dateTime.substring(11));
                     writer.append(",");
@@ -387,26 +394,27 @@ public class MovieSessionController {
                 return false;
             }
             // delete old file
-            Files.delete(Paths.get(DataController.getPath("MovieSessions")));
+            Files.delete(Paths.get(DataController.getPath("MovieSession")));
         } catch (IOException e) {
             e.printStackTrace();
         }
         // replace with the new file
-        tempFile.renameTo(new File(DataController.getPath("MovieSessions")));
+        tempFile.renameTo(new File(DataController.getPath("MovieSession")));
         return true;
     }
 
     /**
      * DELETE MovieSession in the database
      * 
-     * @param cinemaCode  Cinema Code of cinema in which MovieSession to be deleted runs in
-     * @param session MovieSession object to be deleted
+     * @param cinemaCode Cinema Code of cinema in which MovieSession to be deleted
+     *                   runs in
+     * @param session    MovieSession object to be deleted
      * @return <code>true</code> if MovieSession was deleted, <code>false</code> if
      *         MovieSession doesnt exist or database is nonexistent
      */
     public static Boolean delete(String cinemaCode, MovieSession session) {
 
-        File inputFile = new File(DataController.getPath("MovieSessions"));
+        File inputFile = new File(DataController.getPath("MovieSession"));
         File tempFile = new File(DataController.getPath("Temp"));
 
         BufferedReader reader = null;
@@ -475,12 +483,56 @@ public class MovieSessionController {
                 return false;
             }
             // delete old file
-            Files.delete(Paths.get(DataController.getPath("MovieGoer")));
+            Files.delete(Paths.get(DataController.getPath("MovieSession")));
         } catch (IOException e) {
             e.printStackTrace();
         }
         // replace with the new file
-        tempFile.renameTo(new File(DataController.getPath("MovieGoer")));
+        tempFile.renameTo(new File(DataController.getPath("MovieSession")));
         return true;
+    }
+
+    public static void display(String cinemaCode, MovieSession session) {
+        BufferedReader[] reader = new BufferedReader[2];
+        try {
+            reader[0] = new BufferedReader(new FileReader(PATH));
+            reader[1] = new BufferedReader(new FileReader(cinePATH));
+        } catch (FileNotFoundException e) {
+            //e.printStackTrace();
+            return;
+        }
+
+        // If Databases Exist
+        String line = "";
+        Hashtable<String, String> cineplex = new Hashtable<>();
+        try {
+            reader[1].readLine();
+            while ((line = reader[1].readLine()) != null) {
+                String[] tokens = line.split(",");
+                cineplex.put(tokens[1], tokens[2]);
+            }
+            reader[1].close();
+        } catch (IOException e) {
+            //e.printStackTrace();
+            return;
+        }
+        cinemaClass_Enum cinemaClass = cinemaClass_Enum.valueOf(cineplex.get(cinemaCode));
+        try {
+            reader[0].readLine();
+            while ((line = reader[0].readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+                if (cinemaCode.equals(tokens[4]) && tokens[2].equals(session.getSessionDate()) && tokens[3].equals(session.getSessionTime())) {
+                    String seatStr = tokens[5].substring(1,tokens[5].length()-1);
+                    String[] seats = seatStr.split(",");
+                    for (int i=0;i<seats.length;i++) {
+                        session.bookSeat(seats[i], cinemaClass);
+                    }
+                }
+            }
+            session.showSeatings(cinemaClass);
+            reader[0].close();
+        } catch (IOException e) {
+            //e.printStackTrace();
+        }
     }
 }

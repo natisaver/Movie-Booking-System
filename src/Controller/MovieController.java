@@ -55,10 +55,13 @@ public class MovieController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                Movie movie = new Movie(tokens[0].substring(1, tokens[0].length()-1), tokens[1].substring(1, tokens[1].length()-1), new ArrayList<String>(Arrays.asList(tokens[2].substring(1, tokens[2].length()-1).split(","))), tokens[3], tokens[4], tokens[5].substring(1, tokens[5].length()-1),
-                Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]),
-                movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]),
-                Integer.parseInt(tokens[10]));
+                Movie movie = new Movie(tokens[0].substring(1, tokens[0].length() - 1),
+                        tokens[1].substring(1, tokens[1].length() - 1),
+                        new ArrayList<String>(Arrays.asList(tokens[2].substring(1, tokens[2].length() - 1).split(","))),
+                        tokens[3], tokens[4], tokens[5].substring(1, tokens[5].length() - 1),
+                        Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]),
+                        movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]),
+                        Integer.parseInt(tokens[10]));
                 movieArrayList.add(movie);
                 // System.out.println(tokens[0]);
             }
@@ -82,15 +85,20 @@ public class MovieController {
 
         // If Database Exists
         String line = "";
+
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                if (tokens[0].substring(1, tokens[0].length()-1).toLowerCase().equals(title.toLowerCase())) {
-                    return new Movie(tokens[0].substring(1, tokens[0].length()-1), tokens[1].substring(1, tokens[1].length()-1), new ArrayList<String>(Arrays.asList(tokens[2].substring(1, tokens[2].length()-1).split(","))), tokens[3], tokens[4], tokens[5].substring(1, tokens[5].length()-1),
-                    Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]),
-                    movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]),
-                    Integer.parseInt(tokens[10]));
+                if (tokens[0].substring(1, tokens[0].length() - 1).toLowerCase().equals(title.toLowerCase())) {
+                    return new Movie(tokens[0].substring(1, tokens[0].length() - 1),
+                            tokens[1].substring(1, tokens[1].length() - 1),
+                            new ArrayList<String>(
+                                    Arrays.asList(tokens[2].substring(1, tokens[2].length() - 1).split(","))),
+                            tokens[3], tokens[4], tokens[5].substring(1, tokens[5].length() - 1),
+                            Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]),
+                            movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]),
+                            Integer.parseInt(tokens[10]));
                 }
             }
             reader.close();
@@ -156,7 +164,8 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[0].substring(1, tokens[0].length()-1).toLowerCase().equals(movie.getTitle().toLowerCase())) {
+                if (tokens[0].substring(1, tokens[0].length() - 1).toLowerCase()
+                        .equals(movie.getTitle().toLowerCase())) {
                     Found = true;
                     writer.close();
                     reader.close();
@@ -188,18 +197,19 @@ public class MovieController {
                 writer.append("\n");
             }
             if (Found == false) {
-                writer.append('"'+movie.getTitle()+'"');
+                writer.append('"' + movie.getTitle() + '"');
                 writer.append(",");
-                writer.append('"'+movie.getDirector()+'"');
+                writer.append('"' + movie.getDirector() + '"');
                 writer.append(",");
 
                 writer.append('"');
-                for (int i=0;i<movie.getCast().size();i++) {
+                for (int i = 0; i < movie.getCast().size(); i++) {
                     writer.append(movie.getCast().get(i));
-                    if (i == movie.getCast().size()-1) break;
+                    if (i == movie.getCast().size() - 1)
+                        break;
                     writer.append(", ");
                 }
-                
+
                 writer.append('"');
                 writer.append(",");
 
@@ -207,33 +217,34 @@ public class MovieController {
                 writer.append(",");
                 writer.append(movie.getEndDate().format(formatter));
                 writer.append(",");
-                writer.append('"'+movie.getSynopsis()+'"');
+                writer.append('"' + movie.getSynopsis() + '"');
                 writer.append(",");
                 writer.append(Integer.toString(movie.getDuration()));
                 writer.append(",");
-                
+
                 // Auto setting of Showing Status of Movies
                 showingStatus_Enum showingStatus = null;
                 LocalDateTime cur = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
 
-                // For all current time before preview date (1 Week Before Movie) is under COMING_SOON.
-                if(movie.getReleaseDate().minusWeeks(1).isAfter(cur))
-                {
+                // For all current time before preview date (1 Week Before Movie) is under
+                // COMING_SOON.
+                if (movie.getReleaseDate().minusWeeks(1).isAfter(cur)) {
                     showingStatus = showingStatus_Enum.COMING_SOON;
                 }
                 // If current time is 1 week before release date, movie is under PREVIEW.
-                if((movie.getReleaseDate().minusWeeks(1).isBefore(cur) || movie.getReleaseDate().minusWeeks(1).equals(cur)) && (movie.getReleaseDate().isAfter(cur)))
-                {
+                if ((movie.getReleaseDate().minusWeeks(1).isBefore(cur)
+                        || movie.getReleaseDate().minusWeeks(1).equals(cur)) && (movie.getReleaseDate().isAfter(cur))) {
                     showingStatus = showingStatus_Enum.PREVIEW;
-                }      
-                // If current time is on release date, or after release date, movie is under NOW_SHOWING.          
-                if((movie.getReleaseDate().isBefore(cur) || movie.getReleaseDate().equals(cur)) && (movie.getEndDate().isAfter(cur)))
-                {
+                }
+                // If current time is on release date, or after release date, movie is under
+                // NOW_SHOWING.
+                if ((movie.getReleaseDate().isBefore(cur) || movie.getReleaseDate().equals(cur))
+                        && (movie.getEndDate().isAfter(cur))) {
                     showingStatus = showingStatus_Enum.NOW_SHOWING;
                 }
-                // If current time is on end date, or after end date, movie is under END_OF_SHOWING.
-                if(movie.getEndDate().isBefore(cur) || movie.getEndDate().equals(cur))
-                {
+                // If current time is on end date, or after end date, movie is under
+                // END_OF_SHOWING.
+                if (movie.getEndDate().isBefore(cur) || movie.getEndDate().equals(cur)) {
                     showingStatus = showingStatus_Enum.END_OF_SHOWING;
                 }
 
@@ -313,20 +324,21 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[0].substring(1, tokens[0].length()-1).equals(movie.getTitle().toLowerCase())) {
+                if (tokens[0].substring(1, tokens[0].length() - 1).equals(movie.getTitle().toLowerCase())) {
                     Found = true;
-                    writer.append('"'+ movie.getTitle() + '"');
+                    writer.append('"' + movie.getTitle() + '"');
                     writer.append(",");
                     writer.append('"' + movie.getDirector() + '"');
                     writer.append(",");
 
                     writer.append('"');
-                    for (int i=0;i<movie.getCast().size();i++) {
+                    for (int i = 0; i < movie.getCast().size(); i++) {
                         writer.append(movie.getCast().get(i));
-                        if (i == movie.getCast().size()-1) break;
+                        if (i == movie.getCast().size() - 1)
+                            break;
                         writer.append(", ");
                     }
-                    
+
                     writer.append('"');
                     writer.append(",");
 
@@ -390,39 +402,38 @@ public class MovieController {
      * @param movie
      * @return
      */
-    public static Boolean updateStatus()
-    {
+    public static Boolean updateStatus() {
         ArrayList<Movie> movies;
         movies = MovieController.read();
-        for(int x = 0; x < movies.size(); x++)
-        {
-                // Auto setting of Showing Status of Movies
-                showingStatus_Enum showingStatus = null;
-                LocalDateTime cur = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+        for (int x = 0; x < movies.size(); x++) {
+            // Auto setting of Showing Status of Movies
+            showingStatus_Enum showingStatus = null;
+            LocalDateTime cur = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
 
-                // For all current time before preview date (1 Week Before Movie) is under COMING_SOON.
-                if(movies.get(x).getReleaseDate().minusWeeks(1).isAfter(cur))
-                {
-                    showingStatus = showingStatus_Enum.COMING_SOON;
-                }
-                // If current time is 1 week before release date, movie is under PREVIEW.
-                if((movies.get(x).getReleaseDate().minusWeeks(1).isBefore(cur) || movies.get(x).getReleaseDate().minusWeeks(1).equals(cur)) && (movies.get(x
-                ).getReleaseDate().isAfter(cur)))
-                {
-                    showingStatus = showingStatus_Enum.PREVIEW;
-                }      
-                // If current time is on release date, or after release date, movie is under NOW_SHOWING.          
-                if((movies.get(x).getReleaseDate().isBefore(cur) || movies.get(x).getReleaseDate().equals(cur)) && (movies.get(x).getEndDate().isAfter(cur)))
-                {
-                    showingStatus = showingStatus_Enum.NOW_SHOWING;
-                }
-                // If current time is on end date, or after end date, movie is under END_OF_SHOWING.
-                if(movies.get(x).getEndDate().isBefore(cur) || movies.get(x).getEndDate().equals(cur))
-                {
-                    showingStatus = showingStatus_Enum.END_OF_SHOWING;
-                }
-                movies.get(x).setShowingStatus(showingStatus);
-                update(movies.get(x));
+            // For all current time before preview date (1 Week Before Movie) is under
+            // COMING_SOON.
+            if (movies.get(x).getReleaseDate().minusWeeks(1).isAfter(cur)) {
+                showingStatus = showingStatus_Enum.COMING_SOON;
+            }
+            // If current time is 1 week before release date, movie is under PREVIEW.
+            if ((movies.get(x).getReleaseDate().minusWeeks(1).isBefore(cur)
+                    || movies.get(x).getReleaseDate().minusWeeks(1).equals(cur))
+                    && (movies.get(x).getReleaseDate().isAfter(cur))) {
+                showingStatus = showingStatus_Enum.PREVIEW;
+            }
+            // If current time is on release date, or after release date, movie is under
+            // NOW_SHOWING.
+            if ((movies.get(x).getReleaseDate().isBefore(cur) || movies.get(x).getReleaseDate().equals(cur))
+                    && (movies.get(x).getEndDate().isAfter(cur))) {
+                showingStatus = showingStatus_Enum.NOW_SHOWING;
+            }
+            // If current time is on end date, or after end date, movie is under
+            // END_OF_SHOWING.
+            if (movies.get(x).getEndDate().isBefore(cur) || movies.get(x).getEndDate().equals(cur)) {
+                showingStatus = showingStatus_Enum.END_OF_SHOWING;
+            }
+            movies.get(x).setShowingStatus(showingStatus);
+            update(movies.get(x));
         }
         return true;
     }
@@ -483,7 +494,7 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[0].substring(1, tokens[0].length()-1).equals(movie.getTitle().toLowerCase())) {
+                if (tokens[0].substring(1, tokens[0].length() - 1).equals(movie.getTitle().toLowerCase())) {
                     // do nothing
                     Found = true;
                 } else {
@@ -583,7 +594,7 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[0].substring(1, tokens[0].length()-1).equals(title.toLowerCase())) {
+                if (tokens[0].substring(1, tokens[0].length() - 1).equals(title.toLowerCase())) {
                     // do nothing
                     Found = true;
                 } else {
