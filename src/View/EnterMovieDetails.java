@@ -122,10 +122,15 @@ public class EnterMovieDetails extends BaseMenu{
         movie.setSynopsis(inputString);
 
         //Enter Movie Director
+        numRegex = "^[^0-9]+$";
         System.out.println("Enter Director: ");
         inputString = sc.nextLine();
-        if(inputString.isBlank()){
-            return this.getPreviousMenu();
+        while (!inputString.matches(numRegex)){
+            if(inputString.isBlank()){
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please enter a valid Name:" + ConsoleColours.RESET);
+            inputString = sc.nextLine();
         }
         System.out.println(ConsoleColours.GREEN + "Movie Director added" + ConsoleColours.RESET);
         movie.setDirector(inputString);
@@ -135,10 +140,14 @@ public class EnterMovieDetails extends BaseMenu{
         int i=0;
         do{
             inputString = sc.nextLine();
-            if(inputString.isBlank() && inputArray.isEmpty()){
-                return this.getPreviousMenu();
+            while (!inputString.matches(numRegex)){
+                if(inputString.isBlank() && inputArray.isEmpty()){
+                    return this.getPreviousMenu();
+                }
+                System.out.println(ConsoleColours.RED + "Please enter a valid Name:" + ConsoleColours.RESET);
+                inputString = sc.nextLine();
             }
-            else if (inputString.isBlank()){
+            if (inputString.isBlank()){
                 break;
             }
             else{
