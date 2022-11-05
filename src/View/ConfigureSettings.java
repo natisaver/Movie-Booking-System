@@ -42,7 +42,7 @@ public class ConfigureSettings extends BaseMenu{
 
         switch (choice) {
             case 1:
-                //nextMenu = new ConfigurePrice(this, 1);
+                nextMenu = new ConfigurePrice(this, 1);
                 break;
             case 2:
                 nextMenu = new ConfigureHoliday(this, 1);

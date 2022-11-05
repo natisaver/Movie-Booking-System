@@ -3,13 +3,16 @@ package Model;
 import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+import Controller.PriceController;
 
 /**
  * Represents a transaction in the MOBLIMA Cinema Application
  * 
  * @author Sally Carrera
  * @version 1.0
- * @since 18-10-2022
+ * @since 5-11-2022
  */
 
 public class Transaction {
@@ -17,7 +20,8 @@ public class Transaction {
     /**
      * List of tickets a MovieGoer purchased under a particular TransactionID (TID)
      */
-    private Ticket[] tickets;
+
+    private ArrayList<Ticket> tickets = new ArrayList<Ticket>();
 
     /**
      * MovieGoer who made a purchase under a particular TransactionID (TID)
@@ -25,81 +29,90 @@ public class Transaction {
     private MovieGoer movieGoer;
 
     /**
+     * Puchase DateTime of the transaction
+     */
+    private LocalDateTime boughtTime;
+
+    /**
+     * Total price paid by a MovieGoer under a particular TransactionID (TID)
+     */
+    private double totalPrice = 0;
+
+    /**
      * TransactionID displayed in the format of XXXYYYYMMDDhhmm
      */
     private String TID;
 
     /**
-     * Name of MovieGoer who made a purchase under a particular TransactionID (TID)
+     * Email of MovieGoer who made a purchase under a particular TransactionID (TID)
      */
-    private String name;
+    private String email;
 
     /**
      * Number of tickets a MovieGoer purchased under a particular TransactionID
      * (TID)
-     * This is number of tickets is also equals to the length of Tickets[]
+     * Equal to tickets.size()
      */
     private int noOfTickets;
 
     /**
-     * Title of the movie made uner a particular TransactionID (TID)
+     * Title of the movie made under a particular TransactionID (TID)
      */
     private String movieTitle;
 
     /**
-     * Showtime of the movie made under a particular TransactionID (TID)
+     * Cinema which the ticket was bought for
      */
-    private String showtime;
+    private Cinema cinema;
 
     /**
-     * Total price paid by a MovieGoer under a particular TransactionID (TID)
+     * Cinema code of the cinema made under a particular TransactionID (TID)
      */
-    private float totalPrice;
+    private String cinemaCode;
 
     /**
      * Constructor
      * 
-     * @param cinemaCode  Cinema's code
-     * @param name        Name of MovieGoer who made a purchase under a particular
-     *                    TransactionID (TID)
-     * @param noOfTickets Number of tickets a MovieGoer purchased under a particular
-     *                    TransactionID
-     * @param movieTitle  Title of the movie made uner a particular TransactionID
-     *                    (TID)
-     * @param showtime    Showtime of the movie made under a particular
-     *                    TransactionID (TID)
-     * @param totalPrice  Total price paid by a MovieGoer under a particular
-     *                    TransactionID (TID)
+     * @param tickets   Array List of Tickets bought in this transaction
+     * @param movieGoer MovieGoer Object that bought the tickets
      */
-    public Transaction(String TID, String name, int noOfTickets, String movieTitle, String showtime,
-            float totalPrice) {
-        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        // this.TID = cinemaCode.concat(formatter.toString());
-        this.TID = TID;
-        this.name = name;
-        this.noOfTickets = noOfTickets;
-        this.movieTitle = movieTitle;
-        this.showtime = showtime;
-        this.totalPrice = totalPrice;
+    public Transaction(ArrayList<Ticket> tickets, MovieGoer movieGoer) {
+        this.tickets = tickets;
+        this.movieGoer = movieGoer;
+        LocalDateTime now = LocalDateTime.now();
+        this.boughtTime = now;
+        // calculate price of all tickets
+        for (int i = 0; i < tickets.size(); i++) {
+            Ticket cur = tickets.get(i);
+            totalPrice += PriceController.calculatePriceDirect(cur.getShowTime(), cur.getMovieType(), cur.getAgeGroup(),
+                    cur.getCinema().getCinemaClass(), cur.getSeat().getSeatType());
+        }
+        // other initialised attributes
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+        String formatDateTime = now.format(formatter);
+        this.TID = tickets.get(0).getCinema().getCinemaCode() + formatDateTime;
+        this.email = movieGoer.getEmail();
+        this.noOfTickets = tickets.size();
+        this.movieTitle = tickets.get(0).getTitle();
+        this.cinemaCode = tickets.get(0).getCinema().getCinemaCode();
     }
 
     /**
      * Get transactionID
      * 
-     * @return getTID
+     * @return TID
      */
     public String getTID() {
-        return TID;
+        return this.TID;
     }
 
     /**
-     * Get list of tickets
+     * Get array list of tickets
      * 
-     * @return tickets
+     * @return ArrayList<Ticket>
      */
-    public Ticket[] getTickets() {
-        return tickets;
+    public ArrayList<Ticket> getTickets() {
+        return this.tickets;
     }
 
     /**
@@ -108,8 +121,7 @@ public class Transaction {
      * @return noOfTickets
      */
     public int getNoOfTickets() {
-        noOfTickets = tickets.length;
-        return noOfTickets;
+        return this.noOfTickets;
     }
 
     /**
@@ -117,12 +129,8 @@ public class Transaction {
      * 
      * @return totalPrice
      */
-    public float getTotalPrice() {
-        int i;
-        for (i = 0; i < tickets.length; i++) {
-            // totalPrice += tickets[i].getPrice();
-        }
-        return totalPrice;
+    public double getTotalPrice() {
+        return this.totalPrice;
     }
 
     /**
@@ -131,14 +139,52 @@ public class Transaction {
      * @return movieGoer
      */
     public MovieGoer getMovieGoer() {
-        return movieGoer;
+        return this.movieGoer;
     }
 
-    // public String printTransaction() {
-    // String toReturn = "";
-    // toReturn = "TID" + TID + "no. of tickets" + noOfTickets;
-    // System.out.println(toReturn);
-    // return toReturn;
-    // }
+    /**
+     * Get Cinema of where the ticket(s) were bought
+     * 
+     * @return Cinema
+     */
+    public Cinema getCinema() {
+        return this.cinema;
+    }
+
+    /**
+     * Get DateTime of when the ticket(s) were bought
+     * 
+     * @return transaction DateTime
+     */
+    public LocalDateTime getBoughtTime() {
+        return this.boughtTime;
+    }
+
+    /**
+     * Get Movie Title
+     * 
+     * @return title
+     */
+    public String getMovieTitle() {
+        return this.movieTitle;
+    }
+
+    /**
+     * Get Email of the MovieGoer who made the purchase
+     * 
+     * @return Email
+     */
+    public String getEmail() {
+        return this.email;
+    }
+
+    /**
+     * Get CinemaCode of the cinema where the ticket was bought
+     * 
+     * @return CinemaCode
+     */
+    public String getCinemaCode() {
+        return this.cinemaCode;
+    }
 
 }

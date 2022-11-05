@@ -4,7 +4,7 @@ package Model;
  Represents a single seat within a cinema's movie session in the MOBLIMA Cinema Application
  @author Sally Carrera
  @version 1.0
- @since 21-10-2022
+ @since 5-11-2022
  */
 
 public class Seat {
@@ -26,11 +26,13 @@ public class Seat {
 
     /**
      * Constructor
-     * @param id        The seat's ID
+     * @param id            The seat's ID
+     * @param seatType      The seat type
      */
-    public Seat(String id) {
+    public Seat(String id, seatType_Enum seatType) {
         this.seatID = id;
         isOccupied = false;
+        this.seatType = seatType;
     }
     
     /**
@@ -75,4 +77,21 @@ public class Seat {
     public void setIsOccupied() {
         this.isOccupied = !this.isOccupied;
     }
+    
+    /**
+     * Get the seat type
+     * @return this seat type 
+     */
+    public seatType_Enum getSeatType() {
+        return this.seatType;
+    }
+
+    /**
+     * Set the seat type
+     */
+    public void setSeatType(seatType_Enum seatType) {
+        this.seatType = seatType;
+    }
+
 }
+
