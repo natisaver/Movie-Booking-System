@@ -257,7 +257,7 @@ public class BookTicket extends BaseMenu {
              * Create an array of tickets to store all tickets made in this transaction
              */
             ArrayList<Ticket> ticket = new ArrayList<>();
-            String id;
+            Seat id;
             float totalPrice = 0;
             ageGroup_Enum ageGroup = null;
 
@@ -293,15 +293,18 @@ public class BookTicket extends BaseMenu {
                 switch (age) {
                     case 1:
                         ageGroup = ageGroup_Enum.CHILD;
-                        totalPrice += PriceController.calculatePrice(movieSession, ageGroup, cinema.getCinemaClass());
+                        totalPrice += PriceController.calculatePrice(movieSession, ageGroup, cinema.getCinemaClass(),
+                                null);
                         break;
                     case 2:
                         ageGroup = ageGroup_Enum.ADULT;
-                        totalPrice += PriceController.calculatePrice(movieSession, ageGroup, cinema.getCinemaClass());
+                        totalPrice += PriceController.calculatePrice(movieSession, ageGroup, cinema.getCinemaClass(),
+                                null);
                         break;
                     case 3:
                         ageGroup = ageGroup_Enum.SENIOR;
-                        totalPrice += PriceController.calculatePrice(movieSession, ageGroup, cinema.getCinemaClass());
+                        totalPrice += PriceController.calculatePrice(movieSession, ageGroup, cinema.getCinemaClass(),
+                                null);
                         break;
                 }
 
