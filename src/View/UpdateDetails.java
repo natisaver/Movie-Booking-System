@@ -114,7 +114,7 @@ public class UpdateDetails extends BaseMenu{
 
             switch (choice) {
 
-                //Update Movie Title
+                //UPDATE MOVIE TITLE
                 case 1:
                     System.out.println("Enter Updated Title: ");
                     inputString = sc.nextLine();
@@ -125,7 +125,7 @@ public class UpdateDetails extends BaseMenu{
                     MovieController.update(movie);
                     break;
                 
-                //Update Movie Type
+                //UPDATE MOVIE TYPE
                 case 2:
                     String[] strRegex = {"TWOD", "THREED", "BLOCKBUSTER"};
                     System.out.println("Enter Updated Movie Type: ");
@@ -145,7 +145,7 @@ public class UpdateDetails extends BaseMenu{
                     MovieController.update(movie);
                     break;
 
-                //Update Movie Rating
+                //UPDATE MOVIE RATING
                 case 3:
                     String[] strRegex2 = {"PG", "PG13", "NC16", "M18", "R21"};
                     System.out.println("Enter Updated Movie Rating: ");
@@ -165,7 +165,7 @@ public class UpdateDetails extends BaseMenu{
                     MovieController.update(movie);
                     break;
 
-                //Update Movie Duration
+                //UPDATE MOVIE DURATION
                 case 4:
                     numRegex = "^([1-9][0-9]|[1-2][0-9][0-9])$";
                     System.out.println("Enter Updated Movie Duration (in minutes): ");
@@ -183,7 +183,7 @@ public class UpdateDetails extends BaseMenu{
                     MovieController.update(movie);
                     break;
 
-                //Update Movie Synopsis
+                //UPDATE MOVIE SYNOPSIS
                 case 5:
                     System.out.println("Enter Updated Synopsis: ");
                     inputString = sc.nextLine();
@@ -195,7 +195,7 @@ public class UpdateDetails extends BaseMenu{
                     MovieController.update(movie);
                     break;
 
-                //Update Movie Director
+                //UPDATE MOVIE DIRECTOR
                 case 6:
                     System.out.println("Enter Updated Director: ");
                     inputString = sc.nextLine();
@@ -212,7 +212,6 @@ public class UpdateDetails extends BaseMenu{
                     System.out.println("Enter Updated Cast: ");
                     //clear current cast first 
                     movie.setCast(inputArray);
-                    int i=0;
                     do{
                         inputString = sc.nextLine();
                         if(inputString.isBlank() && inputArray.isEmpty()){
@@ -223,7 +222,6 @@ public class UpdateDetails extends BaseMenu{
                         }
                         else{
                             inputArray.add(inputString);
-                            i++;
                         }
                     }while(!inputArray.isEmpty());
                     System.out.println(ConsoleColours.GREEN + "Movie Cast changed" + ConsoleColours.RESET);
@@ -232,7 +230,7 @@ public class UpdateDetails extends BaseMenu{
                     inputArray.clear();
                     break;
 
-                //Update Movie Release & End Date
+                //UPDATE MOVIE RELEASE & END DATE
                 case 8:
                     dateCheck = "^((2000|2400|2800|(19|2[0-9])(0[48]|[2468][048]|[13579][26]))-02-29)$" 
                         + "|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$"
@@ -265,7 +263,7 @@ public class UpdateDetails extends BaseMenu{
                     MovieController.update(movie);
                     break;
 
-                //Update Showtime
+                //UPDATE SHOWTIME
                 case 9:
                     //Print all the sessions
                     System.out.println(ConsoleColours.BLUE + "Here are the current Sessions:" + ConsoleColours.RESET);
@@ -348,7 +346,7 @@ public class UpdateDetails extends BaseMenu{
                     } while (overlaps == true);
                     break;
 
-                //Update Cinema
+                //UPDATE CINEMA
                     //print all current cinema codes
                     System.out.println(ConsoleColours.BLUE + "Here are the current codes:" + ConsoleColours.RESET);
                     System.out.println(ConsoleColours.BLUE + CineplexController.read() + ConsoleColours.RESET);
@@ -377,17 +375,17 @@ public class UpdateDetails extends BaseMenu{
                     movieSession = new MovieSession(insertStart, CinemaController.readByCode(choicestr).getCinemaClass(),movie.getTitle());
                     break;
 
-                //Delete Movie from Movie.csv
+                //DELETE MOVIE FROM MOVIE.CSV
                 case 10:
                     MovieController.delete(movie);
                     break;
 
-                //Return to previousMenu
+                //RETURN TO PREVIOUSMENU
                 case 11:
                     nextMenu = this.getPreviousMenu();
                     return nextMenu;
 
-                //Terminate Program
+                //TERMINATE PROGRAM
                 case 12:
                     nextMenu = new Quit(this);
                     return nextMenu;

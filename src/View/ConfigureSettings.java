@@ -26,7 +26,7 @@ public class ConfigureSettings extends BaseMenu{
         System.out.println(ConsoleColours.RED + "4. Quit" + ConsoleColours.RESET);
 
         //Keep asking for choice
-        System.out.println("Enter your choice: ");
+        System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
         String choicestr = sc.nextLine();
 
         while (!choicestr.matches(numregex)) {

@@ -36,8 +36,9 @@ public class ConfigureHoliday extends BaseMenu{
       System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
 
       //Keep asking for choice
-      System.out.println("Enter your choice: ");
+      System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
       choiceStr = sc.nextLine();
+      System.out.println();
       numRegex = "^(?!(0))[0-6]{1}$";
       while (!choiceStr.matches(numRegex)) {
           //early termination
@@ -46,6 +47,7 @@ public class ConfigureHoliday extends BaseMenu{
           }
           System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
           choiceStr = sc.nextLine();
+          System.out.println();
       }
 
       choice = Integer.valueOf(choiceStr);
@@ -67,7 +69,7 @@ public class ConfigureHoliday extends BaseMenu{
         
         //Add New Holiday
         case 2:
-          System.out.println("Enter the date of the holiday: (yyyy-MM-dd)");
+          System.out.println(ConsoleColours.WHITE_BOLD + "Enter the date of the holiday: (yyyy-MM-dd)" + ConsoleColours.RESET);
           date = sc.nextLine();
           while (!date.matches(dateCheck)) {
             if(date.isBlank()){
@@ -79,7 +81,7 @@ public class ConfigureHoliday extends BaseMenu{
           date += " 00:00";
           dateTime = LocalDateTime.parse(date, formatter);
 
-          System.out.println("Enter the name of the holiday:");
+          System.out.println(ConsoleColours.WHITE_BOLD + "Enter the name of the holiday:" + ConsoleColours.RESET);
           name = sc.nextLine();
 
           if (HolidayController.addHoliday(dateTime, name))
@@ -90,7 +92,7 @@ public class ConfigureHoliday extends BaseMenu{
         
         //Update Holiday
         case 3:
-          System.out.println("Enter the date of the holiday to be updated: (yyyy-MM-dd)");
+          System.out.println(ConsoleColours.WHITE_BOLD + "Enter the date of the holiday to be updated: (yyyy-MM-dd)" + ConsoleColours.RESET);
           oldDate = sc.nextLine();
           while (!oldDate.matches(dateCheck)) {
             if(oldDate.isBlank()){
@@ -102,7 +104,7 @@ public class ConfigureHoliday extends BaseMenu{
           oldDate += " 00:00";
           LocalDateTime oldHoliday = LocalDateTime.parse(oldDate, formatter);
       
-          System.out.println("Enter the new date of the holiday: (yyyy-MM-dd)");
+          System.out.println(ConsoleColours.WHITE_BOLD + "Enter the new date of the holiday: (yyyy-MM-dd)" + ConsoleColours.RESET);
           newDate = sc.nextLine();
           while (!newDate.matches(dateCheck)) {
             if(newDate.isBlank()){
@@ -114,7 +116,7 @@ public class ConfigureHoliday extends BaseMenu{
           newDate += " 00:00";
           LocalDateTime newHoliday = LocalDateTime.parse(newDate, formatter);
       
-          System.out.println("Enter the name of the holiday to be updated:");
+          System.out.println(ConsoleColours.WHITE_BOLD + "Enter the name of the holiday to be updated:" + ConsoleColours.RESET);
           name = sc.nextLine();
       
           if (HolidayController.updateHoliday(oldHoliday, newHoliday, name))
@@ -128,8 +130,8 @@ public class ConfigureHoliday extends BaseMenu{
           Boolean byName;
           numRegex = "^(?!(0))[0-1]{1}$";
 
-          System.out.println("Enter Holiday by Name or by Date:");
-          System.out.println("(Enter O for Name, 1 for Date)");
+          System.out.println(ConsoleColours.WHITE_BOLD + "Enter Holiday by Name or by Date:" + ConsoleColours.RESET);
+          System.out.println(ConsoleColours.BLUE + "(Enter O for Name, 1 for Date)" + ConsoleColours.RESET);
           String byWhat = sc.nextLine();
           
           while (!byWhat.matches(numRegex)) {
@@ -147,7 +149,7 @@ public class ConfigureHoliday extends BaseMenu{
           }
           
           if (!byName) {
-            System.out.println("Enter the date of the holiday to be deleted: (yyyy-MM-dd)");
+            System.out.println(ConsoleColours.WHITE_BOLD + "Enter the date of the holiday to be deleted: (yyyy-MM-dd)" + ConsoleColours.RESET);
             date = sc.nextLine();
             while (!date.matches(dateCheck)) {
               if(date.isBlank()){
@@ -163,12 +165,12 @@ public class ConfigureHoliday extends BaseMenu{
           }
       
           else {
-            System.out.println("Enter the name of the holiday to be deleted:");
+            System.out.println(ConsoleColours.WHITE_BOLD + "Enter the name of the holiday to be deleted:" + ConsoleColours.RESET);
             name = sc.nextLine();
             if(name.isBlank()){
               return this.getPreviousMenu();
             }
-            if (HolidayController.deleteHolidayName(name)) System.out.println("Holiday(s) deleted!");
+            if (HolidayController.deleteHolidayName(name)) System.out.println(ConsoleColours.GREEN + "Holiday(s) deleted!" + ConsoleColours.RESET);
             else System.out.println(ConsoleColours.RED + "Holiday name not found!" + ConsoleColours.RESET);
           }
           break;
