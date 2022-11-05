@@ -19,15 +19,16 @@ public class AdminMainMenu extends BaseMenu{
     @Override
     public BaseMenu execute() {
         int choice;
-        String numregex = "^(?!(0))[0-6]{1}$";
+        String numregex = "^(?!(0))[0-7]{1}$";
 
         System.out.println(ConsoleColours.PURPLE_BOLD + "Admin Menu Options:" + ConsoleColours.RESET);
         System.out.println("1. Configure System Settings");
-        System.out.println("2. Enter movie details");
-        System.out.println("3. Update movie details");
-        System.out.println("4. List Top 5 movies");
-        System.out.println(ConsoleColours.YELLOW + "5. Logout" + ConsoleColours.RESET);
-        System.out.println(ConsoleColours.RED + "6. Quit" + ConsoleColours.RESET);
+        System.out.println("2. Enter Movie Details");
+        System.out.println("3. Update Movie Details");
+        System.out.println("4. Update Movie Session");
+        System.out.println("5. List Top 5 movies");
+        System.out.println(ConsoleColours.YELLOW + "6. Logout" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.RED + "7. Quit" + ConsoleColours.RESET);
 
         BaseMenu nextMenu = this;
 
@@ -60,12 +61,15 @@ public class AdminMainMenu extends BaseMenu{
                 nextMenu = new UpdateMovieDetails(this, 1);
                 break;
             case 4:
-                // nextMenu = new ListTop5(this);
+                nextMenu = new UpdateMovieSession(this, 1);
                 break;
             case 5:
-                nextMenu = new MainMenu(null, -1);
+                // nextMenu = new ListTop5(this);
                 break;
             case 6:
+                nextMenu = new MainMenu(null, -1);
+                break;
+            case 7:
                 nextMenu = new Quit(this);
                 break;
             default:
