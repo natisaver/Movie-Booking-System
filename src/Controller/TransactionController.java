@@ -90,6 +90,15 @@ public class TransactionController {
         return transactionList;
     }
 
+    /**
+     * READ every row of Transaction Database File
+     * If Database file not found, ignore error and return empty list
+     * Consists of Printing Feature as well.
+
+     * @param   email Email of MovieGoer to search for
+     * @return  ArrayList<String> Return list of Transactions matching email if any, else
+     *          empty list* 
+     */
     public static ArrayList<String> readByEmailPrint(String email) {
         // Check if database exists
         BufferedReader reader = null;
@@ -121,6 +130,43 @@ public class TransactionController {
             return new ArrayList<String>();
         }
         return transactionList;
+    }
+
+    /**
+     * READ every row of Transaction Database File
+     * If matching Movie Title is found, return the Total Sales
+
+     * @param   title Movie Title search for
+     * @return  Integer of Sales 
+     */
+    public static Integer salesByTitle(String title) {
+        // Check if database exists
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(PATH));
+        } catch (FileNotFoundException e) {
+            // e.printStackTrace();
+            return 0;
+        }
+
+        // If Database Exists
+        String line = "";
+        int tempsum = 0;
+        try {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                if (tokens[3].toLowerCase().equals(title.toLowerCase())) {
+                    tempsum += Integer.parseInt(tokens[2]);
+                }
+            }
+            reader.close();
+
+        } catch (IOException e) {
+            // e.printStackTrace();
+            return 0;
+        }
+        return tempsum;
     }
     /**
      * CREATE Transaction in the database
