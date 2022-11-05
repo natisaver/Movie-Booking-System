@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import javax.swing.event.SwingPropertyChangeSupport;
-
 import Controller.MovieController;
 
 import java.time.LocalDateTime;
