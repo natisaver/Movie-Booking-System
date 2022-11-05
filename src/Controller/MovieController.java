@@ -67,19 +67,19 @@ public class MovieController {
             }
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            return new ArrayList<Movie>();
         }
         return movieArrayList;
     }
 
     public static Movie readByTitle(String title) {
-        updateStatus();
         // Check if database exists
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader(PATH));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             return null;
         }
 
@@ -119,11 +119,11 @@ public class MovieController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             return false;
         }
 
@@ -152,7 +152,8 @@ public class MovieController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            return false;
         }
 
         Boolean Found = false;
@@ -262,7 +263,8 @@ public class MovieController {
             // delete old file
             Files.delete(Paths.get(DataController.getPath("Movie")));
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            return false;
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("Movie")));
@@ -279,11 +281,11 @@ public class MovieController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             return false;
         }
 
@@ -312,12 +314,13 @@ public class MovieController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            return false;
         }
 
         Boolean Found = false;
         String line;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         try {
             reader.readLine();
@@ -391,7 +394,8 @@ public class MovieController {
             // delete old file
             Files.delete(Paths.get(DataController.getPath("Movie")));
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            return false;
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("Movie")));
@@ -399,62 +403,28 @@ public class MovieController {
     }
 
     /**
-     * @param movie
-     * @return
+     * UPDATE every row of Movie Database File with the latest status
+     * If Database file not found, ignore error and return empty list
+     * 
+     * @return Boolean to see if updated status was successful or not
      */
-    public static Boolean updateStatus() {
-        ArrayList<Movie> movies;
-        movies = MovieController.read();
-        for (int x = 0; x < movies.size(); x++) {
-            // Auto setting of Showing Status of Movies
-            showingStatus_Enum showingStatus = null;
-            LocalDateTime cur = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
-
-            // For all current time before preview date (1 Week Before Movie) is under
-            // COMING_SOON.
-            if (movies.get(x).getReleaseDate().minusWeeks(1).isAfter(cur)) {
-                showingStatus = showingStatus_Enum.COMING_SOON;
-            }
-            // If current time is 1 week before release date, movie is under PREVIEW.
-            if ((movies.get(x).getReleaseDate().minusWeeks(1).isBefore(cur)
-                    || movies.get(x).getReleaseDate().minusWeeks(1).equals(cur))
-                    && (movies.get(x).getReleaseDate().isAfter(cur))) {
-                showingStatus = showingStatus_Enum.PREVIEW;
-            }
-            // If current time is on release date, or after release date, movie is under
-            // NOW_SHOWING.
-            if ((movies.get(x).getReleaseDate().isBefore(cur) || movies.get(x).getReleaseDate().equals(cur))
-                    && (movies.get(x).getEndDate().isAfter(cur))) {
-                showingStatus = showingStatus_Enum.NOW_SHOWING;
-            }
-            // If current time is on end date, or after end date, movie is under
-            // END_OF_SHOWING.
-            if (movies.get(x).getEndDate().isBefore(cur) || movies.get(x).getEndDate().equals(cur)) {
-                showingStatus = showingStatus_Enum.END_OF_SHOWING;
-            }
-            movies.get(x).setShowingStatus(showingStatus);
-            update(movies.get(x));
-        }
-        return true;
-    }
-
-    public static Boolean delete(Movie movie) {
-
+    public static boolean updateStatusAll() {
         File inputFile = new File(DataController.getPath("Movie"));
         File tempFile = new File(DataController.getPath("Temp"));
 
         BufferedReader reader = null;
         BufferedWriter writer = null;
-
         try {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            System.out.println("cant find database ");
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            System.out.println("wassp");
             return false;
         }
 
@@ -483,7 +453,130 @@ public class MovieController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            System.out.println("triggered");
+            return false;
+        }
+
+        String line;
+
+        try {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);  
+                //adjust token 7 and update it
+                //token 3 is release date
+                //token 4 is end date
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                LocalDateTime start = LocalDateTime.parse(tokens[3] + " 00:00", formatter);
+                LocalDateTime end = LocalDateTime.parse(tokens[4] + " 00:00", formatter);
+                showingStatus_Enum showingStatus = null;
+                LocalDateTime cur = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+                if (start.minusWeeks(1).isAfter(cur)) {
+                    showingStatus = showingStatus_Enum.COMING_SOON;
+                }
+                // If current time is 1 week before release date, movie is under PREVIEW.
+                if ((start.minusWeeks(1).isBefore(cur)
+                        || start.minusWeeks(1).equals(cur))
+                        && (start.isAfter(cur))) {
+                    showingStatus = showingStatus_Enum.PREVIEW;
+                }
+                // If current time is on release date, or after release date, movie is under
+                // NOW_SHOWING.
+                if ((start.isBefore(cur) || start.equals(cur))
+                        && (end.isAfter(cur))) {
+                    showingStatus = showingStatus_Enum.NOW_SHOWING;
+                }
+                // If current time is on end date, or after end date, movie is under
+                // END_OF_SHOWING.
+                if (end.isBefore(cur) || end.equals(cur)) {
+                    showingStatus = showingStatus_Enum.END_OF_SHOWING;
+                }
+                System.out.println(showingStatus.name());
+                writer.append(tokens[0]);
+                writer.append(",");
+                writer.append(tokens[1]);
+                writer.append(",");
+                writer.append(tokens[2]);
+                writer.append(",");
+                writer.append(tokens[3]);
+                writer.append(",");
+                writer.append(tokens[4]);
+                writer.append(",");
+                writer.append(tokens[5]);
+                writer.append(",");
+                writer.append(tokens[6]);
+                writer.append(",");
+                writer.append(showingStatus.name());
+                writer.append(",");
+                writer.append(tokens[8]);
+                writer.append(",");
+                writer.append(tokens[9]);
+                writer.append(",");
+                writer.append(tokens[10]);
+                writer.append("\n");
+            }
+            writer.close();
+            reader.close();
+            // delete old file
+            Files.delete(Paths.get(DataController.getPath("Movie")));
+        } catch (IOException e) {
+            // e.printStackTrace();
+            System.out.println("probably here");
+            return false;
+        }
+        // replace with the new file
+        tempFile.renameTo(new File(DataController.getPath("Movie")));
+        return true;
+    }
+
+    public static Boolean delete(Movie movie) {
+
+        File inputFile = new File(DataController.getPath("Movie"));
+        File tempFile = new File(DataController.getPath("Temp"));
+
+        BufferedReader reader = null;
+        BufferedWriter writer = null;
+
+        try {
+            reader = new BufferedReader(new FileReader(inputFile));
+            writer = new BufferedWriter(new FileWriter(tempFile));
+        } catch (FileNotFoundException e) {
+            // e.printStackTrace();
+            return false;
+
+        } catch (IOException e) {
+            // e.printStackTrace();
+            return false;
+        }
+
+        try {
+            writer.append("Title");
+            writer.append(",");
+            writer.append("Director");
+            writer.append(",");
+            writer.append("Cast");
+            writer.append(",");
+            writer.append("releaseDate");
+            writer.append(",");
+            writer.append("endDate");
+            writer.append(",");
+            writer.append("synopsis");
+            writer.append(",");
+            writer.append("duration");
+            writer.append(",");
+            writer.append("showingStatus");
+            writer.append(",");
+            writer.append("movieType");
+            writer.append(",");
+            writer.append("movieRating");
+            writer.append(",");
+            writer.append("ticketSales");
+            writer.append("\n");
+
+        } catch (IOException e) {
+            // e.printStackTrace();
+            return false;
         }
 
         Boolean Found = false;
@@ -531,7 +624,8 @@ public class MovieController {
             // delete old file
             Files.delete(Paths.get(DataController.getPath("Movie")));
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            return false;
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("Movie")));
@@ -550,11 +644,11 @@ public class MovieController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             return false;
         }
 
@@ -583,7 +677,8 @@ public class MovieController {
             writer.append("\n");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            return false;
         }
 
         Boolean Found = false;
@@ -631,7 +726,8 @@ public class MovieController {
             // delete old file
             Files.delete(Paths.get(DataController.getPath("Movie")));
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            return false;
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("Movie")));
