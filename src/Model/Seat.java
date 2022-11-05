@@ -77,21 +77,5 @@ public class Seat {
     public void setIsOccupied() {
         this.isOccupied = !this.isOccupied;
     }
-    
-    /**
-     * Get the seat type
-     * @return this seat type 
-     */
-    public seatType_Enum getSeatType() {
-        return this.seatType;
-    }
-
-    /**
-     * Set the seat type
-     */
-    public void setSeatType(seatType_Enum seatType) {
-        this.seatType = seatType;
-    }
-
 }
 
