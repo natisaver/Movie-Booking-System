@@ -14,7 +14,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import Controller.CinemaController;
 import Controller.CineplexController;
 import Controller.MovieController;
 import Controller.MovieSessionController;
@@ -289,7 +288,7 @@ public class UpdateMovieDetails extends BaseMenu{
                     System.out.println(ConsoleColours.RED + "Invalid choice. Please re-enter your choice." + ConsoleColours.RESET);
                     System.out.println();
                     break;
-            }while(true);
-        }
+            }
+        }while(true);
     }
 }
