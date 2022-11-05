@@ -53,7 +53,7 @@ public class ReviewController {
                 String review = tokens[4];
                 double rating = Double.parseDouble(tokens[5]);
                 reviewArrayList.add(new Review(date, name, email, movie, review, rating));
-                //System.out.println(tokens[0] + tokens[4]);
+                // System.out.println(tokens[0] + tokens[4]);
             }
             reader.close();
         } catch (IOException e) {
@@ -79,15 +79,15 @@ public class ReviewController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 if (tokens[3].toLowerCase().equals(title.toLowerCase())) {
-                    String date = tokens[0];
+                    LocalDateTime date = LocalDateTime.parse(tokens[0] + " 00:00", formatter);
                     String name = tokens[1];
                     String email = tokens[2];
                     Movie movie = MovieController.readByTitle(tokens[3]);
                     String review = tokens[4];
                     double rating = Double.parseDouble(tokens[5]);
-                    return new Review(LocalDateTime.parse(date, formatter), name, email, movie, review, rating);
+                    return new Review(date, name, email, movie, review, rating);
                 }
             }
             reader.close();
@@ -136,7 +136,7 @@ public class ReviewController {
 
         Boolean Found = false;
         String line;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         try {
             reader.readLine();
@@ -163,16 +163,6 @@ public class ReviewController {
                 writer.append(tokens[4]);
                 writer.append(",");
                 writer.append(tokens[5]);
-                writer.append(",");
-                writer.append(tokens[6]);
-                writer.append(",");
-                writer.append(tokens[7]);
-                writer.append(",");
-                writer.append(tokens[8]);
-                writer.append(",");
-                writer.append(tokens[9]);
-                writer.append(",");
-                writer.append(tokens[10]);
                 writer.append("\n");
             }
             if (Found == false) {
@@ -225,27 +215,17 @@ public class ReviewController {
         }
 
         try {
-            writer.append("Title");
+            writer.append("Date");
             writer.append(",");
-            writer.append("Director");
+            writer.append("Name");
             writer.append(",");
-            writer.append("Cast");
+            writer.append("Email");
             writer.append(",");
-            writer.append("releaseDate");
+            writer.append("Movie");
             writer.append(",");
-            writer.append("endDate");
+            writer.append("Review");
             writer.append(",");
-            writer.append("synopsis");
-            writer.append(",");
-            writer.append("duration");
-            writer.append(",");
-            writer.append("showingStatus");
-            writer.append(",");
-            writer.append("movieType");
-            writer.append(",");
-            writer.append("movieRating");
-            writer.append(",");
-            writer.append("ticketSales");
+            writer.append("Rating");
             writer.append("\n");
 
         } catch (IOException e) {
