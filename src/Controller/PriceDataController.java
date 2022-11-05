@@ -45,6 +45,7 @@ public class PriceDataController {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[0].equals(id)) {
                     double[] array = new double[]{Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]), Double.parseDouble(tokens[3]), Double.parseDouble(tokens[5]), Double.parseDouble(tokens[6])};
+                    reader.close();
                     return array;
                 }
             }
@@ -100,6 +101,7 @@ public class PriceDataController {
 
         } catch (IOException e) {
             // e.printStackTrace();
+            return false;
         }
 
         Boolean Found = false;
@@ -149,9 +151,17 @@ public class PriceDataController {
                 return false;
             }
             // delete old file
-            Files.delete(Paths.get(DataController.getPath("Price")));
         } catch (IOException e) {
             // e.printStackTrace();
+            // System.out.println("probably here");
+            return false;
+        }
+        try {
+            Files.delete(Paths.get(DataController.getPath("Price"))); }
+        catch (IOException e) {
+            // e.printStackTrace();
+            // System.out.println("probably NOT here");
+            return false;
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("Price")));
