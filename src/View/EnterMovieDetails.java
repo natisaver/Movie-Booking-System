@@ -197,6 +197,7 @@ public class EnterMovieDetails extends BaseMenu{
         movie.setTicketSales();
 
         //Add newly created movie object to csv
+        
         if (!MovieController.updateStatusAll()){
             System.out.println(ConsoleColours.RED + "Failed to update database" + ConsoleColours.RESET);
             return this.getPreviousMenu();
