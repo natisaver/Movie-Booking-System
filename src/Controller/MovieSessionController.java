@@ -223,11 +223,11 @@ public class MovieSessionController {
         try {
             reader.readLine();
             LocalDateTime sessionTime = session.getShowtime();
-            LocalDateTime sessionTimeEnd = sessionTime.plusMinutes(MovieController.getMovieDuration(session.getTitle()));
+            LocalDateTime sessionTimeEnd = sessionTime.plusMinutes(MovieController.readByTitle(session.getTitle()).getDuration());
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
                 LocalDateTime lower = LocalDateTime.parse(tokens[2] + " " + tokens[3], formatter);
-                LocalDateTime upper = lower.plusMinutes(MovieController.getMovieDuration(tokens[0]));
+                LocalDateTime upper = lower.plusMinutes(MovieController.readByTitle(tokens[0]).getDuration());
                 if ((tokens[4].equals(cinemaCode)) && 
                 (((sessionTime.isAfter(lower) || sessionTime.equals(lower)) && (sessionTime.isBefore(upper) || sessionTime.equals(upper))) ||
                 ((sessionTimeEnd.isAfter(lower) || sessionTimeEnd.equals(lower)) && (sessionTimeEnd.isBefore(upper) || sessionTimeEnd.equals(upper))))) {
@@ -330,11 +330,11 @@ public class MovieSessionController {
         try {
             reader.readLine();
             LocalDateTime sessionTime = session.getShowtime();
-            LocalDateTime sessionTimeEnd = sessionTime.plusMinutes(MovieController.getMovieDuration(session.getTitle()));
+            LocalDateTime sessionTimeEnd = sessionTime.plusMinutes(MovieController.readByTitle(session.getTitle()).getDuration());
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 LocalDateTime lower = LocalDateTime.parse(tokens[2] + " " + tokens[3], formatter);
-                LocalDateTime upper = lower.plusMinutes(MovieController.getMovieDuration(tokens[0]));
+                LocalDateTime upper = lower.plusMinutes(MovieController.readByTitle(tokens[0]).getDuration());
                 if ((tokens[4].equals(cinemaCode)) && 
                 (((sessionTime.isAfter(lower) || sessionTime.equals(lower)) && (sessionTime.isBefore(upper) || sessionTime.equals(upper))) ||
                 ((sessionTimeEnd.isAfter(lower) || sessionTimeEnd.equals(lower)) && (sessionTimeEnd.isBefore(upper) || sessionTimeEnd.equals(upper))))) {
