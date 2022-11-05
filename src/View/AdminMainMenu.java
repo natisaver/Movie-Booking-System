@@ -57,7 +57,7 @@ public class AdminMainMenu extends BaseMenu{
                 nextMenu = new EnterMovieDetails(this, 1);
                 break;
             case 3:
-                nextMenu = new UpdateDetails(this, 1);
+                nextMenu = new UpdateMovieDetails(this, 1);
                 break;
             case 4:
                 // nextMenu = new ListTop5(this);
