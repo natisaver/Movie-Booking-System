@@ -67,7 +67,7 @@ public class MovieSession {
                         id = "" + (char) (i + 'B') + String.valueOf(j + 1);
                 } else
                     id = "" + (char) (i + 'A') + String.valueOf(j + 1);
-                sessionSeats[i][j] = new Seat(id);
+                sessionSeats[i][j] = new Seat(id, null);
             }
         }
         this.movieTitle = title;
@@ -90,7 +90,7 @@ public class MovieSession {
      */
     public String getSessionDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String date = this.showtime.format(formatter).substring(0,10);
+        String date = this.showtime.format(formatter).substring(0, 10);
         return date;
     }
 

@@ -26,7 +26,8 @@ public class CineplexController {
     /**
      * READ and list all Cineplexes from Database
      * 
-     * @return Model.{@link Cineplex} Return List Array of Cineplex if database exists, else null object
+     * @return Model.{@link Cineplex} Return List Array of Cineplex if database
+     *         exists, else null object
      */
     public static ArrayList<Cineplex> read() {
         // Check if database exists
@@ -61,7 +62,8 @@ public class CineplexController {
      * READ and list all Cineplexes from Database with specified location
      * 
      * @param location Indicates the Location of the Cineplex
-     * @return Model.{@link Cineplex} Return List Array of Cineplex at the location if the location exists
+     * @return Model.{@link Cineplex} Return List Array of Cineplex at the location
+     *         if the location exists
      */
     public static ArrayList<Cineplex> readByLocation(String location) {
 
