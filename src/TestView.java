@@ -63,7 +63,9 @@ public class TestView {
                 // BaseMenu mainmenu = new MainMenu(null, -1);
                 // mainmenu.execute();
 
-
+                // Review review = ReviewController.readByTitle("Black Adam");
+                // System.out.println(review.getMovie().getTitle());
+                // System.out.println(review.getReview());
 
                 BaseMenu enterMovieDetails = new EnterMovieDetails(null, 1);
                 enterMovieDetails.execute();

@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import javax.swing.event.SwingPropertyChangeSupport;
-
 import Controller.MovieController;
 
 import java.time.LocalDateTime;
@@ -199,7 +197,15 @@ public class EnterMovieDetails extends BaseMenu{
         movie.setTicketSales();
 
         //Add newly created movie object to csv
-        MovieController.create(movie);
+        if (!MovieController.updateStatusAll()){
+            System.out.println(ConsoleColours.RED + "Failed to update database" + ConsoleColours.RESET);
+            return this.getPreviousMenu();
+        };
+
+        if (!MovieController.create(movie)){
+            System.out.println(ConsoleColours.RED + "Failed to add Movie" + ConsoleColours.RESET);
+            return this.getPreviousMenu();
+        };
 
         System.out.println(ConsoleColours.GREEN_BOLD + "Movie successfully created." + ConsoleColours.RESET);
         System.out.println();
