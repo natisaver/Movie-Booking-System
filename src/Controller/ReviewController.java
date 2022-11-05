@@ -41,19 +41,19 @@ public class ReviewController {
         // If Database Exists
         String line = "";
         ArrayList<Review> reviewArrayList = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                LocalDateTime date = LocalDateTime.parse(tokens[0], formatter);
+                LocalDateTime date = LocalDateTime.parse(tokens[0] + " 00:00", formatter);
                 String name = tokens[1];
                 String email = tokens[2];
                 Movie movie = MovieController.readByTitle(tokens[3]);
                 String review = tokens[4];
                 double rating = Double.parseDouble(tokens[5]);
                 reviewArrayList.add(new Review(date, name, email, movie, review, rating));
-                // System.out.println(tokens[0]);
+                //System.out.println(tokens[0] + tokens[4]);
             }
             reader.close();
         } catch (IOException e) {
