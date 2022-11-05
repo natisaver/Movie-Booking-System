@@ -26,11 +26,11 @@ public class CheckHistory extends BaseMenu {
         Transaction transaction;
 
         System.out.println("Below is the list of past transactions made: ");
-        System.out.println("(Enter blank space for both to quit)");
+        System.out.println(ConsoleColours.GREEN + "(Leave the field empty to quit)" + ConsoleColours.RESET);
 
         do {
             // if transaction records exist
-            if (TransactionController.readByName(moviegoer.getName()) != null) {
+            if (TransactionController.readByEmail(moviegoer.getEmail()) != null) {
 
             }
             // if no transaction records exist
@@ -39,7 +39,7 @@ public class CheckHistory extends BaseMenu {
             }
 
             // type any character to exit
-            back = sc.next();
+            back = sc.nextLine();
 
             if (back.isBlank()) {
                 System.out.println("password is blank");
