@@ -108,6 +108,7 @@ public class Login extends BaseMenu {
             // Correct Email & Password will direct user to relevant page
             else {
                 System.out.println(ConsoleColours.GREEN + "You've successfully login!" + ConsoleColours.RESET);
+                System.out.println();
                 // moviegoer page
                 if (admin == null) {
                     return new MovieGoerMainMenu(this, 0, user, movie, movieSession, cinema, ticket, transaction);

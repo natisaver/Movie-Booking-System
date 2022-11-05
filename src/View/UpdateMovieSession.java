@@ -97,7 +97,7 @@ public class UpdateMovieSession extends BaseMenu{
                     
                     //print all current cinema codes
                     System.out.println(ConsoleColours.BLUE + "Here are the current codes:" + ConsoleColours.RESET);
-                    System.out.println(CineplexController.read());
+                    System.out.println(ConsoleColours.BLUE + CineplexController.read() + ConsoleColours.RESET);
             
                     //INPUT CINEMACODE=================
                     String numregex = "^(?!(0))[0-9]{3}$";
@@ -125,7 +125,7 @@ public class UpdateMovieSession extends BaseMenu{
             
                     //Print all the sessions
                     System.out.println(ConsoleColours.BLUE + "Here are the current Sessions:" + ConsoleColours.RESET);
-                    System.out.println(sessionArrayList.toString());
+                    System.out.println(ConsoleColours.BLUE + sessionArrayList.toString() + ConsoleColours.RESET);
             
                     //INPUT DATE================
                     //check if date is valid
@@ -230,7 +230,7 @@ public class UpdateMovieSession extends BaseMenu{
                             break;
                         }
                         System.out.println(ConsoleColours.RED + "Cinema Code is Invalid." + ConsoleColours.RESET);
-                        System.out.println(ConsoleColours.WHITE_BOLD + "Please Reenter Cinema Code:");
+                        System.out.println(ConsoleColours.WHITE_BOLD + "Please Reenter Cinema Code:" + ConsoleColours.RESET);
 
                     } while (!regMatcher.matches() && (CinemaController.readByCode(cinemastr) == null));
 
@@ -239,7 +239,7 @@ public class UpdateMovieSession extends BaseMenu{
 
                     //Print all the sessions
                     System.out.println(ConsoleColours.BLUE + "Here are the current Sessions:" + ConsoleColours.RESET);
-                    System.out.println(sessionArrayList.toString());
+                    System.out.println(ConsoleColours.BLUE + sessionArrayList.toString() + ConsoleColours.RESET);
 
                     
 
@@ -281,7 +281,7 @@ public class UpdateMovieSession extends BaseMenu{
                     }
                     else{
                         System.out.println(ConsoleColours.BLUE + "Available sessions on inputted date:" + ConsoleColours.RESET);
-                        System.out.println(sessionArrayListByDate.toString());
+                        System.out.println(ConsoleColours.BLUE + sessionArrayListByDate.toString() + ConsoleColours.RESET);
                     }
 
                     //INPUT START TIME================
@@ -351,7 +351,7 @@ public class UpdateMovieSession extends BaseMenu{
 
                     //Print all the sessions
                     System.out.println(ConsoleColours.BLUE + "Here are the current Sessions:" + ConsoleColours.RESET);
-                    System.out.println(sessionArrayList.toString());
+                    System.out.println(ConsoleColours.BLUE + sessionArrayList.toString() + ConsoleColours.RESET);
 
                     
 

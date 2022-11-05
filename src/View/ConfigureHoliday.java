@@ -1,11 +1,14 @@
 package View;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import Controller.HolidayController;
+import Model.Holiday;
 
 public class ConfigureHoliday extends BaseMenu{
   Scanner sc = new Scanner(System.in);
@@ -60,23 +63,38 @@ public class ConfigureHoliday extends BaseMenu{
                               + "|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$";
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+
       switch (choice) {
-        //View Holiday
+        //VIEW HOLIDAY
         case 1:
-          if (!HolidayController.printHolidays())
+          DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+          ArrayList<Holiday> HolidayList = HolidayController.read();
+          HolidayList.sort(Comparator.comparing( ( Holiday holiday )->holiday.getDate().toLocalDate() ));
+          if(HolidayList.isEmpty()){
             System.out.println(ConsoleColours.RED + "There are no saved holidays" + ConsoleColours.RESET);
+            System.out.println();
+          }else{
+            for(int i=0; i<HolidayList.size(); i++){
+              System.out.print(HolidayList.get(i).getDate().format(dateFormatter) + "\t");
+              System.out.println(HolidayList.get(i).getName());
+            }
+          }
           break;
         
-        //Add New Holiday
+        //ADD NEW HOLIDAY
         case 2:
           System.out.println(ConsoleColours.WHITE_BOLD + "Enter the date of the holiday: (yyyy-MM-dd)" + ConsoleColours.RESET);
           date = sc.nextLine();
-          while (!date.matches(dateCheck)) {
-            if(date.isBlank()){
-              return this.getPreviousMenu();
-            }
-            System.out.println(ConsoleColours.RED +"Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
-            date = sc.nextLine();
+          while (!date.matches(dateCheck) || LocalDateTime.parse(date + " 00:00", formatter).isBefore(LocalDateTime.now())) {
+              if(date.isBlank())
+              {
+                return this.getPreviousMenu();
+              }
+              if(!date.matches(dateCheck))
+                System.out.println(ConsoleColours.RED +"Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
+              else
+                System.out.println(ConsoleColours.RED + "Please enter a future date" + ConsoleColours.RESET);
+              date = sc.nextLine();
           }
           date += " 00:00";
           dateTime = LocalDateTime.parse(date, formatter);
@@ -84,13 +102,17 @@ public class ConfigureHoliday extends BaseMenu{
           System.out.println(ConsoleColours.WHITE_BOLD + "Enter the name of the holiday:" + ConsoleColours.RESET);
           name = sc.nextLine();
 
-          if (HolidayController.addHoliday(dateTime, name))
+          if (HolidayController.addHoliday(dateTime, name)){
             System.out.println(ConsoleColours.GREEN + "Holiday added!" + ConsoleColours.RESET);
-          else
+            System.out.println();
+          }
+          else{
             System.out.println(ConsoleColours.RED + "Holiday already exists!" + ConsoleColours.RESET);
+            System.out.println();
+          }
           break;
         
-        //Update Holiday
+        //UPDATE HOLIDAY
         case 3:
           System.out.println(ConsoleColours.WHITE_BOLD + "Enter the date of the holiday to be updated: (yyyy-MM-dd)" + ConsoleColours.RESET);
           oldDate = sc.nextLine();
@@ -119,19 +141,23 @@ public class ConfigureHoliday extends BaseMenu{
           System.out.println(ConsoleColours.WHITE_BOLD + "Enter the name of the holiday to be updated:" + ConsoleColours.RESET);
           name = sc.nextLine();
       
-          if (HolidayController.updateHoliday(oldHoliday, newHoliday, name))
+          if(HolidayController.updateHoliday(oldHoliday, newHoliday, name)){
             System.out.println(ConsoleColours.GREEN + "Holiday updated!" + ConsoleColours.RESET);
-          else
+            System.out.println();
+          }
+          else{
             System.out.println(ConsoleColours.RED + "Holiday doesn't exist!" + ConsoleColours.RESET);
+            System.out.println();
+          }
           break;
 
-        //Delete Holiday
+        //DELETE HOLIDAY
         case 4:
-          Boolean byName;
-          numRegex = "^(?!(0))[0-1]{1}$";
+          Boolean byName = true;
+          numRegex = "^([0-1])$";
 
           System.out.println(ConsoleColours.WHITE_BOLD + "Enter Holiday by Name or by Date:" + ConsoleColours.RESET);
-          System.out.println(ConsoleColours.BLUE + "(Enter O for Name, 1 for Date)" + ConsoleColours.RESET);
+          System.out.println(ConsoleColours.BLUE + "(Enter 0 for Name, 1 for Date)" + ConsoleColours.RESET);
           String byWhat = sc.nextLine();
           
           while (!byWhat.matches(numRegex)) {
@@ -142,9 +168,8 @@ public class ConfigureHoliday extends BaseMenu{
               System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
               byWhat = sc.nextLine();
           }
-          if(byWhat == "0"){
-            byName = true;
-          }else{
+          if(byWhat.equals("1"))
+          {
             byName = false;
           }
           
@@ -162,6 +187,7 @@ public class ConfigureHoliday extends BaseMenu{
             dateTime = LocalDateTime.parse(date, formatter);
             if (HolidayController.deleteSingleHoliday(dateTime)) System.out.println(ConsoleColours.GREEN + "Holiday deleted!" + ConsoleColours.RESET);
             else System.out.println(ConsoleColours.RED + "Holiday date not found!" + ConsoleColours.RESET);
+            System.out.println();
           }
       
           else {
@@ -172,6 +198,7 @@ public class ConfigureHoliday extends BaseMenu{
             }
             if (HolidayController.deleteHolidayName(name)) System.out.println(ConsoleColours.GREEN + "Holiday(s) deleted!" + ConsoleColours.RESET);
             else System.out.println(ConsoleColours.RED + "Holiday name not found!" + ConsoleColours.RESET);
+            System.out.println();
           }
           break;
         
@@ -187,94 +214,4 @@ public class ConfigureHoliday extends BaseMenu{
       }
     }while(true);
   }
-
-  public void viewHolidays() {
-      if (!HolidayController.printHolidays()) System.out.println("There are no saved holidays");
-  }
-
-  // public void addHoliday() {
-  //   String date, name;
-  //   String dateCheck = "^((2000|2400|2800|(19|2[0-9])(0[48]|[2468][048]|[13579][26]))-02-29)$" 
-  //                       + "|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$"
-  //                       + "|^(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))$" 
-  //                       + "|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$";
-  //   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-  //   System.out.println("Enter the date of the holiday: (yyyy-MM-dd)");
-  //   date = sc.nextLine();
-  //   while (!date.matches(dateCheck)) {
-  //     System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
-  //     date = sc.nextLine();
-  //   }
-  //   date += " 00:00";
-  //   LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-
-  //   System.out.println("Enter the name of the holiday:");
-  //   name = sc.nextLine();
-
-  //   if (HolidayController.addHoliday(dateTime, name)) System.out.println("Holiday added!");
-  //   else System.out.println("Holiday already exists!");
-  // }
-
-  // public void updateHoliday() {
-  //   String oldDate, newDate, name;
-  //   String dateCheck = "^((2000|2400|2800|(19|2[0-9])(0[48]|[2468][048]|[13579][26]))-02-29)$" 
-  //                       + "|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$"
-  //                       + "|^(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))$" 
-  //                       + "|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$";
-  //   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    
-  //   System.out.println("Enter the date of the holiday to be updated: (yyyy-MM-dd)");
-  //   oldDate = sc.nextLine();
-  //   while (!oldDate.matches(dateCheck)) {
-  //     System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
-  //     oldDate = sc.nextLine();
-  //   }
-  //   oldDate += " 00:00";
-  //   LocalDateTime oldHoliday = LocalDateTime.parse(oldDate, formatter);
-
-  //   System.out.println("Enter the new date of the holiday: (yyyy-MM-dd)");
-  //   newDate = sc.nextLine();
-  //   while (!newDate.matches(dateCheck)) {
-  //     System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
-  //     newDate = sc.nextLine();
-  //   }
-  //   newDate += " 00:00";
-  //   LocalDateTime newHoliday = LocalDateTime.parse(newDate, formatter);
-
-  //   System.out.println("Enter the name of the holiday to be updated:");
-  //   name = sc.nextLine();
-
-  //   if (HolidayController.updateHoliday(oldHoliday, newHoliday, name)) System.out.println("Holiday updated!");
-  //   else System.out.println("Holiday doesn't exist!");
-  // }
-
-  // public void deleteHoliday(Boolean byName) {
-  //   String date, name;
-  //   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-  //   if (!byName) {
-  //     String dateCheck = "^((2000|2400|2800|(19|2[0-9])(0[48]|[2468][048]|[13579][26]))-02-29)$" 
-  //                         + "|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$"
-  //                         + "|^(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))$" 
-  //                         + "|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$";
-  //     System.out.println("Enter the date of the holiday to be deleted: (yyyy-MM-dd)");
-  //     date = sc.nextLine();
-  //     while (!date.matches(dateCheck)) {
-  //       System.out.println("Please enter the date in the required format: (yyyy-MM-dd)");
-  //       date = sc.nextLine();
-  //     }
-  //     date += " 00:00";
-  //     LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-  //     if (HolidayController.deleteSingleHoliday(dateTime)) System.out.println("Holiday deleted!");
-  //     else System.out.println("Holiday date not found!");
-  //   }
-
-  //   else {
-  //     System.out.println("Enter the name of the holiday to be deleted:");
-  //     name = sc.nextLine();
-  //     if (HolidayController.deleteHolidayName(name)) System.out.println("Holiday(s) deleted!");
-  //     else System.out.println("Holiday name not found!");
-  //   }
-  // }
 }
