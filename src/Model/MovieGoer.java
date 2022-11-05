@@ -21,11 +21,6 @@ public class MovieGoer extends User{
     private int age;
 	
 	/**
-	 * MovieGoer's bookings
-	 */
-    private ArrayList<Ticket> bookings = new ArrayList<Ticket>();
-	
-	/**
      * Current Available Roles
      */
     public static final int MOVIE_GOER = 1, ADMIN = 0;
@@ -58,13 +53,7 @@ public class MovieGoer extends User{
 	public int getAge() {
     	return this.age;
 	}
-    
-	/** Get the bookings of this User
-	 * @return ArrayList   this User's bookings
-	 */
-	public ArrayList<Ticket> getBooking() {
-    	return this.bookings;
-	}
+
 
     /**
      * Set user's phone number
@@ -82,12 +71,5 @@ public class MovieGoer extends User{
         this.age = age;
     }
 
-    /**
-     * Add to user's bookings
-     * @param ticket   user's bookings
-     */
-    public void setBooking(Ticket ticket) {
-        this.bookings.add(ticket);
-    }
 
 }

@@ -37,9 +37,13 @@ public class TestView {
                 // System.out.println(lt.getDayOfWeek().toString());
 
                 LocalDateTime now = LocalDateTime.now();
-                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
-                String formatDateTime = now.format(formatter1);
-                System.out.println(formatDateTime);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+                String formatDateTime = now.format(formatter);
+
+                // LocalDateTime now = LocalDateTime.now();
+                // DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+                // String formatDateTime = now.format(formatter1);
+                System.out.println(123 + formatDateTime);
 
                 // BaseMenu createAccount = new CreateAccount(null);
                 // createAccount.execute();
@@ -56,8 +60,13 @@ public class TestView {
                 // BaseMenu checkHistory = new CheckHistory(null, 0, null);
                 // checkHistory.execute();
 
-                BaseMenu mainmenu = new MainMenu(null, -1);
-                mainmenu.execute();
+                // BaseMenu mainmenu = new MainMenu(null, -1);
+                // mainmenu.execute();
+
+
+
+                BaseMenu enterMovieDetails = new EnterMovieDetails(null, 1);
+                enterMovieDetails.execute();
 
         }
 }

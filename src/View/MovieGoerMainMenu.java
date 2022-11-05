@@ -56,20 +56,21 @@ public class MovieGoerMainMenu extends BaseMenu {
         int choice;
         String numregex = "^(?!(0))[0-4]{1}$";
 
-        System.out.println(ConsoleColours.YELLOW_BOLD + "Customer Menu Options:" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.PURPLE_BOLD + "Customer Menu Options:" + ConsoleColours.RESET);
         System.out.println("1. Book ticket");
         System.out.println("2. Leave a review");
         System.out.println("3. Check booking history");
         if (this.moviegoer == null) {
-            System.out.println("4. Back");
+            System.out.println(ConsoleColours.YELLOW + "4. Back" + ConsoleColours.RESET);
         } else {
-            System.out.println("4. Logout");
+            System.out.println(ConsoleColours.YELLOW + "4. Logout" + ConsoleColours.RESET);
         }
+        System.out.println(ConsoleColours.RED + "5. Quit" + ConsoleColours.RESET);
 
         BaseMenu nextMenu = this;
 
         // keep asking for choice
-        System.out.println("Enter your choice: ");
+        System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
         String choicestr = sc.nextLine();
 
         while (!choicestr.matches(numregex)) {
@@ -91,7 +92,7 @@ public class MovieGoerMainMenu extends BaseMenu {
                 if (moviegoer == null) {
                     nextMenu = new CreateOrLogin(nextMenu, -1, null, null, null, null, ticket, null);
                 } else {
-                    System.out.println("You can leave a review");
+                    System.out.println(ConsoleColours.WHITE_BOLD + "You can leave a review" + ConsoleColours.RESET);
                 }
                 // nextMenu = new LeaveReview(this);
                 break;
@@ -104,6 +105,9 @@ public class MovieGoerMainMenu extends BaseMenu {
                 break;
             case 4:
                 nextMenu = new MainMenu(null, -1, moviegoer, movie, movieSession, cinema, ticket, transaction);
+                break;
+            case 5:
+                nextMenu = new Quit(this);
                 break;
             default:
                 choice = -1;

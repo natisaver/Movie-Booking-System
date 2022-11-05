@@ -45,7 +45,7 @@ public class MovieGoerController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                MovieGoer user = new MovieGoer(tokens[0], tokens[1], tokens[2], Integer.parseInt(tokens[3]), tokens[4]);
+                MovieGoer user = new MovieGoer(tokens[0], tokens[1], tokens[2], Integer.parseInt(tokens[3]), tokens[4].substring(1, tokens[4].length()-1));
                 userArrayList.add(user);
             }
             reader.close();
@@ -79,7 +79,7 @@ public class MovieGoerController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[1].toLowerCase().equals(email)) {
-                    return new MovieGoer(tokens[0], tokens[1], tokens[2], Integer.valueOf(tokens[3]), tokens[4]);
+                    return new MovieGoer(tokens[0], tokens[1], tokens[2], Integer.valueOf(tokens[3]), tokens[4].substring(1, tokens[4].length()-1));
                 }
             }
             reader.close();
@@ -174,7 +174,7 @@ public class MovieGoerController {
                 writer.append(",");
                 writer.append(String.valueOf(user.getAge()));
                 writer.append(",");
-                writer.append(user.getPassword());
+                writer.append('"' + user.getPassword() + '"');
                 writer.append(",");
                 writer.append("0");
                 writer.append("\n");
@@ -258,7 +258,7 @@ public class MovieGoerController {
                     writer.append(",");
                     writer.append(String.valueOf(user.getAge()));
                     writer.append(",");
-                    writer.append(user.getPassword());
+                    writer.append('"' + user.getPassword() + '"');
                     writer.append(",");
                     writer.append("0");
                     writer.append("\n");

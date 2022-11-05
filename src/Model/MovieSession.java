@@ -41,10 +41,9 @@ public class MovieSession {
      * @param movie       The MovieSession's movie title
      * @param movieType   The MovieSession's movie type (2D, 3D or Blockbuster)
      */
-    public MovieSession(String showdate, String showtime, cinemaClass_Enum cinemaClass, String title,
+    public MovieSession(LocalDateTime showtime, cinemaClass_Enum cinemaClass, String title,
             String movieType) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        this.showtime = LocalDateTime.parse(showdate + 'T' + showtime, formatter);
+        this.showtime = showtime;
         int maxRow = 0;
         int maxCol = 0;
         if (cinemaClass == cinemaClass_Enum.GOLD) {
@@ -68,7 +67,7 @@ public class MovieSession {
                         id = "" + (char) (i + 'B') + String.valueOf(j + 1);
                 } else
                     id = "" + (char) (i + 'A') + String.valueOf(j + 1);
-                sessionSeats[i][j] = new Seat(id);
+                sessionSeats[i][j] = new Seat(id, null);
             }
         }
         this.movieTitle = title;
@@ -82,6 +81,28 @@ public class MovieSession {
      */
     public LocalDateTime getShowtime() {
         return this.showtime;
+    }
+
+    /**
+     * Get the MovieSession's date
+     * 
+     * @return this MovieSession's date
+     */
+    public String getSessionDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String date = this.showtime.format(formatter).substring(0, 10);
+        return date;
+    }
+
+    /**
+     * Get the MovieSession's time
+     * 
+     * @return this MovieSession's time
+     */
+    public String getSessionTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String time = this.showtime.format(formatter).substring(11);
+        return time;
     }
 
     /**
