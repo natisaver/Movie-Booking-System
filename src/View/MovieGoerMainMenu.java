@@ -89,6 +89,9 @@ public class MovieGoerMainMenu extends BaseMenu {
             case 4:
                 nextMenu = new MainMenu(null, -1);
                 break;
+            case 5:
+                nextMenu = new Quit(this);
+                break;
             default:
                 choice = -1;
                 System.out.println(ConsoleColours.RED + "Going Back" + ConsoleColours.RESET);

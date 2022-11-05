@@ -56,9 +56,9 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 Movie movie = new Movie(tokens[0].substring(1, tokens[0].length()-1), tokens[1].substring(1, tokens[1].length()-1), new ArrayList<String>(Arrays.asList(tokens[2].substring(1, tokens[2].length()-1).split(","))), tokens[3], tokens[4], tokens[5].substring(1, tokens[5].length()-1),
-                        Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]),
-                        movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]),
-                        Integer.parseInt(tokens[10]));
+                Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]),
+                movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]),
+                Integer.parseInt(tokens[10]));
                 movieArrayList.add(movie);
                 // System.out.println(tokens[0]);
             }
@@ -86,7 +86,7 @@ public class MovieController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                if (tokens[0].toLowerCase().equals(title.toLowerCase())) {
+                if (tokens[0].substring(1, tokens[0].length()-1).toLowerCase().equals(title.toLowerCase())) {
                     return new Movie(tokens[0].substring(1, tokens[0].length()-1), tokens[1].substring(1, tokens[1].length()-1), new ArrayList<String>(Arrays.asList(tokens[2].substring(1, tokens[2].length()-1).split(","))), tokens[3], tokens[4], tokens[5].substring(1, tokens[5].length()-1),
                     Integer.parseInt(tokens[6]), showingStatus_Enum.valueOf(tokens[7]),
                     movieType_Enum.valueOf(tokens[8]), movieRating_Enum.valueOf(tokens[9]),
@@ -156,7 +156,7 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].toLowerCase().equals(movie.getTitle().toLowerCase())) {
+                if (tokens[0].substring(1, tokens[0].length()-1).toLowerCase().equals(movie.getTitle().toLowerCase())) {
                     Found = true;
                     writer.close();
                     reader.close();
@@ -192,19 +192,17 @@ public class MovieController {
                 writer.append(",");
                 writer.append('"'+movie.getDirector()+'"');
                 writer.append(",");
+
+                writer.append('"');
+                for (int i=0;i<movie.getCast().size();i++) {
+                    writer.append(movie.getCast().get(i));
+                    if (i == movie.getCast().size()-1) break;
+                    writer.append(", ");
+                }
                 
-                StringBuilder str = new StringBuilder("");
-                for(String eachstring : movie.getCast()){
-                    str.append(eachstring).append(",");
-                }
-                String castString = str.toString();
-                if (castString.length() > 0){
-                    castString = castString.substring(0, castString.length()-1);
-                }
-                writer.append('"' + castString +'"');
+                writer.append('"');
                 writer.append(",");
-                // writer.append('"' + movie.getCast().toArray(new String[movie.getCast().size()]).toString()+'"');
-                // writer.append(",");
+
                 writer.append(movie.getReleaseDate().format(formatter));
                 writer.append(",");
                 writer.append(movie.getEndDate().format(formatter));
@@ -315,23 +313,23 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].toLowerCase().equals(movie.getTitle().toLowerCase())) {
+                if (tokens[0].substring(1, tokens[0].length()-1).equals(movie.getTitle().toLowerCase())) {
                     Found = true;
                     writer.append('"'+ movie.getTitle() + '"');
                     writer.append(",");
                     writer.append('"' + movie.getDirector() + '"');
                     writer.append(",");
 
-                    StringBuilder str = new StringBuilder("");
-                    for(String eachstring : movie.getCast()){
-                        str.append(eachstring).append(",");
+                    writer.append('"');
+                    for (int i=0;i<movie.getCast().size();i++) {
+                        writer.append(movie.getCast().get(i));
+                        if (i == movie.getCast().size()-1) break;
+                        writer.append(", ");
                     }
-                    String castString = str.toString();
-                    if (castString.length() > 0){
-                        castString = castString.substring(0, castString.length()-1);
-                    }
-                    writer.append('"' + castString.toString() +'"');
+                    
+                    writer.append('"');
                     writer.append(",");
+
                     writer.append(movie.getReleaseDate().format(formatter));
                     writer.append(",");
                     writer.append(movie.getEndDate().format(formatter));
@@ -485,7 +483,7 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].toLowerCase().equals(movie.getTitle().toLowerCase())) {
+                if (tokens[0].substring(1, tokens[0].length()-1).equals(movie.getTitle().toLowerCase())) {
                     // do nothing
                     Found = true;
                 } else {
@@ -585,7 +583,7 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].toLowerCase().equals(title.toLowerCase())) {
+                if (tokens[0].substring(1, tokens[0].length()-1).equals(title.toLowerCase())) {
                     // do nothing
                     Found = true;
                 } else {
@@ -627,34 +625,5 @@ public class MovieController {
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("Movie")));
         return true;
-    }
-
-    public static int getMovieDuration(String title) {
-        // Check if database exists
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(PATH));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return 0;
-        }
-
-        // If Database Exists
-        String line = "";
-        try {
-            reader.readLine();
-            while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                if (tokens[0].equals(title)) {
-                    int duration = Integer.valueOf(tokens[6]);
-                    return duration;
-                }
-                // System.out.println(tokens[0]);
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
 }

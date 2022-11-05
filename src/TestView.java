@@ -62,9 +62,11 @@ public class TestView {
 
                 // BaseMenu mainmenu = new MainMenu(null, -1);
                 // mainmenu.execute();
-                
-                // BaseMenu mainmenu = new EnterMovieSession(null, -1, new Movie(formatDateTime, formatDateTime, args, formatDateTime, formatDateTime, formatDateTime, 0, null, null, null, 0));
-                // mainmenu.execute();
+
+
+
+                BaseMenu enterMovieDetails = new EnterMovieDetails(null, 1);
+                enterMovieDetails.execute();
 
         }
 }
