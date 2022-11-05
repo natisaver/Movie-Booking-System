@@ -63,7 +63,7 @@ public class TestView {
                 // BaseMenu mainmenu = new MainMenu(null, -1);
                 // mainmenu.execute();
 
-
+                ReviewController.read();
 
                 BaseMenu enterMovieDetails = new EnterMovieDetails(null, 1);
                 enterMovieDetails.execute();
