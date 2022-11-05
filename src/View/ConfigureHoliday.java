@@ -85,12 +85,16 @@ public class ConfigureHoliday extends BaseMenu{
         case 2:
           System.out.println(ConsoleColours.WHITE_BOLD + "Enter the date of the holiday: (yyyy-MM-dd)" + ConsoleColours.RESET);
           date = sc.nextLine();
-          while (!date.matches(dateCheck)) {
-            if(date.isBlank()){
-              return this.getPreviousMenu();
-            }
-            System.out.println(ConsoleColours.RED +"Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
-            date = sc.nextLine();
+          while (!date.matches(dateCheck) || LocalDateTime.parse(date + " 00:00", formatter).isBefore(LocalDateTime.now())) {
+              if(date.isBlank())
+              {
+                return this.getPreviousMenu();
+              }
+              if(!date.matches(dateCheck))
+                System.out.println(ConsoleColours.RED +"Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
+              else
+                System.out.println(ConsoleColours.RED + "Please enter a future date" + ConsoleColours.RESET);
+              date = sc.nextLine();
           }
           date += " 00:00";
           dateTime = LocalDateTime.parse(date, formatter);
