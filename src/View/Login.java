@@ -43,18 +43,18 @@ public class Login extends BaseMenu {
         MovieGoer user;
         Admin admin;
 
-        System.out.println(ConsoleColours.WHITE_BRIGHT + "Please Login using your Email & Password" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.WHITE_BOLD + "Please Login using your Email & Password" + ConsoleColours.RESET);
         System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
 
         do {
-            System.out.print("Email:");
+            System.out.print(ConsoleColours.WHITE_BOLD + "Email:" + ConsoleColours.RESET);
             email = sc.nextLine().toLowerCase();
 
             if(email.isBlank()){
                 break;
             }
 
-            System.out.print("Password:");
+            System.out.print(ConsoleColours.WHITE_BOLD + "Password:" + ConsoleColours.RESET);
             password = sc.nextLine();
 
             if(password.isBlank()){
@@ -68,18 +68,19 @@ public class Login extends BaseMenu {
             // Email does not exist in database. Return error message
             if (user == null && admin == null ) {
                 System.out.println(ConsoleColours.RED + "Email does not exist." + ConsoleColours.RESET);
-                System.out.println("Re-enter your credentials or create an account");
+                System.out.println(ConsoleColours.WHITE_BOLD + "Re-enter your credentials or create an account"+ ConsoleColours.RESET);
             }
             // Email exists, but does not match password in database. Return error message
             else if ((user != null && !(user.getPassword().equals(password))) || (admin != null && !(admin.getPassword().equals(password)))) {
                 // System.out.println(user.getPassword());
                 // System.out.println(admin.getPassword());
                 System.out.println(ConsoleColours.RED + "Wrong email or Password." + ConsoleColours.RESET);
-                System.out.println("Reenter your credentials");
+                System.out.println(ConsoleColours.WHITE_BOLD + "Reenter your credentials" + ConsoleColours.RESET);
             }
             // Correct Email & Password will direct user to relevant page
             else {
                 System.out.println(ConsoleColours.GREEN + "You've successfully login!" + ConsoleColours.RESET);
+                System.out.println();
                 //moviegoer page
                 if (admin == null){
                     return new MovieGoerMainMenu(this, 0, user);

@@ -19,20 +19,22 @@ public class AdminMainMenu extends BaseMenu{
     @Override
     public BaseMenu execute() {
         int choice;
-        String numregex = "^(?!(0))[0-5]{1}$";
+        String numregex = "^(?!(0))[0-6]{1}$";
 
         System.out.println(ConsoleColours.PURPLE_BOLD + "Admin Menu Options:" + ConsoleColours.RESET);
         System.out.println("1. Configure System Settings");
         System.out.println("2. Enter movie details");
         System.out.println("3. Update movie details");
         System.out.println("4. List Top 5 movies");
-        System.out.println(ConsoleColours.RED + "5. Logout" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.YELLOW + "5. Logout" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.RED + "6. Quit" + ConsoleColours.RESET);
 
         BaseMenu nextMenu = this;
 
         //keep asking for choice
-        System.out.println("Enter your choice: ");
+        System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
         String choicestr = sc.nextLine();
+        System.out.println();
 
         while (!choicestr.matches(numregex)) {
             //early termination
@@ -41,6 +43,7 @@ public class AdminMainMenu extends BaseMenu{
             }
             System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
             choicestr = sc.nextLine();
+            System.out.println();
         }
 
         choice = Integer.valueOf(choicestr);
@@ -61,6 +64,9 @@ public class AdminMainMenu extends BaseMenu{
                 break;
             case 5:
                 nextMenu = new MainMenu(null, -1);
+                break;
+            case 6:
+                nextMenu = new Quit(this);
                 break;
             default:
                 choice = -1;

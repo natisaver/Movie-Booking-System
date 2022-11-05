@@ -34,18 +34,16 @@ public class MainMenu extends BaseMenu{
         int choice;
         String numregex = "^(?!(0))[0-4]{1}$";
 
-        System.out.println(ConsoleColours.PURPLE_BOLD + "Movie Booking and Listing Management Application (MOBLIMA)");
-        System.out.flush();
-        System.out.println(ConsoleColours.WHITE +"1. Browse");
-        System.out.flush();
+        System.out.println(ConsoleColours.PURPLE_BOLD + "Movie Booking and Listing Management Application (MOBLIMA)" + ConsoleColours.RESET);
+        System.out.println("1. Browse");
         System.out.println("2. Login");
         System.out.println("3. Create Account");
-        System.out.println("4. " + ConsoleColours.RED + "Quit" + ConsoleColours.RESET);
-        System.out.flush();
-
+        System.out.println(ConsoleColours.RED + "4. Quit" + ConsoleColours.RESET);
+        
         //keep asking for choice
-        System.out.println("Enter your choice: ");
+        System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
         String choicestr = sc.nextLine();
+        System.out.println();
 
         while (!choicestr.matches(numregex)) {
             //early termination
@@ -54,6 +52,7 @@ public class MainMenu extends BaseMenu{
             }
             System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
             choicestr = sc.nextLine();
+            System.out.println();
         }
 
         choice = Integer.valueOf(choicestr);
