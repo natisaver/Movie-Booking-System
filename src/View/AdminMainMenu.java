@@ -64,14 +64,10 @@ public class AdminMainMenu extends BaseMenu{
                 nextMenu = new UpdateMovieSession(this, 1);
                 break;
             case 5:
-<<<<<<< HEAD
                 // nextMenu = new ListTop5(this);
-=======
-                nextMenu = new MainMenu(null, -1, null,null,null,null,null,null);
->>>>>>> yourownbranch
                 break;
             case 6:
-                nextMenu = new MainMenu(null, -1);
+                nextMenu = new MainMenu(null, -1, null, null, null, null, null, null);
                 break;
             case 7:
                 nextMenu = new Quit(this);
