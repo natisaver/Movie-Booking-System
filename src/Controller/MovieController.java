@@ -283,10 +283,12 @@ public class MovieController {
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
             // e.printStackTrace();
+            // System.out.println("Error 1");
             return false;
 
         } catch (IOException e) {
             // e.printStackTrace();
+            // System.out.println("Error 2");
             return false;
         }
 
@@ -314,8 +316,10 @@ public class MovieController {
             writer.append("ticketSales");
             writer.append("\n");
 
-        } catch (IOException e) {
+        } catch (IOException e) 
+        {
             // e.printStackTrace();
+            // System.out.println("Error 3");
             return false;
         }
 
@@ -328,7 +332,7 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[0].substring(1, tokens[0].length() - 1).equals(movie.getTitle().toLowerCase())) {
+                if (tokens[0].substring(1, tokens[0].length() - 1).toLowerCase().equals(movie.getTitle().toLowerCase())) {
                     Found = true;
                     writer.append('"' + movie.getTitle() + '"');
                     writer.append(",");
@@ -390,12 +394,15 @@ public class MovieController {
             writer.close();
             reader.close();
             if (Found == false) {
+                Files.delete(Paths.get(DataController.getPath("Temp")));
+                System.out.println("Error 4");
                 return false;
             }
             // delete old file
             Files.delete(Paths.get(DataController.getPath("Movie")));
         } catch (IOException e) {
-            // e.printStackTrace();
+            e.printStackTrace();
+            System.out.println("Error 5");
             return false;
         }
         // replace with the new file
@@ -626,6 +633,7 @@ public class MovieController {
             reader.close();
             if (Found == false) {
                 // movie not deleted
+                Files.delete(Paths.get(DataController.getPath("Temp")));
                 return false;
             }
             // delete old file
