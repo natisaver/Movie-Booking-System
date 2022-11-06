@@ -70,8 +70,8 @@ public class TestView {
                 // BaseMenu enterMovieDetails = new EnterMovieDetails(null, 1);
                 // enterMovieDetails.execute();
 
-                BaseMenu chooseAge = new ChooseAge(null, 1, null, null, null, null, null, null, null);
-                chooseAge.execute();
+                BaseMenu chooseSession = new ChooseSession(null, 1, null, null, null, null, null, null);
+                chooseSession.execute();
 
         }
 }
