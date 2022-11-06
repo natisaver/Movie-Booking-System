@@ -53,7 +53,7 @@ public class UpdateMovieSession extends BaseMenu{
             System.out.println(ConsoleColours.PURPLE_BOLD + "Update Movie Session:" + ConsoleColours.RESET);
             System.out.println("1. Add new Movie Session (Showtime & Cinema)");
             System.out.println("2. Delete existing Movie Session (Showtime & Cinema)");
-            System.out.println("3. Delete existing Movie Session (Showtime & Cinema)");
+            System.out.println("3. Update existing Movie Session (Showtime & Cinema)");
             System.out.println(ConsoleColours.YELLOW + "4. Back" + ConsoleColours.RESET);
             System.out.println(ConsoleColours.RED + "5. Quit" + ConsoleColours.RESET);
             System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
@@ -275,9 +275,12 @@ public class UpdateMovieSession extends BaseMenu{
                     }
                     //if only one session on inputted date, delete successful
                     if(sessionArrayListByDate.size() == 1){
-                        MovieSessionController.delete(cinemastr, sessionArrayListByDate.get(i));
-                        System.out.println(ConsoleColours.GREEN + "Movie Session deleted." + ConsoleColours.RESET);
-                        System.out.println();
+                        //checks if movie theatre is still empty
+                        if(MovieSessionController.displaySeats(cinemastr, sessionArrayListByDate.get(0)).isEmpty()){
+                            MovieSessionController.delete(cinemastr, sessionArrayListByDate.get(0));
+                            System.out.println(ConsoleColours.GREEN + "Movie Session deleted." + ConsoleColours.RESET);
+                            System.out.println();
+                        }
                         break;
                     }
                     else{
@@ -309,9 +312,12 @@ public class UpdateMovieSession extends BaseMenu{
                     }
                     //if session with inputted time exists, successful
                     if(sessionArrayListByTime.size() != 0){
-                        MovieSessionController.delete(cinemastr, sessionArrayListByTime.get(i));
-                        System.out.println(ConsoleColours.GREEN + "Movie Session deleted." + ConsoleColours.RESET);
-                        System.out.println();
+                        //checks if movie theatre is still empty
+                        if(MovieSessionController.displaySeats(cinemastr, sessionArrayListByDate.get(0)).isEmpty()){
+                            MovieSessionController.delete(cinemastr, sessionArrayListByTime.get(0));
+                            System.out.println(ConsoleColours.GREEN + "Movie Session deleted." + ConsoleColours.RESET);
+                            System.out.println();
+                        }
                         break;
                     }
                     else{
@@ -387,9 +393,11 @@ public class UpdateMovieSession extends BaseMenu{
                     }
                     //if only one session on inputted date, update successful
                     if(sessionArrayListByDate.size() == 1){
-                        MovieSessionController.update(cinemastr, sessionArrayListByDate.get(i));
-                        System.out.println(ConsoleColours.GREEN + "Movie Session updated." + ConsoleColours.RESET);
-                        System.out.println();
+                        if(MovieSessionController.displaySeats(cinemastr, sessionArrayListByDate.get(0)).isEmpty()){
+                            MovieSessionController.update(cinemastr, sessionArrayListByDate.get(0));
+                            System.out.println(ConsoleColours.GREEN + "Movie Session updated." + ConsoleColours.RESET);
+                            System.out.println();
+                        }
                         break;
                     }
                     else{
@@ -421,9 +429,12 @@ public class UpdateMovieSession extends BaseMenu{
                     }
                     //if session with inputted time exists, successful
                     if(sessionArrayListByTime.size() != 0){
-                        MovieSessionController.update(cinemastr, sessionArrayListByTime.get(i));
-                        System.out.println(ConsoleColours.GREEN + "Movie Session updated." + ConsoleColours.RESET);
-                        System.out.println();
+                        //checks if movie theatre is still empty
+                        if(MovieSessionController.displaySeats(cinemastr, sessionArrayListByDate.get(0)).isEmpty()){
+                            MovieSessionController.update(cinemastr, sessionArrayListByTime.get(0));
+                            System.out.println(ConsoleColours.GREEN + "Movie Session updated." + ConsoleColours.RESET);
+                            System.out.println();
+                        }
                         break;
                     }
                     else{
