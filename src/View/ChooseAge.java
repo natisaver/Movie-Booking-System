@@ -132,6 +132,11 @@ public class ChooseAge extends BaseMenu {
                     break;
             }
 
+            // ticket.add(new Ticket(cineplex, cinema, movieSession.getShowtime(),
+            // movie.getTitle(),
+            // movie.getMovieType(),
+            // movie.getMovieRating(), seat, ageGroup));
+
         }
         return nextMenu;
     }

@@ -5,10 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import Controller.CineplexController;
 import Controller.MovieSessionController;
 import Model.Cinema;
-import Model.Cineplex;
 import Model.Movie;
 import Model.MovieGoer;
 import Model.MovieSession;
@@ -75,11 +73,11 @@ public class ChooseSession extends BaseMenu {
 
         BaseMenu nextMenu = this;
 
-        if (choice == movieSessionArr.size() + 1)
+        if (choice == movieSessionArr.size() + 1) {
             nextMenu = this.getPreviousMenu();
-        else if (choice == movieSessionArr.size() + 2)
+        } else if (choice == movieSessionArr.size() + 2) {
             nextMenu = new Quit(this);
-        else {
+        } else {
             // nextMenu = new ChooseSeat();
             System.out
                     .println(ConsoleColours.GREEN + "Details of selected Movie Session: " + ConsoleColours.RESET);
@@ -89,7 +87,8 @@ public class ChooseSession extends BaseMenu {
                     + hashMapSession.get(choice).getSessionTime());
 
             movieSession = hashMapSession.get(choice);
-            nextMenu = null;
+            nextMenu = new DisplayTicket(this, accesslevel, this.user, movie, movieSession, cinema, ticket,
+                    transaction);
         }
 
         return nextMenu;
