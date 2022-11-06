@@ -36,7 +36,7 @@ public class BookTicket extends BaseMenu {
     private Pattern regexPattern;
     private Matcher regMatcher;
 
-    MovieGoer moviegoer = null;
+    MovieGoer moviegoer;
     Movie movie = null;
     MovieSession movieSession = null;
     Cinema cinema = null;
