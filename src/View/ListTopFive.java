@@ -37,11 +37,11 @@ public class ListTopFive extends BaseMenu
 
         do{
             movies = MovieController.read();
-            Movie[] movieArray = new Movie[movies.size()];
-            for(int x = 0; x < movies.size(); x++)
-            {
-                movieArray[x] = movies.get(x);
-            }
+            // Movie[] movieArray = new Movie[movies.size()];
+            // for(int x = 0; x < movies.size(); x++)
+            // {
+            //     movieArray[x] = movies.get(x);
+            // }
 
             System.out.println(ConsoleColours.PURPLE_BOLD + "List Top 5: " + ConsoleColours.RESET);
             System.out.println("1. Print out Top 5 Movies by Ticket Sales");
