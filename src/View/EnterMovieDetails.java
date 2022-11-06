@@ -150,9 +150,12 @@ public class EnterMovieDetails extends BaseMenu{
         int i=0;
         do{
             inputString = sc.nextLine();
+            if(inputArray.isEmpty() && inputString.isBlank()){
+                return this.getPreviousMenu();
+            }
             while (!inputString.matches(numRegex)){
-                if(inputString.isBlank() && inputArray.isEmpty()){
-                    return this.getPreviousMenu();
+                if(!inputArray.isEmpty()){
+                    break;
                 }
                 System.out.println(ConsoleColours.RED + "Please enter a valid Name:" + ConsoleColours.RESET);
                 inputString = sc.nextLine();
