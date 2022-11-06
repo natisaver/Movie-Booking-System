@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import Controller.CineplexController;
 import Controller.MovieController;
 import Controller.MovieSessionController;
+import Controller.CinemaController;
 import Model.Movie;
 import Model.MovieSession;
 
@@ -204,7 +205,7 @@ public class UpdateMovieSession extends BaseMenu{
                     } while (overlaps == true);
             
                     //SUCCESS
-                    movieSession = new MovieSession(insertStart, CinemaController.readByCode(choicestr).getCinemaClass(),movie.getTitle());
+                    MovieSession movieSession = new MovieSession(insertStart, CinemaController.readByCode(choicestr).getCinemaClass(),movie.getTitle());
                     break;
                 
                 //DELETE MOVIE SESSION
