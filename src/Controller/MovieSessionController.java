@@ -492,14 +492,14 @@ public class MovieSessionController {
         return true;
     }
 
-    public static void displaySeats(String cinemaCode, MovieSession session) {
+    public static ArrayList<String> displaySeats(String cinemaCode, MovieSession session) {
         BufferedReader[] reader = new BufferedReader[2];
         try {
             reader[0] = new BufferedReader(new FileReader(PATH));
             reader[1] = new BufferedReader(new FileReader(cinePATH));
         } catch (FileNotFoundException e) {
             //e.printStackTrace();
-            return;
+            return new ArrayList<String>();
         }
 
         // If Databases Exist
@@ -514,9 +514,9 @@ public class MovieSessionController {
             reader[1].close();
         } catch (IOException e) {
             //e.printStackTrace();
-            return;
         }
         cinemaClass_Enum cinemaClass = cinemaClass_Enum.valueOf(cineplex.get(cinemaCode));
+        ArrayList<String> seatList = new ArrayList<String>();
         try {
             reader[0].readLine();
             while ((line = reader[0].readLine()) != null) {
@@ -526,17 +526,126 @@ public class MovieSessionController {
                     String[] seats = seatStr.split(",");
                     for (int i=0;i<seats.length;i++) {
                         session.bookSeat(seats[i], cinemaClass);
+                        seatList.add(seats[i]);
                     }
+                    session.showSeatings(cinemaClass);
                 }
             }
-            session.showSeatings(cinemaClass);
             reader[0].close();
         } catch (IOException e) {
             //e.printStackTrace();
         }
+        return seatList;
     }
 
-    public static void bookSeats(String cinemaCode, MovieSession session) {
-        
+    public static int bookSeats(String cinemaCode, MovieSession session, String seatID) {
+        // if (cinemaClass == cinemaClass_Enum.STANDARD) {
+        //     String idRegex = "^([a-kA-K&&[^I]&&[^i]])(1[0-3]|[1-9])$";
+        //     if (!id.matches(idRegex)) {
+        //         System.out.println("Invalid seat! Please choose again");
+        //         return false;
+        //     }
+        // }
+        // if (cinemaClass == cinemaClass_Enum.MAX) {
+        //     String idRegex = "^(?!s1$|S1$|s2$|S2$|s35$|S35$|s36$|S36$)([a-sA-S&&[^I]&&[^i]&&[^O]&&[^o]])(3[0-6]|[1-2][0-9]|[1-9])$";
+		//     if (!id.matches(idRegex)) {
+        //         System.out.println("Invalid seat! Please choose again");
+        //         return false;
+        //     }
+        // }
+        // if (cinemaClass == cinemaClass_Enum.GOLD) {
+        //     String idRegex = "^([a-dA-D])([1-8])$";
+        //     if (!id.matches(idRegex)) {
+        //         System.out.println("Invalid seat! Please choose again");
+        //         return false;
+        //     }
+        // }
+        File tempFile = new File(DataController.getPath("Temp"));
+        BufferedWriter writer = null;
+        BufferedReader[] reader = new BufferedReader[2];
+        try {
+            reader[0] = new BufferedReader(new FileReader(PATH));
+            reader[1] = new BufferedReader(new FileReader(cinePATH));
+            writer = new BufferedWriter(new FileWriter(tempFile));
+        } catch (FileNotFoundException e) {
+            //e.printStackTrace();
+            return 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+        try {
+            writer.append("Title");
+            writer.append(",");
+            writer.append("movieType");
+            writer.append(",");
+            writer.append("ShowDate");
+            writer.append(",");
+            writer.append("Showtime");
+            writer.append(",");
+            writer.append("cinemaCode");
+            writer.append(",");
+            writer.append("bookedSeats");
+            writer.append("\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String line;
+
+        // If Databases Exist
+        Hashtable<String, String> cineplex = new Hashtable<>();
+        try {
+            reader[1].readLine();
+            while ((line = reader[1].readLine()) != null) {
+                String[] tokens = line.split(",");
+                cineplex.put(tokens[1], tokens[2]);
+            }
+            reader[1].close();
+        } catch (IOException e) {
+            //e.printStackTrace();
+        }
+        cinemaClass_Enum cinemaClass = cinemaClass_Enum.valueOf(cineplex.get(cinemaCode));
+        try {
+            reader[0].readLine();
+            while ((line = reader[0].readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+                if (cinemaCode.equals(tokens[4]) && tokens[2].equals(session.getSessionDate()) && tokens[3].equals(session.getSessionTime())) {
+                    String seatStr = tokens[5].substring(1,tokens[5].length()-1) + "," + seatID;
+                    writer.append(tokens[0]);
+                    writer.append(",");
+                    writer.append(tokens[1]);
+                    writer.append(",");
+                    writer.append(tokens[2]);
+                    writer.append(",");
+                    writer.append(tokens[3]);
+                    writer.append(",");
+                    writer.append(tokens[4]);
+                    writer.append(",");
+                    writer.append('"'+seatStr+'"');
+                    writer.append("\n");
+                } else {
+                    writer.append(tokens[0]);
+                    writer.append(",");
+                    writer.append(tokens[1]);
+                    writer.append(",");
+                    writer.append(tokens[2]);
+                    writer.append(",");
+                    writer.append(tokens[3]);
+                    writer.append(",");
+                    writer.append(tokens[4]);
+                    writer.append(",");
+                    writer.append(tokens[5]);
+                    writer.append("\n");
+                }
+            }
+            writer.close();
+            reader[0].close();
+        } catch (IOException e) {
+            //e.printStackTrace();
+        }
+        session.showSeatings(cinemaClass);
+        return session.bookSeat(seatID, cinemaClass);
     }
 }
