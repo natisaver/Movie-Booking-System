@@ -39,6 +39,7 @@ public class ChooseMovie extends BaseMenu{
 
     @Override
     public BaseMenu execute() {
+        BaseMenu nextMenu = this;
         int choice;
         String numregex = "^(?!(0))[0-4]{1}$";
         do{
@@ -47,8 +48,6 @@ public class ChooseMovie extends BaseMenu{
             System.out.println("2. Choose a Movie");
             System.out.println(ConsoleColours.YELLOW + "3. Logout" + ConsoleColours.RESET);
             System.out.println(ConsoleColours.RED + "4. Quit" + ConsoleColours.RESET);
-
-            BaseMenu nextMenu = this;
 
             //keep asking for choice
             System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
