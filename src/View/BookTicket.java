@@ -180,10 +180,10 @@ public class BookTicket extends BaseMenu {
             System.out
                     .print(ConsoleColours.WHITE_BOLD + "\nPlease choose your preferred Movie: " + ConsoleColours.RESET);
 
-            String numregexMovie = "^(?!(0))[0-14]{1}$";
+            String numregexMovie = "^(?!(0))[0-9]|1[0-9]|2[0-9]$";
 
             String movieTitleStr = sc.next();
-            while (!movieTitleStr.matches(numregexMovie)) {
+            while (!movieTitleStr.matches(numregexMovie) || (Integer.valueOf(movieTitleStr) - 1 >= movieArray.size())) {
                 // early termination
                 if (movieTitleStr.isBlank()) {
                     return this.getPreviousMenu();
@@ -215,7 +215,7 @@ public class BookTicket extends BaseMenu {
             /**
              * Display list of Movie ShowDate, filtered by choosen movieTitle and movieType
              */
-            System.out.println(ConsoleColours.BLUE_BOLD + "List of Sessions Date Available: " + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.BLUE_BOLD + "List of Sessions Available: " + ConsoleColours.RESET);
             ArrayList<MovieSession> movieSessionArr = MovieSessionController
                     .readByTitle(hashMapMovie.get(movieTitle).getTitle());
             Map<Integer, MovieSession> hashMapSession = new HashMap();
@@ -234,10 +234,11 @@ public class BookTicket extends BaseMenu {
             System.out.print(
                     ConsoleColours.WHITE_BOLD + "\nPlease choose your preferred session: " + ConsoleColours.RESET);
 
-            String numregexSession = "^(?!(0))[0-6]{1}$";
+            String numregexSession = "^(?!(0))[0-9]|1[0-9]|2[0-9]$";
 
             String movieSessionStr = sc.next();
-            while (!movieSessionStr.matches(numregexSession)) {
+            while (!movieSessionStr.matches(numregexSession)
+                    || (Integer.valueOf(movieSessionStr) - 1 >= movieSessionArr.size())) {
                 // early termination
                 if (movieSessionStr.isBlank()) {
                     return this.getPreviousMenu();
@@ -249,52 +250,10 @@ public class BookTicket extends BaseMenu {
             int movieSessionInt = Integer.valueOf(movieSessionStr) - 1;
 
             /**
-             * Field for user to enter choice of Session Date
+             * Datails of selected Movie Session
              */
-            // System.out.println("\nPlease choose your preferred Session Date (yyyy-MM-dd):
-            // ");
-            // String date = sc.nextLine();
-            // String dateCheck =
-            // "^((2000|2400|2800|(19|2[0-9])(0[48]|[2468][048]|[13579][26]))-02-29)$"
-            // + "|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$"
-            // + "|^(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))$"
-            // + "|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$";
-            // while (!date.matches(dateCheck)) {
-            // System.out.println("Please enter the date in the required format:
-            // (yyyy-MM-dd)");
-            // date = sc.nextLine();
-            // }
-
-            // /**
-            // * Display list of Movie ShowTime, filtered by choosen ShowDate
-            // */
-            // System.out.println("List of Sessions Time Available: \n");
-            // Map<Integer, MovieSession> hashMapSessionTime = new HashMap();
-            // for (int j = 0; j < movieSessionArr.size(); j++) {
-            // int k = j + 1;
-            // if (date == movieSessionArr.get(k - 1).getSessionDate()) {
-            // hashMapSessionTime.put(k - 1, movieSessionArr.get(k - 1));
-            // System.out.println(
-            // k + ": " + hashMapSessionTime.get(k - 1).getTitle() + " "
-            // + hashMapSessionTime.get(k - 1).getSessionTime());
-            // }
-            // }
-
-            // /**
-            // * Field for user to enter choice of Session Time
-            // */
-            // System.out.print("\nPlease choose your preferred Session Time (HH:mm): ");
-            // String time = sc.nextLine();
-            // String timeCheck = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
-            // while (!time.matches(timeCheck)) {
-            // System.out.println(ConsoleColours.RED + "Please enter the time in the
-            // required format: (HH:mm)"
-            // + ConsoleColours.RESET);
-            // time = sc.nextLine();
-            // }
-            // movieSession.setShowtime(date, time);
-
-            System.out.println("\nDetails of selected Movie Session: ");
+            System.out
+                    .println(ConsoleColours.BLUE_BOLD + "\nDetails of selected Movie Session: " + ConsoleColours.RESET);
 
             System.out.println(hashMapSession.get(movieSessionInt).getTitle() + " "
                     + hashMapSession.get(movieSessionInt).getSessionDate() + " "
