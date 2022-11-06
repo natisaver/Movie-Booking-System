@@ -55,22 +55,30 @@ public class UpdateMovieDetails extends BaseMenu{
         String dateCheck;
         ArrayList<String> inputArray = new ArrayList<String>(); 
 
+        String stringRegex = "^[^0-9]+$";
         System.out.println(ConsoleColours.WHITE_BOLD + "Enter Title of existing Movie to be updated:" + ConsoleColours.RESET);
         inputTitle = sc.nextLine();
-        //Go back to previousMenu if blank is entered
-        if(inputTitle.isBlank()){
-            return this.getPreviousMenu();
-        }
-        movie = MovieController.readByTitle(inputTitle);
-        
-        //Checks if Movie exists in the database
-        while(movie == null){
-            System.out.println(ConsoleColours.RED + "Movie does not exist." + ConsoleColours.RESET);
-            System.out.println("Re-enter Movie Title:");
-            inputString = sc.nextLine();
+        do{
+            //Checks for movie format
+            while (!inputTitle.matches(stringRegex)){
+                if(inputTitle.isBlank()){
+                    return this.getPreviousMenu();
+                }
+                System.out.println(ConsoleColours.RED + "Please enter a valid Movie Title:" + ConsoleColours.RESET);
+                inputTitle = sc.nextLine();
+            }
             movie = MovieController.readByTitle(inputTitle);
-        }
-        //If Movie exists, movie object will be the stated Movie
+            
+            //Checks if Movie exists in the database
+            if(movie == null){
+                System.out.println(ConsoleColours.RED + "Movie does not exist." + ConsoleColours.RESET);
+                System.out.println(ConsoleColours.WHITE_BOLD + "Re-enter Movie Title:" + ConsoleColours.RESET);
+                inputTitle = sc.nextLine();
+                movie = MovieController.readByTitle(inputTitle);
+            }
+        }while(movie == null);
+
+        movie = MovieController.readByTitle(inputTitle);
 
         do{
             //Menu choices to Update Movie Details
@@ -177,10 +185,15 @@ public class UpdateMovieDetails extends BaseMenu{
 
                 //UPDATE MOVIE DIRECTOR
                 case 5:
+                    numRegex = "^[^0-9]+$";
                     System.out.println(ConsoleColours.WHITE_BOLD + "Enter Updated Director: " + ConsoleColours.RESET);
                     inputString = sc.nextLine();
-                    if(inputString.isBlank()){
-                        return this.getPreviousMenu();
+                    while (!inputString.matches(numRegex)){
+                        if(inputString.isBlank()){
+                            return this.getPreviousMenu();
+                        }
+                        System.out.println(ConsoleColours.RED + "Please enter a valid Name:" + ConsoleColours.RESET);
+                        inputString = sc.nextLine();
                     }
                     System.out.println(ConsoleColours.GREEN + "Movie Director changed to: " + inputString + ConsoleColours.RESET);
                     System.out.println();
@@ -195,22 +208,28 @@ public class UpdateMovieDetails extends BaseMenu{
                     movie.setCast(inputArray);
                     do{
                         inputString = sc.nextLine();
-                        if(inputString.isBlank() && inputArray.isEmpty()){
+                        if(inputArray.isEmpty() && inputString.isBlank()){
                             return this.getPreviousMenu();
                         }
-                        else if (inputString.isBlank()){
+                        while (!inputString.matches(numRegex)){
+                            if(!inputArray.isEmpty()){
+                                break;
+                            }
+                            System.out.println(ConsoleColours.RED + "Please enter a valid Name:" + ConsoleColours.RESET);
+                            inputString = sc.nextLine();
+                        }
+                        if (inputString.isBlank()){
                             break;
                         }
                         else{
                             inputArray.add(inputString);
                         }
                     }while(!inputArray.isEmpty());
+
                     System.out.println(ConsoleColours.GREEN + "Movie Cast changed" + ConsoleColours.RESET);
                     System.out.println();
                     movie.setCast(inputArray);
                     MovieController.update(movie);
-                    //clear array after - for use next time
-                    // inputArray.clear();
                     break;
 
                 //UPDATE MOVIE RELEASE & END DATE

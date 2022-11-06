@@ -1,8 +1,11 @@
 package View;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
+import Controller.MovieController;
 import Model.Cinema;
 import Model.Cineplex;
 import Model.Movie;
@@ -68,12 +71,47 @@ public class ChooseMovie extends BaseMenu{
             switch (choice) {
                 //VIEW MOVIE LIST
                 case 1:
-                    
+                System.out.println(ConsoleColours.BLUE_BOLD + "List of Available Movies:" + ConsoleColours.RESET);
+                    ArrayList<Movie> movieArray = MovieController.read();
+                    Map<Integer, Movie> hashMapMovie = new HashMap();
+                    for (int j = 0; j < movieArray.size(); j++) {
+                        hashMapMovie.put(j, movieArray.get(j));
+                        System.out.println("> " + hashMapMovie.get(j).getTitle());
+                    }
+                    System.out.println();
                     break;
                 //CHOOSE MOVIE
                 case 2:
+                    String strRegex = "^[^0-9]+$";
+                    System.out.println(ConsoleColours.WHITE_BOLD + "Enter title of Movie to watch:" + ConsoleColours.RESET);
+                    String inputString = sc.nextLine();
                     
-                    break;
+                    do{
+                        //Checks for movie format
+                        while (!inputString.matches(strRegex)){
+                            if(inputString.isBlank()){
+                                return this.getPreviousMenu();
+                            }
+                            System.out.println(ConsoleColours.RED + "Please enter a valid Movie Title:" + ConsoleColours.RESET);
+                            inputString = sc.nextLine();
+                        }
+                        movie = MovieController.readByTitle(inputString);
+                        
+                        //Checks if Movie exists in the database
+                        if(movie == null){
+                            System.out.println(ConsoleColours.RED + "Movie does not exist." + ConsoleColours.RESET);
+                            System.out.println(ConsoleColours.WHITE_BOLD + "Re-enter Movie Title:" + ConsoleColours.RESET);
+                            inputString = sc.nextLine();
+                            movie = MovieController.readByTitle(inputString);
+                        }
+                    }while(movie == null);
+
+                    System.out.println(ConsoleColours.GREEN + "Movie successfully chosen" + ConsoleColours.RESET);
+                    System.out.println();
+                    movie = MovieController.readByTitle(inputString);
+
+                    nextMenu = new ChooseSession(nextMenu, choice, user, movie, movieSession, cinema, ticket, transaction);
+                    return nextMenu;
                 //GO TO PREVIOUS PAGE
                 case 3:
                     nextMenu = this.getPreviousMenu();
