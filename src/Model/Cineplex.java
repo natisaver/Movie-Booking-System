@@ -17,12 +17,7 @@ public class Cineplex {
     /**
      * List of Cinemas under a particular Cineplex
      */
-    private ArrayList<Cineplex> cinemas;
-
-    /**
-     * Cinema's name
-     */
-    private String name;
+    private ArrayList<Cinema> cinemas;
 
     /**
      * Cinema's location
@@ -33,12 +28,10 @@ public class Cineplex {
      * Constructor
      * 
      * @param arrayList List of Cinema's under a particular Cineplex
-     * @param name      Cinema's name
      * @param location  Cinema's location
      */
-    public Cineplex(ArrayList<Cineplex> arrayList, String name, String location) {
+    public Cineplex(ArrayList<Cinema> arrayList, String location) {
         this.cinemas = arrayList;
-        this.name = name;
         this.location = location;
         // this.cinemas = new Cinema[3];
     }
@@ -48,26 +41,8 @@ public class Cineplex {
      * 
      * @return Cinema[] List of Cinemas under a particular Cineplex
      */
-    public ArrayList<Cineplex> getCinemas() {
+    public ArrayList<Cinema> getCinemas() {
         return cinemas;
-    }
-
-    /**
-     * Get the Cinema's name
-     * 
-     * @return String Cinema's name
-     */
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * Set the Cinema's name
-     * 
-     * @param name Cinema's name
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**

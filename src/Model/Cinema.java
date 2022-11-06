@@ -29,7 +29,7 @@ public class Cinema {
     /**
      * Cinema's list of movie sessions available
      */
-    private MovieSession[] showings;
+    private ArrayList<MovieSession> showings;
 
     /**
      * Constructor
@@ -38,10 +38,10 @@ public class Cinema {
      * @param cinemaClass Cinema's class type
      * @param showings    Cinema's list of movies sessions available
      */
-    public Cinema(String cinemaCode, cinemaClass_Enum cinemaClass, MovieSession[] showings) {
+    public Cinema(String cinemaCode, cinemaClass_Enum cinemaClass, ArrayList<MovieSession> showings) {
         this.cinemaCode = cinemaCode;
         this.cinemaClass = cinemaClass;
-        this.showings = new MovieSession[100];
+        this.showings = showings;
     }
 
     /**
@@ -79,6 +79,24 @@ public class Cinema {
      */
     public void setCinemaClass(cinemaClass_Enum cinemaClass) {
         this.cinemaClass = cinemaClass;
+    }
+
+    /**s
+     * Get the Cinema's sessions showings
+     * 
+     * @return Array List of Movie Sessions
+     */
+    public ArrayList<MovieSession> getShowings() {
+        return this.showings;
+    }
+
+    /**
+     * Set the Cinema's sessions showings
+     * 
+     * @param showings Array List of Movie Sessions
+     */
+    public void setShowings(ArrayList<MovieSession> showings) {
+        this.showings = showings;
     }
 
     /**
