@@ -148,7 +148,7 @@ public class BookTicket extends BaseMenu {
                 }
                 System.out.println(ConsoleColours.RED + "Please enter a valid choice:" +
                         ConsoleColours.RESET);
-                locationStr = sc.nextLine();
+                cinemaTypeStr = sc.nextLine();
             }
             int cinemaTypeInt = Integer.valueOf(cinemaTypeStr) - 1;
 
