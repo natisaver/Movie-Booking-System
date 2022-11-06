@@ -9,6 +9,7 @@ import java.util.*;
 
 import Model.MovieSession;
 import Model.cinemaClass_Enum;
+import Model.seatType_Enum;
 
 /**
  * Reads movie titles, date and times, and cinema class of movie sessions from
@@ -538,7 +539,7 @@ public class MovieSessionController {
         return seatList;
     }
 
-    public static int bookSeats(String cinemaCode, MovieSession session, String seatID) {
+    public static seatType_Enum bookSeats(String cinemaCode, MovieSession session, String seatID) {
         // if (cinemaClass == cinemaClass_Enum.STANDARD) {
         //     String idRegex = "^([a-kA-K&&[^I]&&[^i]])(1[0-3]|[1-9])$";
         //     if (!id.matches(idRegex)) {
@@ -569,10 +570,8 @@ public class MovieSessionController {
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
             //e.printStackTrace();
-            return 0;
         } catch (IOException e) {
-            e.printStackTrace();
-            return 0;
+            //e.printStackTrace();
         }
 
         try {
