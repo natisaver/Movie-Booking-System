@@ -67,8 +67,11 @@ public class TestView {
                 // System.out.println(review.getMovie().getTitle());
                 // System.out.println(review.getReview());
 
-                BaseMenu enterMovieDetails = new EnterMovieDetails(null, 1);
-                enterMovieDetails.execute();
+                // BaseMenu enterMovieDetails = new EnterMovieDetails(null, 1);
+                // enterMovieDetails.execute();
+
+                BaseMenu chooseAge = new ChooseAge(null, 1, null, null, null, null, null, null, null);
+                chooseAge.execute();
 
         }
 }
