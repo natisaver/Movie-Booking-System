@@ -209,7 +209,6 @@ public class TransactionController {
 
         } catch (IOException e) {
             // e.printStackTrace();
-            return false;
         }
 
         Boolean Found = false;
@@ -252,6 +251,7 @@ public class TransactionController {
                 writer.append("\n");
                 writer.close();
                 reader.close();
+                Files.delete(Paths.get(DataController.getPath("Transaction")));
                 tempFile.renameTo(new File(DataController.getPath("Transaction")));
                 return true;
             }
