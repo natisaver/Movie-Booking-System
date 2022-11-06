@@ -1,8 +1,4 @@
 transactionID,Email,NoOfTickets,MovieTitle,TotalPrice
 100202210261300,bobby@gmail.com,1,Jurassic World Dominion,13
 100202210261400,ahming@yahoo.com.sg,2,Jurassic World Dominion,26
-<<<<<<< HEAD
-202202211061058,bobby@gmail.com,1,Marvel Studios' Thor: Love And Thunder,6.0
-=======
 101202211061231,bobby@gmail.com,1,Black Adam,7.5
->>>>>>> sqbranch

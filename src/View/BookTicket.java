@@ -211,17 +211,12 @@ public class BookTicket extends BaseMenu {
             System.out.println("Synopsis: " + movie.getSynopsis());
             System.out.println("Movie Rating: " + movie.getMovieRating());
             System.out.println("Overall Rating: " + movie.getOverallRating());
-            // System.out.println("Review: " + movie.getReviewList());
             System.out.println("Review(s): ");
 
             ArrayList<Review> reviewArr = ReviewController.readByTitle(movie.getTitle());
-
             for (int i = 0; i < reviewArr.size(); i++) {
                 System.out.println(reviewArr.get(i).getName() + " - " + reviewArr.get(i).getReview());
             }
-            // hashMapReview.entrySet().forEach(entry -> {
-            // System.out.println(entry.getKey() + " " + entry.getValue());
-            // });
             System.out.println("");
 
             /**
