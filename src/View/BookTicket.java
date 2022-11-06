@@ -17,12 +17,14 @@ import Controller.CineplexController;
 import Controller.MovieController;
 import Controller.MovieSessionController;
 import Controller.PriceController;
+import Controller.ReviewController;
 import Controller.TransactionController;
 import Model.Cinema;
 import Model.Cineplex;
 import Model.Movie;
 import Model.MovieGoer;
 import Model.MovieSession;
+import Model.Review;
 import Model.Seat;
 import Model.Ticket;
 import Model.Transaction;
@@ -209,7 +211,17 @@ public class BookTicket extends BaseMenu {
             System.out.println("Synopsis: " + movie.getSynopsis());
             System.out.println("Movie Rating: " + movie.getMovieRating());
             System.out.println("Overall Rating: " + movie.getOverallRating());
-            System.out.println("Review: " + movie.getReviewList());
+            // System.out.println("Review: " + movie.getReviewList());
+            System.out.println("Review(s): ");
+
+            ArrayList<Review> reviewArr = ReviewController.readByTitle(movie.getTitle());
+
+            for (int i = 0; i < reviewArr.size(); i++) {
+                System.out.println(reviewArr.get(i).getName() + " - " + reviewArr.get(i).getReview());
+            }
+            // hashMapReview.entrySet().forEach(entry -> {
+            // System.out.println(entry.getKey() + " " + entry.getValue());
+            // });
             System.out.println("");
 
             /**
@@ -260,21 +272,6 @@ public class BookTicket extends BaseMenu {
                     + hashMapSession.get(movieSessionInt).getSessionTime());
 
             movieSession = hashMapSession.get(movieSessionInt);
-
-            // for (int i = 0; i < movieSessionArr.size(); i++) {
-            // if (movieSessionArr.get(i).getShowtime() == movieSession.getShowtime())
-            // ;
-            // }
-            // MovieSessionController.readbyShowDate(movie.getTitle(),
-            // movie.getMovieType(), date);
-
-            // /**
-            // * Create MovieSession object
-            // */
-            // movieSession = (MovieSessionController.readbyShowTime(cinema,
-            // movie.getTitle(),
-            // movie.getMovieType(), date, time))
-            // .get(0);
 
             /**
              * Create Cinema object
