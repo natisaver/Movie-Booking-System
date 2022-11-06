@@ -81,9 +81,14 @@ public class ChooseSession extends BaseMenu {
             nextMenu = new Quit(this);
         else {
             // nextMenu = new ChooseSeat();
-            System.out.println("Movie Session Booked! " + hashMapSession.get(choice).getSessionDate() + " "
+            System.out
+                    .println(ConsoleColours.GREEN + "Details of selected Movie Session: " + ConsoleColours.RESET);
+
+            System.out.println(hashMapSession.get(choice).getTitle() + " - "
+                    + hashMapSession.get(choice).getSessionDate() + " "
                     + hashMapSession.get(choice).getSessionTime());
-            ;
+
+            movieSession = hashMapSession.get(choice);
             nextMenu = null;
         }
 
