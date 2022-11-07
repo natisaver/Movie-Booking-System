@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Model.Cinema;
+import Model.Cineplex;
 import Model.Movie;
 import Model.MovieGoer;
 import Model.MovieSession;
@@ -87,7 +88,7 @@ public class MovieGoerMainMenu extends BaseMenu {
 
         switch (choice) {
             case 1:
-                nextMenu = new BookTicket(this, -1, moviegoer, movie, movieSession, cinema, ticket, transaction);
+                nextMenu = new ChooseCineplex(this, -1, moviegoer, movie, movieSession, cinema, ticket, transaction);
                 break;
             case 2:
                 if (moviegoer == null) {

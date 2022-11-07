@@ -75,14 +75,14 @@ public class ChooseCineplex extends BaseMenu{
                     ArrayList<Cinema> cinemaArrayNex = CineplexController.readByLocation("Nex");
                     Cineplex cineplexNex = new Cineplex(cinemaArrayNex, "Nex");
                     
-                    System.out.println(ConsoleColours.GREEN + "You have picked Bishan Cineplex" + ConsoleColours.RESET);
+                    System.out.println(ConsoleColours.GREEN + "You have picked NEX Cineplex" + ConsoleColours.RESET);
                     nextMenu = new ChooseMovie(this, 0, this.user, null, null, null, null, null, cineplexNex);
                     break;
                 case 3:
                     ArrayList<Cinema> cinemaArrayJewel = CineplexController.readByLocation("Jewel");
                     Cineplex cineplexJewel = new Cineplex(cinemaArrayJewel, "Jewel");
                     
-                    System.out.println(ConsoleColours.GREEN + "You have picked Bishan Cineplex" + ConsoleColours.RESET);
+                    System.out.println(ConsoleColours.GREEN + "You have picked Jewel Cineplex" + ConsoleColours.RESET);
                     nextMenu = new ChooseMovie(this, 0, this.user, null, null, null, null, null, cineplexJewel);
                     break;
                 case 4:
