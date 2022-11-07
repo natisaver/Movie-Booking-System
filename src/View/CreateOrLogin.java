@@ -1,5 +1,6 @@
 package View;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -61,33 +62,41 @@ public class CreateOrLogin extends BaseMenu {
         System.out.println(ConsoleColours.WHITE_BRIGHT + "Would you like to:" + ConsoleColours.RESET);
         System.out.println("1. Create a new account");
         System.out.println("2. Login to an existing account");
-        System.out.println("3. Back");
+        System.out.println(ConsoleColours.YELLOW + "3. Back" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.RED + "4. Quit" + ConsoleColours.RESET);
 
+        String inputString;
+        String numRegex = "^[^0-9]+$";
         BaseMenu nextMenu = this;
-        do {
-            System.out.print("Enter your choice:");
-            choice = sc.nextInt();
 
-            switch (choice) {
-                case 1:
-                    nextMenu = new CreateAccount(this, this.accesslevel, user, movie, movieSession, cinema, ticket,
-                            transaction);
-                    break;
-                case 2:
-                    nextMenu = new Login(this, -1, user, movie, movieSession, cinema, ticket,
-                            transaction);
-                    break;
-                case 3:
-                    nextMenu = this.getPreviousMenu();
-                    break;
-                default:
-                    choice = -1;
-                    System.out.println(ConsoleColours.RED + "Please enter a valid choice." + ConsoleColours.RESET);
-                    break;
+        System.out.print("Enter your choice:");
+        inputString = sc.nextLine();
+
+        while (!inputString.matches(numRegex)){
+            if(inputString.isBlank()){
+                return this.getPreviousMenu();
             }
-        } while (choice == -1);
+            System.out.println(ConsoleColours.RED + "Please enter a valid Movie Title:" + ConsoleColours.RESET);
+            inputString = sc.nextLine();
+        }
+        choice = Integer.parseInt(inputString);
+        switch (choice) {
+            case 1:
+                nextMenu = new CreateAccount(this, this.accesslevel, user, movie, movieSession, cinema, ticket,
+                        transaction);
+                break;
+            case 2:
+                nextMenu = new Login(this, -1, user, movie, movieSession, cinema, ticket,
+                        transaction);
+                break;
+            case 3:
+                nextMenu = this.getPreviousMenu();
+                break;
+            default:
+                nextMenu = new Quit(this);
+                break;
 
+        }
         return nextMenu;
-
     }
 }

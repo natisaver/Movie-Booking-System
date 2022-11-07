@@ -48,7 +48,8 @@ public class ChooseSession extends BaseMenu {
             System.out.println(
                     k + ": " + hashMapSession.get(k - 1).getTitle() + " "
                             + hashMapSession.get(k - 1).getSessionDate() + " "
-                            + hashMapSession.get(k - 1).getSessionTime());
+                            + hashMapSession.get(k - 1).getSessionTime()
+                            + " | (" + hashMapSession.get(k - 1).getMovieType().name() + ")");
         }
         System.out.println(ConsoleColours.YELLOW + (movieSessionArr.size() + 1) + ". Back" + ConsoleColours.RESET);
         System.out.println(ConsoleColours.RED + (movieSessionArr.size() + 2) + ". Quit" + ConsoleColours.RESET);
