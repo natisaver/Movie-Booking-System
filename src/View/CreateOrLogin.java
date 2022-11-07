@@ -66,7 +66,7 @@ public class CreateOrLogin extends BaseMenu {
         System.out.println(ConsoleColours.RED + "4. Quit" + ConsoleColours.RESET);
 
         String inputString;
-        String numRegex = "^[^0-9]+$";
+        String numRegex = "^[^1-4]$";
         BaseMenu nextMenu = this;
 
         System.out.print("Enter your choice:");

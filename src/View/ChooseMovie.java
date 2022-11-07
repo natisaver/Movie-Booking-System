@@ -70,10 +70,10 @@ public class ChooseMovie extends BaseMenu{
         }
 
         if(choice<=movieArr.size()){
-            movie = MovieController.readByTitle(hashMapMovie.get(choice).getTitle());
+            this.movie = MovieController.readByTitle(hashMapMovie.get(choice).getTitle());
             System.out.println(ConsoleColours.GREEN + "Movie successfully chosen" + ConsoleColours.RESET);
             System.out.println();
-            nextMenu = new ChooseSession(nextMenu, choice, user, movie, movieSession, cinema, ticket, transaction);
+            nextMenu = new ChooseSession(nextMenu, 0, this.user, this.movie, this.movieSession, this.cinema, this.ticket, this.transaction);
             return nextMenu;
         }
 
