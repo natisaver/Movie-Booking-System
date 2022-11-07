@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import Controller.TransactionController;
 import Model.Cinema;
+import Model.Cineplex;
 import Model.Movie;
 import Model.MovieGoer;
 import Model.MovieSession;
@@ -22,9 +23,10 @@ public class DisplayTicket extends BaseMenu {
     Cinema cinema = null;
     ArrayList<Ticket> ticket = new ArrayList<>();
     Transaction transaction = null;
+    Cineplex cineplex = null;
 
     public DisplayTicket(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
-            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction) {
+            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction, Cineplex cineplex) {
         super(previousMenu, accesslevel);
         this.user = user;
         this.movie = movie;
@@ -32,6 +34,7 @@ public class DisplayTicket extends BaseMenu {
         this.cinema = cinema;
         this.ticket = ticket;
         this.transaction = transaction;
+        this.cineplex = cineplex;
     }
 
     @Override

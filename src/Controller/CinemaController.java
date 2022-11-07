@@ -5,8 +5,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import Model.Cinema;
 import Model.Cineplex;
 import Model.Holiday;
+import Model.cinemaClass_Enum;
 
 /**
  * CRUD Operation for Cinemas
@@ -46,7 +48,7 @@ public class CinemaController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[1].equals(cinemacode)) {
-                    return new Cinema(MovieSessionController.readByCode(cinemacode), tokens[1], tokens[0]);
+                    return new Cinema(tokens[1], cinemaClass_Enum.valueOf(tokens[2]), MovieSessionController.readByCode(cinemacode));
                 }
             }
             reader.close();

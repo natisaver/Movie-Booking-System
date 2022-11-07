@@ -44,7 +44,7 @@ public class ChooseMovie extends BaseMenu{
         ArrayList<Movie> movieArr = MovieController.read();
 
         System.out.println(ConsoleColours.PURPLE_BOLD + "Choose your desired Movie:" + ConsoleColours.RESET);
-        Map<Integer, Movie> hashMapMovie = new HashMap();
+        HashMap<Integer, Movie> hashMapMovie = new HashMap();
         for (int j = 0; j < movieArr.size(); j++) {
             hashMapMovie.put(j, movieArr.get(j));
             System.out.println(j+1 + ": " + hashMapMovie.get(j).getTitle());
@@ -73,7 +73,7 @@ public class ChooseMovie extends BaseMenu{
             this.movie = MovieController.readByTitle(hashMapMovie.get(choice).getTitle());
             System.out.println(ConsoleColours.GREEN + "Movie successfully chosen" + ConsoleColours.RESET);
             System.out.println();
-            nextMenu = new ChooseSession(nextMenu, 0, this.user, this.movie, this.movieSession, this.cinema, this.ticket, this.transaction);
+            nextMenu = new ChooseSession(nextMenu, 0, this.user, this.movie, this.movieSession, this.cinema, this.ticket, this.transaction, this.cinplex);
             return nextMenu;
         }
 

@@ -126,6 +126,51 @@ public class MovieSessionController {
         }
     }
 
+    public static ArrayList<MovieSession> readByCodeTitle(String cinemaCode, String movieTitle) {
+        // Check if databases exist
+        BufferedReader[] reader = new BufferedReader[2];
+        try {
+            reader[0] = new BufferedReader(new FileReader(PATH));
+            reader[1] = new BufferedReader(new FileReader(cinePATH));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return new ArrayList<MovieSession>();
+        }
+
+        // If Databases Exist
+        String line = "";
+        Hashtable<String, String> cineplex = new Hashtable<>();
+        try {
+            reader[1].readLine();
+            while ((line = reader[1].readLine()) != null) {
+                String[] tokens = line.split(",");
+                cineplex.put(tokens[1], tokens[2]);
+            }
+            reader[1].close();
+        } catch (IOException e) {
+            // e.printStackTrace();
+            return new ArrayList<MovieSession>();
+        }
+        ArrayList<MovieSession> movieSessionList = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        try {
+            reader[0].readLine();
+            while ((line = reader[0].readLine()) != null) {
+                String[] tokens = line.split(",");
+                if (tokens[4].equals(cinemaCode) && tokens[0].toLowerCase().equals(movieTitle.toLowerCase())) {
+                    String movieType = tokens[1];
+                    LocalDateTime datetime = LocalDateTime.parse(tokens[2] + " " + tokens[3], formatter);
+                    cinemaClass_Enum cinemaClass = cinemaClass_Enum.valueOf(cineplex.get(tokens[4]));
+                    movieSessionList.add(new MovieSession(datetime, cinemaClass, movieTitle, movieType));
+                }
+            }
+            reader[0].close();
+            return movieSessionList;
+        } catch (IOException e) {
+            // e.printStackTrace();
+            return movieSessionList;
+        }
+    }
     public static ArrayList<MovieSession> readByTitle(String title) {
         // Check if databases exist
         BufferedReader[] reader = new BufferedReader[2];

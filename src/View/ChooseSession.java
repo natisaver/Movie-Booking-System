@@ -10,8 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import Controller.CineplexController;
+import Controller.CinemaController;
 import Controller.MovieSessionController;
 import Model.Cinema;
+import Model.Cineplex;
 import Model.Movie;
 import Model.MovieGoer;
 import Model.MovieSession;
@@ -26,9 +29,10 @@ public class ChooseSession extends BaseMenu {
     Cinema cinema = null;
     ArrayList<Ticket> ticket = new ArrayList<>();
     Transaction transaction = null;
+    Cineplex cineplex = null;
 
     public ChooseSession(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
-            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction) {
+            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction, Cineplex cineplex) {
         super(previousMenu, accesslevel);
         this.user = user;
         this.movie = movie;
@@ -36,6 +40,7 @@ public class ChooseSession extends BaseMenu {
         this.cinema = cinema;
         this.ticket = ticket;
         this.transaction = transaction;
+        this.cineplex = cineplex;
     }
 
     @Override
@@ -43,26 +48,33 @@ public class ChooseSession extends BaseMenu {
         int choice = -1;
         BaseMenu nextMenu = this;
 
-        // Display list of Movie ShowDate and ShowTime, filtered by choosen movieTitle
-        // and movieType
+        // Based on cineplex chosen, display the sessions according to:
+        // Movie Title & Cinema in that cineplex
         System.out.println(ConsoleColours.PURPLE_BOLD + "Choose your desired Session:" + ConsoleColours.RESET);
-        ArrayList<MovieSession> movieSessionArr = MovieSessionController.readByTitle(this.movie.getTitle());
-        HashMap<Integer, MovieSession> hashMapSession = new HashMap<Integer, MovieSession>();
-        for (int j = 0; j < movieSessionArr.size(); j++) {
-            int k = j + 1;
-            hashMapSession.put(k - 1, movieSessionArr.get(k - 1));
+        ArrayList<Cinema> cinemasavailable = CineplexController.readByLocation(this.cineplex.getLocation());
+        ArrayList<MovieSession> movieSessionArr = new ArrayList<MovieSession>();
+        HashMap<MovieSession, Cinema> hashMapSession = new HashMap<MovieSession, Cinema>();
+        for (int j = 0; j < cinemasavailable.size(); j++) {
+            movieSessionArr = MovieSessionController.readByCodeTitle(cinemasavailable.get(j).getCinemaCode(), this.movie.getTitle());
+            for (int i = 0; i < movieSessionArr.size(); i++) {
+                int k = i + 1;
+                hashMapSession.put(movieSessionArr.get(i), CinemaController.readByCode(cinemasavailable.get(j).getCinemaCode()));
+            }
         }
-        hashMapSession = sortByDate(hashMapSession);
-        if (movieSessionArr.size() <= 0 ){
+
+        // sort the hashmap
+        HashMap<Integer, MovieSession> menuselector = new HashMap<Integer, MovieSession>();
+        menuselector = sortByDate(hashMapSession);
+        if (menuselector.size() <= 0 ){
             System.out.println("No sessions available");
         }
         else {
-            for (int k = 1; k<=movieSessionArr.size(); k++){ 
+            for (int k = 1; k<=menuselector.size(); k++){ 
                 System.out.println( 
-                        k + ": " + hashMapSession.get(k).getTitle() + " "
-                                + hashMapSession.get(k).getSessionDate() + " "
-                                + hashMapSession.get(k).getSessionTime()
-                                + " | (" + hashMapSession.get(k).getMovieType().name() + ")");
+                        k + ": " + menuselector.get(k).getTitle() + " "
+                                + menuselector.get(k).getSessionDate() + " "
+                                + menuselector.get(k).getSessionTime()
+                                + " | (" + menuselector.get(k).getMovieType().name() + ")");
             }
         }
 
@@ -94,36 +106,35 @@ public class ChooseSession extends BaseMenu {
             // nextMenu = new ChooseSeat();
             System.out
                     .println(ConsoleColours.GREEN + "Details of selected Movie Session: " + ConsoleColours.RESET);
-            movieSession = hashMapSession.get(choice);
+            movieSession = menuselector.get(choice);
             System.out.println(movieSession.getTitle() + " - "
                     + movieSession.getSessionDate() + " "
                     + movieSession.getSessionTime()
                     + " | (" + movieSession.getMovieType().name() + ")");
 
-            
-            nextMenu = new DisplayTicket(this, accesslevel, this.user, movie, movieSession, cinema, ticket,
-                    transaction);
+            nextMenu = new DisplayTicket(nextMenu, this.accesslevel, this.user, this.movie, movieSession, hashMapSession.get(movieSession), ticket,
+                    this.transaction, this.cineplex);
         }
 
         return nextMenu;
 
     }
 
-    public static HashMap<Integer, MovieSession> sortByDate(HashMap<Integer, MovieSession> hm)
+    public static HashMap<Integer, MovieSession> sortByDate(HashMap<MovieSession, Cinema> hm)
     {
         // Create a list from elements of HashMap
-        List<Map.Entry<Integer, MovieSession> > list =
-               new LinkedList<Map.Entry<Integer, MovieSession> >(hm.entrySet());
+        List<Map.Entry<MovieSession, Cinema> > list =
+               new LinkedList<Map.Entry<MovieSession, Cinema> >(hm.entrySet());
  
         // Sort the list
-        Collections.sort(list, new Comparator<Map.Entry<Integer, MovieSession> >() {
-            public int compare(Map.Entry<Integer, MovieSession> o1,
-                               Map.Entry<Integer, MovieSession> o2)
+        Collections.sort(list, new Comparator<Map.Entry<MovieSession, Cinema> >() {
+            public int compare(Map.Entry<MovieSession, Cinema> o1,
+                               Map.Entry<MovieSession, Cinema> o2)
             {
-                if(o1.getValue().getShowtime().isBefore(o2.getValue().getShowtime())){
+                if(o1.getKey().getShowtime().isBefore(o2.getKey().getShowtime())){
                     return -1;
                 }
-                else if(o1.getValue().getShowtime().isAfter(o2.getValue().getShowtime())){
+                else if(o1.getKey().getShowtime().isAfter(o2.getKey().getShowtime())){
                     return 1;
                 }
                 else {
@@ -135,8 +146,8 @@ public class ChooseSession extends BaseMenu {
         // put data from sorted list to hashmap
         HashMap<Integer, MovieSession> temp = new LinkedHashMap<Integer, MovieSession>();
         int i = 1;
-        for (Map.Entry<Integer, MovieSession> aa : list) {
-            temp.put(i, aa.getValue());
+        for (Map.Entry<MovieSession, Cinema> aa : list) {
+            temp.put(i, aa.getKey());
             i++;
         }
         return temp;
