@@ -104,7 +104,7 @@ public class MovieSessionController {
             // e.printStackTrace();
             return new ArrayList<MovieSession>();
         }
-        ArrayList<MovieSession> movieSessionList = new ArrayList<>();
+        ArrayList<MovieSession> movieSessionList = new ArrayList<MovieSession>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         try {
             reader[0].readLine();

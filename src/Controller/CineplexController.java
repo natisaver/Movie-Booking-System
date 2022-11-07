@@ -43,7 +43,6 @@ public class CineplexController {
         // If Database Exists
         String line = "";
         ArrayList<String> cineplexArrayList = new ArrayList<>();
-        int i = 1;
         try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
@@ -96,4 +95,34 @@ public class CineplexController {
         }
     }
 
+    /**
+     * READ and list all individual cinema codes from Database
+     * 
+     * @return return List of all the cineplexes as strings
+     */
+    public static ArrayList<String> readCodes() {
+        // Check if database exists
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(PATH));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return new ArrayList<String>();
+        }
+
+        // If Database Exists
+        String line = "";
+        ArrayList<String> cineplexArrayList = new ArrayList<>();
+        try {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                cineplexArrayList.add(tokens[1]);
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return cineplexArrayList;
+    }
 }
