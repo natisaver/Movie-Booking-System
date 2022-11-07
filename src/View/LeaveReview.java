@@ -24,8 +24,7 @@ public class LeaveReview extends BaseMenu {
         float rating;
 
         //Enter Movie Title to create
-        do
-        {
+        do {
             System.out.println(ConsoleColours.WHITE_BRIGHT + "Leave a Review for a Movie: " + ConsoleColours.RESET);
             System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
             System.out.println("Enter Movie Title: ");
@@ -54,5 +53,6 @@ public class LeaveReview extends BaseMenu {
             System.out.println("2. No ");
             System.out.println(ConsoleColours.YELLOW + "3. Back" + ConsoleColours.RESET);
             System.out.println(ConsoleColours.RED + "4. Quit" + ConsoleColours.RESET);
+        }
     }
 }
