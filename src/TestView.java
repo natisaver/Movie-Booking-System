@@ -71,9 +71,12 @@ public class TestView {
                 // BaseMenu enterMovieDetails = new EnterMovieDetails(null, 1);
                 // enterMovieDetails.execute();
 
-                BaseMenu chooseSession = new ChooseSession(null, 1, null, null, null, null,
-                                null, null);
-                chooseSession.execute();
+                // BaseMenu chooseSession = new ChooseSession(null, 1, null, null, null, null,
+                //                 null, null);
+                // chooseSession.execute();
+                MovieGoer user = new MovieGoer("Niki", "niki@123.com", "81234567",  25, "null");
+                BaseMenu leaveReview = new LeaveReview(null, 0, user);
+                leaveReview.execute();
 
                 // BaseMenu chooseMovie = new ChooseMovie(null, -1, null, null, null, null,
                 // null, null, null);

@@ -230,13 +230,11 @@ public class ReviewController {
                 writer.append(",");
                 writer.append('"' + review.getEmail() + '"');
                 writer.append(",");
-                writer.append(review.getMovie().getTitle());
+                writer.append('"' + review.getMovie().getTitle() + '"');
                 writer.append(",");
-                writer.append(review.getReview());
+                writer.append('"' + review.getReview() + '"');
                 writer.append(",");
                 writer.append(Float.toString((float) review.getRating()));
-                writer.append(",");
-                writer.append("0"); // Ticket sales starts at 0.
                 writer.append("\n");
             }
             writer.close();
