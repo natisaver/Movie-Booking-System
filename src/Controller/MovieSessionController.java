@@ -746,14 +746,14 @@ public class MovieSessionController {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
                 if (cinemaCode.equals(tokens[4]) && tokens[2].equals(session.getSessionDate()) && tokens[3].equals(session.getSessionTime())) {
                     String seatStr = tokens[5].substring(1,tokens[5].length()-1);
-                    if (seatStr.isEmpty()) return true;
-                    return false;
+                    if (seatStr.isEmpty()) return false;
+                    return true;
                 }
             }
             reader[0].close();
         } catch (IOException e) {
             //e.printStackTrace();
         }
-        return false;
+        return true;
     }
 }
