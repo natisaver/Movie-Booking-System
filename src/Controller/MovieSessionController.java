@@ -702,4 +702,11 @@ public class MovieSessionController {
         }
         tempSession.showSeatings(cinema.getCinemaClass());
     }
+
+    public static ArrayList<Seat> getSeats(Cinema cinema, String seatID, MovieSession session) {
+        MovieSession tempSession = new MovieSession(null, cinema.getCinemaClass(), null, null);
+        ArrayList<Seat> bookedSeats = new ArrayList<Seat>();
+        bookedSeats.addAll(tempSession.bookSeat(seatID, cinema.getCinemaClass()));
+        return bookedSeats;
+    }
 }
