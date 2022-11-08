@@ -359,6 +359,8 @@ public class UpdateMovieSession extends BaseMenu{
                             MovieSessionController.delete(choicestr, sessionArrayListByTime.get(0));
                             System.out.println(ConsoleColours.GREEN + "Movie Session deleted." + ConsoleColours.RESET);
                             System.out.println();
+                        }else{
+                            System.out.println(ConsoleColours.RED + "This session already has bookings. Unable to be deleted." + ConsoleColours.RESET);
                         }
                         break;
                     }
@@ -366,126 +368,11 @@ public class UpdateMovieSession extends BaseMenu{
                         System.out.println(ConsoleColours.RED + "Movie session inputted does not exist." + ConsoleColours.RESET);
                     }
                     return this.getPreviousMenu();
-
-                // //UPDATE MOVIE SESSION
-                // case 3:
-                //     //print all current cinema codes
-                //     System.out.println(ConsoleColours.BLUE + "Here are the current codes:" + ConsoleColours.RESET);
-                //     System.out.println(CineplexController.readCodes());
-
-                //     //INPUT CINEMACODE=================
-                //     numRegex = "^([1-3][0][1-3])$";
-                //     System.out.println("Enter cinema code of movie session to delete: ");
-                //     choicestr = sc.nextLine();
-                //     //make sure cinemacode is valid
-                //     sessionArrayList = new ArrayList<MovieSession>();
-                //     while (!choicestr.matches(numRegex)) {
-                //         //early termination
-                //         if(choicestr.isBlank()){
-                //             return this.getPreviousMenu();
-                //         }
-                //         System.out.println(ConsoleColours.RED + "Cinema Code is Invalid." + ConsoleColours.RESET);
-                //         System.out.println("Please Reenter Cinema Code:");
-                //         choicestr = sc.nextLine();
-                //     }
-                //     //Get all sessions Sessions
-                //     sessionArrayList = MovieSessionController.readByCode(choicestr);
-
-                //     //Print all the sessions
-                //     i=0;
-                    
-                //     sessionDate = new ArrayList<String>();
-                //     sessionTimes = new ArrayList<String>();
-                //     for (i=0;i<sessionArrayList.size();i++) {
-                //         sessionDate.add(sessionArrayList.get(i).getSessionDate());
-                //         sessionTimes.add(sessionArrayList.get(i).getSessionTime());
-                //     }
-                //     if(!sessionDate.isEmpty() && !sessionTimes.isEmpty()){
-                //         System.out.println(ConsoleColours.BLUE + "Here are the current Sessions in the selected cinema:" + ConsoleColours.RESET);
-                //         for (i=0;i<sessionArrayList.size();i++) {
-                //             System.out.println(sessionDate.get(i) + " " + sessionTimes.get(i));
-                //         }
-                //     }
-
-                    
-
-                //     //INPUT DATE================
-                //     //check if date is valid
-
-                //     //validity check loop
-                    
-                //     System.out.println(ConsoleColours.WHITE_BOLD + "Enter date of movie session to update: (yyyy-MM-dd)" + ConsoleColours.RESET);
-                //     date = sc.nextLine();
-                //     while (!date.matches(dateCheck)) {
-                //         if(date.isBlank()){
-                //             return this.getPreviousMenu().getPreviousMenu();
-                //         }
-                //         System.out.println(ConsoleColours.RED + "Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
-                //         date = sc.nextLine();
-                //     }
-
-                //     //check whether movie session exists on inputted date
-                //     for(i = 0; i < sessionArrayList.size(); i++) {
-                //         String dateOfSession;
-                //         dateOfSession = sessionArrayList.get(i).getSessionDate();
-                        
-                //         if(dateOfSession == date){
-                //             sessionArrayListByDate.add(sessionArrayList.get(i));
-                //         }
-                //     }
-                //     //if only one session on inputted date, update successful
-                //     if(sessionArrayListByDate.size() == 1){
-                //         if(MovieSessionController.displaySeats(choicestr, sessionArrayListByDate.get(0)).isEmpty()){
-                //             MovieSessionController.update(choicestr, sessionArrayListByDate.get(0));
-                //             System.out.println(ConsoleColours.GREEN + "Movie Session updated." + ConsoleColours.RESET);
-                //             System.out.println();
-                //         }
-                //         break;
-                //     }
-                //     else{
-                //         System.out.println(ConsoleColours.BLUE + "Available sessions on inputted date:" + ConsoleColours.RESET);
-                //         System.out.println(sessionArrayListByDate.toString());
-                //     }
-
-                //     //INPUT START TIME================
-                //     //check for HH:mm to append to the end of the date string
-                //     timeRegex = "/^([0-1]?[0-9]|2[0-3]):([0-5]?[0-9]|5[0-9])$/";
-                //     System.out.println(ConsoleColours.WHITE_BOLD + "Enter the start time of the movie session to update: (HH:mm)" + ConsoleColours.RESET);
-                //     time = sc.nextLine();
-                //     while (!time.matches(timeRegex)) {
-                //         if(date.isBlank()){
-                //             return this.getPreviousMenu().getPreviousMenu();
-                //         }
-                //         System.out.println(ConsoleColours.RED + "Please enter the time in the required format: (HH:mm)" + ConsoleColours.RESET);
-                //         time = sc.nextLine();
-                //     }
-
-                //     //check whether movie session exists on inputted time
-                //     for(i = 0; i < sessionArrayListByDate.size(); i++) {
-                //         String timeOfSession;
-                //         timeOfSession = sessionArrayListByDate.get(i).getSessionTime();
-                        
-                //         if(timeOfSession == time){
-                //             sessionArrayListByTime.add(sessionArrayListByDate.get(i));
-                //         }
-                //     }
-                //     //if session with inputted time exists, successful
-                //     if(sessionArrayListByTime.size() != 0){
-                //         //checks if movie theatre is still empty
-                //         if(MovieSessionController.displaySeats(choicestr, sessionArrayListByDate.get(0)).isEmpty()){
-                //             MovieSessionController.update(choicestr, sessionArrayListByTime.get(0));
-                //             System.out.println(ConsoleColours.GREEN + "Movie Session updated." + ConsoleColours.RESET);
-                //             System.out.println();
-                //         }
-                //         break;
-                //     }
-                //     else{
-                //         System.out.println(ConsoleColours.RED + "Movie session inputted does not exist." + ConsoleColours.RESET);
-                //     }
-                //     break;
+                //RETURN TO PREVIOUS MENU
                 case 3:
                     nextMenu = this.getPreviousMenu();
                     return nextMenu;
+                //QUIT (TERMINATE PROGRAM)
                 case 4:
                     nextMenu = new Quit(this);
                     return nextMenu;
