@@ -90,7 +90,7 @@ public class ViewMovieDetails extends BaseMenu
                 break;
             }
             else {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 Movie temp = SelectionMenu.get(choice);
                 System.out.println(">>");
                 System.out.println(ConsoleColours.CYAN_BRIGHT + "Title: " + temp.getTitle() + ConsoleColours.RESET);

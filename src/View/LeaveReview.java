@@ -1,5 +1,13 @@
 package View;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import Controller.MovieController;
@@ -7,7 +15,6 @@ import Controller.ReviewController;
 import Model.Movie;
 import Model.MovieGoer;
 import Model.Review;
-
 public class LeaveReview extends BaseMenu {
     private MovieGoer user;
     public LeaveReview(BaseMenu previousMenu, int accesslevel, MovieGoer user) {
@@ -17,81 +24,64 @@ public class LeaveReview extends BaseMenu {
     @Override
     public BaseMenu execute() {
         BaseMenu nextMenu = this;
+        ArrayList<Movie> movies;
+        Integer moviesize;
+        HashMap<String, Movie> Movies = new HashMap<String, Movie>();
+        HashMap<Integer, Movie> SelectionMenu = new HashMap<Integer, Movie>();
+        movies = MovieController.read();
+        moviesize = movies.size();
         Scanner sc = new Scanner(System.in);
-        String inputString, numRegex;
-        Movie movie = new Movie();
-        String reviewText;
-        float rating;
-        int choice;
-        String choiceStr;
 
-        //Enter Movie Title to create
-        System.out.println(ConsoleColours.WHITE_BRIGHT + "Leave a Review for a Movie: " + ConsoleColours.RESET);
-        System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
-        System.out.println("Enter Movie Title: ");
-        inputString = sc.nextLine();
-        
-        //Checks if Movie exists in the database
-        while(MovieController.readByTitle(inputString) == null){
-            System.out.println(ConsoleColours.RED + "Movie do not exists." + ConsoleColours.RESET);
-            System.out.println("Re-enter Movie Title");
-            inputString = sc.nextLine();
-            movie = MovieController.readByTitle(inputString);
-            if(inputString.isBlank()){
-                return this.getPreviousMenu();
-            }
+        String numregex = "[0-9]+";
+
+        //building hashmap of choices
+        for(int i = 0; i < movies.size() ; i++)
+        {
+            Movie key = movies.get(i);
+            Movies.put(key.getTitle(), key);
         }
 
-        movie = MovieController.readByTitle(inputString);
-
-        System.out.println("Please enter your Review for " + movie.getTitle());
-        reviewText = sc.nextLine();
-        System.out.println("Please enter your Ratings for " + movie.getTitle());
-        rating = sc.nextFloat();
-
-        Review review = new Review(LocalDateTime.now(), this.user.getName(), this.user.getEmail(), movie, reviewText, rating);
-        ReviewController.create(review);
+        //sort the hashmap by alphabetical name
+        SelectionMenu = sortByName(Movies);
         
-        numRegex = "^(?!(0))[0-3]{1}$";
-        System.out.println(ConsoleColours.PURPLE_BOLD + "Would you like to leave a review for another movie? " + ConsoleColours.RESET);
-        System.out.println("1. Yes ");
-        System.out.println("2. No ");
-        System.out.println(ConsoleColours.RED + "3. Quit" + ConsoleColours.RESET);
-        System.out.println();
-        System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
-        sc.nextLine();
-        choiceStr = sc.nextLine();
-
-        while(!choiceStr.matches(numRegex))
-        {
-            if(choiceStr.isBlank())
+        if (moviesize <= 0){
+            System.out.println("No Movies Available");
+        }
+        else {
+            System.out.println(ConsoleColours.WHITE_BRIGHT + "Leave a Review for a Movie: " + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
+            System.out.println("Choose movie to leave review for: ");
+    
+            for(int i = 1; i <= movies.size() ; i++)
             {
-                return this.getPreviousMenu();
+                Movie key = SelectionMenu.get(i);
+                System.out.println(i + ". "+ key.getTitle());
             }
-            System.out.println(ConsoleColours.RED + "Please enter a valid choice: " + ConsoleColours.RESET);
-            choiceStr = sc.nextLine();
-            System.out.println();
         }
-        choice = Integer.valueOf(choiceStr);
-
-        switch(choice)
-        {
-            case 1:
-                nextMenu = new LeaveReview(nextMenu, choice, user);
-                break;
-            case 2: 
-                nextMenu = new MovieGoerMainMenu(nextMenu, choice, user, movie, null, null, null, null);
-                break;
-            case 3:
-                nextMenu = new Quit(this);
-                break;
-            default:
-                choice = -1;
-                System.out.println("Please enter a valid choice. ");
-                break;
+        
+        public static HashMap<Integer, Movie> sortByName(HashMap<String, Movie> hm)
+    {
+        // Create a list from elements of HashMap
+        List<Map.Entry<String, Movie> > list =
+               new LinkedList<Map.Entry<String, Movie> >(hm.entrySet());
+ 
+        // Sort the list
+        Collections.sort(list, new Comparator<Map.Entry<String, Movie> >() {
+            public int compare(Map.Entry<String, Movie> o1,
+                               Map.Entry<String, Movie> o2)
+            {
+                return (o1.getValue().getTitle()).compareTo(o2.getValue().getTitle());
+            }
+        });
+         
+        // put data from sorted list to hashmap
+        HashMap<Integer, Movie> temp = new LinkedHashMap<Integer, Movie>();
+        int i = 1;
+        for (Map.Entry<String, Movie> aa : list) {
+            temp.put(i, aa.getValue());
+            i++;
         }
-
-        return nextMenu;
-
+        return temp;
+    }
     }
 }
