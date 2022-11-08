@@ -91,15 +91,17 @@ public class MovieGoerMainMenu extends BaseMenu {
                 nextMenu = new ChooseCineplex(this, -1, moviegoer, movie, movieSession, cinema, ticket, transaction);
                 break;
             case 2:
+                //MovieGoer user = new MovieGoer("Niki", "niki@123.com", "81234567",  25, "null");
                 if (moviegoer == null) {
                     nextMenu = new CreateOrLogin(nextMenu, -1, null, null, null, null, ticket, null);
-                } else {
+                } 
+                else {
                     System.out.println(ConsoleColours.WHITE_BOLD + "You can leave a review" + ConsoleColours.RESET);
+                    nextMenu = new LeaveReview(this, 0, moviegoer);
                 }
-                // nextMenu = new LeaveReview(this);
                 break;
             case 3:
-                if (moviegoer == null) {
+                if (this.moviegoer == null) {
                     nextMenu = new CreateOrLogin(nextMenu, -1, null, null, null, null, ticket, null);
                 } else {
                     nextMenu = new CheckHistory(this, 0, moviegoer, movie, movieSession, cinema, ticket, transaction);
