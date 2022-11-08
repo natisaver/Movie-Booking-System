@@ -34,7 +34,7 @@ public class ViewMovieDetails extends BaseMenu
         moviesize = movies.size();
 
         String numregex = "[0-9]+";
-
+        String nomoviesavailable = "^[^0-2]$";
 
         //building hashmap of choices
         for(int i = 0; i < movies.size() ; i++)
@@ -50,6 +50,26 @@ public class ViewMovieDetails extends BaseMenu
         System.out.println(ConsoleColours.PURPLE_BOLD + "Movies Available: " + ConsoleColours.RESET);
         if (moviesize <= 0){
             System.out.println("No Movies Available");
+            do {
+                System.out.println(ConsoleColours.YELLOW + "1. Back" + ConsoleColours.RESET);
+                System.out.println(ConsoleColours.RED + "2. Quit" + ConsoleColours.RESET);
+                String inputString = sc.nextLine();
+                while (!inputString.matches(nomoviesavailable)){
+                    if(inputString.isBlank()){
+                        return this.getPreviousMenu();
+                    }
+                    System.out.println(ConsoleColours.RED + "Please enter a valid choice" + ConsoleColours.RESET);
+                    inputString = sc.nextLine();
+                }
+                int finalchoice = Integer.valueOf(inputString);
+                switch(finalchoice){
+                    case 1:
+                        return this.getPreviousMenu();
+                        
+                    case 2:
+                        return new Quit(this);
+                }
+            } while (true);
         }
         else {
             for(int i = 1; i <= movies.size() ; i++)

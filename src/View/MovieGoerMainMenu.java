@@ -58,19 +58,20 @@ public class MovieGoerMainMenu extends BaseMenu {
     @Override
     public BaseMenu execute() {
         int choice;
-        String numregex = "^(?!(0))[0-6]{1}$";
+        String numregex = "^(?!(0))[0-7]{1}$";
 
         System.out.println(ConsoleColours.PURPLE_BOLD + "Customer Menu Options:" + ConsoleColours.RESET);
         System.out.println("1. Book ticket");
         System.out.println("2. Leave a review");
-        System.out.println("3. Check booking history");
-        System.out.println("4. Check Movies & Details");
+        System.out.println("3. Update/Delete a review");
+        System.out.println("4. Check booking history");
+        System.out.println("5. Check Movies & Details");
         if (this.moviegoer == null) {
-            System.out.println(ConsoleColours.YELLOW + "5. Back" + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.YELLOW + "6. Back" + ConsoleColours.RESET);
         } else {
-            System.out.println(ConsoleColours.YELLOW + "5. Logout" + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.YELLOW + "6. Logout" + ConsoleColours.RESET);
         }
-        System.out.println(ConsoleColours.RED + "6. Quit" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.RED + "7. Quit" + ConsoleColours.RESET);
 
         BaseMenu nextMenu = this;
 
@@ -105,18 +106,20 @@ public class MovieGoerMainMenu extends BaseMenu {
                 break;
             case 3:
                 if (this.moviegoer == null) {
-                    nextMenu = new CreateOrLogin(nextMenu, -1, null, null, null, null, ticket, null, null);
+                    nextMenu = new CreateOrLogin(nextMenu, -1, null, null, null, null, ticket, null);
                 } else {
                     nextMenu = new CheckHistory(this, 0, moviegoer, movie, movieSession, cinema, ticket, transaction, bookedSeats);
                 }
                 break;
-            case 4:
+            case 5:
                 nextMenu = new ViewMovieDetails(nextMenu, 0);
                 break;
             case 5:
                 nextMenu = new MainMenu(null, -1, moviegoer, movie, movieSession, cinema, ticket, transaction, bookedSeats);
-                break;
             case 6:
+                nextMenu = new MainMenu(null, -1, moviegoer, movie, movieSession, cinema, ticket, transaction);
+                break;
+            case 7:
                 nextMenu = new Quit(this);
                 break;
             default:

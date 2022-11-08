@@ -46,7 +46,7 @@ public class ReviewController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                LocalDateTime date = LocalDateTime.parse(tokens[0] + " 00:00", formatter);
+                LocalDateTime date = LocalDateTime.parse(tokens[0], formatter);
                 String name = tokens[1].substring(1, tokens[1].length()-1);
                 String email = tokens[2].substring(1, tokens[2].length()-1);
                 Movie movie = MovieController.readByTitle(tokens[3].substring(1, tokens[3].length()-1));
@@ -95,7 +95,7 @@ public class ReviewController {
                     String review = tokens[4].substring(1, tokens[4].length()-1);
                     double rating = Double.parseDouble(tokens[5]);
                     templist.add(new Review(date, name, emailinput, movie, review, rating));
-                }
+                }                
             }
             reader.close();
             return templist;
@@ -250,6 +250,197 @@ public class ReviewController {
     }
 
     /**
+     *UPDATE Review contents in the database
+     * @param user      review object to be updated
+     * @return          <code>true</code> if review was updated, <code>false</code> if review doesnt exist or database is nonexistent
+     */
+    public static Boolean updateContent(Review review, String content) {
+
+        File inputFile = new File(DataController.getPath("Review"));
+        File tempFile = new File(DataController.getPath("Temp"));
+
+        BufferedReader reader = null;
+        BufferedWriter writer = null;
+
+        try {
+            reader = new BufferedReader(new FileReader(inputFile));
+            writer = new BufferedWriter(new FileWriter(tempFile));
+        } catch (FileNotFoundException e) {
+            // e.printStackTrace();
+            return false;
+
+        } catch (IOException e) {
+            // e.printStackTrace();
+            return false;
+        }
+
+        try {
+            writer.append("Date");
+            writer.append(",");
+            writer.append("Name");
+            writer.append(",");
+            writer.append("Email");
+            writer.append(",");
+            writer.append("Movie");
+            writer.append(",");
+            writer.append("Review");
+            writer.append(",");
+            writer.append("Rating");
+            writer.append("\n");
+
+        } catch (IOException e) {
+            // e.printStackTrace();
+        }
+
+        Boolean Found = false;
+        String line;
+
+        try {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+
+                if (tokens[3].toLowerCase().substring(1, tokens[3].length()-1).equals(review.getMovie().getTitle().toLowerCase()) && tokens[2].toLowerCase().substring(1, tokens[2].length()-1).equals(review.getEmail().toLowerCase())) {
+                    Found = true;
+                    writer.append(tokens[0]);
+                    writer.append(",");
+                    writer.append(tokens[1]);
+                    writer.append(",");
+                    writer.append(tokens[2]);
+                    writer.append(",");
+                    writer.append(tokens[3]);
+                    writer.append(",");
+                    writer.append('"'+content+'"');
+                    writer.append(",");
+                    writer.append(tokens[5]);
+                    writer.append("\n");
+                } else {
+                    writer.append(tokens[0]);
+                    writer.append(",");
+                    writer.append(tokens[1]);
+                    writer.append(",");
+                    writer.append(tokens[2]);
+                    writer.append(",");
+                    writer.append(tokens[3]);
+                    writer.append(",");
+                    writer.append(tokens[4]);
+                    writer.append(",");
+                    writer.append(tokens[5]);
+                    writer.append("\n");
+                }
+            }
+            writer.close();
+            reader.close();
+            if (Found == false) {
+                return false;
+            }
+            // delete old file
+            Files.delete(Paths.get(DataController.getPath("Review")));
+        } catch (IOException e) {
+            // e.printStackTrace();
+        }
+        // replace with the new file
+        tempFile.renameTo(new File(DataController.getPath("Review")));
+        return true;
+    }
+
+    /**
+     *UPDATE Review rating in the database
+     * @param user      review object to be updated
+     * @return          <code>true</code> if review was updated, <code>false</code> if review doesnt exist or database is nonexistent
+     */
+    public static Boolean updateRating(Review review, Double rating) {
+
+        File inputFile = new File(DataController.getPath("Review"));
+        File tempFile = new File(DataController.getPath("Temp"));
+
+        BufferedReader reader = null;
+        BufferedWriter writer = null;
+
+        try {
+            reader = new BufferedReader(new FileReader(inputFile));
+            writer = new BufferedWriter(new FileWriter(tempFile));
+        } catch (FileNotFoundException e) {
+            // e.printStackTrace();
+            return false;
+
+        } catch (IOException e) {
+            // e.printStackTrace();
+            return false;
+        }
+
+        try {
+            writer.append("Date");
+            writer.append(",");
+            writer.append("Name");
+            writer.append(",");
+            writer.append("Email");
+            writer.append(",");
+            writer.append("Movie");
+            writer.append(",");
+            writer.append("Review");
+            writer.append(",");
+            writer.append("Rating");
+            writer.append("\n");
+
+        } catch (IOException e) {
+            // e.printStackTrace();
+        }
+
+        Boolean Found = false;
+        String line;
+
+        try {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+
+                if (tokens[3].toLowerCase().substring(1, tokens[3].length()-1).equals(review.getMovie().getTitle().toLowerCase()) && tokens[2].toLowerCase().substring(1, tokens[2].length()-1).equals(review.getEmail().toLowerCase())) {
+                    Found = true;
+                    writer.append(tokens[0]);
+                    writer.append(",");
+                    writer.append(tokens[1]);
+                    writer.append(",");
+                    writer.append(tokens[2]);
+                    writer.append(",");
+                    writer.append(tokens[3]);
+                    writer.append(",");
+                    writer.append(tokens[4]);
+                    writer.append(",");
+                    writer.append(Double.toString(rating));
+                    writer.append("\n");
+                } else {
+                    writer.append(tokens[0]);
+                    writer.append(",");
+                    writer.append(tokens[1]);
+                    writer.append(",");
+                    writer.append(tokens[2]);
+                    writer.append(",");
+                    writer.append(tokens[3]);
+                    writer.append(",");
+                    writer.append(tokens[4]);
+                    writer.append(",");
+                    writer.append(tokens[5]);
+                    writer.append("\n");
+                }
+            }
+            writer.close();
+            reader.close();
+            if (Found == false) {
+                return false;
+            }
+            // delete old file
+            Files.delete(Paths.get(DataController.getPath("Review")));
+        } catch (IOException e) {
+            // e.printStackTrace();
+        }
+        // replace with the new file
+        tempFile.renameTo(new File(DataController.getPath("Review")));
+        return true;
+    }
+
+
+    /**
      * DELETE Review by Email and Title in the database
      * @param title     Movie Title of Review to be deleted
      * @param email     Email address of Reviewer
@@ -291,6 +482,7 @@ public class ReviewController {
 
         } catch (IOException e) {
             // e.printStackTrace();
+            System.out.println("HERE");
             return false;
         }
 
@@ -302,7 +494,7 @@ public class ReviewController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[2].toLowerCase().equals(email.toLowerCase()) && tokens[3].toLowerCase().equals(title.toLowerCase())) {
+                if (tokens[3].toLowerCase().substring(1, tokens[3].length()-1).equals(title.toLowerCase()) && tokens[2].toLowerCase().substring(1, tokens[2].length()-1).equals(email.toLowerCase())) {
                     // do nothing
                     Found = true;
                 } else {
