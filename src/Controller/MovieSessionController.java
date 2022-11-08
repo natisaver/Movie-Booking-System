@@ -82,34 +82,29 @@ public class MovieSessionController {
 
     public static ArrayList<MovieSession> readByCode(String cinemaCode) {
         // Check if databases exist
-        BufferedReader[] reader = new BufferedReader[2];
-        try {
-            reader[0] = new BufferedReader(new FileReader(PATH));
-            reader[1] = new BufferedReader(new FileReader(cinePATH));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return new ArrayList<MovieSession>();
-        }
-
-        // If Databases Exist
         String line = "";
-        Hashtable<String, String> cineplex = new Hashtable<>();
-        try {
-            reader[1].readLine();
-            while ((line = reader[1].readLine()) != null) {
+        Hashtable<String, String> cineplex = new Hashtable<String, String>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(cinePATH))) {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
                 cineplex.put(tokens[1], tokens[2]);
             }
-            reader[1].close();
+            reader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return new ArrayList<MovieSession>();
         } catch (IOException e) {
             // e.printStackTrace();
             return new ArrayList<MovieSession>();
         }
+
+        // If Databases Exist
         ArrayList<MovieSession> movieSessionList = new ArrayList<MovieSession>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        try {
-            reader[0].readLine();
-            while ((line = reader[0].readLine()) != null) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(PATH))) {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
                 if (tokens[4].equals(cinemaCode)) {
                     String movieTitle = tokens[0];
@@ -119,7 +114,7 @@ public class MovieSessionController {
                     movieSessionList.add(new MovieSession(datetime, cinemaClass, movieTitle, movieType));
                 }
             }
-            reader[0].close();
+            reader.close();
             return movieSessionList;
         } catch (IOException e) {
             // e.printStackTrace();
@@ -246,6 +241,10 @@ public class MovieSessionController {
             return false;
         }
 
+        Boolean Clash = false;
+        String line;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         try {
             writer.append("Title");
             writer.append(",");
@@ -259,15 +258,6 @@ public class MovieSessionController {
             writer.append(",");
             writer.append("bookedSeats");
             writer.append("\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Boolean Clash = false;
-        String line;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-        try {
             reader.readLine();
             LocalDateTime sessionTime = session.getShowtime();
             LocalDateTime sessionTimeEnd = sessionTime
@@ -356,6 +346,11 @@ public class MovieSessionController {
             return false;
         }
 
+        Boolean Found = false;
+        Boolean Clash = false;
+        String line;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         try {
             writer.append("Title");
             writer.append(",");
@@ -369,16 +364,6 @@ public class MovieSessionController {
             writer.append(",");
             writer.append("bookedSeats");
             writer.append("\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Boolean Found = false;
-        Boolean Clash = false;
-        String line;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-        try {
             reader.readLine();
             LocalDateTime sessionTime = session.getShowtime();
             LocalDateTime sessionTimeEnd = sessionTime
@@ -479,6 +464,10 @@ public class MovieSessionController {
             return false;
         }
 
+        Boolean Found = false;
+        String line;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         try {
             writer.append("Title");
             writer.append(",");
@@ -492,15 +481,6 @@ public class MovieSessionController {
             writer.append(",");
             writer.append("bookedSeats");
             writer.append("\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Boolean Found = false;
-        String line;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-        try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
@@ -540,33 +520,28 @@ public class MovieSessionController {
     }
 
     public static ArrayList<Seat> displaySeats(String cinemaCode, MovieSession session) {
-        BufferedReader[] reader = new BufferedReader[2];
-        try {
-            reader[0] = new BufferedReader(new FileReader(PATH));
-            reader[1] = new BufferedReader(new FileReader(cinePATH));
-        } catch (FileNotFoundException e) {
-            //e.printStackTrace();
-            return new ArrayList<Seat>();
-        }
-
-        // If Databases Exist
         String line = "";
         Hashtable<String, String> cineplex = new Hashtable<>();
-        try {
-            reader[1].readLine();
-            while ((line = reader[1].readLine()) != null) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(cinePATH))) {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",");
                 cineplex.put(tokens[1], tokens[2]);
             }
-            reader[1].close();
+            reader.close();
+        } catch (FileNotFoundException e) {
+            //e.printStackTrace();
+            return new ArrayList<Seat>();
         } catch (IOException e) {
             //e.printStackTrace();
         }
+
+        // If Databases Exist
         cinemaClass_Enum cinemaClass = cinemaClass_Enum.valueOf(cineplex.get(cinemaCode));
         ArrayList<Seat> seatList = new ArrayList<Seat>();
-        try {
-            reader[0].readLine();
-            while ((line = reader[0].readLine()) != null) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(PATH))) {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
                 if (cinemaCode.equals(tokens[4]) && tokens[2].equals(session.getSessionDate()) && tokens[3].equals(session.getSessionTime())) {
                     String seatStr = tokens[5].substring(1,tokens[5].length()-1);
@@ -584,7 +559,7 @@ public class MovieSessionController {
                     }
                 }
             }
-            reader[0].close();
+            reader.close();
         } catch (IOException e) {
             //e.printStackTrace();
         }
@@ -594,18 +569,30 @@ public class MovieSessionController {
     public static void bookSeats(String cinemaCode, MovieSession session, ArrayList<Seat> seatList) {
         File tempFile = new File(DataController.getPath("Temp"));
         BufferedWriter writer = null;
-        BufferedReader[] reader = new BufferedReader[2];
+        String line;
+        String seatStr = "";
+        Hashtable<String, String> cineplex = new Hashtable<>();
         try {
-            reader[0] = new BufferedReader(new FileReader(PATH));
-            reader[1] = new BufferedReader(new FileReader(cinePATH));
             writer = new BufferedWriter(new FileWriter(tempFile));
+        } catch (IOException e) {
+            //e.printStackTrace();
+        }
+        try (BufferedReader reader = new BufferedReader (new FileReader(cinePATH))) {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",");
+                cineplex.put(tokens[1], tokens[2]);
+            }
+            reader.close();
         } catch (FileNotFoundException e) {
             //e.printStackTrace();
         } catch (IOException e) {
             //e.printStackTrace();
         }
 
-        try {
+        // If Databases Exist
+        
+        try (BufferedReader reader = new BufferedReader (new FileReader(PATH))) {
             writer.append("Title");
             writer.append(",");
             writer.append("movieType");
@@ -618,28 +605,8 @@ public class MovieSessionController {
             writer.append(",");
             writer.append("bookedSeats");
             writer.append("\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String line;
-        String seatStr = "";
-
-        // If Databases Exist
-        Hashtable<String, String> cineplex = new Hashtable<>();
-        try {
-            reader[1].readLine();
-            while ((line = reader[1].readLine()) != null) {
-                String[] tokens = line.split(",");
-                cineplex.put(tokens[1], tokens[2]);
-            }
-            reader[1].close();
-        } catch (IOException e) {
-            //e.printStackTrace();
-        }
-        try {
-            reader[0].readLine();
-            while ((line = reader[0].readLine()) != null) {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
                 if (cinemaCode.equals(tokens[4]) && tokens[2].equals(session.getSessionDate()) && tokens[3].equals(session.getSessionTime())) {
                     for (int i=0;i<seatList.size();i++) {
@@ -675,7 +642,7 @@ public class MovieSessionController {
                 }
             }
             writer.close();
-            reader[0].close();
+            reader.close();
         } catch (IOException e) {
             // e.printStackTrace();
         }
@@ -733,7 +700,10 @@ public class MovieSessionController {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
                 if (cinemaCode.equals(tokens[4]) && tokens[2].equals(session.getSessionDate()) && tokens[3].equals(session.getSessionTime())) {
                     String seatStr = tokens[5].substring(1,tokens[5].length()-1);
-                    if (seatStr.isEmpty()) return false;
+                    if (seatStr.isEmpty()) {
+                        reader[0].close();
+                        return false;
+                    }
                     return true;
                 }
             }
