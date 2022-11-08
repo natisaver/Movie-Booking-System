@@ -55,7 +55,7 @@ public class MovieGoerMainMenu extends BaseMenu {
     @Override
     public BaseMenu execute() {
         int choice;
-        String numregex = "^(?!(0))[0-6]{1}$";
+        String numregex = "^(?!(0))[0-7]{1}$";
 
         System.out.println(ConsoleColours.PURPLE_BOLD + "Customer Menu Options:" + ConsoleColours.RESET);
         System.out.println("1. Book ticket");
