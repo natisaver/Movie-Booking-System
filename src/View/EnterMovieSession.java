@@ -129,18 +129,23 @@ public class EnterMovieSession extends BaseMenu{
             //check for HH:mm to append to the end of the date string
             String timeRegex = "^([0-1]?[0-9]|2[0-3]):([0-5]?[0-9]|5[0-9])$";
             System.out.println("Enter the start time of the movie: (HH:mm)");
-            time = sc.nextLine();
-            while (sessionTimes.contains(time)) {
-                while (!time.matches(timeRegex)) {
+            Boolean isOK = false;
+            while(!isOK){
+                time = sc.nextLine();
+                if(!time.matches(timeRegex)){
                     if(time.isBlank()){
-                        return this.getPreviousMenu().getPreviousMenu();
+                        return this.getPreviousMenu();
                     }
                     System.out.println(ConsoleColours.RED + "Please enter the time in the required format: (HH:mm)" + ConsoleColours.RESET);
-                    time = sc.nextLine();
+                    continue;
                 }
-                if (!sessionTimes.contains(time)) break;
-                System.out.println(ConsoleColours.RED + "Movie session already exists at this time" + ConsoleColours.RESET);
-                time = sc.nextLine();
+                else if (sessionTimes.contains(time)) {
+                    System.out.println(ConsoleColours.RED + "Movie session already exists at this time" + ConsoleColours.RESET);
+                    continue;
+                }
+                else {
+                    isOK = true;
+                }
             }
         
             //CREATE INTERVAL TO INSERT ==========
@@ -188,6 +193,7 @@ public class EnterMovieSession extends BaseMenu{
 
         //SUCCESS
         movieSession = new MovieSession(insertStart, CinemaController.readByCode(choicestr).getCinemaClass(), movie.getTitle(), movie.getMovieType().name());
+        MovieSessionController.createSession(choicestr, movieSession);
         return this.getPreviousMenu().getPreviousMenu();
     }
 }
