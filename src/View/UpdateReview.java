@@ -61,9 +61,7 @@ public class UpdateReview extends BaseMenu{
     public BaseMenu execute(){
         BaseMenu nextMenu = this;
         int choice;
-        Movie movie = new Movie();
-        String inputTitle, choiceStr, inputString, numRegex;
-        String dateCheck;
+        String choiceStr;
         reviews = ReviewController.readByEmail(this.user.getEmail());
         HashMap<Integer, Review> initialMenu = new HashMap<Integer, Review>();
         HashMap<Integer, Review> SelectionMenu = new HashMap<Integer, Review>();
@@ -148,7 +146,7 @@ public class UpdateReview extends BaseMenu{
             return this.getPreviousMenu();
         }
         else if (choice == SelectionMenu.size()+2){
-            nextMenu = new Quit(this);
+            return new Quit(this);
         }
         else {
             //Menu choices to Update Movie Details
@@ -161,18 +159,22 @@ public class UpdateReview extends BaseMenu{
             System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
 
             //Keep asking for choice
-            System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
-            choiceStr = sc.nextLine();
-            System.out.println();
-            numRegex = "^[^0-5]$";
-            while (!choiceStr.matches(numRegex)) {
-                //early termination
-                if(choiceStr.isBlank()){
-                    return this.getPreviousMenu();
-                }
-                System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
+            isOK = false;
+            choiceStr = "";
+            while (!isOK) {
+                System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
                 choiceStr = sc.nextLine();
-                System.out.println();
+                if (!choiceStr.matches(numregex)){
+                    System.out.println(ConsoleColours.RED + "Please enter a valid integer:" + ConsoleColours.RESET);
+                    continue;
+                }
+                if (Integer.valueOf(choiceStr) <= 5 && Integer.valueOf(choiceStr) > 0){
+                    choice = Integer.valueOf(choiceStr);
+                    isOK = true;
+                }
+                else {
+                    System.out.println(ConsoleColours.RED + "Please enter a valid range between 1<=x<=5" + ConsoleColours.RESET);
+                }
             }
 
             choice = Integer.valueOf(choiceStr);
@@ -188,6 +190,7 @@ public class UpdateReview extends BaseMenu{
                     else {
                         System.out.println(ConsoleColours.RED + "Failed to update review" + ConsoleColours.RESET);
                     };
+                    break;
 
                 //UPDATE REVIEW RATING
                 case 2:
@@ -217,6 +220,7 @@ public class UpdateReview extends BaseMenu{
                     else {
                         System.out.println(ConsoleColours.RED + "Failed to update review" + ConsoleColours.RESET);
                     };
+                    break;
                 //DELETE REVIEW
                 case 3:
                     if (ReviewController.deleteByTitleEmail(selectedreview.getMovie().getTitle(), selectedreview.getEmail())){
@@ -224,11 +228,11 @@ public class UpdateReview extends BaseMenu{
                     }
                     else {
                         System.out.println(ConsoleColours.RED + "Failed to update review" + ConsoleColours.RESET);
-                    };  
+                    }; 
+                    break; 
                 //GO BACK A PAGE
                 case 4:
-                    nextMenu = this.getPreviousMenu();
-                    return nextMenu;
+                    return this.getPreviousMenu();
                 //TERMINATE PROGRAM
                 case 5:
                     nextMenu = new Quit(this);
