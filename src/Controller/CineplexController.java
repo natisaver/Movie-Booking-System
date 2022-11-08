@@ -1,13 +1,9 @@
 package Controller;
 
 import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import Model.Cinema;
-import Model.Cineplex;
-import Model.Holiday;
 import Model.cinemaClass_Enum;
 
 /**

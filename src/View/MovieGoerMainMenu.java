@@ -10,6 +10,7 @@ import Model.MovieGoer;
 import Model.MovieSession;
 import Model.Ticket;
 import Model.Transaction;
+import Model.Seat;
 
 /**
  * MovieGoer Main Menu
@@ -31,8 +32,9 @@ public class MovieGoerMainMenu extends BaseMenu {
     Movie movie = null;
     MovieSession movieSession = null;
     Cinema cinema = null;
-    ArrayList<Ticket> ticket = new ArrayList<>();
+    ArrayList<Ticket> ticket;
     Transaction transaction = null;
+    ArrayList<Seat> bookedSeats;
 
     /**
      * Constructor to store previous page and access level
@@ -42,7 +44,7 @@ public class MovieGoerMainMenu extends BaseMenu {
      * @param moviegoer    movieGoer Object
      */
     public MovieGoerMainMenu(BaseMenu previousMenu, int accesslevel, MovieGoer moviegoer, Movie movie,
-            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction) {
+            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
         super(previousMenu, accesslevel);
         this.moviegoer = moviegoer;
         this.movie = movie;
@@ -50,6 +52,7 @@ public class MovieGoerMainMenu extends BaseMenu {
         this.cinema = cinema;
         this.ticket = ticket;
         this.transaction = transaction;
+        this.bookedSeats = bookedSeats;
     }
 
     @Override
@@ -93,7 +96,7 @@ public class MovieGoerMainMenu extends BaseMenu {
             case 2:
                 //MovieGoer user = new MovieGoer("Niki", "niki@123.com", "81234567",  25, "null");
                 if (moviegoer == null) {
-                    nextMenu = new CreateOrLogin(nextMenu, -1, null, null, null, null, ticket, null);
+                    nextMenu = new CreateOrLogin(nextMenu, -1, null, null, null, null, ticket, null, null);
                 } 
                 else {
                     System.out.println(ConsoleColours.WHITE_BOLD + "You can leave a review" + ConsoleColours.RESET);
@@ -102,16 +105,16 @@ public class MovieGoerMainMenu extends BaseMenu {
                 break;
             case 3:
                 if (this.moviegoer == null) {
-                    nextMenu = new CreateOrLogin(nextMenu, -1, null, null, null, null, ticket, null);
+                    nextMenu = new CreateOrLogin(nextMenu, -1, null, null, null, null, ticket, null, null);
                 } else {
-                    nextMenu = new CheckHistory(this, 0, moviegoer, movie, movieSession, cinema, ticket, transaction);
+                    nextMenu = new CheckHistory(this, 0, moviegoer, movie, movieSession, cinema, ticket, transaction, bookedSeats);
                 }
                 break;
             case 4:
                 nextMenu = new ViewMovieDetails(nextMenu, 0);
                 break;
             case 5:
-                nextMenu = new MainMenu(null, -1, moviegoer, movie, movieSession, cinema, ticket, transaction);
+                nextMenu = new MainMenu(null, -1, moviegoer, movie, movieSession, cinema, ticket, transaction, bookedSeats);
                 break;
             case 6:
                 nextMenu = new Quit(this);

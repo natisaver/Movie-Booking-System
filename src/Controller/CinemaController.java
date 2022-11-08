@@ -3,8 +3,6 @@ package Controller;
 import java.io.*;
 
 import Model.Cinema;
-import Model.Cineplex;
-import Model.Holiday;
 import Model.cinemaClass_Enum;
 
 /**
@@ -35,7 +33,6 @@ public class CinemaController {
             reader = new BufferedReader(new FileReader(PATH));
         } catch (FileNotFoundException e) {
             // e.printStackTrace();
-            return null;
         }
 
         // If Database Exists

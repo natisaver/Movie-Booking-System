@@ -36,6 +36,61 @@ public class MovieSession {
      */
     private movieType_Enum movieType;
 
+    public MovieSession(cinemaClass_Enum cinemaClass) {
+        int maxRow = 0;
+        int maxCol = 0;
+        if (cinemaClass == cinemaClass_Enum.GOLD) {
+            maxRow = 4;
+            maxCol = 8;
+        } else if (cinemaClass == cinemaClass_Enum.MAX) {
+            maxRow = 17;
+            maxCol = 36;
+        } else if (cinemaClass == cinemaClass_Enum.STANDARD) {
+            maxRow = 10;
+            maxCol = 13;
+        }
+        this.sessionSeats = new Seat[maxRow][maxCol];
+        for (int i = 0; i < maxRow; i++) {
+            for (int j = 0; j < maxCol; j++) {
+                String id;
+                if (i > 7) {
+                    if (i > 12)
+                        id = "" + (char) (i + 'C') + String.valueOf(j + 1);
+                    else
+                        id = "" + (char) (i + 'B') + String.valueOf(j + 1);
+                } else
+                    id = "" + (char) (i + 'A') + String.valueOf(j + 1);
+                sessionSeats[i][j] = new Seat(id, null);
+                sessionSeats[i][j].setSeatType(seatType_Enum.BASIC);
+            }
+        }
+        if (cinemaClass == cinemaClass_Enum.STANDARD) {
+            for (int i=2;i<=9;i++) {
+                sessionSeats[9][i].setSeatType(seatType_Enum.COUPLE);
+            }
+        }
+        if (cinemaClass == cinemaClass_Enum.MAX) {
+            for (int i=4;i<=27;i++) {
+                sessionSeats[16][i].setSeatType(seatType_Enum.COUPLE);
+            }
+            for (int i=6;i<=11;i++) {
+                for (int j=15;j<=20;j++) {
+                    sessionSeats[i][j].setSeatType(seatType_Enum.ELITE);
+                }
+            }
+        }
+        if (cinemaClass == cinemaClass_Enum.GOLD) {
+            for (int i=0;i<=7;i++) {
+                sessionSeats[3][i].setSeatType(seatType_Enum.COUPLE);
+            }
+            for (int i=1;i<=2;i++) {
+                for (int j=2;j<=5;j++) {
+                    sessionSeats[i][j].setSeatType(seatType_Enum.ELITE);
+                }
+            }
+        }
+    }
+
     /**
      * Constructor
      * 
@@ -172,27 +227,6 @@ public class MovieSession {
      *         <code>false</code>
      */
     public ArrayList<Seat> bookSeat(String id, cinemaClass_Enum cinemaClass) {
-        // if (cinemaClass == cinemaClass_Enum.STANDARD) {
-        //     String idRegex = "^([a-kA-K&&[^I]&&[^i]])(1[0-3]|[1-9])$";
-        //     if (!id.matches(idRegex)) {
-        //         System.out.println("Invalid seat! Please choose again");
-        //         return false;
-        //     }
-        // }
-        // if (cinemaClass == cinemaClass_Enum.MAX) {
-        //     String idRegex = "^(?!s1$|S1$|s2$|S2$|s35$|S35$|s36$|S36$)([a-sA-S&&[^I]&&[^i]&&[^O]&&[^o]])(3[0-6]|[1-2][0-9]|[1-9])$";
-		//     if (!id.matches(idRegex)) {
-        //         System.out.println("Invalid seat! Please choose again");
-        //         return false;
-        //     }
-        // }
-        // if (cinemaClass == cinemaClass_Enum.GOLD) {
-        //     String idRegex = "^([a-dA-D])([1-8])$";
-        //     if (!id.matches(idRegex)) {
-        //         System.out.println("Invalid seat! Please choose again");
-        //         return false;
-        //     }
-        // }
         int row, column;
         ArrayList<Seat> bookedSeats = new ArrayList<Seat>();
         id = id.toUpperCase();
@@ -212,7 +246,6 @@ public class MovieSession {
                 }
 				this.sessionSeats[row][column].setIsOccupied();
                 bookedSeats.add(this.sessionSeats[row][column]);
-                System.out.println("You have booked couple seats!");
 				return bookedSeats;
 			}
         }
@@ -236,7 +269,6 @@ public class MovieSession {
                 }
 				this.sessionSeats[row][column].setIsOccupied();
                 bookedSeats.add(this.sessionSeats[row][column]);
-                System.out.println("You have booked couple seats!");
 				return bookedSeats;
 			}
 			else if (Character.compare(id.charAt(0), 'S') == 0) {
@@ -264,7 +296,6 @@ public class MovieSession {
                 }
 				this.sessionSeats[row][column].setIsOccupied();
                 bookedSeats.add(this.sessionSeats[row][column]);
-                System.out.println("You have booked couple seats!");
 				return bookedSeats;
 			}
 		}

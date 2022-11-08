@@ -21,7 +21,7 @@ public class ChooseMovie extends BaseMenu {
     Movie movie;
     MovieSession movieSession;
     Cinema cinema;
-    ArrayList<Ticket> ticket = new ArrayList<>();
+    ArrayList<Ticket> ticket;
     Transaction transaction;
     Cineplex cineplex;
 

@@ -12,6 +12,7 @@ import Model.Transaction;
 import Model.Admin;
 import Model.Cinema;
 import Model.Movie;
+import Model.Seat;
 
 /**
  * Login Page
@@ -32,6 +33,7 @@ public class Login extends BaseMenu {
     Cinema cinema = null;
     ArrayList<Ticket> ticket = new ArrayList<>();
     Transaction transaction = null;
+    ArrayList<Seat> bookedSeats = new ArrayList<>();
 
     /**
      * Constructor to store previous page and access level
@@ -40,7 +42,7 @@ public class Login extends BaseMenu {
      * @param accesslevel  the level of access
      */
     public Login(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
-            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction) {
+            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
         super(previousMenu, accesslevel);
 
         this.user = user;
@@ -49,6 +51,7 @@ public class Login extends BaseMenu {
         this.cinema = cinema;
         this.ticket = ticket;
         this.transaction = transaction;
+        this.bookedSeats = bookedSeats;
     }
 
     /**
@@ -111,7 +114,8 @@ public class Login extends BaseMenu {
                 System.out.println();
                 // moviegoer page
                 if (admin == null) {
-                    return new MovieGoerMainMenu(this, 0, user, movie, movieSession, cinema, ticket, transaction);
+                    if (ticket != null) return new DisplayTransaction(null, 0, user, movie, movieSession, cinema, ticket, transaction, null, bookedSeats);
+                    return new MovieGoerMainMenu(this, 0, user, movie, movieSession, cinema, ticket, transaction, bookedSeats);
                 }
                 // admin page
                 if (user == null) {

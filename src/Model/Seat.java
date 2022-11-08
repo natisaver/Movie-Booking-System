@@ -75,7 +75,7 @@ public class Seat {
      * otherwise sets it to <code>false</code>
      */
     public void setIsOccupied() {
-        this.isOccupied = !this.isOccupied;
+        this.isOccupied = true;
     }
 }
 

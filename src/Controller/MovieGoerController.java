@@ -69,7 +69,6 @@ public class MovieGoerController {
             reader = new BufferedReader(new FileReader(PATH));
         } catch (FileNotFoundException e) {
             // e.printStackTrace();
-            return null;
         }
 
         // If Database Exists
@@ -117,6 +116,9 @@ public class MovieGoerController {
             return false;
         }
 
+        Boolean Found = false;
+        String line;
+
         try {
             writer.append("Name");
             writer.append(",");
@@ -130,16 +132,6 @@ public class MovieGoerController {
             writer.append(",");
             writer.append("Role");
             writer.append("\n");
-
-        } catch (IOException e) {
-            // e.printStackTrace();
-            return false;
-        }
-
-        Boolean Found = false;
-        String line;
-
-        try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);

@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Controller.MovieController;
+import Controller.MovieSessionController;
 import Controller.TransactionController;
 import Model.Cinema;
 import Model.Cineplex;
@@ -12,6 +14,7 @@ import Model.Movie;
 import Model.MovieGoer;
 import Model.MovieSession;
 import Model.Ticket;
+import Model.Seat;
 import Model.Transaction;
 
 public class DisplayTransaction extends BaseMenu {
@@ -24,10 +27,11 @@ public class DisplayTransaction extends BaseMenu {
     ArrayList<Ticket> ticket = new ArrayList<>();
     Transaction transaction = null;
     Cineplex cineplex = null;
+    ArrayList<Seat> bookedSeats;
 
     public DisplayTransaction(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
             MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction,
-            Cineplex cineplex) {
+            Cineplex cineplex, ArrayList<Seat> bookedSeats) {
         super(previousMenu, accesslevel);
         this.user = user;
         this.movie = movie;
@@ -36,6 +40,7 @@ public class DisplayTransaction extends BaseMenu {
         this.ticket = ticket;
         this.transaction = transaction;
         this.cineplex = cineplex;
+        this.bookedSeats = bookedSeats;
     }
 
     @Override
@@ -45,7 +50,7 @@ public class DisplayTransaction extends BaseMenu {
 
         if (user == null) {
             return new CreateOrLogin(this, 2, user, movie, movieSession, cinema,
-                    ticket, transaction);
+                    ticket, transaction, bookedSeats);
         }
 
         // Get current date time
@@ -58,12 +63,8 @@ public class DisplayTransaction extends BaseMenu {
         transaction = new Transaction(ticket, user);
 
         if (TransactionController.create(transaction)) {
-            System.out.println(
-                    ConsoleColours.GREEN_BOLD + "Payment Successful" +
-                            ConsoleColours.RESET);
-            System.out.println(
-                    ConsoleColours.GREEN_BOLD + "Your ticket(s) have been successfully booked!" +
-                            ConsoleColours.RESET);
+            System.out.println(ConsoleColours.GREEN_BOLD + "Payment Successful" + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.GREEN_BOLD + "Your ticket(s) have been successfully booked!" + ConsoleColours.RESET);
             System.out.println(ConsoleColours.WHITE_BOLD + "Transaction" + ConsoleColours.RESET);
             System.out.println("======================================");
             System.out.println("TID: " + transaction.getTID());
@@ -72,12 +73,11 @@ public class DisplayTransaction extends BaseMenu {
             System.out.println("Movie Session: " + movieSession.getSessionDate() + " " + movieSession.getSessionTime());
             System.out.println("No. of Tickets " + ticket.size());
             System.out.println("Price Paid: " + transaction.getTotalPrice());
-        } else
-            System.out.println(ConsoleColours.RED_BOLD + "Your booking is unsuccessful. Please try again."
-                    + ConsoleColours.RESET);
+            MovieController.updateSales(movie, ticket.size());
+            MovieSessionController.bookSeats(cinema.getCinemaCode(), movieSession, bookedSeats);
+        } else System.out.println(ConsoleColours.RED_BOLD + "Your booking is unsuccessful. Please try again." + ConsoleColours.RESET);
 
-        return this.getPreviousMenu();
-
+        return new MovieGoerMainMenu(null, accesslevel, user, null, null, null, null, null, null);
     }
 
 }

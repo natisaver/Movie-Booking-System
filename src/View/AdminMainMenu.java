@@ -67,7 +67,7 @@ public class AdminMainMenu extends BaseMenu{
                 nextMenu = new ListTopFive(this, 1);
                 break;
             case 6:
-                nextMenu = new MainMenu(null, -1, null, null, null, null, null, null);
+                nextMenu = new MainMenu(null, -1, null, null, null, null, null, null, null);
                 break;
             case 7:
                 nextMenu = new Quit(this);

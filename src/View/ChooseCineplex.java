@@ -18,7 +18,7 @@ public class ChooseCineplex extends BaseMenu{
         Movie movie = null;
         MovieSession movieSession = null;
         Cinema cinema = null;
-        ArrayList<Ticket> ticket = new ArrayList<>();
+        ArrayList<Ticket> ticket;
         Transaction transaction = null;
     
         public ChooseCineplex(BaseMenu previousMenu, int accesslevel, MovieGoer user,  Movie movie,

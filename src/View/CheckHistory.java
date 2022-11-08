@@ -11,6 +11,7 @@ import Model.MovieSession;
 import Model.Ticket;
 import Model.Transaction;
 import Model.User;
+import Model.Seat;
 
 public class CheckHistory extends BaseMenu {
 
@@ -22,9 +23,10 @@ public class CheckHistory extends BaseMenu {
     Cinema cinema = null;
     ArrayList<Ticket> ticket = new ArrayList<>();
     Transaction transaction = null;
+    ArrayList<Seat> bookedSeats;
 
     public CheckHistory(BaseMenu previousMenu, int accesslevel, MovieGoer moviegoer, Movie movie,
-            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction) {
+            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
         super(previousMenu, accesslevel);
         this.moviegoer = moviegoer;
         this.movie = movie;
@@ -32,6 +34,7 @@ public class CheckHistory extends BaseMenu {
         this.cinema = cinema;
         this.ticket = ticket;
         this.transaction = transaction;
+        this.bookedSeats = bookedSeats;
     }
 
     @Override
@@ -60,7 +63,7 @@ public class CheckHistory extends BaseMenu {
             }
 
             return new MovieGoerMainMenu(this.getPreviousMenu(), 0, moviegoer, movie, movieSession, cinema, ticket,
-                    transaction);
+                    transaction, bookedSeats);
 
         } while (!back.isBlank());
 

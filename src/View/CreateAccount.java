@@ -14,6 +14,7 @@ import Model.MovieGoer;
 import Model.MovieSession;
 import Model.Ticket;
 import Model.Transaction;
+import Model.Seat;
 
 /**
  * Create Account Form Page
@@ -40,6 +41,7 @@ public class CreateAccount extends BaseMenu {
     Cinema cinema = null;
     ArrayList<Ticket> ticket = new ArrayList<>();
     Transaction transaction = null;
+    ArrayList<Seat> bookedSeats;
 
     /**
      * Constructor to store previous page and access level
@@ -48,7 +50,7 @@ public class CreateAccount extends BaseMenu {
      * @param accesslevel  the level of access
      */
     public CreateAccount(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
-            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction) {
+            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
         super(previousMenu, accesslevel);
         this.user = user;
         this.movie = movie;
@@ -56,6 +58,7 @@ public class CreateAccount extends BaseMenu {
         this.cinema = cinema;
         this.ticket = ticket;
         this.transaction = transaction;
+        this.bookedSeats = bookedSeats;
     }
 
     /**
@@ -204,14 +207,14 @@ public class CreateAccount extends BaseMenu {
                         ConsoleColours.GREEN_BOLD + "You've successfully created an account!" + ConsoleColours.RESET);
                 if (this.accesslevel == 2)
                     return new BookTicket(this.getPreviousMenu().getPreviousMenu(), 2, user, movie, movieSession,
-                            cinema, ticket, transaction);
+                            cinema, ticket, transaction, bookedSeats);
                 else
                     return new MovieGoerMainMenu(this.getPreviousMenu().getPreviousMenu(), 0, user, movie, movieSession,
-                            cinema, ticket, transaction);
+                            cinema, ticket, transaction, bookedSeats);
             } else {
                 System.out.println(ConsoleColours.RED_BOLD + "ERROR in account creation" + ConsoleColours.RESET);
                 return new MovieGoerMainMenu(this.getPreviousMenu().getPreviousMenu(), -1, null, movie, movieSession,
-                        cinema, ticket, transaction);
+                        cinema, ticket, transaction, bookedSeats);
             }
 
         } while ((!name.isBlank() && !password.isBlank()));

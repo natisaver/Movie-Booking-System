@@ -44,13 +44,14 @@ public class BookTicket extends BaseMenu {
     Cinema cinema = null;
     ArrayList<Ticket> ticket = new ArrayList<>();
     Transaction transaction = null;
+    ArrayList<Seat> bookedSeats;
 
     /**
      * Current User
      */
 
     public BookTicket(BaseMenu previousMenu, int accesslevel, MovieGoer moviegoer, Movie movie,
-            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction) {
+            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
         super(previousMenu, accesslevel);
         this.moviegoer = moviegoer;
         this.movie = movie;
@@ -58,6 +59,7 @@ public class BookTicket extends BaseMenu {
         this.cinema = cinema;
         this.ticket = ticket;
         this.transaction = transaction;
+        this.bookedSeats = bookedSeats;
     }
 
     @Override
@@ -372,7 +374,7 @@ public class BookTicket extends BaseMenu {
              */
             if (moviegoer == null) {
                 return new CreateOrLogin(this, 2, moviegoer, movie, movieSession, cinema,
-                        ticket, transaction);
+                        ticket, transaction, bookedSeats);
             }
 
             // Get current date time

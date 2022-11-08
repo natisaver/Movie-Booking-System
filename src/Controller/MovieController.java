@@ -128,6 +128,10 @@ public class MovieController {
             return false;
         }
 
+        Boolean Found = false;
+        String line;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         try {
             writer.append("Title");
             writer.append(",");
@@ -151,17 +155,6 @@ public class MovieController {
             writer.append(",");
             writer.append("ticketSales");
             writer.append("\n");
-
-        } catch (IOException e) {
-            // e.printStackTrace();
-            return false;
-        }
-
-        Boolean Found = false;
-        String line;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
@@ -292,6 +285,10 @@ public class MovieController {
             return false;
         }
 
+        Boolean Found = false;
+        String line;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         try {
             writer.append("Title");
             writer.append(",");
@@ -315,19 +312,6 @@ public class MovieController {
             writer.append(",");
             writer.append("ticketSales");
             writer.append("\n");
-
-        } catch (IOException e) 
-        {
-            // e.printStackTrace();
-            // System.out.println("Error 3");
-            return false;
-        }
-
-        Boolean Found = false;
-        String line;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
@@ -434,6 +418,8 @@ public class MovieController {
             return false;
         }
 
+        String line;
+
         try {
             writer.append("Title");
             writer.append(",");
@@ -457,15 +443,6 @@ public class MovieController {
             writer.append(",");
             writer.append("ticketSales");
             writer.append("\n");
-
-        } catch (IOException e) {
-            // e.printStackTrace();
-            return false;
-        }
-
-        String line;
-
-        try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);  
@@ -561,6 +538,9 @@ public class MovieController {
             return false;
         }
 
+        Boolean Found = false;
+        String line;
+
         try {
             writer.append("Title");
             writer.append(",");
@@ -584,16 +564,6 @@ public class MovieController {
             writer.append(",");
             writer.append("ticketSales");
             writer.append("\n");
-
-        } catch (IOException e) {
-            // e.printStackTrace();
-            return false;
-        }
-
-        Boolean Found = false;
-        String line;
-
-        try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
@@ -664,6 +634,9 @@ public class MovieController {
             return false;
         }
 
+        Boolean Found = false;
+        String line;
+
         try {
             writer.append("Title");
             writer.append(",");
@@ -687,16 +660,6 @@ public class MovieController {
             writer.append(",");
             writer.append("ticketSales");
             writer.append("\n");
-
-        } catch (IOException e) {
-            // e.printStackTrace();
-            return false;
-        }
-
-        Boolean Found = false;
-        String line;
-
-        try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
@@ -744,5 +707,119 @@ public class MovieController {
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("Movie")));
         return true;
+    }
+
+    public static void updateSales(Movie movie, int numTickets) {
+        File inputFile = new File(DataController.getPath("Movie"));
+        File tempFile = new File(DataController.getPath("Temp"));
+
+        BufferedReader reader = null;
+        BufferedWriter writer = null;
+
+        try {
+            reader = new BufferedReader(new FileReader(inputFile));
+            writer = new BufferedWriter(new FileWriter(tempFile));
+        } catch (FileNotFoundException e) {
+            // e.printStackTrace();
+
+        } catch (IOException e) {
+            // e.printStackTrace();
+        }
+
+        try {
+            writer.append("Title");
+            writer.append(",");
+            writer.append("Director");
+            writer.append(",");
+            writer.append("Cast");
+            writer.append(",");
+            writer.append("releaseDate");
+            writer.append(",");
+            writer.append("endDate");
+            writer.append(",");
+            writer.append("synopsis");
+            writer.append(",");
+            writer.append("duration");
+            writer.append(",");
+            writer.append("showingStatus");
+            writer.append(",");
+            writer.append("movieType");
+            writer.append(",");
+            writer.append("movieRating");
+            writer.append(",");
+            writer.append("ticketSales");
+            writer.append("\n");
+
+        } catch (IOException e) {
+            // e.printStackTrace();
+        }
+
+        String title = movie.getTitle();
+        String line;
+
+        try {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                if (title.equals(tokens[0].substring(1, tokens[0].length() - 1))) {
+                    int curSales = Integer.valueOf(tokens[10]);
+                    curSales += numTickets;
+                    String newSales = String.valueOf(curSales);
+                    writer.append(tokens[0]);
+                    writer.append(",");
+                    writer.append(tokens[1]);
+                    writer.append(",");
+                    writer.append(tokens[2]);
+                    writer.append(",");
+                    writer.append(tokens[3]);
+                    writer.append(",");
+                    writer.append(tokens[4]);
+                    writer.append(",");
+                    writer.append(tokens[5]);
+                    writer.append(",");
+                    writer.append(tokens[6]);
+                    writer.append(",");
+                    writer.append(tokens[7]);
+                    writer.append(",");
+                    writer.append(tokens[8]);
+                    writer.append(",");
+                    writer.append(tokens[9]);
+                    writer.append(",");
+                    writer.append(newSales);
+                    writer.append("\n");
+                } else {
+                    writer.append(tokens[0]);
+                    writer.append(",");
+                    writer.append(tokens[1]);
+                    writer.append(",");
+                    writer.append(tokens[2]);
+                    writer.append(",");
+                    writer.append(tokens[3]);
+                    writer.append(",");
+                    writer.append(tokens[4]);
+                    writer.append(",");
+                    writer.append(tokens[5]);
+                    writer.append(",");
+                    writer.append(tokens[6]);
+                    writer.append(",");
+                    writer.append(tokens[7]);
+                    writer.append(",");
+                    writer.append(tokens[8]);
+                    writer.append(",");
+                    writer.append(tokens[9]);
+                    writer.append(",");
+                    writer.append(tokens[10]);
+                    writer.append("\n");
+                }
+            }
+            writer.close();
+            reader.close();
+            // delete old file
+            Files.delete(Paths.get(DataController.getPath("Movie")));
+        } catch (IOException e) {
+            // e.printStackTrace();
+        }
+        // replace with the new file
+        tempFile.renameTo(new File(DataController.getPath("Movie")));
     }
 }

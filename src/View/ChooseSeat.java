@@ -21,7 +21,7 @@ public class ChooseSeat extends BaseMenu {
     Movie movie;
     MovieSession movieSession;
     Cinema cinema;
-    ArrayList<Ticket> ticket = new ArrayList<>();
+		ArrayList<Ticket> ticket = new ArrayList<Ticket>();
     Transaction transaction;
     Cineplex cineplex;
     
@@ -44,7 +44,13 @@ public class ChooseSeat extends BaseMenu {
 		System.out.println(ConsoleColours.GREEN + "(Leave a blank to go back)" + ConsoleColours.RESET);
 		BaseMenu nextMenu = this;
 		ArrayList<Seat> occupiedArrayList = MovieSessionController.displaySeats(this.cinema.getCinemaCode(), this.movieSession);
-		System.out.println(ConsoleColours.WHITE_BOLD + "Enter your seat choice(s): " + ConsoleColours.RESET);
+		ArrayList<String> occupiedSeats = new ArrayList<String>();
+		if (occupiedArrayList.size() != 0) {
+			for (int i=0;i<occupiedArrayList.size();i++) {
+				occupiedSeats.add(occupiedArrayList.get(i).getSeatID());
+			}
+		}
+		int originalSize = occupiedArrayList.size();
 		
 		//determine regex based on cinemaclass
 		String idRegex;
@@ -65,6 +71,7 @@ public class ChooseSeat extends BaseMenu {
 		do {
 			Boolean isOK = false;
 			while(!isOK){
+				System.out.println(ConsoleColours.WHITE_BOLD + "Enter your seat choice(s): " + ConsoleColours.RESET);
 				choicestr = sc.nextLine();
 				if (!choicestr.matches(idRegex)) {
 					//early termination
@@ -76,28 +83,34 @@ public class ChooseSeat extends BaseMenu {
 					else {
 						if(choicestr.isBlank()){
 							exit = false;
+							break;
 						}
 					}
 					System.out.println(ConsoleColours.RED + "Please enter a valid seat ID:" + ConsoleColours.RESET);
 					System.out.println();
 					continue;
 				}
-				else if (occupiedArrayList.containsAll(MovieSessionController.getSeats(this.cinema, choicestr, this.movieSession))){
+				else if (occupiedSeats.contains(MovieSessionController.getSeats(this.cinema, choicestr, this.movieSession).get(0).getSeatID())){
 					System.out.println(ConsoleColours.RED + "Seat is already occupied, please try again." + ConsoleColours.RESET);
 					System.out.println();
 					continue;
 				}
 				else {
-					occupiedArrayList.addAll(null);
+					ArrayList<Seat> bookedSeat = MovieSessionController.getSeats(this.cinema, choicestr, this.movieSession);
+					if (bookedSeat.size() == 2) System.out.println("You have booked couple seats");
+					occupiedArrayList.addAll(bookedSeat);
+					for (int i=0;i<bookedSeat.size();i++) {
+						occupiedSeats.add(bookedSeat.get(i).getSeatID());
+					}
 					firstime = false;
 					MovieSessionController.tempDisplaySeats(this.cinema, occupiedArrayList);
 					isOK = true;
 				}
 			} 
-		} while (exit == true);
+		} while (exit);
 
 		return new ChooseAge(nextMenu, this.accesslevel, this.user, this.movie,
 		this.movieSession, this.cinema, this.ticket, this.transaction,
-		this.cineplex, occupiedArrayList);
+		this.cineplex, occupiedArrayList, originalSize);
     }
 }

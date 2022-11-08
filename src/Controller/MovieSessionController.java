@@ -592,27 +592,6 @@ public class MovieSessionController {
     }
 
     public static void bookSeats(String cinemaCode, MovieSession session, ArrayList<Seat> seatList) {
-        // if (cinemaClass == cinemaClass_Enum.STANDARD) {
-        //     String idRegex = "^([a-kA-K&&[^I]&&[^i]])(1[0-3]|[1-9])$";
-        //     if (!id.matches(idRegex)) {
-        //         System.out.println("Invalid seat! Please choose again");
-        //         return false;
-        //     }
-        // }
-        // if (cinemaClass == cinemaClass_Enum.MAX) {
-        //     String idRegex = "^(?!s1$|S1$|s2$|S2$|s35$|S35$|s36$|S36$)([a-sA-S&&[^I]&&[^i]&&[^O]&&[^o]])(3[0-6]|[1-2][0-9]|[1-9])$";
-		//     if (!id.matches(idRegex)) {
-        //         System.out.println("Invalid seat! Please choose again");
-        //         return false;
-        //     }
-        // }
-        // if (cinemaClass == cinemaClass_Enum.GOLD) {
-        //     String idRegex = "^([a-dA-D])([1-8])$";
-        //     if (!id.matches(idRegex)) {
-        //         System.out.println("Invalid seat! Please choose again");
-        //         return false;
-        //     }
-        // }
         File tempFile = new File(DataController.getPath("Temp"));
         BufferedWriter writer = null;
         BufferedReader[] reader = new BufferedReader[2];
@@ -698,12 +677,20 @@ public class MovieSessionController {
             writer.close();
             reader[0].close();
         } catch (IOException e) {
-            //e.printStackTrace();
+            // e.printStackTrace();
         }
+        try {
+            Files.delete(Paths.get(DataController.getPath("MovieSession")));
+        }
+        catch (IOException e) {
+            System.out.println("help3");
+            e.printStackTrace();
+        }
+        tempFile.renameTo(new File(DataController.getPath("MovieSession")));
     }
 
     public static void tempDisplaySeats(Cinema cinema, ArrayList<Seat> seatList) {
-        MovieSession tempSession = new MovieSession(null, cinema.getCinemaClass(), null, null);
+        MovieSession tempSession = new MovieSession(cinema.getCinemaClass());
         for (int i=0;i<seatList.size();i++) {
             tempSession.bookSeat(seatList.get(i).getSeatID(), cinema.getCinemaClass());
         }
@@ -711,7 +698,7 @@ public class MovieSessionController {
     }
 
     public static ArrayList<Seat> getSeats(Cinema cinema, String seatID, MovieSession session) {
-        MovieSession tempSession = new MovieSession(null, cinema.getCinemaClass(), null, null);
+        MovieSession tempSession = new MovieSession(cinema.getCinemaClass());
         ArrayList<Seat> bookedSeats = new ArrayList<Seat>();
         bookedSeats.addAll(tempSession.bookSeat(seatID, cinema.getCinemaClass()));
         return bookedSeats;

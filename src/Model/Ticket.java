@@ -31,7 +31,7 @@ public class Ticket {
 	private Seat ticketSeat;
 	private ageGroup_Enum ticketAgeGroup;
 
-	public Ticket(){}
+	public Ticket() {}
 
 	public Ticket(Cineplex tCineplex, Cinema tCinema, LocalDateTime tShowTime, String tMovieTitle,
 			movieType_Enum tMovieType, movieRating_Enum tMovieRating, Seat tSeat, ageGroup_Enum tAgeGroup) {

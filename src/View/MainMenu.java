@@ -9,6 +9,7 @@ import Model.MovieGoer;
 import Model.MovieSession;
 import Model.Ticket;
 import Model.Transaction;
+import Model.Seat;
 
 /**
  * The starting page that begins the application.
@@ -29,6 +30,7 @@ public class MainMenu extends BaseMenu {
     Cinema cinema = null;
     ArrayList<Ticket> ticket = new ArrayList<>();
     Transaction transaction = null;
+    ArrayList<Seat> bookedSeats = new ArrayList<>();
 
     /**
      * Constructor to store previous page and access level
@@ -37,7 +39,7 @@ public class MainMenu extends BaseMenu {
      * @param accesslevel  the level of access
      */
     public MainMenu(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
-            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction) {
+            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
         super(previousMenu, accesslevel);
         this.user = user;
         this.movie = movie;
@@ -45,6 +47,7 @@ public class MainMenu extends BaseMenu {
         this.cinema = cinema;
         this.ticket = ticket;
         this.transaction = transaction;
+        this.bookedSeats = bookedSeats;
     }
 
     /**
@@ -85,14 +88,14 @@ public class MainMenu extends BaseMenu {
 
         switch (choice) {
             case 1:
-                nextMenu = new MovieGoerMainMenu(this, -1, null, movie, movieSession, cinema, ticket, transaction);
+                nextMenu = new MovieGoerMainMenu(this, -1, null, movie, movieSession, cinema, ticket, transaction, bookedSeats);
                 break;
             case 2:
-                nextMenu = new Login(this, -1, user, movie, movieSession, cinema, ticket, transaction);
+                nextMenu = new Login(this, -1, user, movie, movieSession, cinema, ticket, transaction, bookedSeats);
                 break;
             case 3:
                 nextMenu = new CreateAccount(this, this.accesslevel, user, movie, movieSession, cinema, ticket,
-                        transaction);
+                        transaction, bookedSeats);
                 break;
             case 4:
                 nextMenu = new Quit(this);
