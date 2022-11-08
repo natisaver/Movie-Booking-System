@@ -48,6 +48,7 @@ public class UpdateMovieSession extends BaseMenu{
         MovieSession movieSession;
         ArrayList<String> sessionDate = new ArrayList<String>();
         ArrayList<String> sessionTimes = new ArrayList<String>();
+        ArrayList<String> sessionTitle = new ArrayList<String>();
         int i;
         String dateCheck = "^((2000|2400|2800|(19|2[0-9])(0[48]|[2468][048]|[13579][26]))-02-29)$" 
         + "|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$"
@@ -88,7 +89,7 @@ public class UpdateMovieSession extends BaseMenu{
                     System.out.println(ConsoleColours.WHITE_BOLD + "Input a New Session for Existing Movie" + ConsoleColours.RESET);
                     System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
 
-                    System.out.println(ConsoleColours.WHITE_BOLD + "Enter Title of existing Movie to be add movie session to:" + ConsoleColours.RESET);
+                    System.out.println(ConsoleColours.WHITE_BOLD + "Enter Title of existing Movie to add movie session to:" + ConsoleColours.RESET);
                     inputString = sc.nextLine();
                     //Go back to previousMenu if blank is entered
                     if(inputString.isBlank()){
@@ -132,17 +133,18 @@ public class UpdateMovieSession extends BaseMenu{
 
                     //Print all the sessions
                     i=0;
-                    
+                    sessionTitle = new ArrayList<String>();
                     sessionDate = new ArrayList<String>();
                     sessionTimes = new ArrayList<String>();
                     for (i=0;i<sessionArrayList.size();i++) {
+                        sessionTitle.add(sessionArrayList.get(i).getTitle());
                         sessionDate.add(sessionArrayList.get(i).getSessionDate());
                         sessionTimes.add(sessionArrayList.get(i).getSessionTime());
                     }
                     if(!sessionDate.isEmpty() && !sessionTimes.isEmpty()){
                         System.out.println(ConsoleColours.BLUE + "Here are the current Sessions in the selected cinema:" + ConsoleColours.RESET);
                         for (i=0;i<sessionArrayList.size();i++) {
-                            System.out.println(sessionDate.get(i) + " " + sessionTimes.get(i));
+                            System.out.println(sessionDate.get(i) + "\t" + sessionTimes.get(i) + "\t" + sessionTitle.get(i));
                         }
                     }
 
@@ -155,7 +157,7 @@ public class UpdateMovieSession extends BaseMenu{
                         date = sc.nextLine();
                         while (!date.matches(dateCheck) || LocalDateTime.parse(date + " 00:00", formatter).isBefore(LocalDateTime.now())){
                             if(date.isBlank()){
-                                return this.getPreviousMenu().getPreviousMenu();
+                                return this.getPreviousMenu();
                             }
                             if(!date.matches(dateCheck))
                                 System.out.println(ConsoleColours.RED + "Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
@@ -194,7 +196,6 @@ public class UpdateMovieSession extends BaseMenu{
                                 isOK = true;
                             }
                         }
-                        System.out.println();
                     
                         //CREATE INTERVAL TO INSERT ==========
                         date = date + " " + time;
@@ -218,6 +219,7 @@ public class UpdateMovieSession extends BaseMenu{
                 
                         //COMPARE INTERVAL TO INSERT WITH CURRENT INTERVALS ==========
                         //updates boolean to true if overlap exists
+                        overlaps = false;
                         for(i = 0; i < sessionArrayList.size(); i++) {
                             curStart = sessionArrayList.get(i).getShowtime();
                             curEnd = curStart.plusMinutes(duration);
@@ -237,7 +239,7 @@ public class UpdateMovieSession extends BaseMenu{
                             }
                         }
                 
-                    } while (overlaps == true);
+                    } while (overlaps);
 
                     //SUCCESS
                     movieSession = new MovieSession(insertStart, CinemaController.readByCode(choicestr).getCinemaClass(), movie.getTitle(), movie.getMovieType().name());
@@ -272,17 +274,18 @@ public class UpdateMovieSession extends BaseMenu{
 
                     //Print all the sessions
                     i=0;
-                    
+                    sessionTitle = new ArrayList<String>();
                     sessionDate = new ArrayList<String>();
                     sessionTimes = new ArrayList<String>();
                     for (i=0;i<sessionArrayList.size();i++) {
+                        sessionTitle.add(sessionArrayList.get(i).getTitle());
                         sessionDate.add(sessionArrayList.get(i).getSessionDate());
                         sessionTimes.add(sessionArrayList.get(i).getSessionTime());
                     }
                     if(!sessionDate.isEmpty() && !sessionTimes.isEmpty()){
                         System.out.println(ConsoleColours.BLUE + "Here are the current Sessions in the selected cinema:" + ConsoleColours.RESET);
                         for (i=0;i<sessionArrayList.size();i++) {
-                            System.out.println(sessionDate.get(i) + " " + sessionTimes.get(i));
+                            System.out.println(sessionDate.get(i) + "\t" + sessionTimes.get(i) + "\t" + sessionTitle.get(i));
                         }
                     }
 
