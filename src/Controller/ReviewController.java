@@ -300,7 +300,7 @@ public class ReviewController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].toLowerCase().substring(1, tokens[1].length()-1).equals(review.getName()) && tokens[2].toLowerCase().substring(1, tokens[2].length()-1).equals(review.getEmail())) {
+                if (tokens[3].toLowerCase().substring(1, tokens[3].length()-1).equals(review.getMovie().getTitle().toLowerCase()) && tokens[2].toLowerCase().substring(1, tokens[2].length()-1).equals(review.getEmail().toLowerCase())) {
                     Found = true;
                     writer.append(tokens[0]);
                     writer.append(",");
@@ -395,7 +395,7 @@ public class ReviewController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[1].toLowerCase().substring(1, tokens[1].length()-1).equals(review.getName()) && tokens[2].toLowerCase().substring(1, tokens[2].length()-1).equals(review.getEmail())) {
+                if (tokens[3].toLowerCase().substring(1, tokens[3].length()-1).equals(review.getMovie().getTitle().toLowerCase()) && tokens[2].toLowerCase().substring(1, tokens[2].length()-1).equals(review.getEmail().toLowerCase())) {
                     Found = true;
                     writer.append(tokens[0]);
                     writer.append(",");
@@ -482,6 +482,7 @@ public class ReviewController {
 
         } catch (IOException e) {
             // e.printStackTrace();
+            System.out.println("HERE");
             return false;
         }
 
@@ -493,7 +494,7 @@ public class ReviewController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[2].toLowerCase().equals(email.toLowerCase()) && tokens[3].toLowerCase().equals(title.toLowerCase())) {
+                if (tokens[3].toLowerCase().substring(1, tokens[3].length()-1).equals(title.toLowerCase()) && tokens[2].toLowerCase().substring(1, tokens[2].length()-1).equals(email.toLowerCase())) {
                     // do nothing
                     Found = true;
                 } else {

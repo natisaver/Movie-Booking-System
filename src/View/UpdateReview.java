@@ -150,7 +150,8 @@ public class UpdateReview extends BaseMenu{
         }
         else {
             //Menu choices to Update Movie Details
-            System.out.println(ConsoleColours.PURPLE_BOLD + "Update Review:" + ConsoleColours.RESET);
+            System.out.println();
+            System.out.println(ConsoleColours.PURPLE_BOLD + "Update/Delete Review:" + ConsoleColours.RESET);
             System.out.println("1. Update Review Content");
             System.out.println("2. Update Review Rating");
             System.out.println("3. Delete Review");
@@ -194,8 +195,6 @@ public class UpdateReview extends BaseMenu{
 
                 //UPDATE REVIEW RATING
                 case 2:
-                    System.out.println(ConsoleColours.WHITE_BOLD + "Enter your new review: " + ConsoleColours.RESET);
-                    choiceStr = sc.nextLine();
                     String reviewRating = "-1";
                     Double rating = 0.0;
                     String ratingRegex = "\\d{1,2}[,\\.]?(\\d{1,1})?";
@@ -227,7 +226,7 @@ public class UpdateReview extends BaseMenu{
                         System.out.println(ConsoleColours.GREEN + "Congratulations successfully updated review" + ConsoleColours.RESET);
                     }
                     else {
-                        System.out.println(ConsoleColours.RED + "Failed to update review" + ConsoleColours.RESET);
+                        System.out.println(ConsoleColours.RED + "Failed to delete review" + ConsoleColours.RESET);
                     }; 
                     break; 
                 //GO BACK A PAGE
@@ -244,6 +243,45 @@ public class UpdateReview extends BaseMenu{
                     System.out.println();
                     break;
             }
+        }
+
+        String choiceregex = "^(?!(0))[0-3]{1}$";
+        System.out.println(ConsoleColours.PURPLE_BOLD + "Would you like to update/delete the review for another movie? " + ConsoleColours.RESET);
+        System.out.println("1. Yes ");
+        System.out.println("2. No ");
+        System.out.println(ConsoleColours.RED + "3. Quit" + ConsoleColours.RESET);
+        System.out.println();
+        System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
+        choiceStr = sc.nextLine();
+        System.out.println();
+
+        while(!choiceStr.matches(choiceregex))
+        {
+            if(choiceStr.isBlank())
+            {
+                return this.getPreviousMenu();
+            }
+            System.out.println(ConsoleColours.RED + "Please enter a valid choice: " + ConsoleColours.RESET);
+            choiceStr = sc.nextLine();
+            System.out.println();
+        }
+        
+        choice = Integer.valueOf(choiceStr);
+        switch(choice)
+        {
+            case 1:
+                nextMenu = new UpdateReview(nextMenu, 0, this.user);
+                break;
+            case 2: 
+                nextMenu = new MovieGoerMainMenu(nextMenu, 0, user, null, null, null, null, null);
+                break;
+            case 3:
+                nextMenu = new Quit(this);
+                break;
+            default:
+                choice = -1;
+                System.out.println("Please enter a valid choice. ");
+                break;
         }
         return nextMenu;
 
