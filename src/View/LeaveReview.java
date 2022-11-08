@@ -160,7 +160,7 @@ public class LeaveReview extends BaseMenu {
                     nextMenu = new LeaveReview(nextMenu, 0, user);
                     break;
                 case 2: 
-                    nextMenu = new MovieGoerMainMenu(nextMenu, 0, user, null, null, null, null, null);
+                    nextMenu = new MovieGoerMainMenu(nextMenu, 0, user, null, null, null, null, null, null);
                     break;
                 case 3:
                     nextMenu = new Quit(this);

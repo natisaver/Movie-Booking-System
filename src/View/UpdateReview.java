@@ -273,7 +273,7 @@ public class UpdateReview extends BaseMenu{
                 nextMenu = new UpdateReview(nextMenu, 0, this.user);
                 break;
             case 2: 
-                nextMenu = new MovieGoerMainMenu(nextMenu, 0, user, null, null, null, null, null);
+                nextMenu = new MovieGoerMainMenu(nextMenu, 0, user, null, null, null, null, null, null);
                 break;
             case 3:
                 nextMenu = new Quit(this);
