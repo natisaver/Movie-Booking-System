@@ -41,7 +41,6 @@ public class EnterMovieDetails extends BaseMenu{
      */
     @Override
     public BaseMenu execute(){
-        Movie movie = new Movie();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         BaseMenu nextMenu = this;
         Scanner sc = new Scanner(System.in);
