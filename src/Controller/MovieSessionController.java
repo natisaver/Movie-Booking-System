@@ -680,6 +680,8 @@ public class MovieSessionController {
             // e.printStackTrace();
         }
         try {
+            reader[0].close();
+            reader[1].close();
             Files.delete(Paths.get(DataController.getPath("MovieSession")));
         }
         catch (IOException e) {
