@@ -25,11 +25,11 @@ public class ChooseAge extends BaseMenu {
     ArrayList<Ticket> ticket = new ArrayList<>();
     Transaction transaction;
     Cineplex cineplex;
-    Seat seat;
+    ArrayList<Seat> seat;
 
     public ChooseAge(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
             MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction,
-            Cineplex cineplex, Seat seat) {
+            Cineplex cineplex, ArrayList<Seat> seat) {
         super(previousMenu, accesslevel);
         this.user = user;
         this.movie = movie;
@@ -100,19 +100,19 @@ public class ChooseAge extends BaseMenu {
                 case 1:
                     ageGroup = ageGroup_Enum.CHILD;
                     totalPrice += PriceController.calculatePrice(movieSession, ageGroup, cinema.getCinemaClass(),
-                            seat.getSeatType());
+                            seat.get(0).getSeatType());
                     break;
                 // ADULT
                 case 2:
                     ageGroup = ageGroup_Enum.ADULT;
                     totalPrice += PriceController.calculatePrice(movieSession, ageGroup,
-                            cinema.getCinemaClass(), seat.getSeatType());
+                            cinema.getCinemaClass(), seat.get(0).getSeatType());
                     break;
                 // SENIOR
                 case 3:
                     ageGroup = ageGroup_Enum.SENIOR;
                     totalPrice += PriceController.calculatePrice(movieSession, ageGroup,
-                            cinema.getCinemaClass(), seat.getSeatType());
+                            cinema.getCinemaClass(), seat.get(0).getSeatType());
                     break;
                 // GO TO PREVIOUS PAGE
                 case 4:
