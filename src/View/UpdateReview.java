@@ -112,7 +112,7 @@ public class UpdateReview extends BaseMenu{
             for(int i = 1; i <= SelectionMenu.size() ; i++)
             {
                 Review key = SelectionMenu.get(i);
-                System.out.println(i + ". " + ConsoleColours.BLUE + key.getMovie() + ConsoleColours.RESET + " | "+ key.getRating() + "* | on"+ key.getDate().format(formatter));
+                System.out.println(i + ". " + ConsoleColours.BLUE + key.getMovie().getTitle() + ConsoleColours.RESET + " | "+ key.getRating() + "* | on: "+ key.getDate().format(formatter));
                 System.out.println("You wrote: " + key.getReview());
                 System.out.println();
             }
@@ -149,7 +149,6 @@ public class UpdateReview extends BaseMenu{
         }
         else if (choice == SelectionMenu.size()+2){
             nextMenu = new Quit(this);
-            break;
         }
         else {
             //Menu choices to Update Movie Details

@@ -69,7 +69,6 @@ public class ViewMovieDetails extends BaseMenu
                     case 2:
                         return new Quit(this);
                 }
-
             } while (true);
         }
         else {
