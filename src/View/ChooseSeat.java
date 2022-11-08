@@ -1,14 +1,8 @@
 package View;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import Controller.MovieSessionController;
-import Controller.MovieController;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 import Model.Cinema;
@@ -89,7 +83,7 @@ public class ChooseSeat extends BaseMenu {
 					System.out.println();
 					continue;
 				}
-				else if (occupiedArrayList.containsAll("TO INSERT MOVIESESSIONCONTROLLER RETURN SEAT OBJ")){
+				else if (occupiedArrayList.containsAll(MovieSessionController.getSeats(this.cinema, choicestr, this.movieSession))){
 					System.out.println(ConsoleColours.RED + "Seat is already occupied, please try again." + ConsoleColours.RESET);
 					System.out.println();
 					continue;
@@ -97,12 +91,14 @@ public class ChooseSeat extends BaseMenu {
 				else {
 					occupiedArrayList.addAll(null);
 					firstime = false;
-					MovieSessionController.tempDisplaySeats(occupiedArrayList, this.cinema, this.movieSession);
+					MovieSessionController.tempDisplaySeats(this.cinema, occupiedArrayList);
 					isOK = true;
 				}
 			} 
 		} while (exit == true);
 
-		return ChooseAge();
+		return new ChooseAge(nextMenu, this.accesslevel, this.user, this.movie,
+		this.movieSession, this.cinema, this.ticket, this.transaction,
+		this.cineplex, occupiedArrayList);
     }
 }
