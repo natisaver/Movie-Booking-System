@@ -46,7 +46,7 @@ public class ReviewController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                LocalDateTime date = LocalDateTime.parse(tokens[0] + " 00:00", formatter);
+                LocalDateTime date = LocalDateTime.parse(tokens[0], formatter);
                 String name = tokens[1].substring(1, tokens[1].length()-1);
                 String email = tokens[2].substring(1, tokens[2].length()-1);
                 Movie movie = MovieController.readByTitle(tokens[3].substring(1, tokens[3].length()-1));
@@ -87,15 +87,16 @@ public class ReviewController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                if (tokens[2].substring(1, tokens[2].length()-1).toLowerCase().equals(email.toLowerCase())) {
-                    LocalDateTime date = LocalDateTime.parse(tokens[0] + " 00:00", formatter);
+                if(tokens[2].substring(1, tokens[2].length()-1).toLowerCase().equals(email.toLowerCase())) 
+                {
+                    LocalDateTime date = LocalDateTime.parse(tokens[0], formatter);
                     String name = tokens[1].substring(1, tokens[1].length()-1);
                     String emailinput = tokens[2].substring(1, tokens[2].length()-1);
                     Movie movie = MovieController.readByTitle(tokens[3].substring(1, tokens[3].length()-1));
                     String review = tokens[4].substring(1, tokens[4].length()-1);
                     double rating = Double.parseDouble(tokens[5]);
                     templist.add(new Review(date, name, emailinput, movie, review, rating));
-                }
+                }                
             }
             reader.close();
             return templist;
@@ -131,7 +132,7 @@ public class ReviewController {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                 if (tokens[3].substring(1, tokens[3].length()-1).toLowerCase().equals(title.toLowerCase())) {
-                    LocalDateTime date = LocalDateTime.parse(tokens[0] + " 00:00", formatter);
+                    LocalDateTime date = LocalDateTime.parse(tokens[0], formatter);
                     String name = tokens[1].substring(1, tokens[1].length()-1);
                     String emailinput = tokens[2].substring(1, tokens[2].length()-1);
                     Movie movie = MovieController.readByTitle(tokens[3].substring(1, tokens[3].length()-1));
