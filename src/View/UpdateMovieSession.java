@@ -312,7 +312,7 @@ public class UpdateMovieSession extends BaseMenu{
                     //if only one session on inputted date, delete successful
                     if(sessionArrayListByDate.size() == 1){
                         //checks if movie theatre is still empty
-                        if(MovieSessionController.displaySeats(choicestr, sessionArrayListByDate.get(0)).isEmpty()){
+                        if(!MovieSessionController.checkBooked(choicestr, sessionArrayListByDate.get(0))){
                             MovieSessionController.delete(choicestr, sessionArrayListByDate.get(0));
                             System.out.println(ConsoleColours.GREEN + "Movie Session deleted." + ConsoleColours.RESET);
                             System.out.println();
@@ -352,7 +352,7 @@ public class UpdateMovieSession extends BaseMenu{
                     //if session with inputted time exists, successful
                     if(sessionArrayListByTime.size() != 0){
                         //checks if movie theatre is still empty
-                        if(MovieSessionController.displaySeats(choicestr, sessionArrayListByDate.get(0)).isEmpty()){
+                        if(!MovieSessionController.checkBooked(choicestr, sessionArrayListByDate.get(0))){
                             MovieSessionController.delete(choicestr, sessionArrayListByTime.get(0));
                             System.out.println(ConsoleColours.GREEN + "Movie Session deleted." + ConsoleColours.RESET);
                             System.out.println();
@@ -362,10 +362,6 @@ public class UpdateMovieSession extends BaseMenu{
                     else{
                         System.out.println(ConsoleColours.RED + "Movie session inputted does not exist." + ConsoleColours.RESET);
                     }
-
-                    movieSession = new MovieSession(insertStart, CinemaController.readByCode(choicestr).getCinemaClass(), movie.getTitle(), movie.getMovieType().name());
-                    MovieSessionController.delete(choicestr, movieSession);
-
                     return this.getPreviousMenu();
 
                 // //UPDATE MOVIE SESSION
