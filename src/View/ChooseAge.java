@@ -134,7 +134,7 @@ public class ChooseAge extends BaseMenu {
                     movie.getMovieRating(), seat, ageGroup));
 
         }
-        return new DisplayTicket(nextMenu, this.accesslevel, this.user, this.movie, this.movieSession, this.cinema,
+        return new DisplayTransaction(nextMenu, this.accesslevel, this.user, this.movie, this.movieSession, this.cinema,
                 this.ticket, this.transaction,
                 this.cineplex);
     }

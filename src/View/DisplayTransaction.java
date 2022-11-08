@@ -14,7 +14,7 @@ import Model.MovieSession;
 import Model.Ticket;
 import Model.Transaction;
 
-public class DisplayTicket extends BaseMenu {
+public class DisplayTransaction extends BaseMenu {
 
     Scanner sc = new Scanner(System.in);
     MovieGoer user;
@@ -25,8 +25,9 @@ public class DisplayTicket extends BaseMenu {
     Transaction transaction = null;
     Cineplex cineplex = null;
 
-    public DisplayTicket(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
-            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction, Cineplex cineplex) {
+    public DisplayTransaction(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
+            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction,
+            Cineplex cineplex) {
         super(previousMenu, accesslevel);
         this.user = user;
         this.movie = movie;
