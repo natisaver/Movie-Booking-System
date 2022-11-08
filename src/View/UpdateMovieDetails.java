@@ -98,6 +98,7 @@ public class UpdateMovieDetails extends BaseMenu{
             //Keep asking for choice
             System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
             choiceStr = sc.nextLine();
+            System.out.println();
             numRegex = "^([1-9]|[1][0])$";
             while (!choiceStr.matches(numRegex)) {
                 //early termination
@@ -106,6 +107,7 @@ public class UpdateMovieDetails extends BaseMenu{
                 }
                 System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
                 choiceStr = sc.nextLine();
+                System.out.println();
             }
 
             choice = Integer.valueOf(choiceStr);
