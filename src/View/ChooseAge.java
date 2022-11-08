@@ -25,10 +25,11 @@ public class ChooseAge extends BaseMenu {
     ArrayList<Ticket> ticket = new ArrayList<>();
     Transaction transaction;
     Cineplex cineplex;
+    Seat seat;
 
     public ChooseAge(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
             MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction,
-            Cineplex cineplex) {
+            Cineplex cineplex, Seat seat) {
         super(previousMenu, accesslevel);
         this.user = user;
         this.movie = movie;
@@ -37,6 +38,7 @@ public class ChooseAge extends BaseMenu {
         this.ticket = ticket;
         this.transaction = transaction;
         this.cineplex = cineplex;
+        this.seat = seat;
     }
 
     @Override
@@ -97,26 +99,20 @@ public class ChooseAge extends BaseMenu {
                 // CHILD
                 case 1:
                     ageGroup = ageGroup_Enum.CHILD;
-                    // totalPrice += PriceController.calculatePrice(movieSession, ageGroup,
-                    // cinema.getCinemaClass(),
-                    // null);
-                    // nextMenu = newDisplayTicket();
+                    totalPrice += PriceController.calculatePrice(movieSession, ageGroup, cinema.getCinemaClass(),
+                            seat.getSeatType());
                     break;
                 // ADULT
                 case 2:
                     ageGroup = ageGroup_Enum.ADULT;
-                    // totalPrice += PriceController.calculatePrice(movieSession, ageGroup,
-                    // cinema.getCinemaClass(),
-                    // null);
-                    // nextMenu = newDisplayTicket();
+                    totalPrice += PriceController.calculatePrice(movieSession, ageGroup,
+                            cinema.getCinemaClass(), seat.getSeatType());
                     break;
                 // SENIOR
                 case 3:
                     ageGroup = ageGroup_Enum.SENIOR;
-                    // totalPrice += PriceController.calculatePrice(movieSession, ageGroup,
-                    // cinema.getCinemaClass(),
-                    // null);
-                    // nextMenu = newDisplayTicket();
+                    totalPrice += PriceController.calculatePrice(movieSession, ageGroup,
+                            cinema.getCinemaClass(), seat.getSeatType());
                     break;
                 // GO TO PREVIOUS PAGE
                 case 4:
@@ -132,12 +128,14 @@ public class ChooseAge extends BaseMenu {
                     break;
             }
 
-            // ticket.add(new Ticket(cineplex, cinema, movieSession.getShowtime(),
-            // movie.getTitle(),
-            // movie.getMovieType(),
-            // movie.getMovieRating(), seat, ageGroup));
+            ticket.add(new Ticket(cineplex, cinema, movieSession.getShowtime(),
+                    movie.getTitle(),
+                    movie.getMovieType(),
+                    movie.getMovieRating(), seat, ageGroup));
 
         }
-        return nextMenu;
+        return new DisplayTransaction(nextMenu, this.accesslevel, this.user, this.movie, this.movieSession, this.cinema,
+                this.ticket, this.transaction,
+                this.cineplex);
     }
 }
