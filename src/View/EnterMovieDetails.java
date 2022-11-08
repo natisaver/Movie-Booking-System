@@ -21,9 +21,6 @@ import java.time.format.DateTimeFormatter;
  * @since 04-11-2022
  */
 public class EnterMovieDetails extends BaseMenu{
-    Scanner sc = new Scanner(System.in);
-    Movie movie = new Movie();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /** 
      * Constructor to store previous page and access level
@@ -43,6 +40,8 @@ public class EnterMovieDetails extends BaseMenu{
      */
     @Override
     public BaseMenu execute(){
+        Movie movie = new Movie();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         BaseMenu nextMenu = this;
         Scanner sc = new Scanner(System.in);
         String inputString, numRegex;
