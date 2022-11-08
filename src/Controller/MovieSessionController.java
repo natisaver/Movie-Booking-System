@@ -716,4 +716,44 @@ public class MovieSessionController {
         bookedSeats.addAll(tempSession.bookSeat(seatID, cinema.getCinemaClass()));
         return bookedSeats;
     }
+
+    public static boolean checkBooked(String cinemaCode, MovieSession session) {
+        BufferedReader[] reader = new BufferedReader[2];
+        try {
+            reader[0] = new BufferedReader(new FileReader(PATH));
+            reader[1] = new BufferedReader(new FileReader(cinePATH));
+        } catch (FileNotFoundException e) {
+            //e.printStackTrace();
+            return false;
+        }
+
+        // If Databases Exist
+        String line = "";
+        Hashtable<String, String> cineplex = new Hashtable<>();
+        try {
+            reader[1].readLine();
+            while ((line = reader[1].readLine()) != null) {
+                String[] tokens = line.split(",");
+                cineplex.put(tokens[1], tokens[2]);
+            }
+            reader[1].close();
+        } catch (IOException e) {
+            //e.printStackTrace();
+        }
+        try {
+            reader[0].readLine();
+            while ((line = reader[0].readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+                if (cinemaCode.equals(tokens[4]) && tokens[2].equals(session.getSessionDate()) && tokens[3].equals(session.getSessionTime())) {
+                    String seatStr = tokens[5].substring(1,tokens[5].length()-1);
+                    if (seatStr.isEmpty()) return true;
+                    return false;
+                }
+            }
+            reader[0].close();
+        } catch (IOException e) {
+            //e.printStackTrace();
+        }
+        return false;
+    }
 }
