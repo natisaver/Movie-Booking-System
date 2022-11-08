@@ -76,7 +76,7 @@ public class MainMenu extends BaseMenu {
             if (choicestr.isBlank()) {
                 return this.getPreviousMenu();
             }
-            System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.RED + "Please enter a valid choice (without spaces):" + ConsoleColours.RESET);
             choicestr = sc.nextLine();
             System.out.println();
         }

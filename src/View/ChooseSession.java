@@ -79,9 +79,8 @@ public class ChooseSession extends BaseMenu {
                                 + " | (" + menuselector.get(k).getMovieType().name() + ")");
             }
         }
-
-        System.out.println(ConsoleColours.YELLOW + (movieSessionArr.size() + 1) + ". Back" + ConsoleColours.RESET);
-        System.out.println(ConsoleColours.RED + (movieSessionArr.size() + 2) + ". Quit" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.YELLOW + (menuselector.size() + 1) + ". Back" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.RED + (menuselector.size() + 2) + ". Quit" + ConsoleColours.RESET);
         String numregex = "[0-9]+";
         Boolean isOK = false;
         while (!isOK) {
@@ -91,18 +90,18 @@ public class ChooseSession extends BaseMenu {
                 System.out.println(ConsoleColours.RED + "Please enter a valid integer:" + ConsoleColours.RESET);
                 continue;
             }
-            if (Integer.valueOf(choicestr) <= (movieSessionArr.size() + 2) && Integer.valueOf(choicestr) > 0) {
+            if (Integer.valueOf(choicestr) <= (menuselector.size() + 2) && Integer.valueOf(choicestr) > 0) {
                 choice = Integer.valueOf(choicestr);
                 isOK = true;
             } else {
                 System.out.println(ConsoleColours.RED + "Please enter a valid range between 1<=x<="
-                        + (movieSessionArr.size() + 2) + ConsoleColours.RESET);
+                        + (menuselector.size() + 2) + ConsoleColours.RESET);
             }
         }
 
-        if (choice == movieSessionArr.size() + 1) {
+        if (choice == menuselector.size() + 1) {
             nextMenu = this.getPreviousMenu();
-        } else if (choice == movieSessionArr.size() + 2) {
+        } else if (choice == menuselector.size() + 2) {
             nextMenu = new Quit(this);
         } else {
             // nextMenu = new ChooseSeat();

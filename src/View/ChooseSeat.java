@@ -60,7 +60,6 @@ public class ChooseSeat extends BaseMenu {
 			idRegex = "^([a-dA-D])([1-8])$";
         }
 		String choicestr;
-		choicestr = sc.nextLine();
 		Boolean firstime = true;
 		Boolean exit = true;
 		do {

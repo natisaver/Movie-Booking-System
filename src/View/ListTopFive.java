@@ -72,9 +72,9 @@ public class ListTopFive extends BaseMenu
                     for(int i = 1; i < movies.size(); i++)
                     {
                         Movie key = movies.get(i);
-                        System.out.println(key.getTitle());
+                        // System.out.println(key.getTitle());
                         OverallSales.put(key.getTitle(), TransactionController.salesByTitle(key.getTitle()));
-                        System.out.println(TransactionController.salesByTitle(key.getTitle()));
+                        // System.out.println(TransactionController.salesByTitle(key.getTitle()));
                         // int j = i-1;
                         // while(j >= 0 && key.getTicketSales() > movieArray[j].getTicketSales())
                         // {
