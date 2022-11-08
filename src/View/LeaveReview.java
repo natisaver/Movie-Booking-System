@@ -28,11 +28,16 @@ public class LeaveReview extends BaseMenu {
         Integer moviesize;
         HashMap<String, Movie> Movies = new HashMap<String, Movie>();
         HashMap<Integer, Movie> SelectionMenu = new HashMap<Integer, Movie>();
+        int choice = -1;
         movies = MovieController.read();
         moviesize = movies.size();
         Scanner sc = new Scanner(System.in);
-
+        String reviewText, reviewRating, choiceStr;
+        Double rating;
+        String ratingRegex = "\\d{1,2}[,\\.]?(\\d{1,1})?";
         String numregex = "[0-9]+";
+        String choiceregex = "^(?!(0))[0-3]{1}$";
+        ArrayList<Review> userReviews;
 
         //building hashmap of choices
         for(int i = 0; i < movies.size() ; i++)
@@ -48,9 +53,8 @@ public class LeaveReview extends BaseMenu {
             System.out.println("No Movies Available");
         }
         else {
-            System.out.println(ConsoleColours.WHITE_BRIGHT + "Leave a Review for a Movie: " + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.WHITE_BOLD + "Leave a Review for a Movie: " + ConsoleColours.RESET);
             System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
-            System.out.println("Choose movie to leave review for: ");
     
             for(int i = 1; i <= movies.size() ; i++)
             {
@@ -58,22 +62,130 @@ public class LeaveReview extends BaseMenu {
                 System.out.println(i + ". "+ key.getTitle());
             }
         }
+
+        System.out.println(ConsoleColours.YELLOW + (moviesize+1) + ". Back" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.RED + (moviesize+2) + ". Quit" + ConsoleColours.RESET);
+        // Keep asking for choice
+        Boolean isOK = false;
+        while (!isOK) {
+            System.out.print("Enter your choice of movie to leave review for (Integer Value): ");
+            String choicestr = sc.nextLine();
+            if (!choicestr.matches(numregex)){
+                System.out.println(ConsoleColours.RED + "Please enter a valid integer:" + ConsoleColours.RESET);
+                continue;
+            }
+            else if (Integer.valueOf(choicestr) <= moviesize+2 && Integer.valueOf(choicestr) > 0){
+                choice = Integer.valueOf(choicestr);
+                userReviews = ReviewController.readByEmail(user.getEmail());
+                System.out.println(SelectionMenu.get(choice).getTitle());
+                for(Review r : userReviews)
+                {
+                    System.out.println(r.getMovie().getTicketSales());
+                    if(r.getMovie() == SelectionMenu.get(choice))
+                    {
+                        System.out.println("You have left a review for this movie previously.");
+                        System.out.println("Please choose another movie or go back to previous menu to update your review.");
+                        continue;
+                    }
+                }
+                isOK = true;
+            }
+            else {
+                System.out.println(ConsoleColours.RED + "Please enter a valid range between 1<=x<=" + (moviesize+2) + ConsoleColours.RESET);
+            }
+        }
+
+        if (choice == moviesize+1){
+            return this.getPreviousMenu();
+        }
+        else if (choice == moviesize+2){
+            nextMenu = new Quit(this);
+        }
+        else {
+            Movie temp = SelectionMenu.get(choice);
+            System.out.println("Please enter your Review for " + temp.getTitle());
+            reviewText = sc.nextLine();
+            if(reviewText.isBlank())
+            {
+                return this.getPreviousMenu();
+            }
+            reviewRating = "-1";
+            rating = 0.0;
+            Boolean isOKi = false;
+            while (!isOKi) {
+                System.out.println("Please enter your Ratings for " + temp.getTitle());
+                reviewRating = sc.nextLine();
+                if (!reviewRating.matches(ratingRegex)){
+                    System.out.println(ConsoleColours.RED + "Please enter a valid integer:" + ConsoleColours.RESET);
+                }
+                else if (Double.valueOf(reviewRating) >= 0 && Double.valueOf(reviewRating) <= 5){
+                    rating = Double.valueOf(reviewRating);
+                    isOKi = true;
+                }
+                else {
+                    System.out.println(ConsoleColours.RED + "Please enter a valid range between 0.0 - 5.0" + ConsoleColours.RESET);
+                }
+            }
+            Review review = new Review(LocalDateTime.now(), this.user.getName(), this.user.getEmail(), temp, reviewText, rating);
+            ReviewController.create(review);
+            
+            choiceregex = "^(?!(0))[0-3]{1}$";
+            System.out.println(ConsoleColours.PURPLE_BOLD + "Would you like to leave a review for another movie? " + ConsoleColours.RESET);
+            System.out.println("1. Yes ");
+            System.out.println("2. No ");
+            System.out.println(ConsoleColours.RED + "3. Quit" + ConsoleColours.RESET);
+            System.out.println();
+            System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
+            choiceStr = sc.nextLine();
+            System.out.println();
+    
+            while(!choiceStr.matches(choiceregex))
+            {
+                if(choiceStr.isBlank())
+                {
+                    return this.getPreviousMenu();
+                }
+                System.out.println(ConsoleColours.RED + "Please enter a valid choice: " + ConsoleColours.RESET);
+                choiceStr = sc.nextLine();
+                System.out.println();
+            }
+            
+            choice = Integer.valueOf(choiceStr);
+            switch(choice)
+            {
+                case 1:
+                    nextMenu = new LeaveReview(nextMenu, choice, user);
+                    break;
+                case 2: 
+                    nextMenu = new MovieGoerMainMenu(nextMenu, choice, user, null, null, null, null, null);
+                    break;
+                case 3:
+                    nextMenu = new Quit(this);
+                    break;
+                default:
+                    choice = -1;
+                    System.out.println("Please enter a valid choice. ");
+                    break;
+            }
+        } 
+        return nextMenu;
+    }
         
-        public static HashMap<Integer, Movie> sortByName(HashMap<String, Movie> hm)
+    public static HashMap<Integer, Movie> sortByName(HashMap<String, Movie> hm)
     {
         // Create a list from elements of HashMap
         List<Map.Entry<String, Movie> > list =
-               new LinkedList<Map.Entry<String, Movie> >(hm.entrySet());
- 
+            new LinkedList<Map.Entry<String, Movie> >(hm.entrySet());
+
         // Sort the list
         Collections.sort(list, new Comparator<Map.Entry<String, Movie> >() {
             public int compare(Map.Entry<String, Movie> o1,
-                               Map.Entry<String, Movie> o2)
+                            Map.Entry<String, Movie> o2)
             {
                 return (o1.getValue().getTitle()).compareTo(o2.getValue().getTitle());
             }
         });
-         
+        
         // put data from sorted list to hashmap
         HashMap<Integer, Movie> temp = new LinkedHashMap<Integer, Movie>();
         int i = 1;
@@ -82,6 +194,5 @@ public class LeaveReview extends BaseMenu {
             i++;
         }
         return temp;
-    }
     }
 }
