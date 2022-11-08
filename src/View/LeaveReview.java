@@ -68,6 +68,7 @@ public class LeaveReview extends BaseMenu {
         // Keep asking for choice
         Boolean isOK = false;
         while (!isOK) {
+            Boolean reviewExist = false;
             System.out.print("Enter your choice of movie to leave review for (Integer Value): ");
             String choicestr = sc.nextLine();
             if (!choicestr.matches(numregex)){
@@ -76,19 +77,21 @@ public class LeaveReview extends BaseMenu {
             }
             else if (Integer.valueOf(choicestr) <= moviesize+2 && Integer.valueOf(choicestr) > 0){
                 choice = Integer.valueOf(choicestr);
-                userReviews = ReviewController.readByEmail(user.getEmail());
-                System.out.println(SelectionMenu.get(choice).getTitle());
+                userReviews = ReviewController.readByEmail(this.user.getEmail());
                 for(Review r : userReviews)
                 {
-                    System.out.println(r.getMovie().getTicketSales());
-                    if(r.getMovie() == SelectionMenu.get(choice))
+                    if(r.getMovie().getTitle().equalsIgnoreCase(SelectionMenu.get(choice).getTitle()))
                     {
-                        System.out.println("You have left a review for this movie previously.");
-                        System.out.println("Please choose another movie or go back to previous menu to update your review.");
+                        System.out.println(ConsoleColours.RED_BOLD+"You have left a review for this movie previously."+ ConsoleColours.RESET);
+                        System.out.println(ConsoleColours.RED_BOLD+"Please choose another movie or go back to previous menu to update your review."+ConsoleColours.RESET);
+                        reviewExist = true;
                         continue;
                     }
                 }
-                isOK = true;
+                if(reviewExist == false)
+                    isOK = true;
+                else
+                    isOK = false;
             }
             else {
                 System.out.println(ConsoleColours.RED + "Please enter a valid range between 1<=x<=" + (moviesize+2) + ConsoleColours.RESET);
