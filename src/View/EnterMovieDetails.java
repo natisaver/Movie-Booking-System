@@ -21,8 +21,6 @@ import java.time.format.DateTimeFormatter;
  * @since 04-11-2022
  */
 public class EnterMovieDetails extends BaseMenu{
-    Scanner sc = new Scanner(System.in);
-    Movie movie = new Movie();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /** 
@@ -65,16 +63,20 @@ public class EnterMovieDetails extends BaseMenu{
                 System.out.println(ConsoleColours.RED + "Please enter a valid Movie Title:" + ConsoleColours.RESET);
                 inputString = sc.nextLine();
             }
-            movie = MovieController.readByTitle(inputString);
             
             //Checks if Movie exists in the database
-            if(movie != null){
+            if(MovieController.readByTitle(inputString) != null){
                 System.out.println(ConsoleColours.RED + "Movie already exists." + ConsoleColours.RESET);
                 System.out.println(ConsoleColours.WHITE_BOLD + "Re-enter Movie Title:" + ConsoleColours.RESET);
                 inputString = sc.nextLine();
-                movie = MovieController.readByTitle(inputString);
             }
-        }while(movie != null);
+            else {
+                break;
+            }
+        }while(true);
+
+        Movie movie = new Movie();
+        movie.setTitle(inputString);
 
         //ENTER MOVIE TYPE
         String[] strRegex = {"TWOD", "THREED", "BLOCKBUSTER"};
@@ -223,8 +225,6 @@ public class EnterMovieDetails extends BaseMenu{
         //SET TICKET SALES TO 0 WHEN NEW MOVIE CREATED
         movie.setTicketSales();
 
-        
-        
         if (!MovieController.updateStatusAll()){
             System.out.println(ConsoleColours.RED + "Failed to update database" + ConsoleColours.RESET);
             return this.getPreviousMenu();
