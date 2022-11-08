@@ -7,7 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
+import Model.Cinema;
 import Model.MovieSession;
+import Model.Seat;
 import Model.cinemaClass_Enum;
 import Model.seatType_Enum;
 
@@ -538,14 +540,14 @@ public class MovieSessionController {
         return true;
     }
 
-    public static ArrayList<String> displaySeats(String cinemaCode, MovieSession session) {
+    public static ArrayList<Seat> displaySeats(String cinemaCode, MovieSession session) {
         BufferedReader[] reader = new BufferedReader[2];
         try {
             reader[0] = new BufferedReader(new FileReader(PATH));
             reader[1] = new BufferedReader(new FileReader(cinePATH));
         } catch (FileNotFoundException e) {
             //e.printStackTrace();
-            return new ArrayList<String>();
+            return new ArrayList<Seat>();
         }
 
         // If Databases Exist
@@ -562,7 +564,7 @@ public class MovieSessionController {
             //e.printStackTrace();
         }
         cinemaClass_Enum cinemaClass = cinemaClass_Enum.valueOf(cineplex.get(cinemaCode));
-        ArrayList<String> seatList = new ArrayList<String>();
+        ArrayList<Seat> seatList = new ArrayList<Seat>();
         try {
             reader[0].readLine();
             while ((line = reader[0].readLine()) != null) {
@@ -571,8 +573,7 @@ public class MovieSessionController {
                     String seatStr = tokens[5].substring(1,tokens[5].length()-1);
                     String[] seats = seatStr.split(",");
                     for (int i=0;i<seats.length;i++) {
-                        session.bookSeat(seats[i], cinemaClass);
-                        seatList.add(seats[i]);
+                        seatList.addAll(session.bookSeat(seats[i], cinemaClass));
                     }
                     session.showSeatings(cinemaClass);
                 }
@@ -584,7 +585,7 @@ public class MovieSessionController {
         return seatList;
     }
 
-    public static seatType_Enum bookSeats(String cinemaCode, MovieSession session, String seatID) {
+    public static void bookSeats(String cinemaCode, MovieSession session, ArrayList<Seat> seatList) {
         // if (cinemaClass == cinemaClass_Enum.STANDARD) {
         //     String idRegex = "^([a-kA-K&&[^I]&&[^i]])(1[0-3]|[1-9])$";
         //     if (!id.matches(idRegex)) {
@@ -637,6 +638,7 @@ public class MovieSessionController {
         }
 
         String line;
+        String seatStr = "";
 
         // If Databases Exist
         Hashtable<String, String> cineplex = new Hashtable<>();
@@ -656,7 +658,11 @@ public class MovieSessionController {
             while ((line = reader[0].readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
                 if (cinemaCode.equals(tokens[4]) && tokens[2].equals(session.getSessionDate()) && tokens[3].equals(session.getSessionTime())) {
-                    String seatStr = tokens[5].substring(1,tokens[5].length()-1) + "," + seatID;
+                    for (int i=0;i<seatList.size();i++) {
+                        seatStr += seatList.get(i).getSeatID();
+                        if (i == seatList.size()-1) break;
+                        seatStr += ",";
+                    }
                     writer.append(tokens[0]);
                     writer.append(",");
                     writer.append(tokens[1]);
@@ -689,7 +695,13 @@ public class MovieSessionController {
         } catch (IOException e) {
             //e.printStackTrace();
         }
-        session.showSeatings(cinemaClass);
-        return session.bookSeat(seatID, cinemaClass);
+    }
+
+    public static void tempDisplaySeats(Cinema cinema, ArrayList<Seat> seatList) {
+        MovieSession tempSession = new MovieSession(null, cinema.getCinemaClass(), null, null);
+        for (int i=0;i<seatList.size();i++) {
+            tempSession.bookSeat(seatList.get(i).getSeatID(), cinema.getCinemaClass());
+        }
+        tempSession.showSeatings(cinema.getCinemaClass());
     }
 }

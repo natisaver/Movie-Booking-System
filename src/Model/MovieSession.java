@@ -2,6 +2,7 @@ package Model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import View.ConsoleColours;
 
@@ -170,7 +171,7 @@ public class MovieSession {
      * @return <code>1</code> if the booking was successful, otherwise returns
      *         <code>false</code>
      */
-    public seatType_Enum bookSeat(String id, cinemaClass_Enum cinemaClass) {
+    public ArrayList<Seat> bookSeat(String id, cinemaClass_Enum cinemaClass) {
         // if (cinemaClass == cinemaClass_Enum.STANDARD) {
         //     String idRegex = "^([a-kA-K&&[^I]&&[^i]])(1[0-3]|[1-9])$";
         //     if (!id.matches(idRegex)) {
@@ -193,6 +194,7 @@ public class MovieSession {
         //     }
         // }
         int row, column;
+        ArrayList<Seat> bookedSeats = new ArrayList<Seat>();
         id = id.toUpperCase();
         if (cinemaClass == cinemaClass_Enum.STANDARD) {
             if ((id.equals("K3")) || (id.equals("K4")) || (id.equals("K5")) || (id.equals("K6"))
@@ -200,11 +202,18 @@ public class MovieSession {
 				row = (int)(id.charAt(0) - 66);
 				if (id.length() > 2) column = Integer.parseInt(id.substring(id.length()-2))-1;
 				else column = Integer.parseInt(id.substring(1))-1;
-				if (column%2 == 0) this.sessionSeats[row][column+1].setIsOccupied();
-				else this.sessionSeats[row][column-1].setIsOccupied();
+				if (column%2 == 0) {
+                    this.sessionSeats[row][column+1].setIsOccupied();
+                    bookedSeats.add(this.sessionSeats[row][column+1]);
+                }
+				else {
+                    this.sessionSeats[row][column-1].setIsOccupied();
+                    bookedSeats.add(this.sessionSeats[row][column-1]);
+                }
 				this.sessionSeats[row][column].setIsOccupied();
+                bookedSeats.add(this.sessionSeats[row][column]);
                 System.out.println("You have booked couple seats!");
-				return this.sessionSeats[row][column].getSeatType();
+				return bookedSeats;
 			}
         }
         if (cinemaClass == cinemaClass_Enum.MAX) {
@@ -217,18 +226,26 @@ public class MovieSession {
 				row = (int)(id.charAt(0) - 67);
 				if (id.length() > 2) column = Integer.parseInt(id.substring(id.length()-2))-3;
 				else column = Integer.parseInt(id.substring(1))-3;
-				if (column%2 == 0) this.sessionSeats[row][column+1].setIsOccupied();
-				else this.sessionSeats[row][column-1].setIsOccupied();
+				if (column%2 == 0) {
+                    this.sessionSeats[row][column+1].setIsOccupied();
+                    bookedSeats.add(this.sessionSeats[row][column+1]);
+                }
+				else {
+                    this.sessionSeats[row][column-1].setIsOccupied();
+                    bookedSeats.add(this.sessionSeats[row][column-1]);
+                }
 				this.sessionSeats[row][column].setIsOccupied();
+                bookedSeats.add(this.sessionSeats[row][column]);
                 System.out.println("You have booked couple seats!");
-				return this.sessionSeats[row][column].getSeatType();
+				return bookedSeats;
 			}
 			else if (Character.compare(id.charAt(0), 'S') == 0) {
                 row = (int) (id.charAt(0) - 67);
                 if (id.length() > 2) column = Integer.parseInt(id.substring(id.length() - 2)) - 3;
                 else column = Integer.parseInt(id.substring(1)) - 3;
                 this.sessionSeats[row][column].setIsOccupied();
-                return this.sessionSeats[row][column].getSeatType();
+                bookedSeats.add(this.sessionSeats[row][column]);
+                return bookedSeats;
             }
         }
         if (cinemaClass == cinemaClass_Enum.GOLD) {
@@ -237,11 +254,18 @@ public class MovieSession {
 				row = (int)(id.charAt(0) - 65);
 				if (id.length() > 2) column = Integer.parseInt(id.substring(id.length()-2))-1;
 				else column = Integer.parseInt(id.substring(1))-1;
-				if (column%2 == 0) this.sessionSeats[row][column+1].setIsOccupied();
-				else this.sessionSeats[row][column-1].setIsOccupied();
+				if (column%2 == 0) {
+                    this.sessionSeats[row][column+1].setIsOccupied();
+                    bookedSeats.add(this.sessionSeats[row][column+1 ]);
+                }
+				else {
+                    this.sessionSeats[row][column-1].setIsOccupied();
+                    bookedSeats.add(this.sessionSeats[row][column-1]);
+                }
 				this.sessionSeats[row][column].setIsOccupied();
+                bookedSeats.add(this.sessionSeats[row][column]);
                 System.out.println("You have booked couple seats!");
-				return this.sessionSeats[row][column].getSeatType();
+				return bookedSeats;
 			}
 		}
         if (Character.compare('O', id.charAt(0)) < 0)
@@ -255,7 +279,8 @@ public class MovieSession {
         else
             column = Integer.parseInt(id.substring(1)) - 1;
         this.sessionSeats[row][column].setIsOccupied();
-        return this.sessionSeats[row][column].getSeatType();
+        bookedSeats.add(this.sessionSeats[row][column]);
+        return bookedSeats;
     }
 
     /**
