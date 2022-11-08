@@ -570,11 +570,18 @@ public class MovieSessionController {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
                 if (cinemaCode.equals(tokens[4]) && tokens[2].equals(session.getSessionDate()) && tokens[3].equals(session.getSessionTime())) {
                     String seatStr = tokens[5].substring(1,tokens[5].length()-1);
-                    String[] seats = seatStr.split(",");
-                    for (int i=0;i<seats.length;i++) {
-                        seatList.addAll(session.bookSeat(seats[i], cinemaClass));
+                    if (seatStr.isEmpty()) {
+                        session.showSeatings(cinemaClass);
+                        return seatList;
                     }
-                    session.showSeatings(cinemaClass);
+                    else {
+                        String[] seats = seatStr.split(",");
+                        for (int i=0;i<seats.length;i++) {
+                            seatList.addAll(session.bookSeat(seats[i], cinemaClass));
+                        }
+                        session.showSeatings(cinemaClass);
+                        return seatList;
+                    }
                 }
             }
             reader[0].close();
