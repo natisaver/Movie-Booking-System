@@ -3,11 +3,8 @@ package Controller;
 import java.io.*;
 
 import Model.Cinema;
-<<<<<<< HEAD
 import Model.Cineplex;
 import Model.Holiday;
-=======
->>>>>>> e9491c621f4c85427e54ee040687d521d26cc87c
 import Model.cinemaClass_Enum;
 
 /**
@@ -48,11 +45,7 @@ public class CinemaController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[1].equals(cinemacode)) {
-<<<<<<< HEAD
-                    return new Cinema(tokens[1], cinemaClass_Enum.valueOf(tokens[2]), MovieSessionController.readByCode(cinemacode));
-=======
                     return new Cinema(cinemacode, cinemaClass_Enum.valueOf(tokens[2]), MovieSessionController.readByCode(cinemacode));
->>>>>>> e9491c621f4c85427e54ee040687d521d26cc87c
                 }
             }
             reader.close();

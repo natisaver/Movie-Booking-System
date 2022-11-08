@@ -111,7 +111,7 @@ public class ChooseSession extends BaseMenu {
                     + movieSession.getSessionDate() + " "
                     + movieSession.getSessionTime()
                     + " | (" + movieSession.getMovieType().name() + ")");
-
+            
             nextMenu = new DisplayTicket(nextMenu, this.accesslevel, this.user, this.movie, movieSession, hashMapSession.get(movieSession), ticket,
                     this.transaction, this.cineplex);
         }
