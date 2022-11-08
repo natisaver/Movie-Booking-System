@@ -83,8 +83,8 @@ public class TestView {
                 // chooseMovie.execute();
 
                 
-                BaseMenu enterMovieSession = new EnterMovieSession(null, 1, null);
-                enterMovieSession.execute();
+                // BaseMenu enterMovieSession = new EnterMovieSession(null, 1, null);
+                // enterMovieSession.execute();
 
         }
 }
