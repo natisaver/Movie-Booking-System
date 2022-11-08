@@ -40,6 +40,9 @@ public class EnterMovieSession extends BaseMenu{
     LocalDateTime insertStart, insertEnd, curStart, curEnd;
     ArrayList<MovieSession> sessionArrayList;
     boolean overlaps = false;
+    ArrayList<String> sessionDate = new ArrayList<String>();
+    ArrayList<String> sessionTimes = new ArrayList<String>();
+    ArrayList<String> sessionTitle = new ArrayList<String>();
     
     /** 
      * Constructor
@@ -87,17 +90,18 @@ public class EnterMovieSession extends BaseMenu{
 
         //Print all the sessions
         int i=0;
-        
-        ArrayList<String> sessionDate = new ArrayList<String>();
-        ArrayList<String> sessionTimes = new ArrayList<String>();
+        sessionTitle = new ArrayList<String>();
+        sessionDate = new ArrayList<String>();
+        sessionTimes = new ArrayList<String>();
         for (i=0;i<sessionArrayList.size();i++) {
+            sessionTitle.add(sessionArrayList.get(i).getTitle());
             sessionDate.add(sessionArrayList.get(i).getSessionDate());
             sessionTimes.add(sessionArrayList.get(i).getSessionTime());
         }
         if(!sessionDate.isEmpty() && !sessionTimes.isEmpty()){
             System.out.println(ConsoleColours.BLUE + "Here are the current Sessions in the selected cinema:" + ConsoleColours.RESET);
             for (i=0;i<sessionArrayList.size();i++) {
-                System.out.println(sessionDate.get(i) + " " + sessionTimes.get(i));
+                System.out.println(sessionDate.get(i) + "\t" + sessionTimes.get(i) + "\t" + sessionTitle.get(i));
             }
         }
 
@@ -170,6 +174,7 @@ public class EnterMovieSession extends BaseMenu{
     
             //COMPARE INTERVAL TO INSERT WITH CURRENT INTERVALS ==========
             //updates boolean to true if overlap exists
+            overlaps = false;
             for(i = 0; i < sessionArrayList.size(); i++) {
                 curStart = sessionArrayList.get(i).getShowtime();
                 curEnd = curStart.plusMinutes(duration);
@@ -189,7 +194,7 @@ public class EnterMovieSession extends BaseMenu{
                 }
             }
     
-        } while (overlaps == true);
+        } while (overlaps);
 
         //SUCCESS
         movieSession = new MovieSession(insertStart, CinemaController.readByCode(choicestr).getCinemaClass(), movie.getTitle(), movie.getMovieType().name());
