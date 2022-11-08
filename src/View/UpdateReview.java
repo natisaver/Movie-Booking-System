@@ -194,7 +194,25 @@ public class UpdateReview extends BaseMenu{
                 case 2:
                     System.out.println(ConsoleColours.WHITE_BOLD + "Enter your new review: " + ConsoleColours.RESET);
                     choiceStr = sc.nextLine();
-                    if(ReviewController.updateRating(selectedreview, choiceStr)){
+                    String reviewRating = "-1";
+                    Double rating = 0.0;
+                    String ratingRegex = "\\d{1,2}[,\\.]?(\\d{1,1})?";
+                    Boolean isOKi = false;
+                    while (!isOKi) {
+                        System.out.println("Please enter your updated Rating ");
+                        reviewRating = sc.nextLine();
+                        if (!reviewRating.matches(ratingRegex)){
+                            System.out.println(ConsoleColours.RED + "Please enter a valid integer:" + ConsoleColours.RESET);
+                        }
+                        else if (Double.valueOf(reviewRating) >= 0 && Double.valueOf(reviewRating) <= 5){
+                            rating = Double.valueOf(reviewRating);
+                            isOKi = true;
+                        }
+                        else {
+                            System.out.println(ConsoleColours.RED + "Please enter a valid range between 0.0 - 5.0" + ConsoleColours.RESET);
+                        }
+                    }
+                    if(ReviewController.updateRating(selectedreview, rating)){
                         System.out.println(ConsoleColours.GREEN + "Congratulations successfully updated review" + ConsoleColours.RESET);
                     }
                     else {
@@ -202,7 +220,12 @@ public class UpdateReview extends BaseMenu{
                     };
                 //DELETE REVIEW
                 case 3:
-                    ReviewController.deleteByTitleEmail(, noreviewsavailable)
+                    if (ReviewController.deleteByTitleEmail(selectedreview.getMovie().getTitle(), selectedreview.getEmail())){
+                        System.out.println(ConsoleColours.GREEN + "Congratulations successfully updated review" + ConsoleColours.RESET);
+                    }
+                    else {
+                        System.out.println(ConsoleColours.RED + "Failed to update review" + ConsoleColours.RESET);
+                    };  
                 //GO BACK A PAGE
                 case 4:
                     nextMenu = this.getPreviousMenu();
