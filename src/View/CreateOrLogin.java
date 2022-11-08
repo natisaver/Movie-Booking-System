@@ -1,6 +1,5 @@
 package View;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -66,7 +65,7 @@ public class CreateOrLogin extends BaseMenu {
         System.out.println(ConsoleColours.RED + "4. Quit" + ConsoleColours.RESET);
 
         String inputString;
-        String numRegex = "^[^1-4]$";
+        String numRegex = "^(?!(0))[0-4]{1}$";
         BaseMenu nextMenu = this;
 
         System.out.print("Enter your choice:");
@@ -76,7 +75,7 @@ public class CreateOrLogin extends BaseMenu {
             if(inputString.isBlank()){
                 return this.getPreviousMenu();
             }
-            System.out.println(ConsoleColours.RED + "Please enter a valid Movie Title:" + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
             inputString = sc.nextLine();
         }
         choice = Integer.parseInt(inputString);
