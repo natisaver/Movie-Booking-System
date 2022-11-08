@@ -106,7 +106,7 @@ public class MovieGoerMainMenu extends BaseMenu {
                 break;
             case 3:
                 if (this.moviegoer == null) {
-                    nextMenu = new CreateOrLogin(nextMenu, -1, null, null, null, null, ticket, null);
+                    nextMenu = new CreateOrLogin(nextMenu, -1, null, null, null, null, ticket, null, null);
                 } else {
                     nextMenu = new CheckHistory(this, 0, moviegoer, movie, movieSession, cinema, ticket, transaction, bookedSeats);
                 }
