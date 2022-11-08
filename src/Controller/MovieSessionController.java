@@ -11,7 +11,6 @@ import Model.Cinema;
 import Model.MovieSession;
 import Model.Seat;
 import Model.cinemaClass_Enum;
-import Model.seatType_Enum;
 
 /**
  * Reads movie titles, date and times, and cinema class of movie sessions from
@@ -652,7 +651,6 @@ public class MovieSessionController {
         } catch (IOException e) {
             //e.printStackTrace();
         }
-        cinemaClass_Enum cinemaClass = cinemaClass_Enum.valueOf(cineplex.get(cinemaCode));
         try {
             reader[0].readLine();
             while ((line = reader[0].readLine()) != null) {
