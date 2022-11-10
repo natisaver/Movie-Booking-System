@@ -1,16 +1,11 @@
 package View;
-import Model.Movie;
 import Model.MovieGoer;
-import Model.MovieSession;
 import Model.Review;
-import Model.movieRating_Enum;
-import Model.movieType_Enum;
+import Controller.ReviewController;
 
-import java.io.Console;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -19,9 +14,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
-import Controller.MovieController;
-import Controller.ReviewController;
 
 /**
  * The page for Admin to update reviews or delete reviews
@@ -66,9 +58,6 @@ public class UpdateReview extends BaseMenu{
         HashMap<Integer, Review> initialMenu = new HashMap<Integer, Review>();
         HashMap<Integer, Review> SelectionMenu = new HashMap<Integer, Review>();
 
-
-
-        String stringRegex = "^[^0-9]+$";
         String noreviewsavailable = "^[^0-2]$";
         System.out.println(ConsoleColours.WHITE_BOLD + "Here are your reviews:" + ConsoleColours.RESET);
         //moviegoer has no reviews

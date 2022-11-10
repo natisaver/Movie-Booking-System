@@ -170,7 +170,7 @@ public class LeaveReview extends BaseMenu {
                     System.out.println("Please enter a valid choice. ");
                     break;
             }
-        } 
+        }
         return nextMenu;
     }
         

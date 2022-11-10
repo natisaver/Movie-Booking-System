@@ -3,7 +3,6 @@ package View;
 import java.util.Scanner;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -11,7 +10,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
 
 import Controller.*;
 import Model.*;
@@ -31,7 +29,6 @@ public class ListTopFive extends BaseMenu
         BaseMenu nextMenu = this;
         int choice;
         ArrayList<Movie> movies;
-        Movie temp;
         
         String numregex = "^(?!(0))[0-4]{1}$";
 

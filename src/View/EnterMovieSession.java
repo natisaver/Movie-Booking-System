@@ -4,18 +4,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import Controller.CinemaController;
 import Controller.CineplexController;
-import Controller.LocalDateTimeComparator;
 import Controller.MovieSessionController;
-import Model.Admin;
 import Model.Movie;
-import Model.Cinema;
 import Model.MovieSession;
 /**
  * Intermediary Access Denied Page
@@ -29,10 +23,7 @@ import Model.MovieSession;
 public class EnterMovieSession extends BaseMenu{
 
     private Movie movie;
-    private Admin admin;
     private MovieSession movieSession;
-    private Pattern regexPattern;
-    private Matcher regMatcher;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     Scanner sc = new Scanner(System.in);
     String date, time;
@@ -127,7 +118,14 @@ public class EnterMovieSession extends BaseMenu{
                     System.out.println(ConsoleColours.RED + "Please enter a future date" + ConsoleColours.RESET);
                 date = sc.nextLine();
             }
-            
+
+            //Let sessionTimes array only contain times of specified date
+            sessionTimes.clear();
+            for (i=0;i<sessionDate.size();i++) {
+                if (sessionDate.get(i) == date){
+                    sessionTimes.add(sessionArrayList.get(i).getSessionTime());
+                }
+            }            
     
             //INPUT START TIME================
             //check for HH:mm to append to the end of the date string

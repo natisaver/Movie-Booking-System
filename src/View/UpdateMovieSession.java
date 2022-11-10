@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import Controller.CineplexController;
 import Controller.MovieController;
@@ -18,8 +16,6 @@ import Model.MovieSession;
 
 public class UpdateMovieSession extends BaseMenu{
     Scanner sc = new Scanner(System.in);
-    private Pattern regexPattern;
-    private Matcher regMatcher;
     LocalDateTime insertStart, insertEnd, curStart, curEnd;
     List<MovieSession> sessionArrayList;
     List<MovieSession> sessionArrayListByDate;
@@ -42,9 +38,8 @@ public class UpdateMovieSession extends BaseMenu{
         BaseMenu nextMenu = this;
         int choice;
         Movie movie = new Movie();
-        String inputTitle, choiceStr, inputString, numRegex;
+        String choiceStr, inputString, numRegex;
         String choicestr;
-        ArrayList<String> inputArray = new ArrayList<String>(); 
         MovieSession movieSession;
         ArrayList<String> sessionDate = new ArrayList<String>();
         ArrayList<String> sessionTimes = new ArrayList<String>();

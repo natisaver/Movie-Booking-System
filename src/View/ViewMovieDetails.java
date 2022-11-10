@@ -128,17 +128,20 @@ public class ViewMovieDetails extends BaseMenu
                 }
                 System.out.println("Synopsis: ");
                 System.out.println(temp.getSynopsis());
-                System.out.print("Reviews: ");
-                
-                for (int j = 0; j<ReviewController.readByTitle(temp.getTitle()).size(); j++){
-                    ArrayList<Review> reviewlist = ReviewController.readByTitle(temp.getTitle())
-                    if (j == reviewlist.size()-1){
-                        System.out.println(reviewlist.get(j).getReview());
-                        System.out.println("by: " + reviewlist.get(j).getName() + "on: " + reviewlist.get(j).getDate().format(formatter) + " | " + Double.toString(reviewlist.get(j).getRating()));
-                    }
-                    else {
-                        System.out.println(reviewlist.get(j));
-                        System.out.println("by: " + reviewlist.get(j).getName() + "on: " + reviewlist.get(j).getDate().format(formatter) + " | " + Double.toString(reviewlist.get(j).getRating()) + " ,");
+                System.out.println(ConsoleColours.WHITE_BOLD + "Reviews: " + ConsoleColours.RESET);
+                int numReviews = ReviewController.readByTitle(temp.getTitle()).size();
+                if (numReviews == 0) System.out.println(ConsoleColours.RED_BOLD + "There are no reviews for this movie yet" + ConsoleColours.RESET);
+                else{
+                    for (int j = 0; j<ReviewController.readByTitle(temp.getTitle()).size(); j++){
+                        ArrayList<Review> reviewlist = ReviewController.readByTitle(temp.getTitle());
+                        if (j == reviewlist.size()-1){
+                            System.out.println("> " + ConsoleColours.BLUE_BOLD + reviewlist.get(j).getReview() + ConsoleColours.RESET);
+                            System.out.println("by: " + reviewlist.get(j).getName() + " on: " + reviewlist.get(j).getDate().format(formatter) + " | " + Double.toString(reviewlist.get(j).getRating()));
+                        }
+                        else {
+                            System.out.println("> " + ConsoleColours.BLUE_BOLD + reviewlist.get(j).getReview() + ConsoleColours.RESET);
+                            System.out.println("by: " + reviewlist.get(j).getName() + " on: " + reviewlist.get(j).getDate().format(formatter) + " | " + Double.toString(reviewlist.get(j).getRating()));
+                        }
                     }
                 }
                 System.out.println(">>");
