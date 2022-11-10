@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import Controller.CinemaController;
 import Controller.CineplexController;
+import Controller.MovieController;
 import Controller.MovieSessionController;
 import Model.Movie;
 import Model.MovieSession;
@@ -103,17 +104,26 @@ public class EnterMovieSession extends BaseMenu{
         + "|^(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))$" 
         + "|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime movieReleaseDate = MovieController.readByTitle(choicestr).getReleaseDate();
+        LocalDateTime movieEndDate = MovieController.readByTitle(choicestr).getEndDate();
 
         //validity check loop, continues while date and time overlaps:
         do {
             System.out.println("Enter the date of movie screening: (yyyy-MM-dd)");
             date = sc.nextLine();
-            while (!date.matches(dateCheck) || LocalDateTime.parse(date + " 00:00", formatter).isBefore(LocalDateTime.now())){
+            while (!date.matches(dateCheck) || LocalDateTime.parse(date + " 00:00", formatter).isBefore(LocalDateTime.now()) ||
+                    LocalDateTime.parse(date + " 00:00", formatter).isBefore(movieReleaseDate) ||
+                    LocalDateTime.parse(date + " 00:00", formatter).isAfter(movieEndDate) ||
+                    LocalDateTime.parse(date + " 00:00", formatter).equals(movieEndDate)){
                 if(date.isBlank()){
                     return this.getPreviousMenu().getPreviousMenu();
                 }
                 if(!date.matches(dateCheck))
                     System.out.println(ConsoleColours.RED + "Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
+                else if (LocalDateTime.parse(date + " 00:00", formatter).isBefore(movieReleaseDate))
+                    System.out.println("Please enter a date after the movie's release date");
+                else if (LocalDateTime.parse(date + " 00:00", formatter).isAfter(movieEndDate) || LocalDateTime.parse(date + " 00:00", formatter).equals(movieEndDate))
+                    System.out.println("Please enter a date before the movie's end date");
                 else
                     System.out.println(ConsoleColours.RED + "Please enter a future date" + ConsoleColours.RESET);
                 date = sc.nextLine();
@@ -122,7 +132,7 @@ public class EnterMovieSession extends BaseMenu{
             //Let sessionTimes array only contain times of specified date
             sessionTimes.clear();
             for (i=0;i<sessionDate.size();i++) {
-                if (sessionDate.get(i) == date){
+                if (sessionDate.get(i).equals(date)){
                     sessionTimes.add(sessionArrayList.get(i).getSessionTime());
                 }
             }            

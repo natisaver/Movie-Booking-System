@@ -142,6 +142,8 @@ public class UpdateMovieSession extends BaseMenu{
                             System.out.println(sessionDate.get(i) + "\t" + sessionTimes.get(i) + "\t" + sessionTitle.get(i));
                         }
                     }
+                    LocalDateTime movieReleaseDate = movie.getReleaseDate();
+                    LocalDateTime movieEndDate = movie.getEndDate();
 
                     //INPUT DATE================
                     //check if date is valid
@@ -150,12 +152,19 @@ public class UpdateMovieSession extends BaseMenu{
                     do {
                         System.out.println(ConsoleColours.WHITE_BOLD + "Enter the date of movie screening: (yyyy-MM-dd)" + ConsoleColours.RESET);
                         date = sc.nextLine();
-                        while (!date.matches(dateCheck) || LocalDateTime.parse(date + " 00:00", formatter).isBefore(LocalDateTime.now())){
+                        while (!date.matches(dateCheck) || LocalDateTime.parse(date + " 00:00", formatter).isBefore(LocalDateTime.now()) ||
+                                LocalDateTime.parse(date + " 00:00", formatter).isBefore(movieReleaseDate) ||
+                                LocalDateTime.parse(date + " 00:00", formatter).isAfter(movieEndDate) ||
+                                LocalDateTime.parse(date + " 00:00", formatter).equals(movieEndDate)){
                             if(date.isBlank()){
                                 return this.getPreviousMenu();
                             }
                             if(!date.matches(dateCheck))
                                 System.out.println(ConsoleColours.RED + "Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
+                            else if (LocalDateTime.parse(date + " 00:00", formatter).isBefore(movieReleaseDate))
+                                System.out.println("Please enter a date after the movie's release date");
+                            else if (LocalDateTime.parse(date + " 00:00", formatter).isAfter(movieEndDate) || LocalDateTime.parse(date + " 00:00", formatter).equals(movieEndDate))
+                                System.out.println("Please enter a date before the movie's end date");
                             else
                                 System.out.println(ConsoleColours.RED + "Please enter a future date" + ConsoleColours.RESET);
                             date = sc.nextLine();
