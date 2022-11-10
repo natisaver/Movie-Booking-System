@@ -126,7 +126,7 @@ public class MovieGoerMainMenu extends BaseMenu {
                 nextMenu = new ViewMovieDetails(nextMenu, 0);
                 break;
             case 6:
-                nextMenu = new MainMenu(null, -1, moviegoer, movie, movieSession, cinema, cineplex, ticket, transaction, this.bookedSeats);
+                nextMenu = new MainMenu(null, -1, null, movie, movieSession, cinema, cineplex, ticket, transaction, this.bookedSeats);
                 break;
             case 7:
                 nextMenu = new Quit(this);
