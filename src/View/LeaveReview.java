@@ -17,6 +17,8 @@ import Model.MovieGoer;
 import Model.Review;
 public class LeaveReview extends BaseMenu {
     private MovieGoer user;
+    Scanner sc = new Scanner(System.in);
+
     public LeaveReview(BaseMenu previousMenu, int accesslevel, MovieGoer user) {
         super(previousMenu, accesslevel);
         this.user = user;
@@ -31,7 +33,6 @@ public class LeaveReview extends BaseMenu {
         int choice = -1;
         movies = MovieController.read();
         moviesize = movies.size();
-        Scanner sc = new Scanner(System.in);
         String reviewText, reviewRating, choiceStr;
         Double rating;
         String ratingRegex = "\\d{1,2}[,\\.]?(\\d{1,1})?";
