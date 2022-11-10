@@ -1,6 +1,5 @@
 package View;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -9,6 +8,7 @@ import java.util.regex.Pattern;
 import Controller.AdminController;
 import Controller.MovieGoerController;
 import Model.Cinema;
+import Model.Cineplex;
 import Model.Movie;
 import Model.MovieGoer;
 import Model.MovieSession;
@@ -39,6 +39,7 @@ public class CreateAccount extends BaseMenu {
     Movie movie = null;
     MovieSession movieSession = null;
     Cinema cinema = null;
+    Cineplex cineplex = null;
     ArrayList<Ticket> ticket = new ArrayList<>();
     Transaction transaction = null;
     ArrayList<Seat> bookedSeats;
@@ -50,12 +51,13 @@ public class CreateAccount extends BaseMenu {
      * @param accesslevel  the level of access
      */
     public CreateAccount(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
-            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
+            MovieSession movieSession, Cinema cinema, Cineplex cineplex, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
         super(previousMenu, accesslevel);
         this.user = user;
         this.movie = movie;
         this.movieSession = movieSession;
         this.cinema = cinema;
+        this.cineplex = cineplex;
         this.ticket = ticket;
         this.transaction = transaction;
         this.bookedSeats = bookedSeats;
@@ -108,7 +110,7 @@ public class CreateAccount extends BaseMenu {
                 System.out.println("Please Reenter a valid name:");
             } while (!regMatcher.matches());
 
-            System.out.println("ur indicated name is " + name);
+            System.out.println("Your indicated name is " + name);
 
             System.out.println("Email: ");
             // make sure email is valid
@@ -169,7 +171,6 @@ public class CreateAccount extends BaseMenu {
             password = sc.nextLine();
 
             if (password.isBlank()) {
-                System.out.println("password is blank");
                 break;
             }
 
@@ -203,18 +204,16 @@ public class CreateAccount extends BaseMenu {
             // Account Creation was Successful
             user = new MovieGoer(name, email.toLowerCase(), phoneNo, age, password);
             if (MovieGoerController.create(user)) {
-                System.out.println(
-                        ConsoleColours.GREEN_BOLD + "You've successfully created an account!" + ConsoleColours.RESET);
+                System.out.println(ConsoleColours.GREEN_BOLD + "You've successfully created an account!" + ConsoleColours.RESET);
                 if (this.accesslevel == 2)
-                    return new BookTicket(this.getPreviousMenu().getPreviousMenu(), 2, user, movie, movieSession,
-                            cinema, ticket, transaction, bookedSeats);
+                    return new DisplayTransaction(null, this.accesslevel, user, this.movie, this.movieSession, this.cinema, this.ticket, this.transaction, this.cineplex, this.bookedSeats);
                 else
                     return new MovieGoerMainMenu(this.getPreviousMenu().getPreviousMenu(), 0, user, movie, movieSession,
-                            cinema, ticket, transaction, bookedSeats);
+                            cinema, cineplex, ticket, transaction, bookedSeats);
             } else {
                 System.out.println(ConsoleColours.RED_BOLD + "ERROR in account creation" + ConsoleColours.RESET);
                 return new MovieGoerMainMenu(this.getPreviousMenu().getPreviousMenu(), -1, null, movie, movieSession,
-                        cinema, ticket, transaction, bookedSeats);
+                        cinema, cineplex, ticket, transaction, bookedSeats);
             }
 
         } while ((!name.isBlank() && !password.isBlank()));

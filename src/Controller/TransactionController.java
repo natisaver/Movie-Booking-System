@@ -3,11 +3,8 @@ package Controller;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 import java.util.*;
 
-import Model.Movie;
-import Model.Ticket;
 import Model.Transaction;
 
 public class TransactionController {

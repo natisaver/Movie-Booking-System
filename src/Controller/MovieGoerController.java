@@ -180,7 +180,7 @@ public class MovieGoerController {
             // delete old file
             Files.delete(Paths.get(DataController.getPath("MovieGoer")));
         } catch (IOException e) {
-            // e.printStackTrace();
+            e.printStackTrace();
             System.out.println("didnt manage to delete old data");
             return false;
         }

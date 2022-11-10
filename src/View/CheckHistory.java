@@ -5,12 +5,12 @@ import java.util.Scanner;
 
 import Controller.TransactionController;
 import Model.Cinema;
+import Model.Cineplex;
 import Model.Movie;
 import Model.MovieGoer;
 import Model.MovieSession;
 import Model.Ticket;
 import Model.Transaction;
-import Model.User;
 import Model.Seat;
 
 public class CheckHistory extends BaseMenu {
@@ -21,17 +21,19 @@ public class CheckHistory extends BaseMenu {
     Movie movie = null;
     MovieSession movieSession = null;
     Cinema cinema = null;
+    Cineplex cineplex = null;
     ArrayList<Ticket> ticket = new ArrayList<>();
     Transaction transaction = null;
     ArrayList<Seat> bookedSeats;
 
     public CheckHistory(BaseMenu previousMenu, int accesslevel, MovieGoer moviegoer, Movie movie,
-            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
+            MovieSession movieSession, Cinema cinema, Cineplex cineplex, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
         super(previousMenu, accesslevel);
         this.moviegoer = moviegoer;
         this.movie = movie;
         this.movieSession = movieSession;
         this.cinema = cinema;
+        this.cineplex = cineplex;
         this.ticket = ticket;
         this.transaction = transaction;
         this.bookedSeats = bookedSeats;
@@ -62,7 +64,7 @@ public class CheckHistory extends BaseMenu {
                 break;
             }
 
-            return new MovieGoerMainMenu(this.getPreviousMenu(), 0, moviegoer, movie, movieSession, cinema, ticket,
+            return new MovieGoerMainMenu(this.getPreviousMenu(), 0, moviegoer, movie, movieSession, cinema, cineplex, ticket,
                     transaction, bookedSeats);
 
         } while (!back.isBlank());

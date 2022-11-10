@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import Model.Holiday;
 import java.time.LocalDateTime;
 
-import Model.Movie;
 import Model.MovieSession;
 import Model.ageGroup_Enum;
 import Model.cinemaClass_Enum; 

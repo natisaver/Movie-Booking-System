@@ -51,17 +51,8 @@ public class AdminController {
      */
     public static Admin readByEmail(String email) {
         // Check if database exists
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(PATH));
-        } catch (FileNotFoundException e) {
-            // //e.printStackTrace();
-            return null;
-        }
-
-        // If Database Exists
         String line = "";
-        try {
+        try (BufferedReader reader = new BufferedReader(new FileReader(PATH));) {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
@@ -71,10 +62,13 @@ public class AdminController {
             }
             reader.close();
             return null;
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
+            // //e.printStackTrace();
+            return null;
+        }catch (IOException e) {
             //e.printStackTrace();
             return null;
-        }
+        } 
     }
 
     /**

@@ -465,6 +465,8 @@ public class ReviewController {
             // e.printStackTrace();
             return false;
         }
+        Boolean Found = false;
+        String line;
 
         try {
             writer.append("Date");
@@ -479,17 +481,6 @@ public class ReviewController {
             writer.append(",");
             writer.append("Rating");
             writer.append("\n");
-
-        } catch (IOException e) {
-            // e.printStackTrace();
-            System.out.println("HERE");
-            return false;
-        }
-
-        Boolean Found = false;
-        String line;
-
-        try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);

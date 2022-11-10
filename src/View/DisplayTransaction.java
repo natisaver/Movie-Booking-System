@@ -1,7 +1,5 @@
 package View;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -46,19 +44,9 @@ public class DisplayTransaction extends BaseMenu {
     @Override
     public BaseMenu execute() {
 
-        BaseMenu nextMenu = this;
-
         if (user == null) {
-            return new CreateOrLogin(this, 2, user, movie, movieSession, cinema,
-                    ticket, transaction, bookedSeats);
+            return new CreateOrLogin(this, 2, user, movie, movieSession, cinema, cineplex, ticket, transaction, bookedSeats);
         }
-
-        // Get current date time
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
-        String formatDateTime = now.format(formatter1);
-
-        String TID = cinema.getCinemaCode().concat(formatDateTime);
 
         transaction = new Transaction(ticket, user);
 
@@ -69,6 +57,7 @@ public class DisplayTransaction extends BaseMenu {
             System.out.println("======================================");
             System.out.println("TID: " + transaction.getTID());
             System.out.println("Moviegoer's Name: " + user.getName());
+            System.out.println("Cineplex: Sally Carrera "+ cineplex.getLocation());
             System.out.println("Movie Title: " + movie.getTitle());
             System.out.println("Movie Session: " + movieSession.getSessionDate() + " " + movieSession.getSessionTime());
             System.out.println("No. of Tickets " + ticket.size());
@@ -77,7 +66,7 @@ public class DisplayTransaction extends BaseMenu {
             MovieSessionController.bookSeats(cinema.getCinemaCode(), movieSession, bookedSeats);
         } else System.out.println(ConsoleColours.RED_BOLD + "Your booking is unsuccessful. Please try again." + ConsoleColours.RESET);
 
-        return new MovieGoerMainMenu(null, accesslevel, user, null, null, null, null, null, null);
+        return new MovieGoerMainMenu(null, accesslevel, user, null, null, null, null, null, null, null);
     }
 
 }

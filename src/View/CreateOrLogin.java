@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Model.Cinema;
+import Model.Cineplex;
 import Model.Movie;
 import Model.MovieGoer;
 import Model.MovieSession;
@@ -27,6 +28,7 @@ public class CreateOrLogin extends BaseMenu {
     Movie movie = null;
     MovieSession movieSession = null;
     Cinema cinema = null;
+    Cineplex cineplex = null;
     ArrayList<Ticket> ticket = new ArrayList<>();
     Transaction transaction = null;
     ArrayList<Seat> bookedSeats;
@@ -38,12 +40,13 @@ public class CreateOrLogin extends BaseMenu {
      * @param accesslevel  the level of access
      */
     public CreateOrLogin(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
-            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
+            MovieSession movieSession, Cinema cinema, Cineplex cineplex, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
         super(previousMenu, accesslevel);
         this.user = user;
         this.movie = movie;
         this.movieSession = movieSession;
         this.cinema = cinema;
+        this.cineplex = cineplex;
         this.ticket = ticket;
         this.transaction = transaction;
         this.bookedSeats = bookedSeats;
@@ -84,11 +87,11 @@ public class CreateOrLogin extends BaseMenu {
         choice = Integer.parseInt(inputString);
         switch (choice) {
             case 1:
-                nextMenu = new CreateAccount(this, this.accesslevel, user, movie, movieSession, cinema, ticket,
+                nextMenu = new CreateAccount(this, this.accesslevel, user, movie, movieSession, cinema, cineplex, ticket,
                         transaction, bookedSeats);
                 break;
             case 2:
-                nextMenu = new Login(this, -1, user, movie, movieSession, cinema, ticket,
+                nextMenu = new Login(this, -1, user, movie, movieSession, cinema, cineplex, ticket,
                         transaction, bookedSeats);
                 break;
             case 3:

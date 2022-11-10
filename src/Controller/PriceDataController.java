@@ -3,9 +3,6 @@ package Controller;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
-
-import Model.MovieGoer;
 
 /**
  * Controller for CRUD operations managing data relating to MovieGoer
@@ -83,6 +80,9 @@ public class PriceDataController {
             return false;
         }
 
+        Boolean Found = false;
+        String line;
+
         try {
             writer.append("type");
             writer.append(",");
@@ -98,16 +98,6 @@ public class PriceDataController {
             writer.append(",");
             writer.append("elite seat increment");
             writer.append("\n");
-
-        } catch (IOException e) {
-            // e.printStackTrace();
-            return false;
-        }
-
-        Boolean Found = false;
-        String line;
-
-        try {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);

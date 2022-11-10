@@ -59,7 +59,6 @@ public class ChooseSession extends BaseMenu {
             movieSessionArr = MovieSessionController.readByCodeTitle(cinemasavailable.get(j).getCinemaCode(),
                     this.movie.getTitle());
             for (int i = 0; i < movieSessionArr.size(); i++) {
-                int k = i + 1;
                 hashMapSession.put(movieSessionArr.get(i),
                         CinemaController.readByCode(cinemasavailable.get(j).getCinemaCode()));
             }
@@ -76,7 +75,7 @@ public class ChooseSession extends BaseMenu {
                         k + ": " + menuselector.get(k).getTitle() + " "
                                 + menuselector.get(k).getSessionDate() + " "
                                 + menuselector.get(k).getSessionTime()
-                                + " | (" + menuselector.get(k).getMovieType().name() + ")");
+                                + " | (" + hashMapSession.get(menuselector.get(k)).getCinemaClass().name() + ")");
             }
         }
         System.out.println(ConsoleColours.YELLOW + (menuselector.size() + 1) + ". Back" + ConsoleColours.RESET);

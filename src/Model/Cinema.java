@@ -2,8 +2,6 @@ package Model;
 
 import java.util.ArrayList;
 
-import Controller.MovieSessionController;
-
 /**
  * Represents a cinema in the MOBLIMA Cinema Application
  * 

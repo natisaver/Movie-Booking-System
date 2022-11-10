@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.ArrayList;
-
 /**
  Represents a regular Movie Goer in the MOBLIMA Cinema Application
  @author Sally Carrera
@@ -70,6 +68,4 @@ public class MovieGoer extends User{
     public void setAge(int age){
         this.age = age;
     }
-
-
 }

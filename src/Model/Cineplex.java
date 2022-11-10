@@ -2,8 +2,6 @@ package Model;
 
 import java.util.ArrayList;
 
-import Model.Cinema;
-
 /**
  * Represents a cineplex in the MOBLIMA Cinema Application
  * 

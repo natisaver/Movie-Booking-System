@@ -11,6 +11,7 @@ import Model.Ticket;
 import Model.Transaction;
 import Model.Admin;
 import Model.Cinema;
+import Model.Cineplex;
 import Model.Movie;
 import Model.Seat;
 
@@ -31,6 +32,7 @@ public class Login extends BaseMenu {
     Movie movie = null;
     MovieSession movieSession = null;
     Cinema cinema = null;
+    Cineplex cineplex = null;
     ArrayList<Ticket> ticket = new ArrayList<>();
     Transaction transaction = null;
     ArrayList<Seat> bookedSeats = new ArrayList<>();
@@ -42,13 +44,14 @@ public class Login extends BaseMenu {
      * @param accesslevel  the level of access
      */
     public Login(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
-            MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
+            MovieSession movieSession, Cinema cinema, Cineplex cineplex, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
         super(previousMenu, accesslevel);
 
         this.user = user;
         this.movie = movie;
         this.movieSession = movieSession;
         this.cinema = cinema;
+        this.cineplex = cineplex;
         this.ticket = ticket;
         this.transaction = transaction;
         this.bookedSeats = bookedSeats;
@@ -114,8 +117,8 @@ public class Login extends BaseMenu {
                 System.out.println();
                 // moviegoer page
                 if (admin == null) {
-                    if (ticket != null) return new DisplayTransaction(null, 0, user, movie, movieSession, cinema, ticket, transaction, null, bookedSeats);
-                    return new MovieGoerMainMenu(this, 0, user, movie, movieSession, cinema, ticket, transaction, bookedSeats);
+                    if (ticket != null) return new DisplayTransaction(null, 0, user, movie, movieSession, cinema, ticket, transaction, cineplex, bookedSeats);
+                    return new MovieGoerMainMenu(this, 0, user, movie, movieSession, cinema, cineplex, ticket, transaction, bookedSeats);
                 }
                 // admin page
                 if (user == null) {

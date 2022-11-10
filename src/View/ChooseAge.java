@@ -3,7 +3,6 @@ package View;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Controller.PriceController;
 import Model.Cinema;
 import Model.Cineplex;
 import Model.Movie;
@@ -62,8 +61,6 @@ public class ChooseAge extends BaseMenu {
         // }
         // int noOfTickets = Integer.valueOf(noOfTicketsStr);
 
-        String id;
-        float totalPrice = 0;
         ageGroup_Enum ageGroup = null;
 
         System.out.println(ConsoleColours.PURPLE_BOLD + "Age Group Selection:" + ConsoleColours.RESET);
@@ -101,20 +98,14 @@ public class ChooseAge extends BaseMenu {
                 // CHILD
                 case 1:
                     ageGroup = ageGroup_Enum.CHILD;
-                    totalPrice += PriceController.calculatePrice(movieSession, ageGroup, cinema.getCinemaClass(),
-                            seat.get(k).getSeatType());
                     break;
                 // ADULT
                 case 2:
                     ageGroup = ageGroup_Enum.ADULT;
-                    totalPrice += PriceController.calculatePrice(movieSession, ageGroup,
-                            cinema.getCinemaClass(), seat.get(k).getSeatType());
                     break;
                 // SENIOR
                 case 3:
                     ageGroup = ageGroup_Enum.SENIOR;
-                    totalPrice += PriceController.calculatePrice(movieSession, ageGroup,
-                            cinema.getCinemaClass(), seat.get(k).getSeatType());
                     break;
                 // GO TO PREVIOUS PAGE
                 case 4:
