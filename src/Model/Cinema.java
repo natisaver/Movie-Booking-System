@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Cinema {
 
     /**
-     * Cinema's code which is a 3 letters String (eg. XXX)
+     * Cinema's code which is a 3 number String (eg. XXX)
      * Cinema's code will be used in the TransactionID
      */
     private String cinemaCode;
