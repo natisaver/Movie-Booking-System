@@ -351,4 +351,36 @@ public class HolidayController {
         tempFile.renameTo(new File(DataController.getPath("Holiday")));
         return true;
     }
+
+    public static Boolean readByDate(LocalDateTime holiday) {
+        // Check if database exists
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(PATH));
+        } catch (FileNotFoundException e) {
+            // e.printStackTrace();
+            return null;
+        }
+
+        // If Database Exists
+        String line = "";
+
+        try {
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                if (LocalDateTime.parse(tokens[0] + " 00:00",formatter).isEqual(holiday)) 
+                {
+                    reader.close();
+                    return true;
+                }
+            }
+            reader.close();
+            return false;
+        } catch (IOException e) {
+            // e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -49,7 +49,7 @@ public class EnterMovieDetails extends BaseMenu{
 
         //ENTER MOVIE TITLE TO CREATE
         numRegex = "^[^0-9]+$";
-        System.out.println(ConsoleColours.WHITE_BRIGHT + "Enter Details of New Movie:" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.WHITE_BOLD + "Enter Details of New Movie:" + ConsoleColours.RESET);
         System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
         System.out.println(ConsoleColours.WHITE_BOLD + "Enter Movie Title: " + ConsoleColours.RESET);
         inputString = sc.nextLine();
@@ -57,13 +57,9 @@ public class EnterMovieDetails extends BaseMenu{
         //Checks if Movie already exists in the database
         do{
             //Checks for movie format
-            while (!inputString.matches(numRegex)){
-                if(inputString.isBlank()){
-                    return this.getPreviousMenu();
-                }
-                System.out.println(ConsoleColours.RED + "Please enter a valid Movie Title:" + ConsoleColours.RESET);
-                inputString = sc.nextLine();
-            }
+            if(inputString.isBlank()){
+                return this.getPreviousMenu();
+            }            
             
             //Checks if Movie exists in the database
             if(MovieController.readByTitle(inputString) != null){
@@ -184,7 +180,7 @@ public class EnterMovieDetails extends BaseMenu{
                         + "|^(((19|2[0-9])[0-9]{2})-02-(0[1-9]|1[0-9]|2[0-8]))$"
                         + "|^(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))$" 
                         + "|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$";
-        System.out.println("Enter Release Date (yyyy-MM-dd): ");
+        System.out.println(ConsoleColours.WHITE_BOLD + "Enter Release Date (yyyy-MM-dd): " + ConsoleColours.RESET);
         inputString = sc.nextLine();
         while (!inputString.matches(dateCheck) || LocalDateTime.parse(inputString + " 00:00", formatter).isBefore(LocalDateTime.now())){
             if(inputString.isBlank()){

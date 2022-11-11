@@ -11,6 +11,7 @@ import Model.Cinema;
 import Model.MovieSession;
 import Model.Seat;
 import Model.cinemaClass_Enum;
+import Model.movieType_Enum;
 
 /**
  * Reads movie titles, date and times, and cinema class of movie sessions from
@@ -432,6 +433,96 @@ public class MovieSessionController {
         }
         // replace with the new file
         tempFile.renameTo(new File(DataController.getPath("MovieSession")));
+        return true;
+    }
+
+    /**
+     * UPDATE MovieSession' MovieType by Title in the database
+     * 
+     * @param movieTitle Movie Title
+     * @return <code>true</code> if MovieSession was updated, <code>false</code> if
+     *         MovieSession doesnt exist or database is nonexistent
+     */
+    public static Boolean updateMovieTypeByTitle(String movieTitle, movieType_Enum movieType) {
+
+        File inputFile = new File(DataController.getPath("MovieSession"));
+        File tempFile2 = new File(DataController.getPath("Temp2"));
+
+        BufferedReader reader = null;
+        BufferedWriter writer = null;
+
+        try {
+            reader = new BufferedReader(new FileReader(inputFile));
+            writer = new BufferedWriter(new FileWriter(tempFile2));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        Boolean Found = false;
+        String line;
+
+        try {
+            writer.append("Title");
+            writer.append(",");
+            writer.append("movieType");
+            writer.append(",");
+            writer.append("ShowDate");
+            writer.append(",");
+            writer.append("Showtime");
+            writer.append(",");
+            writer.append("cinemaCode");
+            writer.append(",");
+            writer.append("bookedSeats");
+            writer.append("\n");
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                if (tokens[0].toLowerCase().equals(movieTitle.toLowerCase())){
+                    Found = true;
+                    writer.append(tokens[0]);
+                    writer.append(",");
+                    writer.append(movieType.name());
+                    writer.append(",");
+                    writer.append(tokens[2]);
+                    writer.append(",");
+                    writer.append(tokens[3]);
+                    writer.append(",");
+                    writer.append(tokens[4]);
+                    writer.append(",");
+                    writer.append(tokens[5]);
+                    writer.append("\n");
+                } else {
+                    writer.append(tokens[0]);
+                    writer.append(",");
+                    writer.append(tokens[1]);
+                    writer.append(",");
+                    writer.append(tokens[2]);
+                    writer.append(",");
+                    writer.append(tokens[3]);
+                    writer.append(",");
+                    writer.append(tokens[4]);
+                    writer.append(",");
+                    writer.append(tokens[5]);
+                    writer.append("\n");
+                }
+            }
+            writer.close();
+            reader.close();
+            if (!Found) {
+                return false;
+            }
+            // delete old file
+            Files.delete(Paths.get(DataController.getPath("MovieSession")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // replace with the new file
+        tempFile2.renameTo(new File(DataController.getPath("MovieSession")));
         return true;
     }
 

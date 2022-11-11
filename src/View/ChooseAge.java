@@ -67,7 +67,7 @@ public class ChooseAge extends BaseMenu {
         System.out.println("1. Child");
         System.out.println("2. Adult");
         System.out.println("3. Senior");
-        System.out.println(ConsoleColours.YELLOW + "4. Logout" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.YELLOW + "4. Back" + ConsoleColours.RESET);
         System.out.println(ConsoleColours.RED + "5. Quit" + ConsoleColours.RESET);
 
         BaseMenu nextMenu = this;
@@ -79,7 +79,7 @@ public class ChooseAge extends BaseMenu {
                     + ConsoleColours.RESET);
             String numregex = "^(?!(0))[0-5]{1}$";
 
-            String choicestr = sc.next();
+            String choicestr = sc.nextLine();
             System.out.println();
 
             while (!choicestr.matches(numregex)) {

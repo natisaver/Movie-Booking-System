@@ -71,7 +71,13 @@ public class ChooseSeat extends BaseMenu {
 		do {
 			Boolean isOK = false;
 			while(!isOK){
-				System.out.println(ConsoleColours.WHITE_BOLD + "Enter your seat choice(s): " + ConsoleColours.RESET);
+				if(firstime == true){
+					System.out.println(ConsoleColours.WHITE_BOLD + "Enter your seat choice(s): " + ConsoleColours.RESET);
+				}
+				else{
+					System.out.println(ConsoleColours.WHITE_BOLD + "Enter your other seat choice(s)" + ConsoleColours.GREEN_BOLD + " (Leave Blank to confirm your selection)" + ConsoleColours.RESET);
+				}
+				
 				choicestr = sc.nextLine();
 				if (!choicestr.matches(idRegex)) {
 					//early termination
