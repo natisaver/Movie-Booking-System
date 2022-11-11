@@ -139,9 +139,10 @@ public class ListTopFive extends BaseMenu {
 
     /**
      * Sort by Value Funtionality
-     * Sorts movie's ranking in numerical order
+     * Sorts Movie by numerical order of Overall Ticket Sales
      * 
-     * @param hm HashMap<String, Integer> Hashmap of Movie Title and integer value
+     * @param hm HashMap<String, Integer> Hashmap of Movie Title and Overall Ticket
+     *           Sales
      * @return HashMap<String, Integer>
      */
     public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm) {
@@ -164,6 +165,14 @@ public class ListTopFive extends BaseMenu {
         return temp;
     }
 
+    /**
+     * Sort by Value Double Funtionality
+     * Sorts Movie by numerical order of Overall Review Ratings
+     * 
+     * @param hm HashMap<String, Double> Hashmap of Movie Title and Overall Review
+     *           Ratings
+     * @return HashMap<String, Double>
+     */
     public static HashMap<String, Double> sortByValueDouble(HashMap<String, Double> hm) {
         // Create a list from elements of HashMap
         List<Map.Entry<String, Double>> list = new LinkedList<Map.Entry<String, Double>>(hm.entrySet());
