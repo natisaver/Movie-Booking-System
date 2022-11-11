@@ -1,21 +1,47 @@
 package View;
+
 import java.util.Scanner;
 
 import Model.Admin;
 
-public class AdminMainMenu extends BaseMenu{
+/**
+ * Admin Main Menu
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 01-11-2022
+ */
+
+public class AdminMainMenu extends BaseMenu {
     Scanner sc = new Scanner(System.in);
-    
-    /** 
+
+    /**
      * Current User
      */
     Admin admin = null;
 
+    /**
+     * Constructor to store previous page and access level
+     * 
+     * @param previousMenu the previous page
+     * @param accesslevel  the access level
+     * @param admin        moviegoer object
+     */
     public AdminMainMenu(BaseMenu previousMenu, int accesslevel, Admin admin) {
         super(previousMenu, accesslevel);
         this.admin = admin;
     }
 
+    /**
+     * Admin Menu Functionality
+     * Access various admin features
+     * 
+     * @return Selected Page or Terminates
+     * @see ConfigureSettings, EnterMovieDetails, EnterMovieSession,
+     *      UpdateMovieDetails, UpdateMovieSession, ListTopFive, MainMenu, Quit
+     */
     @Override
     public BaseMenu execute() {
         int choice;
@@ -32,14 +58,14 @@ public class AdminMainMenu extends BaseMenu{
 
         BaseMenu nextMenu = this;
 
-        //keep asking for choice
+        // keep asking for choice
         System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
         String choicestr = sc.nextLine();
         System.out.println();
 
         while (!choicestr.matches(numregex)) {
-            //early termination
-            if(choicestr.isBlank()){
+            // early termination
+            if (choicestr.isBlank()) {
                 nextMenu = new MainMenu(null, -1, null, null, null, null, null, null, null, null);
                 return nextMenu;
             }
@@ -49,7 +75,6 @@ public class AdminMainMenu extends BaseMenu{
         }
 
         choice = Integer.valueOf(choicestr);
-
 
         switch (choice) {
             case 1:

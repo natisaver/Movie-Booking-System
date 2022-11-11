@@ -14,6 +14,15 @@ import Controller.CinemaController;
 import Model.Movie;
 import Model.MovieSession;
 
+/**
+ * The page for Admin to update details of existing Movie.
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 04-11-2022
+ */
 public class UpdateMovieSession extends BaseMenu {
     Scanner sc = new Scanner(System.in);
     LocalDateTime insertStart, insertEnd, curStart, curEnd;
@@ -344,19 +353,24 @@ public class UpdateMovieSession extends BaseMenu {
                     // if only one session on inputted date, delete successful
                     if (sessionArrayListByDate.size() == 1) {
                         // checks if movie theatre is still empty
+                        if (MovieSessionController.checkBooked(choicestr, sessionArrayListByDate.get(0))) {
+                            System.out.println("checkBooked value is true");
+                        } else {
+                            System.out.println("checkBooked value is false");
+                        }
                         if (!MovieSessionController.checkBooked(choicestr, sessionArrayListByDate.get(0))) {
                             MovieSessionController.delete(choicestr, sessionArrayListByDate.get(0));
                             System.out.println(ConsoleColours.GREEN + "Movie Session deleted." + ConsoleColours.RESET);
                             System.out.println();
-                        }
-                        else {
+                        } else {
                             System.out.println(
-                                ConsoleColours.RED + "This session already has bookings. Unable to be deleted."
-                                        + ConsoleColours.RESET);
+                                    ConsoleColours.RED + "This session already has bookings. Unable to be deleted."
+                                            + ConsoleColours.RESET);
                         }
                         return this.getPreviousMenu();
                     } else if (sessionArrayListByDate.size() == 0) {
-                        System.out.println(ConsoleColours.RED + "There are no available sessions on inputted date." + ConsoleColours.RESET);
+                        System.out.println(ConsoleColours.RED + "There are no available sessions on inputted date."
+                                + ConsoleColours.RESET);
                         System.out.println();
                         continue;
                     } else {
@@ -397,8 +411,9 @@ public class UpdateMovieSession extends BaseMenu {
                     if (sessionArrayListByTime.size() != 0) {
                         // checks if movie theatre is still empty
                         if (!MovieSessionController.checkBooked(choicestr, sessionArrayListByTime.get(0))) {
-                            if(MovieSessionController.delete(choicestr, sessionArrayListByTime.get(0))){
-                                System.out.println(ConsoleColours.GREEN + "Movie Session deleted." + ConsoleColours.RESET);
+                            if (MovieSessionController.delete(choicestr, sessionArrayListByTime.get(0))) {
+                                System.out.println(
+                                        ConsoleColours.GREEN + "Movie Session deleted." + ConsoleColours.RESET);
                                 System.out.println();
                             }
                         } else {

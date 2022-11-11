@@ -13,6 +13,15 @@ import Model.MovieSession;
 import Model.Ticket;
 import Model.Transaction;
 
+/**
+ * Choose Movie Menu
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 01-11-2022
+ */
 public class ChooseMovie extends BaseMenu {
     Scanner sc = new Scanner(System.in);
 
@@ -24,6 +33,20 @@ public class ChooseMovie extends BaseMenu {
     Transaction transaction;
     Cineplex cineplex;
 
+    /**
+     * Constructor to store previous page, access level, moviegoer, movie,
+     * movieSession, cinema, cineplex, ticket, transaction, bookedSeats
+     * 
+     * @param previousMenu the previous page
+     * @param accesslevel  the level of access
+     * @param moviegoer    the moviegoer that has been logged in
+     * @param movie        the selected movie
+     * @param movieSession the selected movieSession
+     * @param cinema       the selected cinema
+     * @param cineplex     the selected cineplex
+     * @param ticket       the array of ticket(s) booked
+     * @param transaction  the transaction made
+     */
     public ChooseMovie(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
             MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction,
             Cineplex cineplex) {
@@ -37,6 +60,13 @@ public class ChooseMovie extends BaseMenu {
         this.cineplex = cineplex;
     }
 
+    /**
+     * Choose Movie Functionality
+     * Display list of movies options for moviegoer to choose from
+     * 
+     * @return Next Page or Previous Page
+     * @see ChooseSession or ChooseCineplex
+     */
     @Override
     public BaseMenu execute() {
         BaseMenu nextMenu = this;
@@ -46,8 +76,8 @@ public class ChooseMovie extends BaseMenu {
         System.out.println(ConsoleColours.PURPLE_BOLD + "Choose your desired Movie:" + ConsoleColours.RESET);
         HashMap<Integer, Movie> hashMapMovie = new HashMap<Integer, Movie>();
         for (int j = 0; j < movieArr.size(); j++) {
-            hashMapMovie.put(j+1, movieArr.get(j));
-            System.out.println(j + 1 + ": " + hashMapMovie.get(j+1).getTitle());
+            hashMapMovie.put(j + 1, movieArr.get(j));
+            System.out.println(j + 1 + ": " + hashMapMovie.get(j + 1).getTitle());
         }
         System.out.println(ConsoleColours.YELLOW + (movieArr.size() + 1) + ". Back" + ConsoleColours.RESET);
         System.out.println(ConsoleColours.RED + (movieArr.size() + 2) + ". Quit" + ConsoleColours.RESET);
@@ -57,26 +87,26 @@ public class ChooseMovie extends BaseMenu {
         Boolean isOK = false;
         int moviesize = movieArr.size();
         while (!isOK) {
-            System.out.print(ConsoleColours.WHITE_BOLD + "Enter your choice of movie to view details (Integer Value): " + ConsoleColours.RESET);
+            System.out.print(ConsoleColours.WHITE_BOLD + "Enter your choice of movie to view details (Integer Value): "
+                    + ConsoleColours.RESET);
             choicestr = sc.nextLine();
-            if (!choicestr.matches(numregex)){
-                if (choicestr.isBlank()){
+            if (!choicestr.matches(numregex)) {
+                if (choicestr.isBlank()) {
                     return this.getPreviousMenu();
                 }
                 System.out.println(ConsoleColours.RED + "Please enter a valid integer:" + ConsoleColours.RESET);
                 continue;
             }
-            if (Integer.valueOf(choicestr) <= moviesize+2 && Integer.valueOf(choicestr) > 0){
+            if (Integer.valueOf(choicestr) <= moviesize + 2 && Integer.valueOf(choicestr) > 0) {
                 choice = Integer.valueOf(choicestr);
                 isOK = true;
-            }
-            else {
-                System.out.println(ConsoleColours.RED + "Please enter a valid range between 1<=x<=" + (moviesize+2) + ConsoleColours.RESET);
+            } else {
+                System.out.println(ConsoleColours.RED + "Please enter a valid range between 1<=x<=" + (moviesize + 2)
+                        + ConsoleColours.RESET);
             }
         }
 
         choice = Integer.valueOf(choicestr);
-
 
         while (choice <= 0 || choice > (movieArr.size() + 1)) {
             // early termination
@@ -109,103 +139,3 @@ public class ChooseMovie extends BaseMenu {
         return nextMenu;
     }
 }
-
-// @Override
-// public BaseMenu execute() {
-// BaseMenu nextMenu = this;
-// int choice;
-// String numregex = "^(?!(0))[0-4]{1}$";
-// do{
-// System.out.println(ConsoleColours.PURPLE_BOLD + "Movie Selection:" +
-// ConsoleColours.RESET);
-// System.out.println("1. View Movie List");
-// System.out.println("2. Choose a Movie");
-// System.out.println(ConsoleColours.YELLOW + "3. Logout" +
-// ConsoleColours.RESET);
-// System.out.println(ConsoleColours.RED + "4. Quit" + ConsoleColours.RESET);
-
-// //keep asking for choice
-// System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " +
-// ConsoleColours.RESET);
-// String choicestr = sc.nextLine();
-// System.out.println();
-
-// while (!choicestr.matches(numregex)) {
-// //early termination
-// if(choicestr.isBlank()){
-// return this.getPreviousMenu();
-// }
-// System.out.println(ConsoleColours.RED + "Please enter a valid choice:" +
-// ConsoleColours.RESET);
-// choicestr = sc.nextLine();
-// System.out.println();
-// }
-
-// choice = Integer.valueOf(choicestr);
-
-// switch (choice) {
-// //VIEW MOVIE LIST
-// case 1:
-// System.out.println(ConsoleColours.BLUE_BOLD + "List of Available Movies:" +
-// ConsoleColours.RESET);
-// ArrayList<Movie> movieArray = MovieController.read();
-// Map<Integer, Movie> hashMapMovie = new HashMap();
-// for (int j = 0; j < movieArray.size(); j++) {
-// hashMapMovie.put(j, movieArray.get(j));
-// System.out.println("> " + hashMapMovie.get(j).getTitle());
-// }
-// System.out.println();
-// break;
-// //CHOOSE MOVIE
-// case 2:
-// String strRegex = "^[^0-9]+$";
-// System.out.println(ConsoleColours.WHITE_BOLD + "Enter title of Movie to
-// watch:" + ConsoleColours.RESET);
-// String inputString = sc.nextLine();
-
-// do{
-// //Checks for movie format
-// while (!inputString.matches(strRegex)){
-// if(inputString.isBlank()){
-// return this.getPreviousMenu();
-// }
-// System.out.println(ConsoleColours.RED + "Please enter a valid Movie Title:" +
-// ConsoleColours.RESET);
-// inputString = sc.nextLine();
-// }
-// movie = MovieController.readByTitle(inputString);
-
-// //Checks if Movie exists in the database
-// if(movie == null){
-// System.out.println(ConsoleColours.RED + "Movie does not exist." +
-// ConsoleColours.RESET);
-// System.out.println(ConsoleColours.WHITE_BOLD + "Re-enter Movie Title:" +
-// ConsoleColours.RESET);
-// inputString = sc.nextLine();
-// movie = MovieController.readByTitle(inputString);
-// }
-// }while(movie == null);
-
-// System.out.println(ConsoleColours.GREEN + "Movie successfully chosen" +
-// ConsoleColours.RESET);
-// System.out.println();
-// movie = MovieController.readByTitle(inputString);
-
-// nextMenu = new ChooseSession(nextMenu, choice, user, movie, movieSession,
-// cinema, ticket, transaction);
-// return nextMenu;
-// //GO TO PREVIOUS PAGE
-// case 3:
-// nextMenu = this.getPreviousMenu();
-// return nextMenu;
-// //QUIT
-// case 4:
-// nextMenu = new Quit(this);
-// return nextMenu;
-// default:
-// choice = -1;
-// System.out.println("Please enter a valid choice.");
-// break;
-// }
-// }while(true);
-// }

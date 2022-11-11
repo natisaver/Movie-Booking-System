@@ -13,6 +13,15 @@ import Model.Ticket;
 import Model.Transaction;
 import Model.ageGroup_Enum;
 
+/**
+ * Choose Age Menu
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 01-11-2022
+ */
 public class ChooseAge extends BaseMenu {
     Scanner sc = new Scanner(System.in);
 
@@ -26,6 +35,22 @@ public class ChooseAge extends BaseMenu {
     ArrayList<Seat> seat;
     int numTickets;
 
+    /**
+     * Constructor to store previous page, access level, moviegoer, movie,
+     * movieSession, cinema, cineplex, ticket, transaction, bookedSeats
+     * 
+     * @param previousMenu the previous page
+     * @param accesslevel  the level of access
+     * @param moviegoer    the moviegoer that has been logged in
+     * @param movie        the selected movie
+     * @param movieSession the selected movieSession
+     * @param cinema       the selected cinema
+     * @param cineplex     the selected cineplex
+     * @param ticket       the array of ticket(s) booked
+     * @param transaction  the transaction made
+     * @param bookedSeats  the array of seat(s) booked in this transaction
+     * @param originalSize the number of ticket(s) booked in this transaction
+     */
     public ChooseAge(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
             MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction,
             Cineplex cineplex, ArrayList<Seat> seat, int originalSize) {
@@ -38,9 +63,16 @@ public class ChooseAge extends BaseMenu {
         this.transaction = transaction;
         this.cineplex = cineplex;
         this.seat = seat;
-        this.numTickets = seat.size()-originalSize;
+        this.numTickets = seat.size() - originalSize;
     }
 
+    /**
+     * Choose Age Functionality
+     * Display list of ageGroup_Enum options for moviegoer to choose from
+     * 
+     * @return Next Page or Previous Page
+     * @see DisplayTransaction or ChooseSeat
+     */
     @Override
     public BaseMenu execute() {
         int choice;
@@ -52,12 +84,13 @@ public class ChooseAge extends BaseMenu {
 
         // String noOfTicketsStr = sc.next();
         // while (!noOfTicketsStr.matches(numregexSeats)) {
-        //     // early termination
-        //     if (noOfTicketsStr.isBlank()) {
-        //         return this.getPreviousMenu();
-        //     }
-        //     System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
-        //     noOfTicketsStr = sc.nextLine();
+        // // early termination
+        // if (noOfTicketsStr.isBlank()) {
+        // return this.getPreviousMenu();
+        // }
+        // System.out.println(ConsoleColours.RED + "Please enter a valid choice:" +
+        // ConsoleColours.RESET);
+        // noOfTicketsStr = sc.nextLine();
         // }
         // int noOfTickets = Integer.valueOf(noOfTicketsStr);
 
@@ -122,9 +155,9 @@ public class ChooseAge extends BaseMenu {
             }
 
             Ticket newTicket = new Ticket(cineplex, cinema, movieSession.getShowtime(),
-                                    movie.getTitle(),
-                                    movie.getMovieType(),
-                                    movie.getMovieRating(), seat.get(k), ageGroup);
+                    movie.getTitle(),
+                    movie.getMovieType(),
+                    movie.getMovieRating(), seat.get(k), ageGroup);
             ticket.add(newTicket);
 
         }
