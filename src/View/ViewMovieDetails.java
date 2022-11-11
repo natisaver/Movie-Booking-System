@@ -42,6 +42,7 @@ public class ViewMovieDetails extends BaseMenu
      * Allows Guest/Moviegoer to view details of movies
      * such as Title, Rating, Duration, Release & End Date
      * Director, Cast, Synopsis, Reviews.
+     * User can also choose to go Back or Quit
      * 
      * @return Previous Page or Terminates
      * @see MovieGoerMainMenu 

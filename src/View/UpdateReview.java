@@ -44,9 +44,8 @@ public class UpdateReview extends BaseMenu{
     }
 
     /**
-     * UpdateReview Menu Functionality
-     * Update Text or Rating
-     * or Delete Review Entry
+     * Update Review Functionality
+     * Update text review or rating, or Delete review entry
      * User can also choose to go Back or Quit
      * 
      * @return AdminMainMenu or Terminates

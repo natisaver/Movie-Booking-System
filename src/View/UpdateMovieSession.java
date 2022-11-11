@@ -47,6 +47,7 @@ public class UpdateMovieSession extends BaseMenu {
     /**
      * Update Movie Session Functionality
      * Add or Delete Movie Session
+     * User can also choose to go Back or Quit
      * 
      * @return AdminMainMenu or Terminates
      * @see AdminMainMenu
