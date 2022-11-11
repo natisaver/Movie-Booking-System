@@ -328,7 +328,7 @@ public class MovieController {
                         writer.append(movie.getCast().get(i));
                         if (i == movie.getCast().size() - 1)
                             break;
-                        writer.append(", ");
+                        writer.append(",");
                     }
 
                     writer.append('"');
@@ -350,6 +350,7 @@ public class MovieController {
                     writer.append(",");
                     writer.append(Integer.toString(movie.getTicketSales())); // Ticket sales starts at 0.
                     writer.append("\n");
+                    
                 } else {
                     writer.append(tokens[0]);
                     writer.append(",");
@@ -377,6 +378,11 @@ public class MovieController {
             }
             writer.close();
             reader.close();
+            if(Found)
+            {
+                if(!MovieSessionController.updateMovieTypeByTitle(movie.getTitle(), movie.getMovieType()))
+                    return false;
+            }
             if (Found == false) {
                 Files.delete(Paths.get(DataController.getPath("Temp")));
                 System.out.println("Error 4");
