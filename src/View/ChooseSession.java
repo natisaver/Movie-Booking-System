@@ -23,6 +23,15 @@ import Model.MovieSession;
 import Model.Ticket;
 import Model.Transaction;
 
+/**
+ * The starting page that begins the application.
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 01-11-2022
+ */
 public class ChooseSession extends BaseMenu {
     Scanner sc = new Scanner(System.in);
     MovieGoer user;
@@ -33,6 +42,20 @@ public class ChooseSession extends BaseMenu {
     Transaction transaction = null;
     Cineplex cineplex = null;
 
+    /**
+     * Constructor to store previous page, access level, moviegoer, movie,
+     * movieSession, cinema, cineplex, ticket, transaction, bookedSeats
+     * 
+     * @param previousMenu the previous page
+     * @param accesslevel  the level of access
+     * @param moviegoer    the moviegoer that has been logged in
+     * @param movie        the selected movie
+     * @param movieSession the selected movieSession
+     * @param cinema       the selected cinema
+     * @param cineplex     the selected cineplex
+     * @param ticket       the array of ticket(s) booked
+     * @param transaction  the transaction made
+     */
     public ChooseSession(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
             MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction,
             Cineplex cineplex) {
@@ -46,6 +69,13 @@ public class ChooseSession extends BaseMenu {
         this.cineplex = cineplex;
     }
 
+    /**
+     * Choose Session Functionality
+     * Display list of sessions options for moviegoer to choose from
+     * 
+     * @return Next Page or Previous Page
+     * @see ChooseSeat or ChooseMovie
+     */
     @Override
     public BaseMenu execute() {
         int choice = -1;
@@ -65,9 +95,9 @@ public class ChooseSession extends BaseMenu {
             for (int i = 0; i < movieSessionArr.size(); i++) {
                 String dateStr = movieSessionArr.get(i).getSessionDate();
                 String timeStr = movieSessionArr.get(i).getSessionTime();
-                if(LocalDateTime.parse(dateStr + " " + timeStr,formatter).isAfter(LocalDateTime.now()))
-                hashMapSession.put(movieSessionArr.get(i),
-                        CinemaController.readByCode(cinemasavailable.get(j).getCinemaCode()));
+                if (LocalDateTime.parse(dateStr + " " + timeStr, formatter).isAfter(LocalDateTime.now()))
+                    hashMapSession.put(movieSessionArr.get(i),
+                            CinemaController.readByCode(cinemasavailable.get(j).getCinemaCode()));
             }
         }
 
@@ -90,7 +120,8 @@ public class ChooseSession extends BaseMenu {
         String numregex = "[0-9]+";
         Boolean isOK = false;
         while (!isOK) {
-            System.out.print(ConsoleColours.WHITE_BOLD + "Enter the session you want (Integer Value): " + ConsoleColours.RESET);
+            System.out.print(
+                    ConsoleColours.WHITE_BOLD + "Enter the session you want (Integer Value): " + ConsoleColours.RESET);
             String choicestr = sc.nextLine();
             if (!choicestr.matches(numregex)) {
                 System.out.println(ConsoleColours.RED + "Please enter a valid integer:" + ConsoleColours.RESET);

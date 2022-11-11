@@ -5,7 +5,7 @@ import java.util.Scanner;
 import Model.Admin;
 
 /**
- * MovieGoer Main Menu
+ * Admin Main Menu
  * the MOBLIMA Cinema
  * Application
  * 

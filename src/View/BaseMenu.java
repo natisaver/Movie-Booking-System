@@ -10,8 +10,8 @@ package View;
  * @version 1.0
  * @since 01-11-2022
  */
-
 public abstract class BaseMenu {
+
     /**
      * previousMenu attribute to store previous page
      * accesslevel attribute to determine user feature access
@@ -19,14 +19,14 @@ public abstract class BaseMenu {
      * 0: moviegoer
      * 1: admin
      */
-
     private BaseMenu previousMenu;
     public int accesslevel = -1;
 
     /**
-     * Constructor to store the previous menu page
+     * Constructor to store the previous page and access level
      * 
      * @param previousMenu the previous page
+     * @param accesslevel  the level of access
      */
     public BaseMenu(BaseMenu previousMenu, int accesslevel) {
         this.previousMenu = previousMenu;
