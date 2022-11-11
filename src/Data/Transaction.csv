@@ -5,6 +5,7 @@ transactionID,Email,NoOfTickets,MovieTitle,TotalPrice
 203202211090503,bobby@gmail.com,1,Black Adam,7.5
 302202211112140,bobby@gmail.com,14,Faces Of Anne,139.0
 203202211112321,bobby@gmail.com,1,Satoshi Kon: The Illusionist,8.5
+<<<<<<< HEAD
 101202211112335,bobby@gmail.com,1,Black Adam,12.0
 101202211112339,bobby@gmail.com,1,Black Adam,9.5
 302202211120017,bobby@gmail.com,1,Faces Of Anne,9.5
@@ -17,3 +18,8 @@ transactionID,Email,NoOfTickets,MovieTitle,TotalPrice
 203202211120056,bobby@gmail.com,1,Black Adam,9.5
 202202211120056,bobby@gmail.com,1,Faces Of Anne,9.5
 302202211120057,bobby@gmail.com,1,Faces Of Anne,12.0
+=======
+301202211120117,bobby@gmail.com,6,Marvel Studios' Thor: Love And Thunder,57.0
+101202211120119,bobby@gmail.com,4,Black Adam,27.0
+101202211120121,bobby@gmail.com,4,Black Adam,48.0
+>>>>>>> master

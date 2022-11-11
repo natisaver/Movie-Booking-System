@@ -1,5 +1,7 @@
 package View;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -55,10 +57,15 @@ public class ChooseSession extends BaseMenu {
         ArrayList<Cinema> cinemasavailable = CineplexController.readByLocation(this.cineplex.getLocation());
         ArrayList<MovieSession> movieSessionArr = new ArrayList<MovieSession>();
         HashMap<MovieSession, Cinema> hashMapSession = new HashMap<MovieSession, Cinema>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         for (int j = 0; j < cinemasavailable.size(); j++) {
             movieSessionArr = MovieSessionController.readByCodeTitle(cinemasavailable.get(j).getCinemaCode(),
                     this.movie.getTitle());
             for (int i = 0; i < movieSessionArr.size(); i++) {
+                String dateStr = movieSessionArr.get(i).getSessionDate();
+                String timeStr = movieSessionArr.get(i).getSessionTime();
+                if(LocalDateTime.parse(dateStr + " " + timeStr,formatter).isAfter(LocalDateTime.now()))
                 hashMapSession.put(movieSessionArr.get(i),
                         CinemaController.readByCode(cinemasavailable.get(j).getCinemaCode()));
             }
@@ -68,7 +75,7 @@ public class ChooseSession extends BaseMenu {
         HashMap<Integer, MovieSession> menuselector = new HashMap<Integer, MovieSession>();
         menuselector = sortByDate(hashMapSession);
         if (menuselector.size() <= 0) {
-            System.out.println("No sessions available");
+            System.out.println(ConsoleColours.RED + "No sessions available" + ConsoleColours.RESET);
         } else {
             for (int k = 1; k <= menuselector.size(); k++) {
                 System.out.println(
@@ -83,7 +90,7 @@ public class ChooseSession extends BaseMenu {
         String numregex = "[0-9]+";
         Boolean isOK = false;
         while (!isOK) {
-            System.out.print("Enter the session you want (Integer Value): ");
+            System.out.print(ConsoleColours.WHITE_BOLD + "Enter the session you want (Integer Value): " + ConsoleColours.RESET);
             String choicestr = sc.nextLine();
             if (!choicestr.matches(numregex)) {
                 System.out.println(ConsoleColours.RED + "Please enter a valid integer:" + ConsoleColours.RESET);
