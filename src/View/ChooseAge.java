@@ -77,31 +77,23 @@ public class ChooseAge extends BaseMenu {
     public BaseMenu execute() {
         int choice;
 
-        // // CHOOSE NUMBER OF TICKETS TO PURCHASE
-        // System.out.print("\nPlease enter the number of seats being purchased: ");
-
-        // String numregexSeats = "^(?!(0))[0-9]{1}$";
-
-        // String noOfTicketsStr = sc.next();
-        // while (!noOfTicketsStr.matches(numregexSeats)) {
-        // // early termination
-        // if (noOfTicketsStr.isBlank()) {
-        // return this.getPreviousMenu();
-        // }
-        // System.out.println(ConsoleColours.RED + "Please enter a valid choice:" +
-        // ConsoleColours.RESET);
-        // noOfTicketsStr = sc.nextLine();
-        // }
-        // int noOfTickets = Integer.valueOf(noOfTicketsStr);
-
         ageGroup_Enum ageGroup = null;
 
         System.out.println(ConsoleColours.PURPLE_BOLD + "Age Group Selection:" + ConsoleColours.RESET);
-        System.out.println("1. Child");
-        System.out.println("2. Adult");
-        System.out.println("3. Senior");
-        System.out.println(ConsoleColours.YELLOW + "4. Back" + ConsoleColours.RESET);
-        System.out.println(ConsoleColours.RED + "5. Quit" + ConsoleColours.RESET);
+        if (this.movie.getMovieRating().name().equals("PG13") || this.movie.getMovieRating().name().equals("PG")){
+            System.out.println("1. Child");
+            System.out.println("2. Adult");
+            System.out.println("3. Senior");
+            System.out.println(ConsoleColours.YELLOW + "4. Back" + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.RED + "5. Quit" + ConsoleColours.RESET);
+        }
+        else{
+            System.out.println("1. Adult");
+            System.out.println("2. Senior");
+            System.out.println(ConsoleColours.YELLOW + "3. Back" + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.RED + "4. Quit" + ConsoleColours.RESET);
+        }
+
 
         BaseMenu nextMenu = this;
         this.ticket = new ArrayList<Ticket>();
@@ -127,32 +119,60 @@ public class ChooseAge extends BaseMenu {
 
             choice = Integer.valueOf(choicestr);
 
-            switch (choice) {
-                // CHILD
-                case 1:
-                    ageGroup = ageGroup_Enum.CHILD;
-                    break;
-                // ADULT
-                case 2:
-                    ageGroup = ageGroup_Enum.ADULT;
-                    break;
-                // SENIOR
-                case 3:
-                    ageGroup = ageGroup_Enum.SENIOR;
-                    break;
-                // GO TO PREVIOUS PAGE
-                case 4:
-                    nextMenu = this.getPreviousMenu();
-                    return nextMenu;
-                // QUIT
-                case 5:
-                    nextMenu = new Quit(this);
-                    return nextMenu;
-                default:
-                    choice = -1;
-                    System.out.println("Please enter a valid choice.");
-                    break;
+            if (this.movie.getMovieRating().name().equals("PG13") || this.movie.getMovieRating().name().equals("PG")){
+                switch (choice) {
+                    // CHILD
+                    case 1:
+                        ageGroup = ageGroup_Enum.CHILD;
+                        break;
+                    // ADULT
+                    case 2:
+                        ageGroup = ageGroup_Enum.ADULT;
+                        break;
+                    // SENIOR
+                    case 3:
+                        ageGroup = ageGroup_Enum.SENIOR;
+                        break;
+                    // GO TO PREVIOUS PAGE
+                    case 4:
+                        nextMenu = this.getPreviousMenu();
+                        return nextMenu;
+                    // QUIT
+                    case 5:
+                        nextMenu = new Quit(this);
+                        return nextMenu;
+                    default:
+                        choice = -1;
+                        System.out.println("Please enter a valid choice.");
+                        break;
+                }
             }
+            else{
+                switch (choice) {
+                    // ADULT
+                    case 1:
+                        ageGroup = ageGroup_Enum.ADULT;
+                        break;
+                    // SENIOR
+                    case 2:
+                        ageGroup = ageGroup_Enum.SENIOR;
+                        break;
+                    // GO TO PREVIOUS PAGE
+                    case 3:
+                        nextMenu = this.getPreviousMenu();
+                        return nextMenu;
+                    // QUIT
+                    case 4:
+                        nextMenu = new Quit(this);
+                        return nextMenu;
+                    default:
+                        choice = -1;
+                        System.out.println("Please enter a valid choice.");
+                        break;
+                }
+            }
+
+
 
             Ticket newTicket = new Ticket(cineplex, cinema, movieSession.getShowtime(),
                     movie.getTitle(),

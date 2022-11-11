@@ -9,7 +9,7 @@ package Controller;
  * @since 21-10-2022
  */
 
-public class DataController {
+ public class DataController {
     /**
      * Get path of csv file in database
      * 

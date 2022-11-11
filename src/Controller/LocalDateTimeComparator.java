@@ -2,6 +2,20 @@ package Controller;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 
+/**
+ * Comparator for LocalDateTime
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 21-10-2022
+ */
+
+ /*
+  * This class is used to compare two LocalDateTime objects
+    @return 1 if the first LocalDateTime object is after the second LocalDateTime object
+  */
 public class LocalDateTimeComparator implements Comparator < LocalDateTime >
 {
     @Override
