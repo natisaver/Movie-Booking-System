@@ -354,7 +354,8 @@ public class UpdateMovieSession extends BaseMenu {
                                         + ConsoleColours.RESET);
                         return this.getPreviousMenu();
                     } else if (sessionArrayListByDate.size() == 0) {
-                        System.out.println("There are no available sessions on inputted date.");
+                        System.out.println(ConsoleColours.RED + "There are no available sessions on inputted date."
+                                + ConsoleColours.RESET);
                         System.out.println();
                         continue;
                     } else {
