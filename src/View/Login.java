@@ -38,10 +38,19 @@ public class Login extends BaseMenu {
     ArrayList<Seat> bookedSeats = new ArrayList<>();
 
     /**
-     * Constructor to store previous page and access level
+     * Constructor to store previous page, access level, moviegoer,
+     * movieSession, cinema, cineplex, ticket, transaction, bookedSeats
      * 
-     * @param previousMenu the previous page
-     * @param accesslevel  the level of access
+     * @param previousMenu  the previous page
+     * @param accesslevel   the level of access
+     * @param moviegoer     movieGoer Object
+     * @param movie         the selected movie
+     * @param movieSession  the selected movieSession
+     * @param cinema        the selected cinema
+     * @param cineplex      the selected cineplex
+     * @param ticket        the array of ticket(s) booked
+     * @param transaction   the transaction made
+     * @param bookedSeats   the array of seat(s) booked
      */
     public Login(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
             MovieSession movieSession, Cinema cinema, Cineplex cineplex, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
@@ -59,10 +68,11 @@ public class Login extends BaseMenu {
 
     /**
      * Main Login Page
-     * Depending on the email address of the user, the system will bring them
-     * to the relevant page if they are MovieGoer or Admin
+     * Centralised Login Page that will access relevant page depending
+     * on the email address of the user (MovieGoer or Admin)
      * 
-     * @return to the relevant page of the user's role
+     * @return to the relevant page of the user's role or Display Transaction page
+     * @see DisplayTransaction, MovieGoerMainMenu, AdminMainMenu
      */
     @Override
     public BaseMenu execute() {
