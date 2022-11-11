@@ -3,10 +3,17 @@ transactionID,Email,NoOfTickets,MovieTitle,TotalPrice
 100202210261400,ahming@yahoo.com.sg,2,Jurassic World Dominion,26
 203202211090501,bobby@gmail.com,1,Satoshi Kon: The Illusionist,8.5
 203202211090503,bobby@gmail.com,1,Black Adam,7.5
-<<<<<<< HEAD
 302202211112140,bobby@gmail.com,14,Faces Of Anne,139.0
 203202211112321,bobby@gmail.com,1,Satoshi Kon: The Illusionist,8.5
-=======
 101202211112335,bobby@gmail.com,1,Black Adam,12.0
 101202211112339,bobby@gmail.com,1,Black Adam,9.5
->>>>>>> sqbranch
+302202211120017,bobby@gmail.com,1,Faces Of Anne,9.5
+302202211120021,bobby@gmail.com,1,Faces Of Anne,9.5
+302202211120034,bobby@gmail.com,1,Faces Of Anne,12.0
+302202211120036,bobby@gmail.com,1,Faces Of Anne,12.0
+302202211120040,bobby@gmail.com,1,Faces Of Anne,9.5
+302202211120052,bobby@gmail.com,2,Faces Of Anne,14.5
+101202211120055,bobby@gmail.com,1,Black Adam,9.5
+203202211120056,bobby@gmail.com,1,Black Adam,9.5
+202202211120056,bobby@gmail.com,1,Faces Of Anne,9.5
+302202211120057,bobby@gmail.com,1,Faces Of Anne,12.0

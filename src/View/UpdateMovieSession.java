@@ -14,6 +14,15 @@ import Controller.CinemaController;
 import Model.Movie;
 import Model.MovieSession;
 
+/**
+ * The page for Admin to update details of existing Movie.
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 04-11-2022
+ */
 public class UpdateMovieSession extends BaseMenu {
     Scanner sc = new Scanner(System.in);
     LocalDateTime insertStart, insertEnd, curStart, curEnd;
@@ -396,7 +405,7 @@ public class UpdateMovieSession extends BaseMenu {
                     // if session with inputted time exists, successful
                     if (sessionArrayListByTime.size() != 0) {
                         // checks if movie theatre is still empty
-                        if (!MovieSessionController.checkBooked(choicestr, sessionArrayListByDate.get(0))) {
+                        if (!MovieSessionController.checkBooked(choicestr, sessionArrayListByTime.get(0))) {
                             MovieSessionController.delete(choicestr, sessionArrayListByTime.get(0));
                             System.out.println(ConsoleColours.GREEN + "Movie Session deleted." + ConsoleColours.RESET);
                             System.out.println();
