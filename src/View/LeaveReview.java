@@ -51,7 +51,7 @@ public class LeaveReview extends BaseMenu {
         SelectionMenu = sortByName(Movies);
         
         if (moviesize <= 0){
-            System.out.println("No Movies Available");
+            System.out.println(ConsoleColours.RED + "No Movies Available" + ConsoleColours.RESET);
         }
         else {
             System.out.println(ConsoleColours.WHITE_BOLD + "Leave a Review for a Movie: " + ConsoleColours.RESET);
@@ -70,7 +70,7 @@ public class LeaveReview extends BaseMenu {
         Boolean isOK = false;
         while (!isOK) {
             Boolean reviewExist = false;
-            System.out.print("Enter your choice of movie to leave review for (Integer Value): ");
+            System.out.print(ConsoleColours.WHITE_BOLD + "Enter your choice of movie to leave review for (Integer Value): " + ConsoleColours.RESET);
             String choicestr = sc.nextLine();
             if (!choicestr.matches(numregex)){
                 System.out.println(ConsoleColours.RED + "Please enter a valid integer:" + ConsoleColours.RESET);
@@ -107,7 +107,7 @@ public class LeaveReview extends BaseMenu {
         }
 
         Movie temp = SelectionMenu.get(choice);
-        System.out.println("Please enter your Review for " + temp.getTitle());
+        System.out.println(ConsoleColours.WHITE_BOLD + "Please enter your Review for " + temp.getTitle() + ConsoleColours.RESET);
         reviewText = sc.nextLine();
         if(reviewText.isBlank())
         {
@@ -117,7 +117,7 @@ public class LeaveReview extends BaseMenu {
         rating = 0.0;
         Boolean isOKi = false;
         while (!isOKi) {
-            System.out.println("Please enter your Ratings for " + temp.getTitle());
+            System.out.println(ConsoleColours.WHITE_BOLD + "Please enter your Ratings for " + temp.getTitle() + ConsoleColours.RESET);
             reviewRating = sc.nextLine();
             if (!reviewRating.matches(ratingRegex)){
                 System.out.println(ConsoleColours.RED + "Please enter a valid range between 0.0 - 5.0" + ConsoleColours.RESET);
@@ -168,7 +168,7 @@ public class LeaveReview extends BaseMenu {
                 break;
             default:
                 choice = -1;
-                System.out.println("Please enter a valid choice. ");
+                System.out.println(ConsoleColours.RED + "Please enter a valid choice. " + ConsoleColours.RESET);
                 break;
         }
         return nextMenu;
