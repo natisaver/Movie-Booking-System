@@ -344,11 +344,6 @@ public class UpdateMovieSession extends BaseMenu {
                     // if only one session on inputted date, delete successful
                     if (sessionArrayListByDate.size() == 1) {
                         // checks if movie theatre is still empty
-                        if(MovieSessionController.checkBooked(choicestr, sessionArrayListByDate.get(0))){
-                            System.out.println("checkBooked value is true");
-                        }else{
-                            System.out.println("checkBooked value is false");
-                        }
                         if (!MovieSessionController.checkBooked(choicestr, sessionArrayListByDate.get(0))) {
                             MovieSessionController.delete(choicestr, sessionArrayListByDate.get(0));
                             System.out.println(ConsoleColours.GREEN + "Movie Session deleted." + ConsoleColours.RESET);
