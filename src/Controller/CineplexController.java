@@ -22,9 +22,9 @@ public class CineplexController {
     public final static String PATH = DataController.getPath("Cineplex");
 
     /**
-     * READ and list all Cineplexes from Database
+     * READ and list all Cineplex Locations from Database
      * 
-     * @return return List of all the cineplexes as strings
+     * @return return Array List of all the cineplexes as strings
      */
     public static ArrayList<String> read() {
         // Check if database exists
@@ -55,10 +55,10 @@ public class CineplexController {
     }
 
     /**
-     * READ and list all Cineplexes from Database with specified location
+     * READ and list all cinemas from Database with specified location
      * 
      * @param location Indicates the Location of the Cineplex
-     * @return Model.{@link Cinema} Return List Array of Cinema at the location
+     * @return Model.{@link Cinema} Return List Array of Cinemas at the location
      *         if the location exists
      */
     public static ArrayList<Cinema> readByLocation(String location) {
@@ -94,7 +94,7 @@ public class CineplexController {
     /**
      * READ and list all individual cinema codes from Database
      * 
-     * @return return List of all the cineplexes as strings
+     * @return return List of all the cinema codes as strings
      */
     public static ArrayList<String> readCodes() {
         // Check if database exists

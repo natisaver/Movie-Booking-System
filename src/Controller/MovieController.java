@@ -19,11 +19,13 @@ import java.lang.String;
 import Model.*;
 
 /**
- * Controller for CRUD operations managing data relating to Movie
+ * CRUD Operations for Movies
+ * the MOBLIMA Cinema
+ * Application
  * 
  * @author Sally Carrera
  * @version 1.0
- * @since 28-10-2022
+ * @since 21-10-2022
  */
 
 public class MovieController {
@@ -36,7 +38,7 @@ public class MovieController {
      * READ every row of Movie Database File
      * If Database file not found, ignore error and return empty list
      * 
-     * @return Model.{@link Movie} Return list of Movie if any, else empty list
+     * @return {@link ArrayList} of {@link Movie} of every row of Movie Database File
      */
     public static ArrayList<Movie> read() {
         // Check if database exists
@@ -72,6 +74,13 @@ public class MovieController {
         }
         return movieArrayList;
     }
+
+    /**
+     * READ and list all movies from Database with specified title
+     * 
+     * @param title {@link String} of movie title
+     * @return      {@link Movie} with specified title
+     */
 
     public static Movie readByTitle(String title) {
         // Check if database exists
@@ -109,6 +118,14 @@ public class MovieController {
             return null;
         }
     }
+
+    /**  
+     * CREATE new movie in database 
+     * 
+     * @param movie {@link Movie} to be added to database
+     * @return      <code>true</code> if movie is successfully added to database, else
+     *             <code>false</code>
+     */
 
     public static Boolean create(Movie movie) {
         File inputFile = new File(DataController.getPath("Movie"));
@@ -265,6 +282,13 @@ public class MovieController {
         return true;
     }
 
+    /**
+     * UPDATE movie details in the database for a particular movie.
+     * @param movie {@code Movie} object to be updated.
+     * @return <code>true</code> if movie is updated successfully, else
+     *        <code>false</code>.
+     */
+
     public static Boolean update(Movie movie) {
         File inputFile = new File(DataController.getPath("Movie"));
         File tempFile = new File(DataController.getPath("Temp"));
@@ -404,7 +428,8 @@ public class MovieController {
      * UPDATE every row of Movie Database File with the latest status
      * If Database file not found, ignore error and return empty list
      * 
-     * @return Boolean to see if updated status was successful or not
+     * @return <code>true</code> if movie is updated successfully, else
+     *       <code>false</code>.
      */
     public static boolean updateStatusAll() {
         File inputFile = new File(DataController.getPath("Movie"));
