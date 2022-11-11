@@ -111,9 +111,9 @@ public class UpdateMovieDetails extends BaseMenu{
             switch (choice) {
                 //UPDATE MOVIE TYPE
                 case 1:
-                    String[] strRegex = {"TWOD", "THREED", "BLOCKBUSTER"};
+                    String[] strRegex = {"2D", "3D", "BLOCKBUSTER"};
                     System.out.println(ConsoleColours.WHITE_BOLD + "Enter Updated Movie Type: " + ConsoleColours.RESET);
-                    System.out.println(ConsoleColours.BLUE + "(TWOD, THREED, BLOCKBUSTER)" + ConsoleColours.RESET);
+                    System.out.println(ConsoleColours.BLUE + "(2D, 3D, BLOCKBUSTER)" + ConsoleColours.RESET);
                     inputString = sc.nextLine().toUpperCase();
                     while (!Arrays.asList(strRegex).contains(inputString)) {
                         //early termination
@@ -126,7 +126,16 @@ public class UpdateMovieDetails extends BaseMenu{
                     
                     System.out.println(ConsoleColours.GREEN + "Movie Type changed to: " + inputString + ConsoleColours.RESET);
                     System.out.println();
-                    movie.setMovieType(movieType_Enum.valueOf(inputString));
+                    if (inputString.equals("2D")) {
+                        inputString = "TWOD";
+                        movie.setMovieType(movieType_Enum.valueOf(inputString));
+                    }
+                    else if (inputString.equals("3D")) {
+                        inputString = "THREED";
+                        movie.setMovieType(movieType_Enum.valueOf(inputString));
+                    }
+                    else if (inputString.equals("BLOCKBUSTER")) movie.setMovieType(movieType_Enum.valueOf(inputString));
+
                     if(!MovieController.update(movie)){
                         System.out.println(ConsoleColours.RED + "Failed to update Movie Details" + ConsoleColours.RESET);
                         return this;

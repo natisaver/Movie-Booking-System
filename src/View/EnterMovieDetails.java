@@ -76,9 +76,9 @@ public class EnterMovieDetails extends BaseMenu{
         movie.setTitle(inputString);
 
         //ENTER MOVIE TYPE
-        String[] strRegex = {"TWOD", "THREED", "BLOCKBUSTER"};
+        String[] strRegex = {"2D", "3D", "BLOCKBUSTER"};
         System.out.println(ConsoleColours.WHITE_BOLD + "Enter Movie Type: " + ConsoleColours.RESET);
-        System.out.println(ConsoleColours.BLUE + "(TWOD, THREED, BLOCKBUSTER)" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.BLUE + "(2D, 3D, BLOCKBUSTER)" + ConsoleColours.RESET);
         inputString = sc.nextLine().toUpperCase();
         while (!Arrays.asList(strRegex).contains(inputString)) {
             //early termination
@@ -90,7 +90,15 @@ public class EnterMovieDetails extends BaseMenu{
         }
         System.out.println(ConsoleColours.GREEN + "Movie Type added" + ConsoleColours.RESET);
         System.out.println();
-        movie.setMovieType(movieType_Enum.valueOf(inputString));
+        if (inputString.equals("2D")) {
+            inputString = "TWOD";
+            movie.setMovieType(movieType_Enum.valueOf(inputString));
+        }
+        else if (inputString.equals("3D")) {
+            inputString = "THREED";
+            movie.setMovieType(movieType_Enum.valueOf(inputString));
+        }
+        else if (inputString.equals("BLOCKBUSTER")) movie.setMovieType(movieType_Enum.valueOf(inputString));
 
         //ENTER MOVIE RATING
         String[] strRegex2 = {"PG", "PG13", "NC16", "M18", "R21"};
