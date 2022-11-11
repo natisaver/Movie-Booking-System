@@ -192,7 +192,7 @@ public class UpdateReview extends BaseMenu{
                         System.out.println("Please enter your updated Rating ");
                         reviewRating = sc.nextLine();
                         if (!reviewRating.matches(ratingRegex)){
-                            System.out.println(ConsoleColours.RED + "Please enter a valid integer:" + ConsoleColours.RESET);
+                            System.out.println(ConsoleColours.RED + "Please enter a valid range between 0.0 - 5.0" + ConsoleColours.RESET);
                         }
                         else if (Double.valueOf(reviewRating) >= 0 && Double.valueOf(reviewRating) <= 5){
                             rating = Double.valueOf(reviewRating);
