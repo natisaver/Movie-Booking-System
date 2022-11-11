@@ -216,7 +216,7 @@ public class TransactionController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[0].equals(transaction.getTID()) && tokens[1].equals(transaction.getEmail())) {
+                if (tokens[0].equals(transaction.getTID()) && tokens[1].toLowerCase().equals(transaction.getEmail().toLowerCase())) {
                     Found = true;
                     writer.close();
                     reader.close();
