@@ -114,10 +114,10 @@ public class ViewMovieDetails extends BaseMenu
                 Movie temp = SelectionMenu.get(choice);
                 System.out.println(">>");
                 System.out.println(ConsoleColours.CYAN_BRIGHT + "Title: " + temp.getTitle() + ConsoleColours.RESET);
-                System.out.println("Rating: " + temp.getMovieRating().name() + " | Duration: " + temp.getDuration() + "mins");
-                System.out.println("Release: " + temp.getReleaseDate().format(formatter) + " | End: " + temp.getEndDate().format(formatter));
-                System.out.println("Director: " + temp.getDirector());
-                System.out.print("Cast: ");
+                System.out.println(ConsoleColours.WHITE_BOLD + "Rating: " + ConsoleColours.RESET + temp.getMovieRating().name() + " | Duration: " + temp.getDuration() + "mins");
+                System.out.println(ConsoleColours.WHITE_BOLD + "Release: " + ConsoleColours.RESET + temp.getReleaseDate().format(formatter) + " | End: " + temp.getEndDate().format(formatter));
+                System.out.println(ConsoleColours.WHITE_BOLD + "Director: "  + ConsoleColours.RESET+ temp.getDirector());
+                System.out.print(ConsoleColours.WHITE_BOLD + "Cast: " + ConsoleColours.RESET);
                 for (int j = 0; j<temp.getCast().size(); j++){
                     if (j == temp.getCast().size()-1){
                         System.out.println(temp.getCast().get(j));
@@ -126,7 +126,7 @@ public class ViewMovieDetails extends BaseMenu
                         System.out.print(temp.getCast().get(j) + ", ");
                     }
                 }
-                System.out.println("Synopsis: ");
+                System.out.println(ConsoleColours.WHITE_BOLD + "Synopsis: " + ConsoleColours.RESET);
                 System.out.println(temp.getSynopsis());
                 System.out.println(ConsoleColours.WHITE_BOLD + "Reviews: " + ConsoleColours.RESET);
                 int numReviews = ReviewController.readByTitle(temp.getTitle()).size();

@@ -80,7 +80,7 @@ public class ListTopFive extends BaseMenu {
                     // print the sorted hashmap
                     int x = 1;
 
-                    System.out.println("Top 5 Movies (By Overall Sales)");
+                    System.out.println(ConsoleColours.WHITE_BOLD + "Top 5 Movies (By Overall Sales)" + ConsoleColours.RESET);
                     for (Map.Entry<String, Integer> en : hm2.entrySet()) {
                         if (x == 6) {
                             break;
@@ -112,7 +112,7 @@ public class ListTopFive extends BaseMenu {
                     // print the sorted hashmap
                     int i = 1;
 
-                    System.out.println("Top 5 Movies (By Overall Review)");
+                    System.out.println(ConsoleColours.WHITE_BOLD + "Top 5 Movies (By Overall Review)" + ConsoleColours.RESET);
                     for (Map.Entry<String, Double> en : hm1.entrySet()) {
                         if (i == 6) {
                             break;

@@ -62,7 +62,7 @@ public class UpdateReview extends BaseMenu{
         System.out.println(ConsoleColours.WHITE_BOLD + "Here are your reviews:" + ConsoleColours.RESET);
         //moviegoer has no reviews
         if (reviews.size() <= 0){
-            System.out.println("You Currently have no reviews Available");
+            System.out.println(ConsoleColours.RED + "You Currently have no reviews Available" + ConsoleColours.RESET);
             do {
                 System.out.println(ConsoleColours.YELLOW + "1. Back" + ConsoleColours.RESET);
                 System.out.println(ConsoleColours.RED + "2. Quit" + ConsoleColours.RESET);
@@ -189,7 +189,7 @@ public class UpdateReview extends BaseMenu{
                     String ratingRegex = "\\d{1,2}[,\\.]?(\\d{1,1})?";
                     Boolean isOKi = false;
                     while (!isOKi) {
-                        System.out.println("Please enter your updated Rating ");
+                        System.out.println(ConsoleColours.WHITE_BOLD + "Please enter your updated Rating " + ConsoleColours.RESET);
                         reviewRating = sc.nextLine();
                         if (!reviewRating.matches(ratingRegex)){
                             System.out.println(ConsoleColours.RED + "Please enter a valid range between 0.0 - 5.0" + ConsoleColours.RESET);
@@ -269,7 +269,7 @@ public class UpdateReview extends BaseMenu{
                 break;
             default:
                 choice = -1;
-                System.out.println("Please enter a valid choice. ");
+                System.out.println(ConsoleColours.RED + "Please enter a valid choice. " + ConsoleColours.RESET);
                 break;
         }
         return nextMenu;
