@@ -11,7 +11,7 @@ import Controller.HolidayController;
 import Model.Holiday;
 
 /**
- * Configure Holiday Functionality
+ * Configure Holiday Page
  * the MOBLIMA Cinema
  * Application
  * 
@@ -19,7 +19,7 @@ import Model.Holiday;
  * @version 1.0
  * @since 01-11-2022
  */
-public class ConfigureHoliday extends BaseMenu {
+public class ConfigureHoliday extends BaseMenu{
   Scanner sc = new Scanner(System.in);
 
   /**
@@ -32,13 +32,14 @@ public class ConfigureHoliday extends BaseMenu {
     super(previousMenu, accesslevel);
   }
 
-  /**
-   * Configure Holiday Functionality
-   * View, add, update, delete holiday
-   * 
-   * @return Selected Page or Previous Page or Terminates
-   * @see AdminMainMenu
-   */
+    /**
+     * Configure Holiday Functionality
+     * Allow Admin to choose to View, Add, Update or Delete Holiday
+     * 
+     * @return Selected Page or Terminates
+     * @see ConfigureSettings 
+     */
+    @Override  
   public BaseMenu execute() {
     BaseMenu nextMenu = this;
     int choice;

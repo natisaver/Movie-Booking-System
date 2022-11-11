@@ -2,6 +2,15 @@ package View;
 
 import java.util.Scanner;
 
+/**
+ * Page to display different configure settings available for admin
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 01-11-2022
+ */
 public class ConfigureSettings extends BaseMenu{
     Scanner sc = new Scanner(System.in);
 
@@ -14,6 +23,14 @@ public class ConfigureSettings extends BaseMenu{
         super(previousMenu, accesslevel);
     }
 
+    /**
+     * Configure Setting Functionality
+     * Allow Admin to choose to configure Price or Holiday
+     * 
+     * @return Selected Page or Previous Page 
+     * @see ConfigurePrice, ConfigureHoliday, AdminMainMenu   
+     */
+    @Override
     public BaseMenu execute() {
         BaseMenu nextMenu = this;
         int choice;
