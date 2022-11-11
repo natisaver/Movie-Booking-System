@@ -55,7 +55,7 @@ public class EnterMovieSession extends BaseMenu{
      */
     public BaseMenu execute(){
         
-        System.out.println("Input a New Session for Current Movie");
+        System.out.println(ConsoleColours.WHITE_BOLD + "Input a New Session for Current Movie" + ConsoleColours.RESET);
         System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
         
         //print all current cinema codes
@@ -64,17 +64,17 @@ public class EnterMovieSession extends BaseMenu{
 
         //INPUT CINEMACODE=================
         String numRegex = "^([1-3][0][1-3])$";
-        System.out.println("Enter cinema code of cinema to add session to: ");
+        System.out.println(ConsoleColours.WHITE_BOLD + "Enter cinema code of cinema to add session to: " + ConsoleColours.RESET);
         choicestr = sc.nextLine();
         //make sure cinemacode is valid
         sessionArrayList = new ArrayList<MovieSession>();
         while (!choicestr.matches(numRegex)) {
             //early termination
             if(choicestr.isBlank()){
-                return this.getPreviousMenu();
+                return this.getPreviousMenu().getPreviousMenu();
             }
             System.out.println(ConsoleColours.RED + "Cinema Code is Invalid." + ConsoleColours.RESET);
-            System.out.println("Please Reenter Cinema Code:");
+            System.out.println(ConsoleColours.WHITE_BOLD + "Please Reenter Cinema Code:" + ConsoleColours.RESET);
             choicestr = sc.nextLine();
         }
         //Get all sessions Sessions
@@ -104,12 +104,12 @@ public class EnterMovieSession extends BaseMenu{
         + "|^(((19|2[0-9])[0-9]{2})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))$" 
         + "|^(((19|2[0-9])[0-9]{2})-(0[469]|11)-(0[1-9]|[12][0-9]|30))$";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime movieReleaseDate = MovieController.readByTitle(choicestr).getReleaseDate();
-        LocalDateTime movieEndDate = MovieController.readByTitle(choicestr).getEndDate();
+        LocalDateTime movieReleaseDate = MovieController.readByTitle(movie.getTitle()).getReleaseDate();
+        LocalDateTime movieEndDate = MovieController.readByTitle(movie.getTitle()).getEndDate();
 
         //validity check loop, continues while date and time overlaps:
         do {
-            System.out.println("Enter the date of movie screening: (yyyy-MM-dd)");
+            System.out.println(ConsoleColours.WHITE_BOLD + "Enter the date of movie screening: (yyyy-MM-dd)" + ConsoleColours.RESET);
             date = sc.nextLine();
             while (!date.matches(dateCheck) || LocalDateTime.parse(date + " 00:00", formatter).isBefore(LocalDateTime.now()) ||
                     LocalDateTime.parse(date + " 00:00", formatter).isBefore(movieReleaseDate) ||
@@ -121,9 +121,9 @@ public class EnterMovieSession extends BaseMenu{
                 if(!date.matches(dateCheck))
                     System.out.println(ConsoleColours.RED + "Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
                 else if (LocalDateTime.parse(date + " 00:00", formatter).isBefore(movieReleaseDate))
-                    System.out.println("Please enter a date after the movie's release date");
+                    System.out.println(ConsoleColours.RED + "Please enter a date after the movie's release date" + ConsoleColours.RESET);
                 else if (LocalDateTime.parse(date + " 00:00", formatter).isAfter(movieEndDate) || LocalDateTime.parse(date + " 00:00", formatter).equals(movieEndDate))
-                    System.out.println("Please enter a date before the movie's end date");
+                    System.out.println(ConsoleColours.RED + "Please enter a date before the movie's end date" + ConsoleColours.RESET);
                 else
                     System.out.println(ConsoleColours.RED + "Please enter a future date" + ConsoleColours.RESET);
                 date = sc.nextLine();
@@ -140,13 +140,13 @@ public class EnterMovieSession extends BaseMenu{
             //INPUT START TIME================
             //check for HH:mm to append to the end of the date string
             String timeRegex = "^([0-1]?[0-9]|2[0-3]):([0-5]?[0-9]|5[0-9])$";
-            System.out.println("Enter the start time of the movie: (HH:mm)");
+            System.out.println(ConsoleColours.WHITE_BOLD + "Enter the start time of the movie: (HH:mm)" + ConsoleColours.RESET);
             Boolean isOK = false;
             while(!isOK){
                 time = sc.nextLine();
                 if(!time.matches(timeRegex)){
                     if(time.isBlank()){
-                        return this.getPreviousMenu();
+                        return this.getPreviousMenu().getPreviousMenu();
                     }
                     System.out.println(ConsoleColours.RED + "Please enter the time in the required format: (HH:mm)" + ConsoleColours.RESET);
                     continue;
@@ -159,6 +159,7 @@ public class EnterMovieSession extends BaseMenu{
                     isOK = true;
                 }
             }
+            System.out.println();
         
             //CREATE INTERVAL TO INSERT ==========
             date = date + " " + time;
