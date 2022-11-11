@@ -795,6 +795,7 @@ public class MovieSessionController {
                         reader[0].close();
                         return false;
                     }
+                    reader[0].close();
                     return true;
                 }
             }

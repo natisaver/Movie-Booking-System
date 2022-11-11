@@ -397,9 +397,16 @@ public class UpdateMovieSession extends BaseMenu {
                     if (sessionArrayListByTime.size() != 0) {
                         // checks if movie theatre is still empty
                         if (!MovieSessionController.checkBooked(choicestr, sessionArrayListByDate.get(0))) {
-                            MovieSessionController.delete(choicestr, sessionArrayListByTime.get(0));
-                            System.out.println(ConsoleColours.GREEN + "Movie Session deleted." + ConsoleColours.RESET);
-                            System.out.println();
+                            if(!MovieSessionController.delete(choicestr, sessionArrayListByTime.get(0))){
+                                System.out.println(ConsoleColours.GREEN + "Movie Session deleted." + ConsoleColours.RESET);
+                                System.out.println();
+                            }
+                            else{
+                                System.out.println(
+                                    ConsoleColours.RED + "Controller Error in deleting the session. Session not deleted."
+                                            + ConsoleColours.RESET);
+                                break;
+                            }
                         } else {
                             System.out.println(
                                     ConsoleColours.RED + "This session already has bookings. Unable to be deleted."
