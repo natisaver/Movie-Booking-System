@@ -138,10 +138,11 @@ public class ListTopFive extends BaseMenu {
     }
 
     /**
+     * Sort by Value Funtionality
+     * Sorts movie's ranking in numerical order
      * 
-     * 
-     * @param hm
-     * @return
+     * @param hm HashMap<String, Integer> Hashmap of Movie Title and integer value
+     * @return HashMap<String, Integer>
      */
     public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm) {
         // Create a list from elements of HashMap
