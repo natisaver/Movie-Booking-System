@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import Controller.MovieController;
-import Controller.MovieSessionController;
 
 /**
  * The page for Admin to update details of existing Movie.
@@ -56,7 +55,6 @@ public class UpdateMovieDetails extends BaseMenu{
         String dateCheck;
         ArrayList<String> inputArray = new ArrayList<String>(); 
 
-        String stringRegex = "^[^0-9]+$";
         System.out.println(ConsoleColours.WHITE_BOLD + "Enter Title of existing Movie to be updated:" + ConsoleColours.RESET);
         inputTitle = sc.nextLine();
         do{

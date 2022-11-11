@@ -464,9 +464,7 @@ public class MovieSessionController {
         }
 
         Boolean Found = false;
-        Boolean Clash = false;
         String line;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         try {
             writer.append("Title");
