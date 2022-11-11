@@ -273,7 +273,10 @@ public class MovieSession {
 			}
 			else if (Character.compare(id.charAt(0), 'S') == 0) {
                 row = (int) (id.charAt(0) - 67);
-                if (id.length() > 2) column = Integer.parseInt(id.substring(id.length() - 2)) - 3;
+                if (id.length() > 2) {
+                    column = Integer.parseInt(id.substring(id.length() - 2)) -3;
+                    // System.out.println(column);
+                }
                 else column = Integer.parseInt(id.substring(1)) - 3;
                 this.sessionSeats[row][column].setIsOccupied();
                 bookedSeats.add(this.sessionSeats[row][column]);
