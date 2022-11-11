@@ -8,11 +8,6 @@ package Model;
  */
 
 public class Admin extends User{
-    /**
-     * Current Available Roles
-     */
-    public static final int MOVIE_GOER = 0, ADMIN = 1;
-
 	/** 
 	 * Constructor
      * @param name		    The User's name 
