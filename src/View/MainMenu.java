@@ -35,10 +35,19 @@ public class MainMenu extends BaseMenu {
     ArrayList<Seat> bookedSeats = new ArrayList<>();
 
     /**
-     * Constructor to store previous page and access level
+     * Constructor to store previous page, access level, moviegoer,
+     * movieSession, cinema, cineplex, ticket, transaction, bookedSeats
      * 
-     * @param previousMenu the previous page
-     * @param accesslevel  the level of access
+     * @param previousMenu  the previous page
+     * @param accesslevel   the level of access
+     * @param moviegoer     movieGoer Object
+     * @param movie         the selected movie
+     * @param movieSession  the selected movieSession
+     * @param cinema        the selected cinema
+     * @param cineplex      the selected cineplex
+     * @param ticket        the array of ticket(s) booked
+     * @param transaction   the transaction made
+     * @param bookedSeats   the array of seat(s) booked
      */
     public MainMenu(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
             MovieSession movieSession, Cinema cinema, Cineplex cineplex, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
@@ -58,6 +67,7 @@ public class MainMenu extends BaseMenu {
      * Access Main Menu for MovieGoer, Admin or Quit
      * 
      * @return Selected Page or Terminates
+     * @see MovieGoerMainMenu, Login, CreateAccount
      */
     @Override
     public BaseMenu execute() {
@@ -65,8 +75,7 @@ public class MainMenu extends BaseMenu {
         int choice;
         String numregex = "^(?!(0))[0-4]{1}$";
 
-        System.out.println(ConsoleColours.PURPLE_BOLD + "Movie Booking and Listing Management Application (MOBLIMA)"
-                + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.PURPLE_BOLD + "Movie Booking and Listing Management Application (MOBLIMA)" + ConsoleColours.RESET);
         System.out.println("1. Browse");
         System.out.println("2. Login");
         System.out.println("3. Create Account");
