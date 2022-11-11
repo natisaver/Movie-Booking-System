@@ -14,6 +14,15 @@ import java.util.Map;
 import Controller.*;
 import Model.*;
 
+/**
+ * List Top 5 Movies Menu
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 01-11-2022
+ */
 public class ListTopFive extends BaseMenu {
     Scanner sc = new Scanner(System.in);
 
@@ -21,6 +30,14 @@ public class ListTopFive extends BaseMenu {
         super(previousMenu, accesslevel);
     }
 
+    /**
+     * List Top 5 Movies Functionality
+     * Display top 5 list of movies based on the selected option of "by ticket
+     * sales" or "by average reviews"
+     * 
+     * @return Next Page or Previous Page
+     * @see ListTopFive or AdminMainMenu
+     */
     @Override
     public BaseMenu execute() {
         BaseMenu nextMenu = this;
@@ -31,11 +48,6 @@ public class ListTopFive extends BaseMenu {
 
         do {
             movies = MovieController.read();
-            // Movie[] movieArray = new Movie[movies.size()];
-            // for(int x = 0; x < movies.size(); x++)
-            // {
-            // movieArray[x] = movies.get(x);
-            // }
 
             System.out.println(ConsoleColours.PURPLE_BOLD + "List Top 5: " + ConsoleColours.RESET);
             System.out.println("1. Print out Top 5 Movies by Ticket Sales");
@@ -63,24 +75,15 @@ public class ListTopFive extends BaseMenu {
 
                     for (int i = 1; i < movies.size(); i++) {
                         Movie key = movies.get(i);
-                        // System.out.println(key.getTitle());
                         OverallSales.put(key.getTitle(), TransactionController.salesByTitle(key.getTitle()));
-                        // System.out.println(TransactionController.salesByTitle(key.getTitle()));
-                        // int j = i-1;
-                        // while(j >= 0 && key.getTicketSales() > movieArray[j].getTicketSales())
-                        // {
-                        // temp = movieArray[j+1];
-                        // movieArray[j+1] = movieArray[j];
-                        // movieArray[j] = temp;
-                        // j = j - 1;
-                        // }
                     }
                     Map<String, Integer> hm2 = sortByValue(OverallSales);
 
                     // print the sorted hashmap
                     int x = 1;
 
-                    System.out.println(ConsoleColours.WHITE_BOLD + "Top 5 Movies (By Overall Sales)" + ConsoleColours.RESET);
+                    System.out.println(
+                            ConsoleColours.WHITE_BOLD + "Top 5 Movies (By Overall Sales)" + ConsoleColours.RESET);
                     for (Map.Entry<String, Integer> en : hm2.entrySet()) {
                         if (x == 6) {
                             break;
@@ -112,7 +115,8 @@ public class ListTopFive extends BaseMenu {
                     // print the sorted hashmap
                     int i = 1;
 
-                    System.out.println(ConsoleColours.WHITE_BOLD + "Top 5 Movies (By Overall Review)" + ConsoleColours.RESET);
+                    System.out.println(
+                            ConsoleColours.WHITE_BOLD + "Top 5 Movies (By Overall Review)" + ConsoleColours.RESET);
                     for (Map.Entry<String, Double> en : hm1.entrySet()) {
                         if (i == 6) {
                             break;
@@ -133,6 +137,12 @@ public class ListTopFive extends BaseMenu {
         return nextMenu;
     }
 
+    /**
+     * 
+     * 
+     * @param hm
+     * @return
+     */
     public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm) {
         // Create a list from elements of HashMap
         List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(hm.entrySet());
