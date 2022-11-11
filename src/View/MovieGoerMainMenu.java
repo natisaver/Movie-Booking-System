@@ -80,6 +80,7 @@ public class MovieGoerMainMenu extends BaseMenu {
         // keep asking for choice
         System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
         String choicestr = sc.nextLine();
+        System.out.println();
 
         while (!choicestr.matches(numregex)) {
             // early termination
@@ -88,6 +89,7 @@ public class MovieGoerMainMenu extends BaseMenu {
             }
             System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
             choicestr = sc.nextLine();
+            System.out.println();
         }
 
         choice = Integer.valueOf(choicestr);
@@ -97,7 +99,6 @@ public class MovieGoerMainMenu extends BaseMenu {
                 nextMenu = new ChooseCineplex(this, -1, moviegoer, movie, movieSession, cinema, ticket, transaction);
                 break;
             case 2:
-                //MovieGoer user = new MovieGoer("Niki", "niki@123.com", "81234567",  25, "null");
                 if (moviegoer == null) {
                     nextMenu = new CreateOrLogin(nextMenu, -1, null, null, null, null, null, ticket, null, this.bookedSeats);
                 } 

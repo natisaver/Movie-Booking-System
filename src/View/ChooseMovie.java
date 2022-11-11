@@ -52,15 +52,12 @@ public class ChooseMovie extends BaseMenu {
         System.out.println(ConsoleColours.YELLOW + (movieArr.size() + 1) + ". Back" + ConsoleColours.RESET);
         System.out.println(ConsoleColours.RED + (movieArr.size() + 2) + ". Quit" + ConsoleColours.RESET);
 
-        // keep asking for choice
-        System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
-
         String numregex = "[0-9]+";
         String choicestr = "";
         Boolean isOK = false;
         int moviesize = movieArr.size();
         while (!isOK) {
-            System.out.print("Enter your choice of movie to view details (Integer Value): ");
+            System.out.print(ConsoleColours.WHITE_BOLD + "Enter your choice of movie to view details (Integer Value): " + ConsoleColours.RESET);
             choicestr = sc.nextLine();
             if (!choicestr.matches(numregex)){
                 if (choicestr.isBlank()){
