@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The page for Admin to input details of new Movie.
+ * Input details of new Movie.
  * the MOBLIMA Cinema
  * Application
  * @author Sally Carrera
@@ -37,8 +37,10 @@ public class EnterMovieDetails extends BaseMenu{
      * EnterMovieDetails Menu Functionality
      * Create Movie by inputting Movie Title, Movie Type, Movie Rating, 
      * Movie Duration, Synopsis, Director, Cast, Release Date, End Date
-     * User can also choose to go Back or Quit
+     * Admin can also choose to go Back or Quit
+     * 
      * @return AdminMainMenu or Terminates
+     * @see AdminMainMenu
      */
     @Override
     public BaseMenu execute(){

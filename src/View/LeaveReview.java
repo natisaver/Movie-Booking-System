@@ -15,14 +15,37 @@ import Controller.ReviewController;
 import Model.Movie;
 import Model.MovieGoer;
 import Model.Review;
+
+/**
+ * Leave a Review Page
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 03-11-2022
+ */
+
 public class LeaveReview extends BaseMenu {
     private MovieGoer user;
     Scanner sc = new Scanner(System.in);
 
+    /** 
+     * Constructor
+     * @param previousMenu     the previous page
+     * @param accesslevel      the level of access
+     * @param user             the user that is logged in
+     */
     public LeaveReview(BaseMenu previousMenu, int accesslevel, MovieGoer user) {
         super(previousMenu, accesslevel);
         this.user = user;
     }
+    /**
+     * Leave Review Functionality
+     * Enter text review and numerical rating for NOW_SHOWING movies. 
+     * @return Selected Page or Previous Page or Terminate
+     * @see MovieGoerMainMenu
+     */
     @Override
     public BaseMenu execute() {
         BaseMenu nextMenu = this;

@@ -10,6 +10,15 @@ import java.time.format.DateTimeFormatter;
 import Controller.HolidayController;
 import Model.Holiday;
 
+/**
+ * Configure Holiday Page
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 01-11-2022
+ */
 public class ConfigureHoliday extends BaseMenu{
   Scanner sc = new Scanner(System.in);
 
@@ -22,6 +31,14 @@ public class ConfigureHoliday extends BaseMenu{
       super(previousMenu, accesslevel);
   }
 
+    /**
+     * Configure Holiday Functionality
+     * Allow Admin to choose to View, Add, Update or Delete Holiday
+     * 
+     * @return Selected Page or Terminates
+     * @see ConfigureSettings 
+     */
+    @Override  
   public BaseMenu execute() {
     BaseMenu nextMenu = this;
     int choice;

@@ -15,6 +15,16 @@ import Model.Ticket;
 import Model.Seat;
 import Model.Transaction;
 
+/**
+ * Display Transaction Page
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 03-11-2022
+ */
+
 public class DisplayTransaction extends BaseMenu {
 
     Scanner sc = new Scanner(System.in);
@@ -27,6 +37,21 @@ public class DisplayTransaction extends BaseMenu {
     Cineplex cineplex = null;
     ArrayList<Seat> bookedSeats;
 
+
+    /**
+     * Constructor to store previous page, level of access, user, movie, movieSession, cinema, cineplex, ticket, transaction, bookedSeats
+     * 
+     * @param previousMenu  the previous page
+     * @param accesslevel   the level of access
+     * @param user          the moviegoer that is logged in 
+     * @param movie         the selected movie
+     * @param movieSession  the selected moviesession
+     * @param cinema        the selected cinema
+     * @param ticket        the array of ticket(s) needed
+     * @param transaction   transaction made
+     * @param cineplex      the selected cineplex
+     * @param bookedSeats   the array of seat(s) booked 
+     */
     public DisplayTransaction(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
             MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction,
             Cineplex cineplex, ArrayList<Seat> bookedSeats) {
@@ -41,6 +66,16 @@ public class DisplayTransaction extends BaseMenu {
         this.bookedSeats = bookedSeats;
     }
 
+    /**
+     * Display Transaction functionality
+     * Displays TID, MovieGoer's name, Movie's Cineplex, Movie Title, Movie Session, No. of Tickets, Total Price Paid
+     * Updates TicketSales of Movie 
+     * Book the seats in the session 
+     * 
+     * @return MovieGoerMainMenu Page or DisplayTransaction Page if successful. else go back a page upon early
+     *         termination
+     * @see MovieGoerMainMenu, DisplayTransaction
+     */
     @Override
     public BaseMenu execute() {
 

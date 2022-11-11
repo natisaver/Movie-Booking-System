@@ -34,10 +34,18 @@ public class CreateOrLogin extends BaseMenu {
     ArrayList<Seat> bookedSeats;
 
     /**
-     * Constructor to store previous page and access level
+     * Constructor to store previous page, level of access, user, movie, movieSession, cinema, cineplex, ticket, transaction, bookedSeats
      * 
      * @param previousMenu the previous page
      * @param accesslevel  the level of access
+     * @param user         the moviegoer that is logging in 
+     * @param movie        the selected movie 
+     * @param movieSession the selected movieSession
+     * @param cinema       the selected cinema
+     * @param cineplex     the selected cineplex
+     * @param ticket       the array of ticket(s) needed
+     * @param transaction  transaction made
+     * @param bookedSeats  the array of seat(s) booked
      */
     public CreateOrLogin(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
             MovieSession movieSession, Cinema cinema, Cineplex cineplex, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
@@ -53,12 +61,11 @@ public class CreateOrLogin extends BaseMenu {
     }
 
     /**
-     * Selection Menu
-     * Create Account
-     * Login
-     * Go Back
+     * Create Account or Login Functionality
+     * Allow users to choose to Login or Create Account as Access is required.
      * 
-     * @return to the page according to user's selected choice
+     * @return Selected Page or Previous Page or Terminate
+     * @see CreateAccount, Login, LeaveReview, ChooseAge, UpdateReview, CheckHistory 
      */
     @Override
     public BaseMenu execute() {

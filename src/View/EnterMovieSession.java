@@ -13,7 +13,7 @@ import Controller.MovieSessionController;
 import Model.Movie;
 import Model.MovieSession;
 /**
- * Intermediary Access Denied Page
+ * Create Movie Session Page
  * the MOBLIMA Cinema
  * Application
  * 
@@ -51,7 +51,8 @@ public class EnterMovieSession extends BaseMenu{
      * Create a new MovieSession for Movie
      * Validation for CinemaCode, Date and Time
      * Checks for overlaps with current Sessions
-     * @return to the Admin Menu Page if successful or upon early termination
+     * @return to the AdminMainMenu if successful or upon early termination
+     * @see AdminMainMenu 
      */
     public BaseMenu execute(){
         
