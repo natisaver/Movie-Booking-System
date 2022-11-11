@@ -14,7 +14,7 @@ import Model.Transaction;
 import Model.Seat;
 
 /**
- * CheckHistory Menu
+ * Check History Menu
  * the MOBLIMA Cinema
  * Application
  * 

@@ -14,7 +14,7 @@ import Model.Transaction;
 import Model.ageGroup_Enum;
 
 /**
- * ChooseAge Menu
+ * Choose Age Menu
  * the MOBLIMA Cinema
  * Application
  * 
@@ -70,7 +70,8 @@ public class ChooseAge extends BaseMenu {
      * Choose Age Functionality
      * Display list of ageGroup_Enum options for moviegoer to choose from
      * 
-     * @return ChooseSession Page or Previous Page
+     * @return Next Page or Previous Page
+     * @see DisplayTransaction or ChooseSeat
      */
     @Override
     public BaseMenu execute() {
