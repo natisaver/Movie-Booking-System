@@ -765,6 +765,7 @@ public class MovieSessionController {
     }
 
     public static boolean checkBooked(String cinemaCode, MovieSession session) {
+        if (session.getShowtime().isBefore(LocalDateTime.now())) return false;
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader(PATH));

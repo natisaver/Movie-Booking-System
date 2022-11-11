@@ -5,6 +5,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
+/**
+ * CRUD Operation for ADmins
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 21-10-2022
+ */
+
 import Model.Admin;
 public class AdminController {
     /**
@@ -15,8 +25,9 @@ public class AdminController {
     /** 
      * READ every row of Admin Database File
      * If Database file not found, ignore error and return empty list
-     * @return Model.{@link Admin}  Return list of Admins if any, else empty list
-    */
+     * @return {@code ArrayList<Admin>} of all Admins in Database if found, else Empty {@code ArrayList<Admin>}
+     */
+     
     public static ArrayList<Admin> read() {
         // Check if database exists
         BufferedReader reader = null;
@@ -46,8 +57,9 @@ public class AdminController {
 
     /** 
      * READ and return a Admin by searching for one with matching email in the Database
-     * @param email             Email of Admin to search for
-     * @return Admin        Return Admin if found, else null object
+     * @param email         Email of Admin to search for
+     * @return              {@link Admin} object if found, else return null
+     */
      */
     public static Admin readByEmail(String email) {
         // Check if database exists
@@ -73,8 +85,8 @@ public class AdminController {
 
     /**
      *CREATE Admin in the database
-     * @param user      User object to be added
-     * @return          True if User was created, False if User already exists, email is a unique identifier
+     * @param user      User object that contains attributes to add to database
+     * @return          <code>true</code> if successfully added, else <code>false</code>
      */
     public static Boolean create(Admin user) {
         File inputFile = new File(DataController.getPath("Admin"));
@@ -170,8 +182,8 @@ public class AdminController {
 
     /**
      *UPDATE Admin in the database
-     * @param user      User object to be added
-     * @return          True if User was updated, False if User doesnt exist or database is nonexistent
+     * @param user      {@link Admin} object that contains attributes to update in database
+     * @return          <code>true</code> if successfully updated, else <code>false</code>
      */
     public static Boolean update(Admin user) {
 
@@ -267,9 +279,9 @@ public class AdminController {
 
     /**
      *DELETE Admin in the database
-     * @param user      User object to be added
-     * @return          True if User was updated, False if User doesnt exist or database is nonexistent
-     */
+     * @param user      {@link Admin} object that contains attributes to delete in database
+     * @return          <code>true</code> if successfully deleted, else <code>false</code>
+    */
     public static Boolean delete(Admin user) {
 
         File inputFile = new File(DataController.getPath("Admin"));
@@ -353,8 +365,8 @@ public class AdminController {
 
     /**
      *DELETE Admin by Email in the database
-     * @param email     User email to be added
-     * @return          True if User was updated, False if User doesnt exist or database is nonexistent
+     * @param email     Email of User to delete
+     * @return          <code>true</code> if successfully deleted, else <code>false</code>
      */
     public static Boolean deleteByEmail(String email) {
 
@@ -437,4 +449,3 @@ public class AdminController {
     return true;
     }
 }   
-
