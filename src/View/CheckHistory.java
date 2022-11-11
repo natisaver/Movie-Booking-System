@@ -42,35 +42,22 @@ public class CheckHistory extends BaseMenu {
     @Override
     public BaseMenu execute() {
 
-        String back;
+        //String back;
 
-        System.out.println("Below is the list of your past transactions: ");
+        System.out.println(ConsoleColours.WHITE_BOLD + "Below is the list of your past transactions: " + ConsoleColours.RESET);
         System.out.println(ConsoleColours.GREEN + "(Leave the field empty to quit)" + ConsoleColours.RESET);
 
-        do {
-            // if transaction records exist
-            if (!TransactionController.readByEmail(moviegoer.getEmail()).isEmpty()) {
-                TransactionController.readByEmailPrint(this.moviegoer.getEmail());
-            }
-            // if no transaction records exist
-            else {
-                System.out.println("No Transaction Records found!");
-            }
-
-            // type any character to exit
-            back = sc.nextLine();
-
-            if (back.isBlank()) {
-                break;
-            }
-
-            return new MovieGoerMainMenu(this.getPreviousMenu(), 0, moviegoer, movie, movieSession, cinema, cineplex, ticket,
-                    transaction, bookedSeats);
-
-        } while (!back.isBlank());
-
+        // if transaction records exist
+        if (!TransactionController.readByEmail(moviegoer.getEmail()).isEmpty()) {
+            TransactionController.readByEmailPrint(this.moviegoer.getEmail());
+            System.out.println();
+        }
+        // if no transaction records exist
+        else {
+            System.out.println(ConsoleColours.RED + "No Transaction Records found" + ConsoleColours.RESET);
+            System.out.println();
+        }
         return this.getPreviousMenu();
-
     }
 
 }
