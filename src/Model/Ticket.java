@@ -31,7 +31,23 @@ public class Ticket {
 	private Seat ticketSeat;
 	private ageGroup_Enum ticketAgeGroup;
 
+	/**
+	 * Constructor
+	 */
 	public Ticket() {}
+
+	/**
+	 * Constructor
+	 * 
+	 * @param ticketCineplex    Ticket for which Cineplex
+	 * @param ticketCinema      Ticket for which Cinema
+	 * @param ticketShowTime    Ticket for which Showtime
+	 * @param ticketMovieTitle  Ticket for which Movie
+	 * @param ticketMovieType   Ticket for which Movie Type
+	 * @param ticketMovieRating Ticket for which Movie Rating
+	 * @param ticketSeat        Ticket for which Seat
+	 * @param ticketAgeGroup    Ticket for which Age Group
+	 */
 
 	public Ticket(Cineplex tCineplex, Cinema tCinema, LocalDateTime tShowTime, String tMovieTitle,
 			movieType_Enum tMovieType, movieRating_Enum tMovieRating, Seat tSeat, ageGroup_Enum tAgeGroup) {
@@ -48,7 +64,7 @@ public class Ticket {
 	/**
 	 * Get Cineplex of Ticket.
 	 * 
-	 * @return Cineplex of Ticket object.
+	 * @return {@link Cineplex} of Ticket
 	 */
 	public Cineplex getCineplex() {
 		return this.ticketCineplex;
@@ -57,7 +73,7 @@ public class Ticket {
 	/**
 	 * Set Cineplex of Ticket.
 	 * 
-	 * @param tCineplex Cineplex of Ticket object.
+	 * @param tCineplex {@link Cineplex} of Ticket
 	 */
 	public void setCineplex(Cineplex tCineplex) {
 		this.ticketCineplex = tCineplex;
@@ -66,7 +82,7 @@ public class Ticket {
 	/**
 	 * Get Cinema of Ticket.
 	 * 
-	 * @return Cinema of Ticket object.
+	 * @return {@link Cinema} of Ticket
 	 */
 	public Cinema getCinema() {
 		return this.ticketCinema;
@@ -75,7 +91,7 @@ public class Ticket {
 	/**
 	 * Set Cinema of Ticket.
 	 * 
-	 * @param tCinema Cinema of Ticket object.
+	 * @param tCinema {@link Cinema} of Ticket
 	 */
 	public void setCinema(Cinema tCinema) {
 		this.ticketCinema = tCinema;
@@ -83,8 +99,7 @@ public class Ticket {
 
 	/**
 	 * Get Showtime of Ticket.
-	 * 
-	 * @return Showtime of Ticket object.
+	 * @return {@link LocalDateTime} of Ticket
 	 */
 	public LocalDateTime getShowTime() {
 		return this.ticketShowTime;
@@ -93,7 +108,7 @@ public class Ticket {
 	/**
 	 * Set Showtime of Ticket.
 	 * 
-	 * @param tShowTime Showtime of Ticket object.
+	 * @param tShowTime {@link LocalDateTime} of Ticket
 	 */
 	public void setShowtime(LocalDateTime tShowTime) {
 		this.ticketShowTime = tShowTime;
@@ -120,7 +135,7 @@ public class Ticket {
 	/**
 	 * Get Movie Type of Ticket.
 	 * 
-	 * @return Movie Type of Ticket object.
+	 * @return {@link movieType_Enum} of Ticket
 	 */
 	public movieType_Enum getMovieType() {
 		return this.ticketMovieType;
@@ -128,8 +143,7 @@ public class Ticket {
 
 	/**
 	 * Set Movie Type of Ticket.
-	 * 
-	 * @param tMovieType_Enum Movie Type of Ticket Object.
+	 * @param tMovieType_Enum {@link movieType_Enum} of Ticket
 	 */
 	public void setMovieType(movieType_Enum tMovieType_Enum) {
 		this.ticketMovieType = tMovieType_Enum;
@@ -146,8 +160,7 @@ public class Ticket {
 
 	/**
 	 * Set Movie Rating of Ticket.
-	 * 
-	 * @param tMovieRating Movie Rating of Ticket object.
+	 * @param tMovieRating_Enum {@link movieRating_Enum} of Ticket
 	 */
 	public void setMovieRating(movieRating_Enum tMovieRating) {
 		this.ticketMovieRating = tMovieRating;
@@ -164,8 +177,7 @@ public class Ticket {
 
 	/**
 	 * Set Seat of Ticket.
-	 * 
-	 * @param tSeat SeatID of Ticket object.
+	 * @param tSeat {@link Seat} of Ticket
 	 */
 	public void setSeat(Seat tSeat) {
 		this.ticketSeat = tSeat;
@@ -183,7 +195,7 @@ public class Ticket {
 	/**
 	 * Set Age Group of Ticket.
 	 * 
-	 * @param tAgeGroup Age Group of Ticket object.
+	 * @param tAgeGroup_Enum {@link ageGroup_Enum} of Ticket
 	 */
 	public void setAgeGroup(ageGroup_Enum tAgeGroup) {
 		this.ticketAgeGroup = tAgeGroup;

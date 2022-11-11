@@ -46,7 +46,7 @@ public class Seat {
 
     /**
      * Set the seat's seatType
-     * @param seatType  the seat's seatType
+     * @param seatType  {@link seatType_Enum} of the seat
      */
     public void setSeatType(seatType_Enum seatType) {
         this.seatType = seatType;
@@ -64,7 +64,8 @@ public class Seat {
     
     /**
      * Check if the seat is occupied
-     * @return <code>true</code> if the seat is occupied
+     * 
+     * @return <code>true</code> if the seat is occupied else <code>false</code>
      */
     public boolean getIsOccupied() {
         return this.isOccupied;

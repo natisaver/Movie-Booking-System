@@ -82,7 +82,7 @@ public class Cinema {
     /**s
      * Get the Cinema's sessions showings
      * 
-     * @return Array List of Movie Sessions
+     * @return {@code ArrayList<MovieSession>} Cinema's sessions showings
      */
     public ArrayList<MovieSession> getShowings() {
         return this.showings;
@@ -91,23 +91,10 @@ public class Cinema {
     /**
      * Set the Cinema's sessions showings
      * 
-     * @param showings Array List of Movie Sessions
+     * @param showings {@code ArrayList<MovieSession>} Cinema's sessions showings
      */
     public void setShowings(ArrayList<MovieSession> showings) {
         this.showings = showings;
     }
-
-    /**
-     * Get the list of movies sessions available
-     * 
-     * @return MovieSession[] Cinema's list of movies sessions available
-     */
-    // public ArrayList<MovieSession> getShowings() {
-    // String str = "2022-11-01";
-    // Movie movie = new Movie("", "", null, str, str, null, 0, null, null, null,
-    // 0);
-    // return MovieSessionController.readbyMovieTitle(cinemaCode, movie.getTitle(),
-    // movie.getMovieType());
-    // }
 
 }

@@ -71,9 +71,8 @@ public class Transaction {
 
     /**
      * Constructor
-     * 
-     * @param tickets   Array List of Tickets bought in this transaction
-     * @param movieGoer MovieGoer Object that bought the tickets
+     * @param tickets       ArrayList of tickets for a particular transaction
+     * @param movieGoer     MovieGoer who made a purchase under a particular TransactionID (TID)
      */
     public Transaction(ArrayList<Ticket> tickets, MovieGoer movieGoer) {
         this.tickets = tickets;
@@ -108,7 +107,7 @@ public class Transaction {
     /**
      * Get array list of tickets
      * 
-     * @return ArrayList<Ticket>
+     * @return {@code ArrayList<Ticket>} tickets
      */
     public ArrayList<Ticket> getTickets() {
         return this.tickets;
@@ -135,7 +134,7 @@ public class Transaction {
     /**
      * Get MovieGoer who made the purchase of ticket(s)
      * 
-     * @return movieGoer
+     * @return {@code MovieGoer} movieGoer
      */
     public MovieGoer getMovieGoer() {
         return this.movieGoer;
@@ -144,7 +143,7 @@ public class Transaction {
     /**
      * Get Cinema of where the ticket(s) were bought
      * 
-     * @return Cinema
+     * @return {@code Cinema} cinema
      */
     public Cinema getCinema() {
         return this.cinema;
@@ -153,7 +152,7 @@ public class Transaction {
     /**
      * Get DateTime of when the ticket(s) were bought
      * 
-     * @return transaction DateTime
+     * @return {@code LocalDateTime} boughtTime
      */
     public LocalDateTime getBoughtTime() {
         return this.boughtTime;
