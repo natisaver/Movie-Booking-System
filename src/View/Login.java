@@ -67,7 +67,7 @@ public class Login extends BaseMenu {
     }
 
     /**
-     * Main Login Page
+     * Main Login Functionality
      * Centralised Login Page that will access relevant page depending
      * on the email address of the user (MovieGoer or Admin)
      * 

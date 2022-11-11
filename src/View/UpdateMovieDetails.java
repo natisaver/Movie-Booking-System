@@ -39,7 +39,7 @@ public class UpdateMovieDetails extends BaseMenu{
     }
 
     /**
-     * Update Details Menu Functionality
+     * Update Movie Details Menu Functionality
      * Update Movie Title, Movie Type, Movie Rating, Movie Duration,
      * Synopsis, Director, Cast, Release Date & End Date, Showtime,
      * Cinema, or Delete Movie

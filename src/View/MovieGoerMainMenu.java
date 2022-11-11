@@ -67,7 +67,7 @@ public class MovieGoerMainMenu extends BaseMenu {
 
     /**
      * Moviegoer Main Menu Functionality
-     * Book Ticket, Leave Review, Update/Delete Review, Check History,
+     * Moviegoers can Book Ticket, Leave Review, Update/Delete Review, Check History,
      * User can also choose to go Back, Logout or Quit
      * 
      * @return Selected Page or Terminates
