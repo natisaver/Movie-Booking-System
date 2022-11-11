@@ -69,6 +69,7 @@ public class CheckHistory extends BaseMenu {
      * Display list of MovieGoer's transactions
      * 
      * @return Previous Page
+     * @see MovieGoerMainMenu
      */
     @Override
     public BaseMenu execute() {

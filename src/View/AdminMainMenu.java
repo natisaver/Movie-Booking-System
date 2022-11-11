@@ -39,6 +39,8 @@ public class AdminMainMenu extends BaseMenu {
      * Access various admin features
      * 
      * @return Selected Page or Terminates
+     * @see ConfigureSettings, EnterMovieDetails, EnterMovieSession,
+     *      UpdateMovieDetails, UpdateMovieSession, ListTopFive, MainMenu, Quit
      */
     @Override
     public BaseMenu execute() {
