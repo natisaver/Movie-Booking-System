@@ -78,6 +78,7 @@ public class ConfigureHoliday extends BaseMenu{
               System.out.print(HolidayList.get(i).getDate().format(dateFormatter) + "\t");
               System.out.println(HolidayList.get(i).getName());
             }
+            System.out.println();
           }
           break;
         
@@ -88,7 +89,7 @@ public class ConfigureHoliday extends BaseMenu{
           while (!date.matches(dateCheck) || LocalDateTime.parse(date + " 00:00", formatter).isBefore(LocalDateTime.now())) {
               if(date.isBlank())
               {
-                return this.getPreviousMenu();
+                return this;
               }
               if(!date.matches(dateCheck))
                 System.out.println(ConsoleColours.RED +"Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
@@ -115,22 +116,30 @@ public class ConfigureHoliday extends BaseMenu{
         //UPDATE HOLIDAY
         case 3:
           System.out.println(ConsoleColours.WHITE_BOLD + "Enter the date of the holiday to be updated: (yyyy-MM-dd)" + ConsoleColours.RESET);
+          DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
           oldDate = sc.nextLine();
-          while (!oldDate.matches(dateCheck)) {
+          while (!oldDate.matches(dateCheck) || !HolidayController.readByDate(LocalDateTime.parse(oldDate + " 00:00", formatter2))) {
             if(oldDate.isBlank()){
-              return this.getPreviousMenu();
+              return this;
             }
-            System.out.println(ConsoleColours.RED +"Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
-            oldDate = sc.nextLine();
+            else if(!oldDate.matches(dateCheck)){
+              System.out.println(ConsoleColours.RED +"Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
+              oldDate = sc.nextLine();
+            }
+            else{
+              System.out.println(ConsoleColours.RED + "Holiday does not exist." + ConsoleColours.RESET);
+              System.out.println(ConsoleColours.WHITE_BOLD + "Please reenter holiday date:" + ConsoleColours.RESET);
+              oldDate = sc.nextLine();
+            }
           }
           oldDate += " 00:00";
           LocalDateTime oldHoliday = LocalDateTime.parse(oldDate, formatter);
-      
+
           System.out.println(ConsoleColours.WHITE_BOLD + "Enter the new date of the holiday: (yyyy-MM-dd)" + ConsoleColours.RESET);
           newDate = sc.nextLine();
           while (!newDate.matches(dateCheck)) {
             if(newDate.isBlank()){
-              return this.getPreviousMenu();
+              return this;
             }
             System.out.println(ConsoleColours.RED +"Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
             newDate = sc.nextLine();
@@ -163,7 +172,7 @@ public class ConfigureHoliday extends BaseMenu{
           while (!byWhat.matches(numRegex)) {
               //early termination
               if(byWhat.isBlank()){
-                  return this.getPreviousMenu();
+                  return this;
               }
               System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
               byWhat = sc.nextLine();
@@ -178,8 +187,9 @@ public class ConfigureHoliday extends BaseMenu{
             date = sc.nextLine();
             while (!date.matches(dateCheck)) {
               if(date.isBlank()){
-                return this.getPreviousMenu();
+                return this;
               }
+
               System.out.println(ConsoleColours.RED +"Please enter the date in the required format: (yyyy-MM-dd)" + ConsoleColours.RESET);
               date = sc.nextLine();
             }
@@ -194,7 +204,7 @@ public class ConfigureHoliday extends BaseMenu{
             System.out.println(ConsoleColours.WHITE_BOLD + "Enter the name of the holiday to be deleted:" + ConsoleColours.RESET);
             name = sc.nextLine();
             if(name.isBlank()){
-              return this.getPreviousMenu();
+              return this;
             }
             if (HolidayController.deleteHolidayName(name)) System.out.println(ConsoleColours.GREEN + "Holiday(s) deleted!" + ConsoleColours.RESET);
             else System.out.println(ConsoleColours.RED + "Holiday name not found!" + ConsoleColours.RESET);

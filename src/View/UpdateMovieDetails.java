@@ -55,18 +55,14 @@ public class UpdateMovieDetails extends BaseMenu{
         String dateCheck;
         ArrayList<String> inputArray = new ArrayList<String>(); 
 
-        String stringRegex = "^[^0-9]+$";
         System.out.println(ConsoleColours.WHITE_BOLD + "Enter Title of existing Movie to be updated:" + ConsoleColours.RESET);
         inputTitle = sc.nextLine();
         do{
             //Checks for movie format
-            while (!inputTitle.matches(stringRegex)){
-                if(inputTitle.isBlank()){
-                    return this.getPreviousMenu();
-                }
-                System.out.println(ConsoleColours.RED + "Please enter a valid Movie Title:" + ConsoleColours.RESET);
-                inputTitle = sc.nextLine();
+            if(inputTitle.isBlank()){
+                return this.getPreviousMenu();
             }
+                        
             movie = MovieController.readByTitle(inputTitle);
             
             //Checks if Movie exists in the database
@@ -127,10 +123,17 @@ public class UpdateMovieDetails extends BaseMenu{
                         System.out.println(ConsoleColours.RED + "Please enter a valid Movie Type:" + ConsoleColours.RESET);
                         inputString = sc.nextLine().toUpperCase();
                     }
+                    
                     System.out.println(ConsoleColours.GREEN + "Movie Type changed to: " + inputString + ConsoleColours.RESET);
                     System.out.println();
                     movie.setMovieType(movieType_Enum.valueOf(inputString));
-                    MovieController.update(movie);
+                    if(!MovieController.update(movie)){
+                        System.out.println(ConsoleColours.RED + "Failed to update Movie Details" + ConsoleColours.RESET);
+                        return this;
+                    }
+                    else {
+                        System.out.println(ConsoleColours.GREEN_BOLD + "Successfully updated movie details" + ConsoleColours.RESET);
+                    }
                     break;
 
                 //UPDATE MOVIE RATING

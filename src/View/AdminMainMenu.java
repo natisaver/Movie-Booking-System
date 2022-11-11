@@ -40,7 +40,8 @@ public class AdminMainMenu extends BaseMenu{
         while (!choicestr.matches(numregex)) {
             //early termination
             if(choicestr.isBlank()){
-                return this.getPreviousMenu();
+                nextMenu = new MainMenu(null, -1, null, null, null, null, null, null, null, null);
+                return nextMenu;
             }
             System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
             choicestr = sc.nextLine();
