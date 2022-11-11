@@ -17,10 +17,7 @@ import Model.Transaction;
 import Model.Seat;
 
 /**
- * Create Account Form Page
- * =======
  * Create Account Page
- * >>>>>>> 25416313957109cf8bb123cbea67f07bbcdda14d
  * the MOBLIMA Cinema
  * Application
  * 
@@ -45,10 +42,18 @@ public class CreateAccount extends BaseMenu {
     ArrayList<Seat> bookedSeats;
 
     /**
-     * Constructor to store previous page and access level
+     * Constructor to store previous page, level of access, user, movie, movieSession, cinema, cineplex, ticket, transaction, bookedSeats
      * 
      * @param previousMenu the previous page
      * @param accesslevel  the level of access
+     * @param user         the moviegoer that is logging in 
+     * @param movie        the selected movie 
+     * @param movieSession the selected movieSession
+     * @param cinema       the selected cinema
+     * @param cineplex     the selected cineplex
+     * @param ticket       the array of ticket(s) needed
+     * @param transaction  transaction made
+     * @param bookedSeats  the array of seat(s) booked
      */
     public CreateAccount(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
             MovieSession movieSession, Cinema cinema, Cineplex cineplex, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
@@ -69,8 +74,9 @@ public class CreateAccount extends BaseMenu {
      * and not already in the database
      * Also has email, password Validation
      * 
-     * @return to the MovieGoer Page if successful, else go back a page upon early
+     * @return MovieGoerMainMenu Page or DisplayTransaction Page if successful. else go back a page upon early
      *         termination
+     * @see MovieGoerMainMenu, DisplayTransaction
      */
     @Override
     public BaseMenu execute() {

@@ -14,6 +14,7 @@ import Model.cinemaClass_Enum;
 import Model.movieType_Enum;
 
 /**
+ * CRUD Operations for Movie Sessions
  * Reads movie titles, date and times, and cinema class of movie sessions from
  * csv file in the MOBLIMA Cinema Application
  * The csv file is in the format of "Movie Title", "Movie Type", "ShowDate"
@@ -33,7 +34,7 @@ public class MovieSessionController {
     /**
      * READ a list of movie sessions from Database
      * 
-     * @return Returns array of MovieSession if database exists, else null object
+     * @return {@link ArrayList} of {@link MovieSession} objects else return empty {@link ArrayList}
      */
     public static ArrayList<MovieSession> read() {
         // Check if databases exist
@@ -81,6 +82,13 @@ public class MovieSessionController {
         }
     }
 
+    /**
+     * READ a list of movie sessions from Database with specified cinema code
+     * 
+     * @param cinemaCode {@link String} of the cinema code to search for
+     * @return {@link ArrayList} of {@link MovieSession} objects else return empty {@link ArrayList}
+     */
+
     public static ArrayList<MovieSession> readByCode(String cinemaCode) {
         // Check if databases exist
         String line = "";
@@ -122,6 +130,14 @@ public class MovieSessionController {
             return movieSessionList;
         }
     }
+
+    /**
+     * READ a list of movie sessions from Database with specified movie title in a cinema
+     * 
+     * @param cinemaCode {@link String} of the cinema code to search for
+     * @param movieTitle {@link String} of the movie title to search for
+     * @return {@link ArrayList} of {@link MovieSession} objects else return empty {@link ArrayList}
+     */
 
     public static ArrayList<MovieSession> readByCodeTitle(String cinemaCode, String movieTitle) {
         // Check if databases exist
@@ -168,7 +184,6 @@ public class MovieSessionController {
             return movieSessionList;
         }
     }
-
     public static ArrayList<MovieSession> readByTitle(String title) {
         // Check if databases exist
         BufferedReader[] reader = new BufferedReader[2];
@@ -221,7 +236,7 @@ public class MovieSessionController {
      * 
      * @param cinemaCode Cinema Code of cinema in which MovieSession will run in
      * @param session    MovieSession to be added
-     * @return <code>true</code> if MovieSession was added, <code>false</code> if
+     * @return <code>true</code> if MovieSession was added, else <code>false</code> if
      *         MovieSession clashes with an existing MovieSession
      */
     public static Boolean createSession(String cinemaCode, MovieSession session) {
@@ -324,9 +339,9 @@ public class MovieSessionController {
      * 
      * @param cinemaCode Cinema Code of cinema in which MovieSession to be updated
      *                   runs in
-     * @param session    MovieSession object to be updated
-     * @return <code>true</code> if MovieSession was updated, <code>false</code> if
-     *         MovieSession doesnt exist or database is nonexistent
+     * @param session    {@link MovieSession} to be updated
+     * @return           <code>true</code> if MovieSession was updated, else
+     *                  <code>false</code> if MovieSession doesnt exist
      */
     public static Boolean update(String cinemaCode, MovieSession session) {
 
@@ -441,7 +456,8 @@ public class MovieSessionController {
      * UPDATE MovieSession' MovieType by Title in the database
      * 
      * @param movieTitle Movie Title
-     * @return <code>true</code> if MovieSession was updated, <code>false</code> if
+     * @param movieType  {@link movieType_Enum} to be updated
+     * @return <code>true</code> if MovieSession was updated, else <code>false</code> if
      *         MovieSession doesnt exist or database is nonexistent
      */
     public static Boolean updateMovieTypeByTitle(String movieTitle, movieType_Enum movieType) {
@@ -532,9 +548,9 @@ public class MovieSessionController {
      * 
      * @param cinemaCode Cinema Code of cinema in which MovieSession to be deleted
      *                   runs in
-     * @param session    MovieSession object to be deleted
-     * @return <code>true</code> if MovieSession was deleted, <code>false</code> if
-     *         MovieSession doesnt exist or database is nonexistent
+     * @param session    {@link MovieSession} to be deleted
+     * @return           <code>true</code> if MovieSession was deleted, else
+     *                  <code>false</code> if MovieSession doesnt exist or database is nonexistent
      */
     public static Boolean delete(String cinemaCode, MovieSession session) {
 
@@ -611,6 +627,14 @@ public class MovieSessionController {
         return true;
     }
 
+    /**
+     * Display occupied seats of a MovieSession in a cinema
+     * 
+     * @param cinemaCode Cinema Code of cinema in which seats of the MovieSession to be displayed are in
+     * @param session    {@link MovieSession} to be displayed
+     * @return           {@link ArrayList} of {@link Seat} that are occupied else return empty {@link ArrayList}
+     */
+    
     public static ArrayList<Seat> displaySeats(String cinemaCode, MovieSession session) {
         String line = "";
         Hashtable<String, String> cineplex = new Hashtable<>();
@@ -658,6 +682,13 @@ public class MovieSessionController {
         return seatList;
     }
 
+    /**
+     * Books multiple seats in a MovieSession in a cinema
+     * 
+     * @param cinemaCode Cinema Code of cinema in which seats of the MovieSession to be displayed are in
+     * @param session    {@link MovieSession} to be displayed
+     * @param seatList   {@link ArrayList} of {@link Seat} to be booked
+     */
     public static void bookSeats(String cinemaCode, MovieSession session, ArrayList<Seat> seatList) {
         File tempFile = new File(DataController.getPath("Temp"));
         BufferedWriter writer = null;
@@ -749,6 +780,13 @@ public class MovieSessionController {
         tempFile.renameTo(new File(DataController.getPath("MovieSession")));
     }
 
+    /**
+     * Temporarily stores the seats booked in a MovieSession in a cinema and displays the seats
+     * 
+     * @param cinema {@link Cinema} in which seats of the MovieSession to be displayed are in
+     * @param seatList {@link ArrayList} of {@link Seat} to be booked as well as all the seats booked in the MovieSession
+     */
+
     public static void tempDisplaySeats(Cinema cinema, ArrayList<Seat> seatList) {
         MovieSession tempSession = new MovieSession(cinema.getCinemaClass());
         for (int i = 0; i < seatList.size(); i++) {
@@ -764,6 +802,13 @@ public class MovieSessionController {
         return bookedSeats;
     }
 
+    /**
+     * Checks if a session has already been booked
+     * 
+     * @param cinemaCode Cinema Code of cinema in which seats of the MovieSession are to be checked
+     * @param session {@link MovieSession} to be checked
+     * @return <code>true</code> if the MovieSession has already been booked, <code>false</code> otherwise
+     */
     public static boolean checkBooked(String cinemaCode, MovieSession session) {
         if (session.getShowtime().isBefore(LocalDateTime.now())) return false;
         BufferedReader reader = null;

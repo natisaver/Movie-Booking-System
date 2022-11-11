@@ -36,6 +36,12 @@ public class MovieSession {
      */
     private movieType_Enum movieType;
 
+    /**
+     * Constructor
+     * 
+     * @param cinemaClass {@link cinemaClass_enum} of the cinema where the MovieSession is
+     */
+
     public MovieSession(cinemaClass_Enum cinemaClass) {
         int maxRow = 0;
         int maxCol = 0;
@@ -97,8 +103,8 @@ public class MovieSession {
      * Constructor
      * 
      * @param showtime    The MovieSession's showtime
-     * @param cinemaClass The MovieSession's cinemaClass
-     * @param movie       The MovieSession's movie title
+     * @param cinemaClass Cinema Class of the cinema where the MovieSession is
+     * @param movie       The MovieSession's movie object
      * @param movieType   The MovieSession's movie type (2D, 3D or Blockbuster)
      */
     public MovieSession(LocalDateTime showtime, cinemaClass_Enum cinemaClass, String title,
@@ -163,7 +169,7 @@ public class MovieSession {
     /**
      * Get the MovieSession's showtime
      * 
-     * @return this MovieSession's showtime
+     * @return {@link LocalDateTime} this MovieSession's showtime
      */
     public LocalDateTime getShowtime() {
         return this.showtime;
@@ -194,7 +200,8 @@ public class MovieSession {
     /**
      * Set the MovieSession's showtime
      * 
-     * @param time MovieSession's showtime
+     * @param date {@link String} this MovieSession's date
+     * @param time {@link LocalDateTime} this MovieSession's showtime
      */
     public void setShowtime(String date, String time) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
@@ -213,7 +220,7 @@ public class MovieSession {
     /**
      * Get the MovieSession's movie type
      * 
-     * @return MovieSession's movie type
+     * @return {@link movieType_Enum} this MovieSession's movie type
      */
     public movieType_Enum getMovieType() {
         return this.movieType;
@@ -225,8 +232,8 @@ public class MovieSession {
      * @param id          The seat ID that the MovieGoer inputs
      * @param cinemaClass The cinemaClass of the cinema that the MovieSession is
      *                    being held in
-     * @return <code>1</code> if the booking was successful, otherwise returns
-     *         <code>false</code>
+     * @return            <code>true</code> if the booking was successful, otherwise returns
+     *                    <code>false</code>
      */
     public ArrayList<Seat> bookSeat(String id, cinemaClass_Enum cinemaClass) {
         int row, column;
@@ -323,8 +330,7 @@ public class MovieSession {
     /**
      * Get the MovieSession's seating arrangement
      * 
-     * @param cinemaClass The cinemaClass of the cinema that the MovieSession is
-     *                    being held in
+     * @param cinemaClass {@link cinemaClass_Enum} The cinema class of the movie
      */
     public void showSeatings(cinemaClass_Enum cinemaClass) {
         int i, j;

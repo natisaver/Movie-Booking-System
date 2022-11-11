@@ -25,13 +25,12 @@ public class Cineplex {
     /**
      * Constructor
      * 
-     * @param arrayList List of Cinema's under a particular Cineplex
+     * @param arrayList {@Link arrayList} of {@Link Cinema} under a particular location
      * @param location  Cinema's location
      */
     public Cineplex(ArrayList<Cinema> arrayList, String location) {
         this.cinemas = arrayList;
         this.location = location;
-        // this.cinemas = new Cinema[3];
     }
 
     /**

@@ -111,7 +111,7 @@ public class Movie {
     /**
      * Get casts of the movie
      * 
-     * @return casts of Movie object.
+     * @return {@code ArrayList<String>} of casts of Movie object.
      */
     public ArrayList<String> getCast() {
         return this.cast;
@@ -120,7 +120,7 @@ public class Movie {
     /**
      * Set casts of the movie
      * 
-     * @param cast casts of Movie object.
+     * @param cast {@code ArrayList<String>} of casts of Movie object.
      */
     public void setCast(ArrayList<String> cast) {
         this.cast = cast;
@@ -129,7 +129,7 @@ public class Movie {
     /**
      * Get release date of movie
      * 
-     * @return release date of Movie object.
+     * @return {@code LocalDateTime} release date of Movie object.
      */
     public LocalDateTime getReleaseDate() {
         return this.releaseDate;
@@ -138,7 +138,7 @@ public class Movie {
     /**
      * Set release date of movie
      * 
-     * @param date release date of Movie object.
+     * @param date {@code LocalDateTime} release date of Movie object.
      */
     public void setReleaseDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -148,7 +148,7 @@ public class Movie {
     /**
      * Get ending date of movie
      * 
-     * @return ending date of Movie object.
+     * @return {@code LocalDateTime} ending date of Movie object.
      */
     public LocalDateTime getEndDate() {
         return this.endDate;
@@ -157,7 +157,7 @@ public class Movie {
     /**
      * Set ending date of movie
      * 
-     * @param date ending date of Movie object.
+     * @param date {@code LocalDateTime}ending date of Movie object.
      */
     public void setEndDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -235,7 +235,7 @@ public class Movie {
      * Set movie type of movie
      * 
      * @param movieType movie type of Movie object.
-     *                  movieType_Enum: TWOD, THREED, BLOCKBUSTER
+     *                  {@code movieType_Enum} TWOD, THREED, BLOCKBUSTER
      */
     public void setMovieType(movieType_Enum movieType) {
         this.movieType = movieType;
@@ -245,7 +245,7 @@ public class Movie {
      * Get movie rating of movie
      * 
      * @return movie rating of Movie object.
-     *         movieRating_Enum: PG, PG13, NC16, M18, R21
+     *         (@code movieRating_Enum} PG, PG13, NC16, M18, R21
      */
     public movieRating_Enum getMovieRating() {
         return this.movieRating;
@@ -255,7 +255,7 @@ public class Movie {
      * Set movie rating of movie
      * 
      * @param movieRating movie rating of Movie object
-     *                    movieRating_Enum: PG, PG13, NC16, M18, R21
+     *                    {@code movieRating_Enum} PG, PG13, NC16, M18, R21
      */
     public void setMovieRating(movieRating_Enum movieRating) {
         this.movieRating = movieRating;
@@ -263,9 +263,8 @@ public class Movie {
 
     /**
      * Get a list of past review history of the movie.
-     * 
-     * @return Review of Movie object and the MovieGoer object who left the Review.
-     *         Each review is binded to a MovieGoer object.
+     * @return {@code HashMap<String, Review>} of past reviews of the movie.
+     *         Review of Movie object is binded to MovieGoer object who left the Review.
      */
     public HashMap<MovieGoer, Review> getReviewList() {
         return this.reviewList;
@@ -273,9 +272,8 @@ public class Movie {
 
     /**
      * Add review to existing review list.
-     * 
-     * @param movieGoer MovieGoer object who left the Review.
-     * @param review    Review object left by the MovieGoer.
+     * @param movieGoer {@code MovieGoer} who left the review.
+     * @param review {@code Review} of the movie.
      *                  MovieGoer and Review are added as a pair of keys and values
      *                  into reviewList Hashmap using put() function.
      */

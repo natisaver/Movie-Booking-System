@@ -13,15 +13,40 @@ import java.util.Map;
 import Controller.*;
 import Model.*;
 
+/**
+ * The page to view movie details
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 01-11-2022
+ */
 public class ViewMovieDetails extends BaseMenu
 {
     Scanner sc = new Scanner(System.in);
 
+    /**
+     * Constructor to store previous page and access level
+     * 
+     * @param previousMenu the previous page
+     * @param accesslevel  the level of access
+     */
     public ViewMovieDetails(BaseMenu previousMenu, int accesslevel) 
     {
         super(previousMenu, accesslevel);
     }
     
+    /**
+     * View Movie Details Functionality
+     * Allows Guest/Moviegoer to view details of movies
+     * such as Title, Rating, Duration, Release & End Date
+     * Director, Cast, Synopsis, Reviews.
+     * User can also choose to go Back or Quit
+     * 
+     * @return Previous Page or Terminates
+     * @see MovieGoerMainMenu 
+     */
     @Override
     public BaseMenu execute() {
         BaseMenu nextMenu = this;
@@ -49,7 +74,7 @@ public class ViewMovieDetails extends BaseMenu
 
         System.out.println(ConsoleColours.PURPLE_BOLD + "Movies Available: " + ConsoleColours.RESET);
         if (moviesize <= 0){
-            System.out.println("No Movies Available");
+            System.out.println(ConsoleColours.RED + "No Movies Available" + ConsoleColours.RESET);
             do {
                 System.out.println(ConsoleColours.YELLOW + "1. Back" + ConsoleColours.RESET);
                 System.out.println(ConsoleColours.RED + "2. Quit" + ConsoleColours.RESET);
@@ -87,7 +112,7 @@ public class ViewMovieDetails extends BaseMenu
 
             Boolean isOK = false;
             while (!isOK) {
-                System.out.print("Enter your choice of movie to view details (Integer Value): ");
+                System.out.print(ConsoleColours.WHITE_BOLD + "Enter your choice of movie to view details (Integer Value): " + ConsoleColours.RESET);
                 String choicestr = sc.nextLine();
                 if (!choicestr.matches(numregex)){
                     System.out.println(ConsoleColours.RED + "Please enter a valid integer:" + ConsoleColours.RESET);
@@ -151,7 +176,14 @@ public class ViewMovieDetails extends BaseMenu
         return nextMenu;
     }
 
-
+    /**
+     * Sort By Name Functionality
+     * Sorts Movie by alphabetical order of Movie Titles
+     * 
+	 * @param hm	    Hashmap<String, Movie> Hashmap of Movie Title and Movie Object
+     * @return Hashmap<Integer, Movie>
+     * @see Hashmap
+     */
     public static HashMap<Integer, Movie> sortByName(HashMap<String, Movie> hm)
     {
         // Create a list from elements of HashMap

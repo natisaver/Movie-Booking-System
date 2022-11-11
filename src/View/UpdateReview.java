@@ -33,9 +33,10 @@ public class UpdateReview extends BaseMenu{
     DateTimeFormatter formatter;
 
     /** 
-     * Constructor to store previous page and access level
-     * @param previousMenu     the previous page
-     * @param accesslevel      the level of access
+     * Constructor to store previous page, access level, user
+     * @param previousMenu      the previous page
+     * @param accesslevel       the level of access
+     * @param user              the moviegoer that has been logged in
      */
     public UpdateReview(BaseMenu previousMenu, int accesslevel, MovieGoer user) {
         super(previousMenu, accesslevel);
@@ -43,11 +44,12 @@ public class UpdateReview extends BaseMenu{
     }
 
     /**
-     * UpdateReview Menu Functionality
-     * Update Text or Rating
-     * or Delete Review Entry
+     * Update Review Functionality
+     * Update text review or rating, or Delete review entry
      * User can also choose to go Back or Quit
+     * 
      * @return AdminMainMenu or Terminates
+     * @see AdminMainMenu
      */
     @Override
     public BaseMenu execute(){
@@ -276,8 +278,14 @@ public class UpdateReview extends BaseMenu{
 
     }
     
-
-    //function to sort entries by date
+    /**
+     * Sort By Date Functionality
+     * Sorts Review entries by Date of entry
+     * 
+	 * @param hm		Hashmap<Integer, Movie> Hashmap of Menu Selection and Movie Object
+     * @return Hashmap<Integer, Review>
+     * @see Hashmap
+     */
     public static HashMap<Integer, Review> sortByDate(HashMap<Integer, Review> hm) {
         // Create a list from elements of HashMap
         List<Map.Entry<Integer, Review>> list = new LinkedList<Map.Entry<Integer, Review>>(hm.entrySet());

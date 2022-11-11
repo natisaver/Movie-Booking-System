@@ -5,7 +5,7 @@ import java.util.Scanner;
 import Controller.PriceDataController;
 
 /**
- * Configure Prices for admin
+ * Configure Prices Page
  * the MOBLIMA Cinema
  * Application
  * 
@@ -25,7 +25,16 @@ public class ConfigurePrice extends BaseMenu{
       public ConfigurePrice(BaseMenu previousMenu, int accesslevel) {
         super(previousMenu, accesslevel);
     }
-  
+    
+    /**
+     * Configure Price Functionality
+     * Updating of Price Details by Admin
+     * 
+     * @return Previous Page 
+     * @see ConfigureSetting
+     * 
+     */
+    @Override    
     public BaseMenu execute() {
         /** 
          * User's indicated details, and a MovieGoer Class Object to store inputted information.

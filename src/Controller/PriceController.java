@@ -21,10 +21,11 @@ import Model.seatType_Enum;
 public class PriceController {
     /**
      * Calculates the price of the ticket based on: Date/Time, Age Group, Movie Type, Cinema Class
-     * @param MovieSession          Input Movie Session to attain details on Date/Time, Movie Type
-     * @param ageGroup_Enum         Input Age Group               
-     * @param cinemaClass_Enum      Input Cinema Class
-     * @return price                Return price of ticket
+     * @param session       {@link MovieSession} object of the movie session
+     * @param ageGroup      {@link ageGroup_Enum} object of the MovieGoer
+     * @param cinemaClass   {@link cinemaClass_Enum} the cinema class of the movie session
+     * @param seatType      {@link seatType_Enum} the seat selected by the MovieGoer
+     * @return              price of the ticket
      */
     public static double calculatePrice(MovieSession session, ageGroup_Enum ageGroup, cinemaClass_Enum cinemaClass, seatType_Enum seatType) {
         String movietype, agegroup, cinemaclass, seattype;
@@ -380,6 +381,17 @@ public class PriceController {
             
         }
     }
+
+    /**
+     * Calculate the total price of the ticket using specific parameters:
+     * @param timeinput     {@code LocalDateTime} object of the time of the movie
+     * @param movieType     {@code movieType_Enum} the type of the movie
+     * @param ageGroup      {@code ageGroup_Enum} the age group of the customer
+     * @param cinemaClass   {@code cinemaClass_Enum} the class of the cinema
+     * @param seatType      {@code seatType_Enum} the type of the seat
+     * @return              price of ticket
+     */
+
     public static double calculatePriceDirect(LocalDateTime timeinput, movieType_Enum movieType, ageGroup_Enum ageGroup, cinemaClass_Enum cinemaClass, seatType_Enum seatType) {
         String movietype, agegroup, cinemaclass, seattype;
         LocalDateTime dateTime;

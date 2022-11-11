@@ -38,11 +38,19 @@ public class MovieGoerMainMenu extends BaseMenu {
     ArrayList<Seat> bookedSeats;
 
     /**
-     * Constructor to store previous page and access level
+     * Constructor to store previous page, access level, moviegoer,
+     * movieSession, cinema, cineplex, ticket, transaction, bookedSeats
      * 
-     * @param previousMenu the previous page
-     * @param accesslevel  the level of access
-     * @param moviegoer    movieGoer Object
+     * @param previousMenu  the previous page
+     * @param accesslevel   the level of access
+     * @param moviegoer     movieGoer Object
+     * @param movie         the selected movie
+     * @param movieSession  the selected movieSession
+     * @param cinema        the selected cinema
+     * @param cineplex      the selected cineplex
+     * @param ticket        the array of ticket(s) booked
+     * @param transaction   the transaction made
+     * @param bookedSeats   the array of seat(s) booked
      */
     public MovieGoerMainMenu(BaseMenu previousMenu, int accesslevel, MovieGoer moviegoer, Movie movie,
             MovieSession movieSession, Cinema cinema, Cineplex cineplex, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
@@ -57,6 +65,15 @@ public class MovieGoerMainMenu extends BaseMenu {
         this.bookedSeats = bookedSeats;
     }
 
+    /**
+     * Moviegoer Main Menu Functionality
+     * Moviegoers can Book Ticket, Leave Review, Update/Delete Review, Check History,
+     * User can also choose to go Back, Logout or Quit
+     * 
+     * @return Selected Page or Terminates
+     * @see ChooseCineplex, CreateOrLogin, LeaveReview, UpdateReview,
+     * CheckHistory, ViewMovieDetails, MainMenu
+     */
     @Override
     public BaseMenu execute() {
         int choice;

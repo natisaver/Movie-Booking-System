@@ -26,7 +26,7 @@ public class Review {
     private String email;
 
     /**
-     * MovieGoer's reviewed movie details
+     * MovieGoer's reviewed movie
      */
     private Movie movie;
 
@@ -82,11 +82,17 @@ public class Review {
     /**
      * Get the time and date when review is made
      * 
-     * @return The time when review is made
+     * @return {@link LocalDateTime}   The time and date review was made
      */
     public LocalDateTime getDate() {
         return this.date;
     }
+
+    /**
+     * Set the time and date when review is made
+     * 
+     * @param date {@link LocalDateTime}   The time and date review was made
+     */
 
     public void setDate(LocalDateTime date) {
         this.date = date;
@@ -101,13 +107,30 @@ public class Review {
         return this.name;
     }
 
+    /**
+     * Set the name of the reviewer
+     * 
+     * @param name The reviewer's name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Get the email of the reviewer
+     * 
+     * @return The reviewer's email
+     */
+
     public String getEmail() {
         return this.email;
     }
+
+    /**
+     * Set the email of the reviewer
+     * 
+     * @param email The reviewer's email
+     */
 
     public void setEmail(String email) {
         this.email = email;
@@ -121,6 +144,12 @@ public class Review {
     public Movie getMovie() {
         return this.movie;
     }
+
+    /**
+     * Set details of Movie reviewed
+     * 
+     * @param movie The movie reviewed
+     */
 
     public void setMovie(Movie movie) {
         this.movie = movie;

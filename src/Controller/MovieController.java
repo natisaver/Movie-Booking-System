@@ -549,6 +549,14 @@ public class MovieController {
         return true;
     }
 
+    /**
+     * DELETE a movie from Movie Database File
+     * 
+     * @param {@link Movie} movie to be deleted from database
+     * @return <code>true</code> if movie is deleted successfully, else
+     *      <code>false</code>.
+     */
+
     public static Boolean delete(Movie movie) {
 
         File inputFile = new File(DataController.getPath("Movie"));
@@ -645,6 +653,12 @@ public class MovieController {
         return true;
     }
 
+    /**
+     * DELETE a movie from Movie Database File by title
+     * @param title {@link String} title of movie to be deleted from database
+     * @return <code>true</code> if movie is deleted successfully, else
+     *         <code>false</code>.
+     */
     public static Boolean deleteByTitle(String title) {
 
         File inputFile = new File(DataController.getPath("Movie"));
@@ -740,6 +754,12 @@ public class MovieController {
         return true;
     }
 
+    /**
+     * UPDATE sales of a movie in Movie Database File
+     * 
+     * @param movie {@link Movie} movie to be updated in database
+     * @param numTickets {@link Integer} number of tickets sold
+     */
     public static void updateSales(Movie movie, int numTickets) {
         File inputFile = new File(DataController.getPath("Movie"));
         File tempFile = new File(DataController.getPath("Temp"));

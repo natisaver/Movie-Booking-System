@@ -22,7 +22,7 @@ public class Holiday {
     /**
      * Constructor
      * @param name          The name of the public holiday
-     * @param date          The date of the holiday
+     * @param date          {@link LocalDateTime} of the date of the holiday
      */
     public Holiday(String name, LocalDateTime date) {
         this.name = name;

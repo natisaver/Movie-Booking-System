@@ -24,7 +24,7 @@ public class CinemaController {
      * Database
      * 
      * @param   cinemacode CinemaCode of Cinema to search for
-     * @return  Return Cinema if found, else null object
+     * @return  {@link Cinema} object if found, else return null
      */
     public static Cinema readByCode(String cinemacode) {
         // Check if database exists

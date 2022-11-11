@@ -8,6 +8,7 @@ package Model;
  */
 
 public class Admin extends User{
+
 	/** 
 	 * Constructor
      * @param name		    The User's name 
