@@ -14,6 +14,15 @@ import Controller.CinemaController;
 import Model.Movie;
 import Model.MovieSession;
 
+/**
+ * The page to view update movie sessions
+ * the MOBLIMA Cinema
+ * Application
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 01-11-2022
+ */
 public class UpdateMovieSession extends BaseMenu {
     Scanner sc = new Scanner(System.in);
     LocalDateTime insertStart, insertEnd, curStart, curEnd;
@@ -35,6 +44,13 @@ public class UpdateMovieSession extends BaseMenu {
         super(previousMenu, accesslevel);
     }
 
+    /**
+     * Update Movie Session Functionality
+     * Add or Delete Movie Session
+     * 
+     * @return AdminMainMenu or Terminates
+     * @see AdminMainMenu
+     */
     public BaseMenu execute() {
         BaseMenu nextMenu = this;
         int choice;
@@ -57,7 +73,6 @@ public class UpdateMovieSession extends BaseMenu {
             System.out.println(ConsoleColours.PURPLE_BOLD + "Update Movie Session:" + ConsoleColours.RESET);
             System.out.println("1. Add new Movie Session (Showtime & Cinema)");
             System.out.println("2. Delete existing Movie Session (Showtime & Cinema)");
-            // System.out.println("3. Update existing Movie Session (Showtime & Cinema)");
             System.out.println(ConsoleColours.YELLOW + "3. Back" + ConsoleColours.RESET);
             System.out.println(ConsoleColours.RED + "4. Quit" + ConsoleColours.RESET);
             System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
