@@ -54,7 +54,9 @@ public class MovieSession {
             for (int j = 0; j < maxCol; j++) {
                 String id;
                 if (i > 7) {
-                    if (i > 12)
+                    if (i == 16)
+                        id = "" + (char) (i + 'C') + String.valueOf(j + 3);
+                    else if (i > 12)
                         id = "" + (char) (i + 'C') + String.valueOf(j + 1);
                     else
                         id = "" + (char) (i + 'B') + String.valueOf(j + 1);
@@ -273,8 +275,8 @@ public class MovieSession {
 			}
 			else if (Character.compare(id.charAt(0), 'S') == 0) {
                 row = (int) (id.charAt(0) - 67);
-                if (id.length() > 2) column = Integer.parseInt(id.substring(id.length() - 2)) - 3;
-                else column = Integer.parseInt(id.substring(1)) - 3;
+                if (id.length() > 2) column = Integer.parseInt(id.substring(id.length() - 2))-3;
+                else column = Integer.parseInt(id.substring(1))-3;
                 this.sessionSeats[row][column].setIsOccupied();
                 bookedSeats.add(this.sessionSeats[row][column]);
                 return bookedSeats;
@@ -450,24 +452,24 @@ public class MovieSession {
                         System.out.print(" ");
                     else if ((i == maxRow - 1) && ((j == 1) || (j == 2) || (j == 37) || (j == 38)))
                         System.out.print("    ");
-                        else {
-                            if (sessionSeats[i][seatCount].getSeatType() == seatType_Enum.BASIC) {
-                                if (sessionSeats[i][seatCount].getIsOccupied()) System.out.print(" [x]");
-                                else System.out.print(" [ ]");
-                                seatCount++;
-                            }
-                            else if (sessionSeats[i][seatCount].getSeatType() == seatType_Enum.ELITE) {
-                                if (sessionSeats[i][seatCount].getIsOccupied()) System.out.print(ConsoleColours.YELLOW + " [x]" + ConsoleColours.RESET);
-                                else System.out.print(ConsoleColours.YELLOW + " [ ]" + ConsoleColours.RESET);
-                                seatCount++;
-                            }
-                            else if (sessionSeats[i][seatCount].getSeatType() == seatType_Enum.COUPLE) {
-                                if (sessionSeats[i][seatCount].getIsOccupied()) System.out.print(" [x   x]");
-                                else System.out.print(" [_____]");
-                                seatCount += 2;
-                                j++;
-                            }
+                    else {
+                        if (sessionSeats[i][seatCount].getSeatType() == seatType_Enum.BASIC) {
+                            if (sessionSeats[i][seatCount].getIsOccupied()) System.out.print(" [x]");
+                            else System.out.print(" [ ]");
+                            seatCount++;
                         }
+                        else if (sessionSeats[i][seatCount].getSeatType() == seatType_Enum.ELITE) {
+                            if (sessionSeats[i][seatCount].getIsOccupied()) System.out.print(ConsoleColours.YELLOW + " [x]" + ConsoleColours.RESET);
+                            else System.out.print(ConsoleColours.YELLOW + " [ ]" + ConsoleColours.RESET);
+                            seatCount++;
+                        }
+                        else if (sessionSeats[i][seatCount].getSeatType() == seatType_Enum.COUPLE) {
+                            if (sessionSeats[i][seatCount].getIsOccupied()) System.out.print(" [x   x]");
+                            else System.out.print(" [_____]");
+                            seatCount += 2;
+                            j++;
+                        }
+                    }
                 }
             }
             count = 1;
