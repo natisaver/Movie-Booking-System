@@ -5,7 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * Controller for CRUD operations managing data relating to MovieGoer
+ * Controller for CRUD operations managing pricing related data
+ * for the MOBLIMA Cinema
  * 
  * @author Sally Carrera
  * @version 1.0
@@ -21,8 +22,8 @@ public class PriceDataController {
     /**
      * READ and return a Price Value based on ticket ID in database
      * 
-     * @param id of ticket to retrieve search for
-     * @return Return Price of Ticket
+     * @param id        of ticket to retrieve search for
+     * @return          {@Link Double} which stores the price value of the various types of tickets
      */
     public static double[] readByID(String id) {
         // Check if database exists
@@ -57,8 +58,10 @@ public class PriceDataController {
 
     /**
      *UPDATE Price of Ticket Type by ID in the database
-     * @param id      ID of the ticket type
-     * @return        <code>true</code> if price was updated, <code>false</code> if ID doesnt exist or database is nonexistent
+     * @param id                ID of the ticket type
+     * @param updatedprices     {@Link Array} of {@Link Double} which stores the updated price value of the various types of tickets
+     * @return                  <code>true</code> if price was updated, 
+     *                          <code>false</code> if ID doesnt exist or database is nonexistent
      */
     public static Boolean update(String id, double[] updatedprices) {
 

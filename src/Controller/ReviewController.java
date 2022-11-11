@@ -16,6 +16,15 @@ import java.util.ArrayList;
 import Model.Movie;
 import Model.Review;
 
+/**
+ * Controller for CRUD operations managing reviews related data
+ * for the MOBLIMA Cinema
+ * 
+ * @author Sally Carrera
+ * @version 1.0
+ * @since 05-11-2022
+ */
+
 public class ReviewController {
     /**
      * Path in database
@@ -26,7 +35,7 @@ public class ReviewController {
      * READ every row of Review Database File
      * If Database file not found, ignore error and return empty list
      * 
-     * @return Model.{@link Review} Return list of Review if any, else empty list
+     * @return {@link ArrayList} of {@link Review} objects if any, else empty {@link ArrayList}
      */
     public static ArrayList<Review> read() {
         // Check if database exists
@@ -66,7 +75,7 @@ public class ReviewController {
      * READ every row of Review Database File matching the email
      * 
      * @param email Email of MovieGoer to be searched
-     * @return Model.{@link Review} Return list of Review if any, else empty list
+     * @return {@link ArrayList} of {@link Review} objects if any, else empty {@link ArrayList}
      */
     public static ArrayList<Review> readByEmail(String email) {
         // Check if database exists
@@ -109,7 +118,7 @@ public class ReviewController {
      * READ every row of Review Database File matching the Movie Title
      * 
      * @param title Movie Title to be searched
-     * @return Model.{@link Review} Return list of Review if any, else empty list
+     * @return {@link ArrayList} of {@link Review} objects if any, else empty {@link ArrayList}
      */
     public static ArrayList<Review> readByTitle(String title) {
         // Check if database exists
@@ -251,7 +260,8 @@ public class ReviewController {
 
     /**
      *UPDATE Review contents in the database
-     * @param user      review object to be updated
+     * @param review    {@link Review} object to be updated
+     * @param content   New content to be updated
      * @return          <code>true</code> if review was updated, <code>false</code> if review doesnt exist or database is nonexistent
      */
     public static Boolean updateContent(Review review, String content) {
@@ -346,7 +356,7 @@ public class ReviewController {
 
     /**
      *UPDATE Review rating in the database
-     * @param user      review object to be updated
+     * @param review    {@link Review} object to be updated
      * @return          <code>true</code> if review was updated, <code>false</code> if review doesnt exist or database is nonexistent
      */
     public static Boolean updateRating(Review review, Double rating) {

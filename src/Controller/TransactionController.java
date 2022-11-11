@@ -17,8 +17,7 @@ public class TransactionController {
      * READ every row of Transaction Database File
      * If Database file not found, ignore error and return empty list
      * 
-     * @return ArrayList<String> Return list of Transactions if any, else
-     *         empty list
+     * @return {@link ArrayList} of {@link String} of every row in Transaction Database
      */
     public static ArrayList<String> read() {
         // Check if database exists
@@ -51,10 +50,8 @@ public class TransactionController {
      * READ every row of Transaction Database File
      * If Database file not found, ignore error and return empty list
      * 
-
      * @param   email Email of MovieGoer to search for
-     * @return  ArrayList<String> Return list of Transactions matching email if any, else
-     *          empty list* 
+     * @return  {@link ArrayList} of {@link String} of every row in Transaction Database matching email
      */
     public static ArrayList<String> readByEmail(String email) {
         // Check if database exists
@@ -90,11 +87,10 @@ public class TransactionController {
     /**
      * READ every row of Transaction Database File
      * If Database file not found, ignore error and return empty list
-     * Consists of Printing Feature as well.
+     * Consists of additional feature to print the transactions.
 
      * @param   email Email of MovieGoer to search for
-     * @return  ArrayList<String> Return list of Transactions matching email if any, else
-     *          empty list* 
+     * @return  {@link ArrayList} of {@link String} of every row in Transaction Database matching email
      */
     public static ArrayList<String> readByEmailPrint(String email) {
         // Check if database exists
@@ -134,7 +130,7 @@ public class TransactionController {
      * If matching Movie Title is found, return the Total Sales
 
      * @param   title Movie Title search for
-     * @return  Integer of Sales 
+     * @return  Integer of the total Sales 
      */
     public static Integer salesByTitle(String title) {
         // Check if database exists
@@ -168,7 +164,7 @@ public class TransactionController {
     /**
      * CREATE Transaction in the database
      * 
-     * @param transaction Transaction object to be added
+     * @param transaction {@link Transaction} object to be added to database
      * @return <code>true</code> if Transaction was created, <code>false</code> if
      *         Transaction already exists, email & TID are unique identifiers
      */
@@ -275,8 +271,7 @@ public class TransactionController {
      * DELETE Transaction by TID in the database
      * 
      * @param  TID Transaction to be removed
-     * @return True if TID entry was deleted, False if TID entry doesnt exist or database is
-     *         nonexistent
+     * @return <code>true</code> if Transaction was deleted, <code>false</code> if Transaction does not exist or delete failed
      */
     public static Boolean deleteByTID(String TID) {
 
