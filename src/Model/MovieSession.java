@@ -127,7 +127,9 @@ public class MovieSession {
             for (int j = 0; j < maxCol; j++) {
                 String id;
                 if (i > 7) {
-                    if (i > 12)
+                    if (i == 16)
+                        id = "" + (char) (i + 'C') + String.valueOf(j + 3);
+                    else if (i > 12)
                         id = "" + (char) (i + 'C') + String.valueOf(j + 1);
                     else
                         id = "" + (char) (i + 'B') + String.valueOf(j + 1);
