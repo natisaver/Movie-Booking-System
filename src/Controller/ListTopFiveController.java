@@ -38,6 +38,7 @@ public class ListTopFiveController {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                reader.close();
                 return Integer.parseInt(tokens[0]);
             }
             reader.close();

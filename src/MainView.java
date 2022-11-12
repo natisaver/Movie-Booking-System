@@ -7,6 +7,5 @@ public class MainView {
         do {
             mainmenu = mainmenu.execute();
         } while (!(mainmenu instanceof Quit));
-
     }
 }

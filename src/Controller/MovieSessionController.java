@@ -511,7 +511,7 @@ public class MovieSessionController {
                     writer.append(",");
                     writer.append(tokens[4]);
                     writer.append(",");
-                    writer.append(tokens[5]);
+                    writer.append("\"\"");
                     writer.append("\n");
                 } else {
                     writer.append(tokens[0]);
