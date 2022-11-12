@@ -44,7 +44,7 @@ public class ListTopFive extends BaseMenu {
         int choice;
         ArrayList<Movie> movies;
 
-        String numregex = "^(?!(0))[0-4]{1}$";
+        String numregex = "^(?!(0))[0-5]{1}$";
 
         do {
             movies = MovieController.read();
@@ -52,8 +52,9 @@ public class ListTopFive extends BaseMenu {
             System.out.println(ConsoleColours.PURPLE_BOLD + "List Top 5: " + ConsoleColours.RESET);
             System.out.println("1. Print out Top 5 Movies by Ticket Sales");
             System.out.println("2. Print out Top 5 Movies by Average Reviews");
-            System.out.println(ConsoleColours.YELLOW + "3. Back" + ConsoleColours.RESET);
-            System.out.println(ConsoleColours.RED + "4. Quit" + ConsoleColours.RESET);
+            System.out.println("3. Viewable Top 5 to be set by:");
+            System.out.println(ConsoleColours.YELLOW + "4. Back" + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.RED + "5. Quit" + ConsoleColours.RESET);
 
             // Keep asking for choice
             System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
@@ -127,9 +128,28 @@ public class ListTopFive extends BaseMenu {
                     break;
 
                 case 3:
-                    return this.getPreviousMenu();
+                    String regex = "^(?!(0))[1-2]{1}$";
+                    System.out.println(ConsoleColours.PURPLE_BOLD + "List Top 5 by: " + ConsoleColours.RESET);
+                    System.out.println("1. Ticket Sales");
+                    System.out.println("2. Ratings");
+
+                    // Keep asking for choice
+                    System.out.println(ConsoleColours.WHITE_BOLD + "Enter your choice: " + ConsoleColours.RESET);
+                    choicestr = sc.nextLine();
+
+                    while (!choicestr.matches(regex)) {
+                        if (choicestr.isBlank()) {
+                            return this.getPreviousMenu();
+                        }
+                        System.out.println(ConsoleColours.RED + "Please enter a valid choice:" + ConsoleColours.RESET);
+                        choicestr = sc.nextLine();
+                    }
+                    ListTopFiveController.update(choicestr);
 
                 case 4:
+                    return this.getPreviousMenu();
+
+                case 5:
                     nextMenu = new Quit(this);
                     break;
             }

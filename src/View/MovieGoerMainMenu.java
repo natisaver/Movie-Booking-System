@@ -77,7 +77,7 @@ public class MovieGoerMainMenu extends BaseMenu {
     @Override
     public BaseMenu execute() {
         int choice;
-        String numregex = "^(?!(0))[0-7]{1}$";
+        String numregex = "^(?!(0))[0-8]{1}$";
 
         System.out.println(ConsoleColours.PURPLE_BOLD + "Customer Menu Options:" + ConsoleColours.RESET);
         System.out.println("1. Book ticket");
@@ -85,12 +85,13 @@ public class MovieGoerMainMenu extends BaseMenu {
         System.out.println("3. Update/Delete a review");
         System.out.println("4. Check booking history");
         System.out.println("5. Check Movies & Details");
+        System.out.println("6. Top 5 Movies List");
         if (this.moviegoer == null) {
-            System.out.println(ConsoleColours.YELLOW + "6. Back" + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.YELLOW + "7. Back" + ConsoleColours.RESET);
         } else {
-            System.out.println(ConsoleColours.YELLOW + "6. Logout" + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.YELLOW + "7. Logout" + ConsoleColours.RESET);
         }
-        System.out.println(ConsoleColours.RED + "7. Quit" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.RED + "8. Quit" + ConsoleColours.RESET);
 
         BaseMenu nextMenu = this;
 
@@ -144,9 +145,12 @@ public class MovieGoerMainMenu extends BaseMenu {
                 nextMenu = new ViewMovieDetails(nextMenu, 0);
                 break;
             case 6:
-                nextMenu = new MainMenu(null, -1, null, movie, movieSession, cinema, cineplex, ticket, transaction, this.bookedSeats);
+                nextMenu = new ViewTopFive(nextMenu, 0);
                 break;
             case 7:
+                nextMenu = new MainMenu(null, -1, null, movie, movieSession, cinema, cineplex, ticket, transaction, this.bookedSeats);
+                break;
+            case 8:
                 nextMenu = new Quit(this);
                 break;
             default:
