@@ -73,6 +73,7 @@ public class AdminController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[1].toLowerCase().equals(email)) {
+                    reader.close();
                     return new Admin(tokens[0], tokens[1], tokens[4]);
                 }
             }
