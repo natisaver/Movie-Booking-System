@@ -373,6 +373,7 @@ public class UpdateMovieSession extends BaseMenu {
                             System.out.println(
                                     ConsoleColours.RED + "This session already has bookings. Unable to be deleted."
                                             + ConsoleColours.RESET);
+                            System.out.println();
                         }
                         return this.getPreviousMenu();
                     } else if (sessionArrayListByDate.size() == 0) {

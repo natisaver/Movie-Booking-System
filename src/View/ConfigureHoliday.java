@@ -103,17 +103,24 @@ public class ConfigureHoliday extends BaseMenu{
         case 2:
           System.out.println(
               ConsoleColours.WHITE_BOLD + "Enter the date of the holiday: (yyyy-MM-dd)" + ConsoleColours.RESET);
-          date = sc.nextLine();
+              System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
+              date = sc.nextLine();
           while (!date.matches(dateCheck)
-              || LocalDateTime.parse(date + " 00:00", formatter).isBefore(LocalDateTime.now())) {
+              || LocalDateTime.parse(date + " 00:00", formatter).isBefore(LocalDateTime.now()) 
+              || HolidayController.readByDate(LocalDateTime.parse(date + " 00:00", formatter))) {
             if (date.isBlank()) {
               return this;
             }
             if (!date.matches(dateCheck))
               System.out.println(ConsoleColours.RED + "Please enter the date in the required format: (yyyy-MM-dd)"
                   + ConsoleColours.RESET);
-            else
+            else if(LocalDateTime.parse(date + " 00:00", formatter).isBefore(LocalDateTime.now()))
               System.out.println(ConsoleColours.RED + "Please enter a future date" + ConsoleColours.RESET);
+            else if(HolidayController.readByDate(LocalDateTime.parse(date + " 00:00", formatter)))
+            {
+              System.out.println(ConsoleColours.RED + "Holiday already exists!" + ConsoleColours.RESET);
+              System.out.println(ConsoleColours.WHITE_BOLD + "Please reenter holiday date:" + ConsoleColours.RESET);
+            }
             date = sc.nextLine();
           }
           date += " 00:00";
@@ -121,20 +128,21 @@ public class ConfigureHoliday extends BaseMenu{
 
           System.out.println(ConsoleColours.WHITE_BOLD + "Enter the name of the holiday:" + ConsoleColours.RESET);
           name = sc.nextLine();
+          if(name.isBlank())
+          {
+            return this;
+          }
 
-          if (HolidayController.addHoliday(dateTime, name)) {
+            HolidayController.addHoliday(dateTime, name);
             System.out.println(ConsoleColours.GREEN + "Holiday added!" + ConsoleColours.RESET);
             System.out.println();
-          } else {
-            System.out.println(ConsoleColours.RED + "Holiday already exists!" + ConsoleColours.RESET);
-            System.out.println();
-          }
-          break;
+            break;
 
         // UPDATE HOLIDAY
         case 3:
           System.out.println(ConsoleColours.WHITE_BOLD + "Enter the date of the holiday to be updated: (yyyy-MM-dd)"
               + ConsoleColours.RESET);
+          System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);         
           DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
           oldDate = sc.nextLine();
           while (!oldDate.matches(dateCheck)
@@ -156,7 +164,7 @@ public class ConfigureHoliday extends BaseMenu{
 
           System.out.println(
               ConsoleColours.WHITE_BOLD + "Enter the new date of the holiday: (yyyy-MM-dd)" + ConsoleColours.RESET);
-          newDate = sc.nextLine();
+              newDate = sc.nextLine();
           while (!newDate.matches(dateCheck)) {
             if (newDate.isBlank()) {
               return this;
@@ -170,7 +178,11 @@ public class ConfigureHoliday extends BaseMenu{
 
           System.out.println(
               ConsoleColours.WHITE_BOLD + "Enter the name of the holiday to be updated:" + ConsoleColours.RESET);
-          name = sc.nextLine();
+              name = sc.nextLine();
+              if(name.isBlank())
+              {
+                return this;
+              }
 
           if (HolidayController.updateHoliday(oldHoliday, newHoliday, name)) {
             System.out.println(ConsoleColours.GREEN + "Holiday updated!" + ConsoleColours.RESET);
