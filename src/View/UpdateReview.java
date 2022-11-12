@@ -116,7 +116,7 @@ public class UpdateReview extends BaseMenu{
         choice = -1;
 
         while (!isOK) {
-            System.out.print("Enter your review to edit (Integer Value): ");
+            System.out.print(ConsoleColours.WHITE_BOLD + "Enter your review to edit (Integer Value): " + ConsoleColours.RESET);
             String choicestr = sc.nextLine();
             if (!choicestr.matches(numregex)){
                 System.out.println(ConsoleColours.RED + "Please enter a valid integer:" + ConsoleColours.RESET);
@@ -194,14 +194,14 @@ public class UpdateReview extends BaseMenu{
                         System.out.println(ConsoleColours.WHITE_BOLD + "Please enter your updated Rating " + ConsoleColours.RESET);
                         reviewRating = sc.nextLine();
                         if (!reviewRating.matches(ratingRegex)){
-                            System.out.println(ConsoleColours.RED + "Please enter a valid range between 0.0 - 5.0" + ConsoleColours.RESET);
+                            System.out.println(ConsoleColours.RED + "Please enter a valid range between 1.0 - 5.0" + ConsoleColours.RESET);
                         }
-                        else if (Double.valueOf(reviewRating) >= 0 && Double.valueOf(reviewRating) <= 5){
+                        else if (Double.valueOf(reviewRating) >= 1 && Double.valueOf(reviewRating) <= 5){
                             rating = Double.valueOf(reviewRating);
                             isOKi = true;
                         }
                         else {
-                            System.out.println(ConsoleColours.RED + "Please enter a valid range between 0.0 - 5.0" + ConsoleColours.RESET);
+                            System.out.println(ConsoleColours.RED + "Please enter a valid range between 1.0 - 5.0" + ConsoleColours.RESET);
                         }
                     }
                     if(ReviewController.updateRating(selectedreview, rating)){

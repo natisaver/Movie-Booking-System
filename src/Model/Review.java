@@ -43,7 +43,7 @@ public class Review {
     /**
      * Min rating possible
      */
-    private static final double minRating = 0.0;
+    private static final double minRating = 1.0;
 
     /**
      * Max rating possible
