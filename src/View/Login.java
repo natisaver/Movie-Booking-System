@@ -9,6 +9,7 @@ import Model.MovieGoer;
 import Model.MovieSession;
 import Model.Ticket;
 import Model.Transaction;
+import Model.User;
 import Model.Admin;
 import Model.Cinema;
 import Model.Cineplex;
@@ -28,7 +29,7 @@ import Model.Seat;
 public class Login extends BaseMenu {
     Scanner sc = new Scanner(System.in);
 
-    MovieGoer user;
+    User user;
     Movie movie = null;
     MovieSession movieSession = null;
     Cinema cinema = null;
@@ -52,7 +53,7 @@ public class Login extends BaseMenu {
      * @param transaction   the transaction made
      * @param bookedSeats   the array of seat(s) booked
      */
-    public Login(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
+    public Login(BaseMenu previousMenu, int accesslevel, User user, Movie movie,
             MovieSession movieSession, Cinema cinema, Cineplex cineplex, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
         super(previousMenu, accesslevel);
 
