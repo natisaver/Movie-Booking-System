@@ -280,7 +280,7 @@ public class MovieSessionController {
             LocalDateTime sessionTimeEnd = sessionTime
                     .plusMinutes(MovieController.readByTitle(session.getTitle()).getDuration());
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 LocalDateTime lower = LocalDateTime.parse(tokens[2] + " " + tokens[3], formatter);
                 LocalDateTime upper = lower.plusMinutes(MovieController.readByTitle(tokens[0]).getDuration());
                 if ((tokens[4].equals(cinemaCode)) &&
