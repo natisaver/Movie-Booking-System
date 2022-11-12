@@ -108,7 +108,7 @@ public class ChooseMovie extends BaseMenu {
 
         choice = Integer.valueOf(choicestr);
 
-        while (choice <= 0 || choice > (movieArr.size() + 1)) {
+        while (choice <= 0 || choice > (movieArr.size() + 2)) {
             // early termination
             if (choicestr.isBlank()) {
                 return this.getPreviousMenu();
