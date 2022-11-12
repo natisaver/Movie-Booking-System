@@ -155,7 +155,7 @@ public class ViewMovieDetails extends BaseMenu
                 System.out.println(temp.getSynopsis());
                 System.out.println(ConsoleColours.WHITE_BOLD + "Reviews: " + ConsoleColours.RESET);
                 int numReviews = ReviewController.readByTitle(temp.getTitle()).size();
-                if (numReviews == 0) System.out.println(ConsoleColours.RED_BOLD + "There are no reviews for this movie yet" + ConsoleColours.RESET);
+                if (numReviews < 2) System.out.println(ConsoleColours.RED_BOLD + "There are not enough reviews for this movie yet" + ConsoleColours.RESET);
                 else{
                     for (int j = 0; j<ReviewController.readByTitle(temp.getTitle()).size(); j++){
                         ArrayList<Review> reviewlist = ReviewController.readByTitle(temp.getTitle());

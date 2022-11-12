@@ -77,7 +77,14 @@ public class ViewTopFive extends BaseMenu{
                     }
                     average = sum / reviewlist.size();
                 }
-                OverallRatings.put(key.getTitle(), average);
+                if(reviewlist.size() < 2)
+                {
+                    OverallRatings.put(key.getTitle(), 0.0);
+                }
+
+                else{
+                    OverallRatings.put(key.getTitle(), average);
+                }
             }
             Map<String, Double> hm1 = sortByValueDouble(OverallRatings);
 
@@ -90,8 +97,15 @@ public class ViewTopFive extends BaseMenu{
                 if (i == 6) {
                     break;
                 }
-                System.out.println("Number " + i + " : " + en.getKey() + " | " + en.getValue() + "*");
-                i++;
+                if(en.getValue()==0.0)
+                {
+                    System.out.println(ConsoleColours.RED + "Number " + i + " : " + en.getKey() + " |  Insufficient Ratings" + ConsoleColours.RESET);
+                    i++;
+                }
+                else{
+                    System.out.println("Number " + i + " : " + en.getKey() + " | " + en.getValue() + "*");
+                    i++;
+                }
             }
             System.out.println();
         }
