@@ -66,7 +66,7 @@ public class MovieSessionController {
         try {
             reader[0].readLine();
             while ((line = reader[0].readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 String movieTitle = tokens[0];
                 String movieType = tokens[1];
                 LocalDateTime datetime = LocalDateTime.parse(tokens[2] + " " + tokens[3], formatter);
@@ -114,7 +114,7 @@ public class MovieSessionController {
         try (BufferedReader reader = new BufferedReader(new FileReader(PATH))) {
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[4].equals(cinemaCode)) {
                     String movieTitle = tokens[0];
                     String movieType = tokens[1];
@@ -169,7 +169,7 @@ public class MovieSessionController {
         try {
             reader[0].readLine();
             while ((line = reader[0].readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[4].equals(cinemaCode) && tokens[0].toLowerCase().equals(movieTitle.toLowerCase())) {
                     String movieType = tokens[1];
                     LocalDateTime datetime = LocalDateTime.parse(tokens[2] + " " + tokens[3], formatter);
@@ -214,7 +214,7 @@ public class MovieSessionController {
         try {
             reader[0].readLine();
             while ((line = reader[0].readLine()) != null) {
-                String[] tokens = line.split(",");
+                String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[0].equals(title)) {
                     String movieTitle = tokens[0];
                     String movieType = tokens[1];
