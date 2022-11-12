@@ -55,7 +55,6 @@ public class UpdateMovieDetails extends BaseMenu{
         Movie movie = new Movie();
         String inputTitle, choiceStr, inputString, numRegex;
         String dateCheck;
-        ArrayList<String> inputArray = new ArrayList<String>(); 
 
         System.out.println(ConsoleColours.WHITE_BOLD + "Enter Title of existing Movie to be updated:" + ConsoleColours.RESET);
         inputTitle = sc.nextLine();
@@ -219,14 +218,34 @@ public class UpdateMovieDetails extends BaseMenu{
 
                 //UPDATE MOVIE CAST
                 case 6:
+                    numRegex = "^[^0-9]+$";
+                    Boolean firstTry = true;
+                    ArrayList<String> inputArray = new ArrayList<String>(); 
                     System.out.println(ConsoleColours.WHITE_BOLD + "Enter Updated Cast: " + ConsoleColours.RESET);
                     //clear current cast first 
                     movie.setCast(inputArray);
                     do{
                         inputString = sc.nextLine();
-                        if(inputArray.isEmpty() && inputString.isBlank()){
-                            return this.getPreviousMenu();
+            
+                        if((inputArray.isEmpty() && inputString.isBlank())||(inputArray.size()==1 && inputString.isBlank())){
+                            // When array size is 1 for first time
+                            if((inputArray.size()==1 && inputString.isBlank()) && firstTry == true)
+                            {
+                                firstTry = false;
+                                System.out.println(ConsoleColours.RED + "Please enter at least 1 more cast or leave blank to quit" + ConsoleColours.RESET);
+                                continue;
+                            }
+                            // When array size is 1 for second time
+                            else if((inputArray.size()==1 && inputString.isBlank()) && firstTry == false)
+                            {
+                                return this.getPreviousMenu();
+                            }
+                            // When array is empty 
+                            else{
+                                return this.getPreviousMenu();
+                            }
                         }
+            
                         while (!inputString.matches(numRegex)){
                             if(!inputArray.isEmpty()){
                                 break;
@@ -234,9 +253,11 @@ public class UpdateMovieDetails extends BaseMenu{
                             System.out.println(ConsoleColours.RED + "Please enter a valid Name:" + ConsoleColours.RESET);
                             inputString = sc.nextLine();
                         }
+                        // When admin no longer want to add in more cast
                         if (inputString.isBlank()){
                             break;
                         }
+                        // Add in input string into array
                         else{
                             inputArray.add(inputString);
                         }

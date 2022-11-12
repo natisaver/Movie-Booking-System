@@ -404,23 +404,26 @@ public class MovieController {
             reader.close();
             if(Found)
             {
+                // delete old file
+                Files.delete(Paths.get(DataController.getPath("Movie")));
+                // replace with the new file
+                tempFile.renameTo(new File(DataController.getPath("Movie")));
                 if(!MovieSessionController.updateMovieTypeByTitle(movie.getTitle(), movie.getMovieType()))
+                {                    
                     return false;
+                }
             }
             if (Found == false) {
                 Files.delete(Paths.get(DataController.getPath("Temp")));
                 System.out.println("Error 4");
                 return false;
             }
-            // delete old file
-            Files.delete(Paths.get(DataController.getPath("Movie")));
+
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error 5");
             return false;
         }
-        // replace with the new file
-        tempFile.renameTo(new File(DataController.getPath("Movie")));
         return true;
     }
 

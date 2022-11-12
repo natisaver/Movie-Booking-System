@@ -163,12 +163,31 @@ public class EnterMovieDetails extends BaseMenu{
         movie.setDirector(inputString);
 
         //ENTER MOVIE CAST
+        Boolean firstTry = true;
         System.out.println(ConsoleColours.WHITE_BOLD + "Enter Cast: " + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.GREEN + "(At least 2 cast is required)" + ConsoleColours.RESET);
         do{
             inputString = sc.nextLine();
-            if(inputArray.isEmpty() && inputString.isBlank()){
-                return this.getPreviousMenu();
+
+            if((inputArray.isEmpty() && inputString.isBlank())||(inputArray.size()==1 && inputString.isBlank())){
+                // When array size is 1 for first time
+                if((inputArray.size()==1 && inputString.isBlank()) && firstTry == true)
+                {
+                    firstTry = false;
+                    System.out.println(ConsoleColours.RED + "Please enter at least 1 more cast or leave blank to quit" + ConsoleColours.RESET);
+                    continue;
+                }
+                // When array size is 1 for second time
+                else if((inputArray.size()==1 && inputString.isBlank()) && firstTry == false)
+                {
+                    return this.getPreviousMenu();
+                }
+                // When array is empty 
+                else{
+                    return this.getPreviousMenu();
+                }
             }
+
             while (!inputString.matches(numRegex)){
                 if(!inputArray.isEmpty()){
                     break;
@@ -176,9 +195,11 @@ public class EnterMovieDetails extends BaseMenu{
                 System.out.println(ConsoleColours.RED + "Please enter a valid Name:" + ConsoleColours.RESET);
                 inputString = sc.nextLine();
             }
+            // When admin no longer want to add in more cast
             if (inputString.isBlank()){
                 break;
             }
+            // Add in input string into array
             else{
                 inputArray.add(inputString);
             }

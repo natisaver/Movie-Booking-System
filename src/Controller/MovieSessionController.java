@@ -531,7 +531,8 @@ public class MovieSessionController {
             writer.close();
             reader.close();
             if (!Found) {
-                return false;
+                Files.delete(Paths.get(DataController.getPath("Temp2")));
+                return true;
             }
             // delete old file
             Files.delete(Paths.get(DataController.getPath("MovieSession")));
