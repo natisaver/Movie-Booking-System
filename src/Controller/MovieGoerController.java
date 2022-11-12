@@ -80,6 +80,7 @@ public class MovieGoerController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 if (tokens[1].toLowerCase().equals(email)) {
+                    reader.close();
                     return new MovieGoer(tokens[0], tokens[1], tokens[2], Integer.valueOf(tokens[3]), tokens[4].substring(1, tokens[4].length()-1));
                 }
             }
