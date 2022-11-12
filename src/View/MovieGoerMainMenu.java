@@ -92,6 +92,7 @@ public class MovieGoerMainMenu extends BaseMenu {
             System.out.println(ConsoleColours.YELLOW + "7. Logout" + ConsoleColours.RESET);
         }
         System.out.println(ConsoleColours.RED + "8. Quit" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
 
         BaseMenu nextMenu = this;
 

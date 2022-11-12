@@ -143,14 +143,14 @@ public class LeaveReview extends BaseMenu {
             System.out.println(ConsoleColours.WHITE_BOLD + "Please enter your Ratings for " + temp.getTitle() + ConsoleColours.RESET);
             reviewRating = sc.nextLine();
             if (!reviewRating.matches(ratingRegex)){
-                System.out.println(ConsoleColours.RED + "Please enter a valid range between 0.0 - 5.0" + ConsoleColours.RESET);
+                System.out.println(ConsoleColours.RED + "Please enter a valid range between 1.0 - 5.0" + ConsoleColours.RESET);
             }
-            else if (Double.valueOf(reviewRating) >= 0 && Double.valueOf(reviewRating) <= 5){
+            else if (Double.valueOf(reviewRating) >= 1 && Double.valueOf(reviewRating) <= 5){
                 rating = Double.valueOf(reviewRating);
                 isOKi = true;
             }
             else {
-                System.out.println(ConsoleColours.RED + "Please enter a valid range between 0.0 - 5.0" + ConsoleColours.RESET);
+                System.out.println(ConsoleColours.RED + "Please enter a valid range between 1.0 - 5.0" + ConsoleColours.RESET);
             }
         }
         Review review = new Review(LocalDateTime.now(), this.user.getName(), this.user.getEmail(), temp, reviewText, rating);
