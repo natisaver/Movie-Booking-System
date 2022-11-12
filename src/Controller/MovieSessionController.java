@@ -795,6 +795,15 @@ public class MovieSessionController {
         tempSession.showSeatings(cinema.getCinemaClass());
     }
 
+    /**
+     * Gets the seats booked in a single MovieSession booking
+     * 
+     * @param cinema {@link Cinema} in which seats of the MovieSession are being booked
+     * @param seatID ID of seat to be booked
+     * @param session {@link MovieSession} in which the seats are being booked
+     * @return bookedSeats {@link ArrayList} of {@link Seat} that is/are booked with the given seatID
+     */
+
     public static ArrayList<Seat> getSeats(Cinema cinema, String seatID, MovieSession session) {
         MovieSession tempSession = new MovieSession(cinema.getCinemaClass());
         ArrayList<Seat> bookedSeats = new ArrayList<Seat>();
