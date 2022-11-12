@@ -63,7 +63,7 @@ public class PriceDataController {
      * @return                  <code>true</code> if price was updated, 
      *                          <code>false</code> if ID doesnt exist or database is nonexistent
      */
-    public static Boolean update(String id, double[] updatedprices) {
+    public static Boolean update(String id, double[] updatedPrices) {
 
         File inputFile = new File(DataController.getPath("Price"));
         File tempFile = new File(DataController.getPath("Temp"));
@@ -109,17 +109,17 @@ public class PriceDataController {
                     Found = true;
                     writer.append(tokens[0]);
                     writer.append(",");
-                    writer.append(String.valueOf(updatedprices[0]));
+                    writer.append(String.valueOf(updatedPrices[0]));
                     writer.append(",");
-                    writer.append(String.valueOf(updatedprices[1]));
+                    writer.append(String.valueOf(updatedPrices[1]));
                     writer.append(",");
-                    writer.append(String.valueOf(updatedprices[2]));
+                    writer.append(String.valueOf(updatedPrices[2]));
                     writer.append(",");
                     writer.append(tokens[4]);
                     writer.append(",");
-                    writer.append(String.valueOf(updatedprices[3]));
+                    writer.append(String.valueOf(updatedPrices[3]));
                     writer.append(",");
-                    writer.append(String.valueOf(updatedprices[4]));
+                    writer.append(String.valueOf(updatedPrices[4]));
                     writer.append("\n");
                 } else {
                     writer.append(tokens[0]);

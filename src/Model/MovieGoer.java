@@ -17,11 +17,6 @@ public class MovieGoer extends User{
 	 * MovieGoer's age
 	 */
     private int age;
-	
-	/**
-     * Current Available Roles
-     */
-    public static final int MOVIE_GOER = 1, ADMIN = 0;
 
 	/** 
 	 * Constructor

@@ -55,6 +55,7 @@ public class EnterMovieDetails extends BaseMenu{
         System.out.println(ConsoleColours.GREEN + "(Leave any field empty to quit)" + ConsoleColours.RESET);
         System.out.println(ConsoleColours.WHITE_BOLD + "Enter Movie Title: " + ConsoleColours.RESET);
         inputString = sc.nextLine();
+        System.out.println();
         
         //Checks if Movie already exists in the database
         do{
@@ -68,6 +69,7 @@ public class EnterMovieDetails extends BaseMenu{
                 System.out.println(ConsoleColours.RED + "Movie already exists." + ConsoleColours.RESET);
                 System.out.println(ConsoleColours.WHITE_BOLD + "Re-enter Movie Title:" + ConsoleColours.RESET);
                 inputString = sc.nextLine();
+                System.out.println();
             }
             else {
                 break;
