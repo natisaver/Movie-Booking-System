@@ -311,9 +311,15 @@ public class UpdateMovieDetails extends BaseMenu{
                         System.out.println();
                     }
                     else{
-                        MovieController.delete(movie);
-                        System.out.println(ConsoleColours.GREEN + "Movie successfully deleted" + ConsoleColours.RESET);
-                        System.out.println();
+                        if(MovieController.delete(movie)){
+                            System.out.println(ConsoleColours.GREEN + "Movie Successfully Deleted" + ConsoleColours.RESET);
+                            System.out.println();
+                            return this.getPreviousMenu();
+                        }
+                        else{
+                            System.out.println(ConsoleColours.RED + "Movie Not Deleted, Database Error" + ConsoleColours.RESET);
+                            System.out.println();
+                        }
                     }
                     return this.getPreviousMenu();
 

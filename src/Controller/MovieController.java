@@ -572,11 +572,11 @@ public class MovieController {
             reader = new BufferedReader(new FileReader(inputFile));
             writer = new BufferedWriter(new FileWriter(tempFile));
         } catch (FileNotFoundException e) {
-            // e.printStackTrace();
+            e.printStackTrace();
             return false;
 
         } catch (IOException e) {
-            // e.printStackTrace();
+            e.printStackTrace();
             return false;
         }
 
@@ -610,7 +610,7 @@ public class MovieController {
             while ((line = reader.readLine()) != null) {
                 String[] tokens = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (tokens[0].substring(1, tokens[0].length() - 1).equals(movie.getTitle().toLowerCase())) {
+                if (tokens[0].substring(1, tokens[0].length() - 1).toLowerCase().equals(movie.getTitle().toLowerCase())) {
                     // do nothing
                     Found = true;
                 } else {
@@ -642,6 +642,8 @@ public class MovieController {
             reader.close();
             if (Found == false) {
                 // movie not deleted
+                System.out.println("Movie Not Found in Database");
+                System.out.println(movie.getTitle());
                 Files.delete(Paths.get(DataController.getPath("Temp")));
                 return false;
             }
