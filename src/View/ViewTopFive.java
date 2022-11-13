@@ -117,7 +117,6 @@ public class ViewTopFive extends BaseMenu{
      * Sorts Movie by numerical order of Overall Ticket Sales
      * 
      * @param hm {@link HashMap} unsorted collection that contains {@link String} Movie Title as key and {@link Integer} Overall Ticket Sales as value.
-     *           Sales
      * @return {@link HashMap} sorted collection that contains {@link String} Movie Title as key and {@link Integer} Overall Ticket Sales as value.
      */
     public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm) {
@@ -144,9 +143,8 @@ public class ViewTopFive extends BaseMenu{
      * Sort by Value Double Funtionality
      * Sorts Movie by numerical order of Overall Review Ratings
      * 
-     * @param hm {@link HashMap} unsorted collection that contains {@link String} Movie Title as key and {@link Integer} Overall Review Ratings as value.
-     *           Sales
-     * @return {@link HashMap} sorted collection that contains {@link String} Movie Title as key and {@link Integer} Overall Review Ratings as value.
+     * @param hm {@code HashMap} unsorted collection that contains {@code String} Movie Title as key and {@code Integer} Overall Review Ratings as value.
+     * @return {@code HashMap} sorted collection that contains {@code String} Movie Title as key and {@code Integer} Overall Review Ratings as value.
      */
     public static HashMap<String, Double> sortByValueDouble(HashMap<String, Double> hm) {
         // Create a list from elements of HashMap

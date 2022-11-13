@@ -180,9 +180,9 @@ public class ViewMovieDetails extends BaseMenu
      * Sort By Name Functionality
      * Sorts Movie by alphabetical order of Movie Titles
      * 
-	 * @param hm	    Hashmap<String, Movie> Hashmap of Movie Title and Movie Object
-     * @return Hashmap<Integer, Movie>
-     * @see Hashmap
+     * @param hm {@link HashMap} unsorted collection that contains {@link String} Movie Title as key and {@link Movie} Movie Object as value.
+     * @return {@link HashMap} sorted collection that contains {@link Integer} option selector as key and {@link Movie} Movie Object as value.
+     * @see HashMap
      */
     public static HashMap<Integer, Movie> sortByName(HashMap<String, Movie> hm)
     {

@@ -282,9 +282,10 @@ public class UpdateReview extends BaseMenu{
      * Sort By Date Functionality
      * Sorts Review entries by Date of entry
      * 
-	 * @param hm		Hashmap<Integer, Movie> Hashmap of Menu Selection and Movie Object
-     * @return Hashmap<Integer, Review>
-     * @see Hashmap
+     * @param hm {@link HashMap} unsorted collection that contains {@link Integer} selection option as key and {@link Review} Review Object as value.
+     * @return {@link HashMap} sorted collection that contains {@link Integer} selection option as key and {@link Review} Review Object as value.
+     * 
+     * @see HashMap
      */
     public static HashMap<Integer, Review> sortByDate(HashMap<Integer, Review> hm) {
         // Create a list from elements of HashMap
