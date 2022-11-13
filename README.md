@@ -1,7 +1,7 @@
 # Getting Started with Moblima App
 SSP3 Group 3
 
-##In the project directory, you can run:
+## In the project directory, you can run:
 
 ### `MainView.java` (Moblima-Project/src/MainView.java)
 
