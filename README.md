@@ -17,4 +17,4 @@ MOBLIMA is an application to computerize the processes of making online booking 
 We have provided a 15 minute Video Report of our Implementation. This video contains explanation of our MOBLIMA, along with the different resulting outputs and flows for different test cases.
 
 ### Report
-The design considerations, principles and use of object-oriented programming (OOP) concepts can be found in the full report 'SC2002 Moblime Report.pdf'. The report also includes a detailed UML Class Diagram for the MOBLIMA, followed by screenshots of some test runs of our program that are not included in our Implementation Video.
+The design considerations, principles and use of object-oriented programming (OOP) concepts can be found in the full report 'SC2002 Moblima Report.pdf'. The report also includes a detailed UML Class Diagram for the MOBLIMA, followed by screenshots of some test runs of our program that are not included in our Implementation Video.
