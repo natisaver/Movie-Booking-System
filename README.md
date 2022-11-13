@@ -1,4 +1,4 @@
-# Getting Started with Moblima App
+# Getting Started with MOBLIMA App
 SSP3 Group 3
 
 ## In the project directory, you can run:
