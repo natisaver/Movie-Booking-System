@@ -65,7 +65,12 @@ public class CreateOrLogin extends BaseMenu {
      * Allow users to choose to Login or Create Account as Access is required.
      * 
      * @return Selected Page or Previous Page or Terminate
-     * @see CreateAccount, Login, LeaveReview, ChooseAge, UpdateReview, CheckHistory 
+     * @see CreateAccount
+     * @see Login
+     * @see LeaveReview
+     * @see ChooseAge
+     * @see UpdateReview
+     * @see CheckHistory 
      */
     @Override
     public BaseMenu execute() {

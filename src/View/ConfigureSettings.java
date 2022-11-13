@@ -28,7 +28,9 @@ public class ConfigureSettings extends BaseMenu{
      * Allow Admin to choose to configure Price or Holiday
      * 
      * @return Selected Page or Previous Page 
-     * @see ConfigurePrice, ConfigureHoliday, AdminMainMenu   
+     * @see ConfigurePrice
+     * @see ConfigureHoliday
+     * @see AdminMainMenu   
      */
     @Override
     public BaseMenu execute() {

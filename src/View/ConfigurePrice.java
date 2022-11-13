@@ -31,8 +31,7 @@ public class ConfigurePrice extends BaseMenu{
      * Updating of Price Details by Admin
      * 
      * @return Previous Page 
-     * @see ConfigureSetting
-     * 
+     * @see ConfigureSettings
      */
     @Override    
     public BaseMenu execute() {

@@ -76,7 +76,8 @@ public class CreateAccount extends BaseMenu {
      * 
      * @return MovieGoerMainMenu Page or DisplayTransaction Page if successful. else go back a page upon early
      *         termination
-     * @see MovieGoerMainMenu, DisplayTransaction
+     * @see MovieGoerMainMenu
+     * @see DisplayTransaction
      */
     @Override
     public BaseMenu execute() {
