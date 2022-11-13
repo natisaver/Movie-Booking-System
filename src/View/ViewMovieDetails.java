@@ -40,7 +40,7 @@ public class ViewMovieDetails extends BaseMenu
     /**
      * View Movie Details Functionality
      * Allows Guest/Moviegoer to view details of movies
-     * such as Title, Rating, Duration, Release & End Date
+     * such as Title, Rating, Duration, Release &amp; End Date
      * Director, Cast, Synopsis, Reviews.
      * User can also choose to go Back or Quit
      * 
@@ -180,8 +180,8 @@ public class ViewMovieDetails extends BaseMenu
      * Sort By Name Functionality
      * Sorts Movie by alphabetical order of Movie Titles
      * 
-     * @param hm {@link HashMap} unsorted collection that contains {@link String} Movie Title as key and {@link Movie} Movie Object as value.
-     * @return {@link HashMap} sorted collection that contains {@link Integer} option selector as key and {@link Movie} Movie Object as value.
+     * @param hm {@code HashMap} unsorted collection that contains {@code String} Movie Title as key and {@link Movie} Movie Object as value.
+     * @return {@code HashMap} sorted collection that contains {@code Integer} option selector as key and {@link Movie} Movie Object as value.
      * @see HashMap
      */
     public static HashMap<Integer, Movie> sortByName(HashMap<String, Movie> hm)

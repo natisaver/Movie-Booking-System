@@ -71,8 +71,13 @@ public class MovieGoerMainMenu extends BaseMenu {
      * User can also choose to go Back, Logout or Quit
      * 
      * @return Selected Page or Terminates
-     * @see ChooseCineplex, CreateOrLogin, LeaveReview, UpdateReview,
-     * CheckHistory, ViewMovieDetails, MainMenu
+     * @see ChooseCineplex
+     * @see CreateOrLogin
+     * @see LeaveReview
+     * @see UpdateReview
+     * @see CheckHistory
+     * @see ViewMovieDetails
+     * @see MainMenu
      */
     @Override
     public BaseMenu execute() {
