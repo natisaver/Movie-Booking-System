@@ -306,9 +306,15 @@ public class UpdateMovieDetails extends BaseMenu{
                 
                 //DELETE MOVIE FROM MOVIE.CSV
                 case 8:
-                    if (movie.getEndDate().isAfter(LocalDateTime.now()) || movie.getReleaseDate().isBefore(LocalDateTime.now()))
+                    if (movie.getEndDate().isAfter(LocalDateTime.now()) && movie.getReleaseDate().isBefore(LocalDateTime.now())){
                         System.out.println(ConsoleColours.RED + "Only can delete movies before their release date or after their end date" +  ConsoleColours.RESET);
-                    else MovieController.delete(movie);
+                        System.out.println();
+                    }
+                    else{
+                        MovieController.delete(movie);
+                        System.out.println(ConsoleColours.GREEN + "Movie successfully deleted" + ConsoleColours.RESET);
+                        System.out.println();
+                    }
                     return this.getPreviousMenu();
 
                 //RETURN TO PREVIOUSMENU
