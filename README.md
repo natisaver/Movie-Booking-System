@@ -5,7 +5,7 @@ SSP3 Group 3
 
 ### `MainView.java` (Moblima-Project/src/MainView.java)
 
-Run MainView to start our program. This will prompt the starting point of our system, the MainMenu. .\
+Run MainView to start our program. This will prompt the starting point of our system, the MainMenu.
 From here, you can navigate freely to any other pages.
 
 
