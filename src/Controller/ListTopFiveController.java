@@ -18,9 +18,9 @@ public class ListTopFiveController {
 
     /**
      * READ every row of ListTopFiveBy Database File
-     * If Database file not found, ignore error and return empty list
+     * If Database file not found, ignore error and return -1
      * 
-     * @return 1 if ListTopFiveBySales 0 if ListTopFiveByRatings
+     * @return      1 if ListTopFiveBySales 0 if ListTopFiveByRatings
      */
     public static int read() {
         // Check if database exists
@@ -51,10 +51,10 @@ public class ListTopFiveController {
 
 
    /**
-     * UPDATE movie details in the database for a particular movie.
-     * @param movie {@code Movie} object to be updated.
-     * @return <code>true</code> if movie is updated successfully, else
-     *        <code>false</code>.
+     * UPDATE ListTopFiveBy Database File
+     * @param ListTopFiveBySales option chosen by the admin
+     * @return                   <code>true</code> if setting is updated successfully, else
+     *                           <code>false</code>.
      */
 
     public static Boolean update(String ListTopFiveBySales) {

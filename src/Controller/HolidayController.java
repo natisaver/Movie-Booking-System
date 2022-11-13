@@ -25,8 +25,8 @@ public class HolidayController {
 
     /**
      * READ a list of holidays from Database
-     * @return {@code ArrayList} of {@code Holiday} objects if database exists, else
-     *        empty {@code ArrayList}
+     * @return      {@code ArrayList} of {@code Holiday} objects if database exists, else
+     *              empty {@code ArrayList}
      */
     public static ArrayList<Holiday> read() {
         // Check if database exists
@@ -62,8 +62,8 @@ public class HolidayController {
     /**
      * Display all holidays in database
      * 
-     * @return {@code true} if holidays were displayed , else
-     *         {@code false}
+     * @return      {@code true} if holidays were displayed, else
+     *              {@code false}
      */
     public static Boolean printHolidays() {
         // Check if database exists
@@ -97,10 +97,10 @@ public class HolidayController {
     /**
      * CREATE a holiday to the database
      * 
-     * @param holiday {@code Holiday} object to be added
-     * @param holidayName {@code String} name of holiday
-     * @return <code>true</code> if holiday was added, else
-     *       <code>false</code>
+     * @param holiday       {@code LocalDateTime} object to be added
+     * @param holidayName   name of holiday
+     * @return              <code>true</code> if holiday was added, else
+     *                      <code>false</code>
      */
 
     public static Boolean addHoliday(LocalDateTime holiday, String holidayName) {
@@ -178,11 +178,11 @@ public class HolidayController {
     /**
      * UPDATE a holiday in the database
      * 
-     * @param oldHoliday {@code LocalDateTime} object to be updated
-     * @param newHoliday {@code LocalDateTime} object to be updated to
-     * @param holidayName {@code String} name of holiday
-     * @return <code>true</code> if holiday was updated, else 
-     *         return <code>false</code>
+     * @param oldHoliday    {@code LocalDateTime} object to be updated
+     * @param newHoliday    {@code LocalDateTime} object to be updated to
+     * @param holidayName   name of holiday
+     * @return              <code>true</code> if holiday was updated, else 
+     *                      return <code>false</code>
      */
 
     public static Boolean updateHoliday(LocalDateTime oldHoliday, LocalDateTime newHoliday, String holidayName) {
@@ -255,9 +255,9 @@ public class HolidayController {
     /**
      * DELETE a holiday from the database
      * 
-     * @param holiday {@code LocalDateTime} object to be deleted
-     * @return <code>true</code> if holiday was deleted, else
-     *        return <code>false</code>
+     * @param holiday   {@code LocalDateTime} object to be deleted
+     * @return          <code>true</code> if holiday was deleted, else
+     *                  return <code>false</code>
      */
 
     public static Boolean deleteSingleHoliday(LocalDateTime holiday) {
@@ -326,9 +326,9 @@ public class HolidayController {
     /**
      * DELETE all holidays with holiday Name from the database
      * 
-     * @param {@code String} holidayName to be deleted
-     * @return <code>true</code> if holiday was deleted, else
-     *       return <code>false</code>
+     * @param holidayName   name of holiday to be deleted
+     * @return              <code>true</code> if holiday was deleted, else
+     *                      return <code>false</code>
      */
     public static Boolean deleteHolidayName(String holidayName) {
         File inputFile = new File(DataController.getPath("Holiday"));
@@ -395,9 +395,9 @@ public class HolidayController {
     /**
      * READ all holidays from the database by date
      * 
-     * @param {@code LocalDateTime} date to be read
-     * @return <code>true</code> if holiday was found, else
-     *       return <code>false</code>
+     * @param holiday   {@code LocalDateTime} object of date to be read
+     * @return          <code>true</code> if holiday was found, else
+     *                  return <code>false</code>
      */
 
     public static Boolean readByDate(LocalDateTime holiday) {

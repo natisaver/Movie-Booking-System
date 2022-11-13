@@ -84,7 +84,7 @@ public class Movie {
     /**
      * Set title of the movie
      * 
-     * @param title title of Movie object.
+     * @param movieTitle    title of Movie object.
      */
     public void setTitle(String movieTitle) {
         title = movieTitle;

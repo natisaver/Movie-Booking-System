@@ -39,7 +39,7 @@ public class MovieSession {
     /**
      * Constructor
      * 
-     * @param cinemaClass {@link cinemaClass_enum} of the cinema where the MovieSession is
+     * @param cinemaClass {@link cinemaClass_Enum} of the cinema where the MovieSession is
      */
 
     public MovieSession(cinemaClass_Enum cinemaClass) {
@@ -103,8 +103,8 @@ public class MovieSession {
      * Constructor
      * 
      * @param showtime    The MovieSession's showtime
-     * @param cinemaClass Cinema Class of the cinema where the MovieSession is
-     * @param movie       The MovieSession's movie object
+     * @param cinemaClass Cinema Class {@link cinemaClass_Enum} of the cinema where the MovieSession is
+     * @param title       The MovieSession's movie title
      * @param movieType   The MovieSession's movie type (2D, 3D or Blockbuster)
      */
     public MovieSession(LocalDateTime showtime, cinemaClass_Enum cinemaClass, String title,

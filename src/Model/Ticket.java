@@ -9,18 +9,6 @@ import java.time.LocalDateTime;
  * @since 18-10-2022
  */
 
-/**
- * Constructor
- * 
- * @param ticketCineplex    Ticket for which Cineplex
- * @param ticketCinema      Ticket for which Cinema
- * @param ticketShowTime    Ticket for which Showtime
- * @param ticketMovieTitle  Ticket for which Movie
- * @param ticketMovieType   Ticket for which Movie Type
- * @param ticketMovieRating Ticket for which Movie Rating
- * @param ticketSeat        Ticket for which Seat
- * @param ticketAgeGroup    Ticket for which Age Group
- */
 public class Ticket {
 	private Cineplex ticketCineplex;
 	private Cinema ticketCinema;
@@ -39,14 +27,14 @@ public class Ticket {
 	/**
 	 * Constructor
 	 * 
-	 * @param ticketCineplex    Ticket for which Cineplex
-	 * @param ticketCinema      Ticket for which Cinema
-	 * @param ticketShowTime    Ticket for which Showtime
-	 * @param ticketMovieTitle  Ticket for which Movie
-	 * @param ticketMovieType   Ticket for which Movie Type
-	 * @param ticketMovieRating Ticket for which Movie Rating
-	 * @param ticketSeat        Ticket for which Seat
-	 * @param ticketAgeGroup    Ticket for which Age Group
+	 * @param tCineplex    Cineplex {@link Cineplex} of movie tagged to this ticket
+	 * @param tCinema      Cinema {@link Cinema} of movie tagged to this ticket
+	 * @param tShowTime    Showtime {@code LocalDateTime} of movie tagged to this ticket
+	 * @param tMovieTitle  Movie {@link Movie} tagged to this ticket
+	 * @param tMovieType   Movie Type {@link movieType_Enum} of movie tagged to this ticket
+	 * @param tMovieRating Movie Rating {@link movieRating_Enum} of movie tagged to this ticket
+	 * @param tSeat        Seat {@link Seat} tagged to this ticket
+	 * @param tAgeGroup    Age Group {@link ageGroup_Enum} tagged to this ticket
 	 */
 
 	public Ticket(Cineplex tCineplex, Cinema tCinema, LocalDateTime tShowTime, String tMovieTitle,
@@ -160,7 +148,7 @@ public class Ticket {
 
 	/**
 	 * Set Movie Rating of Ticket.
-	 * @param tMovieRating_Enum {@link movieRating_Enum} of Ticket
+	 * @param tMovieRating {@link movieRating_Enum} of Ticket
 	 */
 	public void setMovieRating(movieRating_Enum tMovieRating) {
 		this.ticketMovieRating = tMovieRating;
@@ -195,7 +183,7 @@ public class Ticket {
 	/**
 	 * Set Age Group of Ticket.
 	 * 
-	 * @param tAgeGroup_Enum {@link ageGroup_Enum} of Ticket
+	 * @param tAgeGroup {@link ageGroup_Enum} of Ticket
 	 */
 	public void setAgeGroup(ageGroup_Enum tAgeGroup) {
 		this.ticketAgeGroup = tAgeGroup;

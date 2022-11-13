@@ -555,9 +555,9 @@ public class MovieController {
     /**
      * DELETE a movie from Movie Database File
      * 
-     * @param {@link Movie} movie to be deleted from database
-     * @return <code>true</code> if movie is deleted successfully, else
-     *      <code>false</code>.
+     * @param movie     {@link Movie} to be deleted from database
+     * @return          <code>true</code> if movie is deleted successfully, else
+     *                  <code>false</code>.
      */
 
     public static Boolean delete(Movie movie) {

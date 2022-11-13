@@ -166,7 +166,7 @@ public class TransactionController {
      * 
      * @param transaction {@link Transaction} object to be added to database
      * @return <code>true</code> if Transaction was created, <code>false</code> if
-     *         Transaction already exists, email & TID are unique identifiers
+     *         Transaction already exists, email &amp; TID are unique identifiers
      */
 
     public static Boolean create(Transaction transaction) {

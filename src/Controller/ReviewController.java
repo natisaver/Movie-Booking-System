@@ -357,6 +357,7 @@ public class ReviewController {
     /**
      *UPDATE Review rating in the database
      * @param review    {@link Review} object to be updated
+     * @param rating    {@code Double} rating to be updated
      * @return          <code>true</code> if review was updated, <code>false</code> if review doesnt exist or database is nonexistent
      */
     public static Boolean updateRating(Review review, Double rating) {

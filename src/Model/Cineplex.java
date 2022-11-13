@@ -25,7 +25,7 @@ public class Cineplex {
     /**
      * Constructor
      * 
-     * @param arrayList {@Link arrayList} of {@Link Cinema} under a particular location
+     * @param arrayList {@code arrayList} of {@Link Cinema}
      * @param location  Cinema's location
      */
     public Cineplex(ArrayList<Cinema> arrayList, String location) {

@@ -39,17 +39,17 @@ public class ChooseAge extends BaseMenu {
      * Constructor to store previous page, access level, moviegoer, movie,
      * movieSession, cinema, cineplex, ticket, transaction, bookedSeats
      * 
-     * @param previousMenu the previous page
-     * @param accesslevel  the level of access
-     * @param moviegoer    the moviegoer that has been logged in
-     * @param movie        the selected movie
-     * @param movieSession the selected movieSession
-     * @param cinema       the selected cinema
-     * @param cineplex     the selected cineplex
-     * @param ticket       the array of ticket(s) booked
-     * @param transaction  the transaction made
-     * @param bookedSeats  the array of seat(s) booked in this transaction
-     * @param originalSize the number of ticket(s) booked in this transaction
+     * @param previousMenu  the previous page
+     * @param accesslevel   the level of access
+     * @param user          the {@link MovieGoer} that has been logged in
+     * @param movie         the selected {@link Movie}
+     * @param movieSession  the selected {@link MovieSession}
+     * @param cinema        the selected {@link Cinema}
+     * @param cineplex      the selected {@link Cineplex}
+     * @param ticket        the array of {@link Ticket}(s) booked
+     * @param transaction   {@link Transaction} made
+     * @param seat          the array of {@link Seat}(s) booked in this transaction
+     * @param originalSize  the number of ticket(s) booked in this transaction
      */
     public ChooseAge(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
             MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction,

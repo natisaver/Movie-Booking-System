@@ -23,7 +23,8 @@ public class MovieGoer extends User{
      * @param name		    The User's name 
 	 * @param email			The User's email/username
      * @param phoneNumber	The User's phone number
-	 * @param age			The User's age 
+	 * @param age			The User's age
+     * @param password      The User's password
 	 */
 	public MovieGoer (String name, String email, String phoneNumber, int age, String password) {
         super(name, email, 0, password);
