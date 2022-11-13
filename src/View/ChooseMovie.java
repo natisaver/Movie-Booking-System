@@ -40,11 +40,12 @@ public class ChooseMovie extends BaseMenu {
      * @param previousMenu  the previous page
      * @param accesslevel   the level of access
      * @param user          the {@link MovieGoer} that has been logged in
-     * @param movie         the selected {@lnk Movie}
+     * @param movie         the selected {@link Movie}
      * @param movieSession  the selected {@link MovieSession}
      * @param cinema        the selected {@link Cinema}
      * @param ticket        the array of {@link Ticket}(s) booked
      * @param transaction   the {@link Transaction} made
+     * @param cineplex      the selected {@link Cineplex}
      */
     public ChooseMovie(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
             MovieSession movieSession, Cinema cinema, ArrayList<Ticket> ticket, Transaction transaction,

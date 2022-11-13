@@ -40,14 +40,14 @@ public class MainMenu extends BaseMenu {
      * 
      * @param previousMenu  the previous page
      * @param accesslevel   the level of access
-     * @param moviegoer     movieGoer Object
-     * @param movie         the selected movie
-     * @param movieSession  the selected movieSession
-     * @param cinema        the selected cinema
-     * @param cineplex      the selected cineplex
-     * @param ticket        the array of ticket(s) booked
-     * @param transaction   the transaction made
-     * @param bookedSeats   the array of seat(s) booked
+     * @param user          {@link MovieGoer} Object
+     * @param movie         the selected {@link Movie}
+     * @param movieSession  the selected {@link MovieSession}
+     * @param cinema        the selected {@link Cinema}
+     * @param cineplex      the selected {@link Cineplex}
+     * @param ticket        the array of {@link Ticket}(s) booked
+     * @param transaction   the {@link Transaction} made
+     * @param bookedSeats   the array of {@link Seat}(s) booked
      */
     public MainMenu(BaseMenu previousMenu, int accesslevel, MovieGoer user, Movie movie,
             MovieSession movieSession, Cinema cinema, Cineplex cineplex, ArrayList<Ticket> ticket, Transaction transaction, ArrayList<Seat> bookedSeats) {
@@ -67,7 +67,9 @@ public class MainMenu extends BaseMenu {
      * Access Main Menu for MovieGoer, Admin or Quit
      * 
      * @return Selected Page or Terminates
-     * @see MovieGoerMainMenu, Login, CreateAccount
+     * @see MovieGoerMainMenu
+     * @see Login
+     * @see CreateAccount
      */
     @Override
     public BaseMenu execute() {
